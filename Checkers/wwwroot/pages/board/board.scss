@@ -1,0 +1,27 @@
+﻿.square {
+    width: 80px;
+    height: 80px;
+    float: left;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.black {
+    background-color: #999;
+}
+
+.white {
+    background-color: #eee;
+}
+
+.board {
+    width: 640px;
+    height: 640px;
+    border: 20px solid #55cdef;
+}
+
+.figure {
+    font-size: 50px;
+    cursor:pointer;
+}
