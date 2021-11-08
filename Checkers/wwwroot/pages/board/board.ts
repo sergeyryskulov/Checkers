@@ -6,17 +6,25 @@ class Board {
     private map;
     private isDragging = false;
     private isFlipped = false;
-    
-    initBoard() {
-        this.start();
+    private userId: string;
 
-        setInterval(() => this.getFiguresServer(), 1000);
-        //this.showFigures("rnbqkbnrpppppppp11111111111111111111111111111111PPPPPPPPRNBQKBNR");
-        //this.setDraggable();
+    initBoard() {
+        this.register();
+    }
+
+    private register() {
+        $.post('/api/registerapi', (data) => this.registered(data));
+    }
+
+    private registered(data : string) {
+        
+        this.userId = data;
+        this.start();
+        setInterval(() => this.getFiguresServer(), 10000);
+
         $('.newGame').click(() => this.newGameServer());
 
         $('.flip').click(() => this.flipBoard());
-
     }
 
     private start() {
@@ -37,14 +45,15 @@ class Board {
     
 
     private newGameServer() {
-        $.post('/api/newGame', (data) => this.showFigures(data));
+        $.post('/api/newGame?userId=' + this.userId, (data) => this.showFigures(data));
     }
 
     private getFiguresServer() {
         if (this.isDragging) {
             return;
         }
-        $.post('/api/getfigures', (data)=> this.showFigures(data));
+
+        $.post('/api/getfigures?userId=' + this.userId, (data)=> this.showFigures(data));
     }
 
     private setDraggable() {
@@ -134,6 +143,6 @@ class Board {
 
     private moveFigureServer(fromCoord, toCoord) {
 
-        $.post('/api/movefigure?fromCoord=' + fromCoord + '&toCoord=' + toCoord, (data) => this.showFigures(data));
+        $.post('/api/movefigure?fromCoord=' + fromCoord + '&toCoord=' + toCoord + '&userId=' + this.userId, (data) => this.showFigures(data));
     }
 }

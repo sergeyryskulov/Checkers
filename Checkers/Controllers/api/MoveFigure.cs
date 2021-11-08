@@ -25,9 +25,9 @@ namespace Checkers.Controllers
         }
 
 
-        public string Post(int fromCoord, int toCoord)
+        public string Post(int fromCoord, int toCoord, string userId)
         {
-            return _boardService.Move(fromCoord, toCoord);
+            return _boardService.Move(fromCoord, toCoord, userId);
         }
     }
 }

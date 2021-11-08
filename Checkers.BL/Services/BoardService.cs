@@ -19,11 +19,11 @@ namespace Checkers.BL.Services
         }
 
 
-        public string Move(int fromCoord, int toCoord)
+        public string Move(int fromCoord, int toCoord, string userId)
         {
-            string state = _boardRepository.Load();
+            string state = _boardRepository.Load(userId);
 
-            if (!CanMove(fromCoord, toCoord))
+            if (!CanMove(fromCoord, toCoord, userId))
             {
                 return state;
             }
@@ -33,7 +33,7 @@ namespace Checkers.BL.Services
             someString[fromCoord] = '1';
 
             var result = someString.ToString();
-            _boardRepository.Save(result);
+            _boardRepository.Save(userId, result);
             return result;
         }
         public BoardViewModel GetBoardViewModel()
@@ -41,9 +41,9 @@ namespace Checkers.BL.Services
             return null;
         }
 
-        public bool CanMove(int fromCoord, int toCoord)
+        public bool CanMove(int fromCoord, int toCoord, string userId)
         {
-            string figures = _boardRepository.Load();
+            string figures = _boardRepository.Load(userId);
             if (figures[toCoord] == 'k' || figures[toCoord] == 'K')
             {
                 return false;

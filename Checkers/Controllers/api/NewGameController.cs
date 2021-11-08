@@ -20,10 +20,10 @@ namespace Checkers.Controllers.api
         }
 
 
-        public string Post()
+        public string Post(string userId)
         {
-            _boardRepository.Save("");
-            return _boardRepository.Load();
+            _boardRepository.Save(userId, "");
+            return _boardRepository.Load(userId);
         }
     }
 }

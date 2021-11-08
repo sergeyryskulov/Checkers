@@ -5,11 +5,17 @@ var Board = /** @class */ (function () {
         this.isFlipped = false;
     }
     Board.prototype.initBoard = function () {
+        this.register();
+    };
+    Board.prototype.register = function () {
         var _this = this;
+        $.post('/api/registerapi', function (data) { return _this.registered(data); });
+    };
+    Board.prototype.registered = function (data) {
+        var _this = this;
+        this.userId = data;
         this.start();
-        setInterval(function () { return _this.getFiguresServer(); }, 1000);
-        //this.showFigures("rnbqkbnrpppppppp11111111111111111111111111111111PPPPPPPPRNBQKBNR");
-        //this.setDraggable();
+        setInterval(function () { return _this.getFiguresServer(); }, 10000);
         $('.newGame').click(function () { return _this.newGameServer(); });
         $('.flip').click(function () { return _this.flipBoard(); });
     };
@@ -24,14 +30,14 @@ var Board = /** @class */ (function () {
     };
     Board.prototype.newGameServer = function () {
         var _this = this;
-        $.post('/api/newGame', function (data) { return _this.showFigures(data); });
+        $.post('/api/newGame?userId=' + this.userId, function (data) { return _this.showFigures(data); });
     };
     Board.prototype.getFiguresServer = function () {
         var _this = this;
         if (this.isDragging) {
             return;
         }
-        $.post('/api/getfigures', function (data) { return _this.showFigures(data); });
+        $.post('/api/getfigures?userId=' + this.userId, function (data) { return _this.showFigures(data); });
     };
     Board.prototype.setDraggable = function () {
         var that = this;
@@ -104,7 +110,7 @@ var Board = /** @class */ (function () {
     };
     Board.prototype.moveFigureServer = function (fromCoord, toCoord) {
         var _this = this;
-        $.post('/api/movefigure?fromCoord=' + fromCoord + '&toCoord=' + toCoord, function (data) { return _this.showFigures(data); });
+        $.post('/api/movefigure?fromCoord=' + fromCoord + '&toCoord=' + toCoord + '&userId=' + this.userId, function (data) { return _this.showFigures(data); });
     };
     return Board;
 }());

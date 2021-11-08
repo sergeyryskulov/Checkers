@@ -20,9 +20,9 @@ namespace Checkers.Controllers
         }
 
 
-        public string Post()
+        public string Post(string userId)
         {
-            return _boardRepository.Load();
+            return _boardRepository.Load(userId);
         }
     }
 }

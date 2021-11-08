@@ -9,21 +9,29 @@ namespace Ckeckers.DAL.Repositories
     public class BoardRepository
     {
 
-        private static string data = "";
+        private static Dictionary<string, string> data = new Dictionary<string, string>();
 
-        public void Save(string state)
+        private static object lockOnject = new object();
+        public void Save(string key, string state)
         {
-            data = state;
+            lock (lockOnject)
+            {
+                data[key] = state;
+            }
+            
         }
 
-        public string Load()
+        public string Load(string key)
         {
-            if (data == "")
+            lock (lockOnject)
             {
-                data = "rnbqkbnrpppppppp11111111111111111111111111111111PPPPPPPPRNBQKBNR";
-            }
+                if (!data.ContainsKey(key) || data[key] == "")
+                {
+                    data[key] = "rnbqkbnrpppppppp11111111111111111111111111111111PPPPPPPPRNBQKBNR";
+                }
 
-            return data;
+                return data[key];
+            }
         }
     }
 }
