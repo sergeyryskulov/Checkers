@@ -15,6 +15,7 @@ namespace Checkers.BL.Services
         public BoardService(BoardRepository boardRepository)
         {
             _boardRepository = boardRepository;
+
         }
 
 
