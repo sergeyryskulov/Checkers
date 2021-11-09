@@ -7,69 +7,42 @@ var Board = /** @class */ (function () {
         var _this = this;
         this.boardRepository = new BoardRepository();
         this.boardDrawer = new BoardDrawer();
-        this.boardRepository.register(function (data) {
-            _this.startGame();
-            _this.boardDrawer.setFlipHandler(function () { return _this.flipBoard(); });
-            _this.boardDrawer.setNewGameHabdler(function () { return _this.boardRepository.newGame(function (data) { return _this.showFigures(data); }); });
+        this.boardRepository.registerOnServer(function () {
+            _this.boardDrawer.setFlipClickHandler(function () { return _this.flipBoard(); });
+            _this.boardDrawer.setNewGameClickHandler(function () { return _this.boardRepository.clearGameOnServer(function (clearedFigures) { return _this.showFiguresOnBoard(clearedFigures); }); });
+            _this.showBoard();
         });
     };
-    Board.prototype.startGame = function () {
+    Board.prototype.showBoard = function () {
         var _this = this;
-        this.map = new Array(64);
-        this.boardDrawer.addSquares(this.isFlipped, function (fromCoord, toCoord) {
-            _this.moveFigure(fromCoord, toCoord);
-            _this.boardRepository.moveFigureServer(fromCoord, toCoord, function (data) { return _this.showFigures(data); });
+        this.figuresCache = new Array(64);
+        this.boardDrawer.drawSquares(this.isFlipped);
+        this.boardDrawer.setDropFigureOnSquareHandler(function (fromCoord, toCoord) {
+            _this.moveFigureOnBoard(fromCoord, toCoord);
+            _this.boardRepository.moveFigureOnServer(fromCoord, toCoord, function (data) { return _this.showFiguresOnBoard(data); });
         });
-        this.boardRepository.getFigures(function (data) { return _this.showFigures(data); });
+        this.boardRepository.getFiguresFromServer(function (data) { return _this.showFiguresOnBoard(data); });
     };
     Board.prototype.flipBoard = function () {
         this.isFlipped = !this.isFlipped;
-        this.startGame();
+        this.showBoard();
     };
-    Board.prototype.setDraggable = function () {
-        $('.figure').draggable({
-            start: function () {
-                // that.isDragging = true;
-            }
-        });
-    };
-    Board.prototype.moveFigure = function (fromCoord, toCoord) {
-        var figure = this.map[fromCoord];
+    Board.prototype.moveFigureOnBoard = function (fromCoord, toCoord) {
+        var figure = this.figuresCache[fromCoord];
         this.showFigureAt(fromCoord, '1');
         this.showFigureAt(toCoord, figure);
     };
-    Board.prototype.showFigures = function (figures) {
+    Board.prototype.showFiguresOnBoard = function (figures) {
         for (var coord = 0; coord < 64; coord++) {
             this.showFigureAt(coord, figures[coord]);
         }
     };
-    Board.prototype.gettChessSymbol = function (figure) {
-        switch (figure) {
-            case 'K': return '&#9812;';
-            case 'Q': return '&#9813;';
-            case 'R': return '&#9814;';
-            case 'B': return '&#9815;';
-            case 'N': return '&#9816;';
-            case 'P': return '&#9817;';
-            case 'k': return '&#9818;';
-            case 'q': return '&#9819;';
-            case 'r': return '&#9820;';
-            case 'b': return '&#9821;';
-            case 'n': return '&#9822;';
-            case 'p': return '&#9823;';
-            case 'k': return '&#9824;';
-            default:
-        }
-        return '';
-    };
     Board.prototype.showFigureAt = function (coord, figure) {
-        if (this.map[coord] === figure) {
+        if (this.figuresCache[coord] === figure) {
             return;
         }
-        this.map[coord] = figure;
-        var divFigure = '<div id=f$coord class=figure>$figure</div>';
-        $('#s' + coord).html(divFigure.replace('$coord', '' + coord).replace('$figure', this.gettChessSymbol(figure)));
-        this.setDraggable();
+        this.figuresCache[coord] = figure;
+        this.boardDrawer.drawFigure(coord, figure);
     };
     return Board;
 }());

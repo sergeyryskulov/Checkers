@@ -2,22 +2,22 @@
 
     userId: string;
 
-    public register(callback) {
+    public registerOnServer(callback) {
         $.post('/api/registerapi', (data) => {
             this.userId = data;
             callback(data);
         });
     }
 
-    public newGame(callback) {
+    public clearGameOnServer(callback) {
         $.post('/api/newGame?userId=' + this.userId, callback);
     }
 
-    public getFigures(callback) {
+    public getFiguresFromServer(callback) {
         $.post('/api/getfigures?userId=' + this.userId, callback);
     }
 
-    public moveFigureServer(fromCoord, toCoord, callback) {
+    public moveFigureOnServer(fromCoord, toCoord, callback) {
 
         $.post('/api/movefigure?fromCoord=' + fromCoord + '&toCoord=' + toCoord + '&userId=' + this.userId, callback);
     }
