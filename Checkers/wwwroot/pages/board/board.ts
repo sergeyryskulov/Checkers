@@ -4,36 +4,30 @@ class Board {
 
     
     private map;
-    private isDragging = false;
     private isFlipped = false;
-    private userId: string;
+
+    private boardRepository: BoardRepository;
+    
 
     initBoard() {
-        this.register();
+        this.boardRepository = new BoardRepository();
+
+        this.boardRepository.register((data) => {
+
+            this.start();
+
+            $('.newGame').click(() => this.boardRepository.newGame((data) => this.showFigures(data)));
+
+            $('.flip').click(() => this.flipBoard());
+        });
     }
 
-    private register() {
-        $.post('/api/registerapi', (data) => this.registered(data));
-    }
-
-    private registered(data : string) {
-        
-        this.userId = data;
-        this.start();
-        setInterval(() => this.getFiguresServer(), 10000);
-
-        $('.newGame').click(() => this.newGameServer());
-
-        $('.flip').click(() => this.flipBoard());
-    }
 
     private start() {
 
-
         this.map = new Array(64);
         this.addSquares();
-
-        this.getFiguresServer();
+        this.boardRepository.getFigures((data) => this.showFigures(data));
     }
 
 
@@ -42,29 +36,13 @@ class Board {
         this.start();
     }
 
-    
-
-    private newGameServer() {
-        $.post('/api/newGame?userId=' + this.userId, (data) => this.showFigures(data));
-    }
-
-    private getFiguresServer() {
-        if (this.isDragging) {
-            return;
-        }
-
-        $.post('/api/getfigures?userId=' + this.userId, (data)=> this.showFigures(data));
-    }
-
     private setDraggable() {
-        let that = this;
         $('.figure').draggable({
                 start: function() {
-                    that.isDragging = true;
+                   // that.isDragging = true;
                 }
             }
-
-            );
+        );
     }
 
     private setDroppable() {
@@ -74,24 +52,20 @@ class Board {
                 let fromCoord = ui.draggable.attr('id').substring(1);
                 let toCoord = this.id.substring(1);
                 that.moveFigure(fromCoord, toCoord);
-                that.moveFigureServer(fromCoord, toCoord);
-                that.isDragging = false;
+                that.boardRepository.moveFigureServer(fromCoord, toCoord, (data) => that.showFigures(data));
+              //  that.isDragging = false;
             }
         });
     }
 
     private moveFigure(fromCoord, toCoord) {
-
         let figure = this.map[fromCoord];
         this.showFigureAt(fromCoord, '1');
         this.showFigureAt(toCoord, figure);
-        
-
     }
     private showFigures(figures) {
         
         for (let coord = 0; coord < 64; coord++) {
-
             this.showFigureAt(coord, figures[coord]);
         }
     }
@@ -141,8 +115,5 @@ class Board {
         this.setDraggable();
     }
 
-    private moveFigureServer(fromCoord, toCoord) {
-
-        $.post('/api/movefigure?fromCoord=' + fromCoord + '&toCoord=' + toCoord + '&userId=' + this.userId, (data) => this.showFigures(data));
-    }
+   
 }

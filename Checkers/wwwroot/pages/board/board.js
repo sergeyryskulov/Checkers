@@ -1,49 +1,31 @@
 var $;
 var Board = /** @class */ (function () {
     function Board() {
-        this.isDragging = false;
         this.isFlipped = false;
     }
     Board.prototype.initBoard = function () {
-        this.register();
-    };
-    Board.prototype.register = function () {
         var _this = this;
-        $.post('/api/registerapi', function (data) { return _this.registered(data); });
-    };
-    Board.prototype.registered = function (data) {
-        var _this = this;
-        this.userId = data;
-        this.start();
-        setInterval(function () { return _this.getFiguresServer(); }, 10000);
-        $('.newGame').click(function () { return _this.newGameServer(); });
-        $('.flip').click(function () { return _this.flipBoard(); });
+        this.boardRepository = new BoardRepository();
+        this.boardRepository.register(function (data) {
+            _this.start();
+            $('.newGame').click(function () { return _this.boardRepository.newGame(function (data) { return _this.showFigures(data); }); });
+            $('.flip').click(function () { return _this.flipBoard(); });
+        });
     };
     Board.prototype.start = function () {
+        var _this = this;
         this.map = new Array(64);
         this.addSquares();
-        this.getFiguresServer();
+        this.boardRepository.getFigures(function (data) { return _this.showFigures(data); });
     };
     Board.prototype.flipBoard = function () {
         this.isFlipped = !this.isFlipped;
         this.start();
     };
-    Board.prototype.newGameServer = function () {
-        var _this = this;
-        $.post('/api/newGame?userId=' + this.userId, function (data) { return _this.showFigures(data); });
-    };
-    Board.prototype.getFiguresServer = function () {
-        var _this = this;
-        if (this.isDragging) {
-            return;
-        }
-        $.post('/api/getfigures?userId=' + this.userId, function (data) { return _this.showFigures(data); });
-    };
     Board.prototype.setDraggable = function () {
-        var that = this;
         $('.figure').draggable({
             start: function () {
-                that.isDragging = true;
+                // that.isDragging = true;
             }
         });
     };
@@ -54,8 +36,8 @@ var Board = /** @class */ (function () {
                 var fromCoord = ui.draggable.attr('id').substring(1);
                 var toCoord = this.id.substring(1);
                 that.moveFigure(fromCoord, toCoord);
-                that.moveFigureServer(fromCoord, toCoord);
-                that.isDragging = false;
+                that.boardRepository.moveFigureServer(fromCoord, toCoord, function (data) { return that.showFigures(data); });
+                //  that.isDragging = false;
             }
         });
     };
@@ -107,10 +89,6 @@ var Board = /** @class */ (function () {
         var divFigure = '<div id=f$coord class=figure>$figure</div>';
         $('#s' + coord).html(divFigure.replace('$coord', '' + coord).replace('$figure', this.gettChessSymbol(figure)));
         this.setDraggable();
-    };
-    Board.prototype.moveFigureServer = function (fromCoord, toCoord) {
-        var _this = this;
-        $.post('/api/movefigure?fromCoord=' + fromCoord + '&toCoord=' + toCoord + '&userId=' + this.userId, function (data) { return _this.showFigures(data); });
     };
     return Board;
 }());
