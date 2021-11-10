@@ -7,17 +7,19 @@ using Ckeckers.DAL.Repositories;
 
 namespace Checkers.BL.Services
 {
-    public class GetFiguresApiService
+    public class NewGameApiService
     {
         private BoardRepository _boardRepository;
 
-        public GetFiguresApiService(BoardRepository boardRepository)
+        public NewGameApiService(BoardRepository boardRepository)
         {
             _boardRepository = boardRepository;
         }
 
-        public string GetFigures(string userId)
+
+        public string NewGame(string userId)
         {
+            _boardRepository.Save(userId, "");
             return _boardRepository.Load(userId);
         }
     }

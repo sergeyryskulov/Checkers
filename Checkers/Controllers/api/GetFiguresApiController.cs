@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Checkers.BL.Services;
 using Ckeckers.DAL.Repositories;
 
 namespace Checkers.Controllers
@@ -12,16 +13,16 @@ namespace Checkers.Controllers
     [ApiController]
     public class GetFiguresApiController : ControllerBase
     {
-        private BoardRepository _boardRepository;
+        private GetFiguresApiService _getFiguresApiService;
 
-        public GetFiguresApiController(BoardRepository boardRepository)
+        public GetFiguresApiController(GetFiguresApiService getFiguresApiService)
         {
-            _boardRepository = boardRepository;
+            _getFiguresApiService = getFiguresApiService;
         }
 
         public string Post(string userId)
         {
-            return _boardRepository.Load(userId);
+            return _getFiguresApiService.GetFigures(userId);
         }
     }
 }

@@ -27,7 +27,7 @@ namespace Checkers
         {
             services.AddControllersWithViews();
 
-            foreach (var type in typeof(BoardService).Assembly.GetTypes().Where(t=>t.Name.EndsWith("Service")))
+            foreach (var type in typeof(GetFiguresApiService).Assembly.GetTypes().Where(t=>t.Name.EndsWith("Service")))
             {
                 services.AddTransient(type);
             }

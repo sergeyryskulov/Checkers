@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Checkers.BL.Services;
 
 namespace Checkers.Controllers.api
 {
@@ -11,13 +12,16 @@ namespace Checkers.Controllers.api
     [ApiController]
     public class RegisterApiController : ControllerBase
     {
+        private RegisterApiService _registerApiService;
 
-
+        public RegisterApiController(RegisterApiService registerApiService)
+        {
+            _registerApiService = registerApiService;
+        }
 
         public string Post()
         {
-            string userId = "" + Guid.NewGuid();
-            return userId;
+            return _registerApiService.Register();
         }
     }
 }

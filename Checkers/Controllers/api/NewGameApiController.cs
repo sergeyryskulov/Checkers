@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Checkers.BL.Services;
 using Ckeckers.DAL.Repositories;
 
 namespace Checkers.Controllers.api
@@ -12,17 +13,17 @@ namespace Checkers.Controllers.api
     [ApiController]
     public class NewGameApiController : ControllerBase
     {
-        private BoardRepository _boardRepository;
+        private NewGameApiService _newGameApiService;
 
-        public NewGameApiController(BoardRepository boardRepository)
+
+        public NewGameApiController(NewGameApiService newGameApiService)
         {
-            _boardRepository = boardRepository;
+            _newGameApiService = newGameApiService;
         }
 
         public string Post(string userId)
         {
-            _boardRepository.Save(userId, "");
-            return _boardRepository.Load(userId);
+            return _newGameApiService.NewGame(userId);
         }
     }
 }

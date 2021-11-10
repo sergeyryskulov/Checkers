@@ -14,18 +14,18 @@ namespace Checkers.Controllers
     [ApiController]
     public class MoveFigureApiController : ControllerBase
     {
-        private BoardService _boardService;
+        private MoveFigureApiService _moveFigureApiService;
 
 
-        public MoveFigureApiController(BoardService boardService)
+        public MoveFigureApiController(MoveFigureApiService moveFigureApiService)
         {
-            _boardService = boardService;
+            _moveFigureApiService = moveFigureApiService;
         }
 
 
         public string Post(int fromCoord, int toCoord, string userId)
         {
-            return _boardService.Move(fromCoord, toCoord, userId);
+            return _moveFigureApiService.Move(fromCoord, toCoord, userId);
         }
     }
 }

@@ -3,19 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
 using Ckeckers.DAL.Repositories;
 
 namespace Checkers.BL.Services
 {
-    public class BoardService
+    public class MoveFigureApiService
     {
         private BoardRepository _boardRepository;
 
-        public BoardService(BoardRepository boardRepository)
+        public MoveFigureApiService(BoardRepository boardRepository)
         {
             _boardRepository = boardRepository;
-
         }
 
 
@@ -37,7 +35,7 @@ namespace Checkers.BL.Services
             return result;
         }
 
-        public bool CanMove(int fromCoord, int toCoord, string userId)
+        private bool CanMove(int fromCoord, int toCoord, string userId)
         {
             string figures = _boardRepository.Load(userId);
             if (figures[toCoord] == 'k' || figures[toCoord] == 'K')
