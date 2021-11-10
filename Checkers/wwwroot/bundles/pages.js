@@ -5,11 +5,11 @@ var Board = /** @class */ (function () {
     }
     Board.prototype.initBoard = function () {
         var _this = this;
-        this.boardRepository = new BoardRepository();
+        this.serverApi = new ServerApi();
         this.boardDrawer = new BoardDrawer();
-        this.boardRepository.registerOnServer(function () {
+        this.serverApi.registerOnServer(function () {
             _this.boardDrawer.setFlipClickHandler(function () { return _this.flipBoard(); });
-            _this.boardDrawer.setNewGameClickHandler(function () { return _this.boardRepository.clearGameOnServer(function (clearedFigures) { return _this.showFiguresOnBoard(clearedFigures); }); });
+            _this.boardDrawer.setNewGameClickHandler(function () { return _this.serverApi.clearGameOnServer(function (clearedFigures) { return _this.showFiguresOnBoard(clearedFigures); }); });
             _this.showBoard();
         });
     };
@@ -19,9 +19,9 @@ var Board = /** @class */ (function () {
         this.boardDrawer.drawSquares(this.isFlipped);
         this.boardDrawer.setDropFigureOnSquareHandler(function (fromCoord, toCoord) {
             _this.moveFigureOnBoard(fromCoord, toCoord);
-            _this.boardRepository.moveFigureOnServer(fromCoord, toCoord, function (data) { return _this.showFiguresOnBoard(data); });
+            _this.serverApi.moveFigureOnServer(fromCoord, toCoord, function (data) { return _this.showFiguresOnBoard(data); });
         });
-        this.boardRepository.getFiguresFromServer(function (data) { return _this.showFiguresOnBoard(data); });
+        this.serverApi.getFiguresFromServer(function (data) { return _this.showFiguresOnBoard(data); });
     };
     Board.prototype.flipBoard = function () {
         this.isFlipped = !this.isFlipped;
@@ -47,28 +47,28 @@ var Board = /** @class */ (function () {
     return Board;
 }());
 //# sourceMappingURL=board.js.map
-var BoardRepository = /** @class */ (function () {
-    function BoardRepository() {
+var ServerApi = /** @class */ (function () {
+    function ServerApi() {
     }
-    BoardRepository.prototype.registerOnServer = function (callback) {
+    ServerApi.prototype.registerOnServer = function (callback) {
         var _this = this;
         $.post('/api/register', function (data) {
             _this.userId = data;
             callback(data);
         });
     };
-    BoardRepository.prototype.clearGameOnServer = function (callback) {
+    ServerApi.prototype.clearGameOnServer = function (callback) {
         $.post('/api/newgame?userId=' + this.userId, callback);
     };
-    BoardRepository.prototype.getFiguresFromServer = function (callback) {
+    ServerApi.prototype.getFiguresFromServer = function (callback) {
         $.post('/api/getfigures?userId=' + this.userId, callback);
     };
-    BoardRepository.prototype.moveFigureOnServer = function (fromCoord, toCoord, callback) {
+    ServerApi.prototype.moveFigureOnServer = function (fromCoord, toCoord, callback) {
         $.post('/api/movefigure?fromCoord=' + fromCoord + '&toCoord=' + toCoord + '&userId=' + this.userId, callback);
     };
-    return BoardRepository;
+    return ServerApi;
 }());
-//# sourceMappingURL=boardRepository.js.map
+//# sourceMappingURL=serverApi.js.map
 var BoardDrawer = /** @class */ (function () {
     function BoardDrawer() {
     }

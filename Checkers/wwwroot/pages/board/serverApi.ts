@@ -1,4 +1,4 @@
-﻿class BoardRepository {
+﻿class ServerApi {
 
     userId: string;
 

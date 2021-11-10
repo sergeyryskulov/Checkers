@@ -9,7 +9,7 @@
     <Content Remove="compilerconfig.json" />
     <Content Remove="wwwroot\pages\board\board.ts" />
     <Content Remove="wwwroot\pages\board\boardDrawer.ts" />
-    <Content Remove="wwwroot\pages\board\boardRepository.ts" />
+    <Content Remove="wwwroot\pages\board\serverApi.ts" />
   </ItemGroup>
 
   <ItemGroup>
@@ -31,7 +31,7 @@
   <ItemGroup>
     <TypeScriptCompile Include="wwwroot\pages\board\board.ts" />
     <TypeScriptCompile Include="wwwroot\pages\board\boardDrawer.ts" />
-    <TypeScriptCompile Include="wwwroot\pages\board\boardRepository.ts" />
+    <TypeScriptCompile Include="wwwroot\pages\board\serverApi.ts" />
   </ItemGroup>
 
 </Project>

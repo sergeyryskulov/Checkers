@@ -5,11 +5,11 @@ var Board = /** @class */ (function () {
     }
     Board.prototype.initBoard = function () {
         var _this = this;
-        this.boardRepository = new BoardRepository();
+        this.serverApi = new ServerApi();
         this.boardDrawer = new BoardDrawer();
-        this.boardRepository.registerOnServer(function () {
+        this.serverApi.registerOnServer(function () {
             _this.boardDrawer.setFlipClickHandler(function () { return _this.flipBoard(); });
-            _this.boardDrawer.setNewGameClickHandler(function () { return _this.boardRepository.clearGameOnServer(function (clearedFigures) { return _this.showFiguresOnBoard(clearedFigures); }); });
+            _this.boardDrawer.setNewGameClickHandler(function () { return _this.serverApi.clearGameOnServer(function (clearedFigures) { return _this.showFiguresOnBoard(clearedFigures); }); });
             _this.showBoard();
         });
     };
@@ -19,9 +19,9 @@ var Board = /** @class */ (function () {
         this.boardDrawer.drawSquares(this.isFlipped);
         this.boardDrawer.setDropFigureOnSquareHandler(function (fromCoord, toCoord) {
             _this.moveFigureOnBoard(fromCoord, toCoord);
-            _this.boardRepository.moveFigureOnServer(fromCoord, toCoord, function (data) { return _this.showFiguresOnBoard(data); });
+            _this.serverApi.moveFigureOnServer(fromCoord, toCoord, function (data) { return _this.showFiguresOnBoard(data); });
         });
-        this.boardRepository.getFiguresFromServer(function (data) { return _this.showFiguresOnBoard(data); });
+        this.serverApi.getFiguresFromServer(function (data) { return _this.showFiguresOnBoard(data); });
     };
     Board.prototype.flipBoard = function () {
         this.isFlipped = !this.isFlipped;

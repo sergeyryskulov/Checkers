@@ -2,7 +2,7 @@
 
 class Board {
 
-    private boardRepository: BoardRepository;
+    private serverApi: ServerApi;
 
     private boardDrawer: BoardDrawer;
 
@@ -11,15 +11,15 @@ class Board {
     private isFlipped = false;
 
     initBoard() {
-        this.boardRepository = new BoardRepository();
+        this.serverApi = new ServerApi();
 
         this.boardDrawer = new BoardDrawer();
 
-        this.boardRepository.registerOnServer(() => {
+        this.serverApi.registerOnServer(() => {
             this.boardDrawer.setFlipClickHandler(() => this.flipBoard());
 
             this.boardDrawer.setNewGameClickHandler(
-                () => this.boardRepository.clearGameOnServer(
+                () => this.serverApi.clearGameOnServer(
                     (clearedFigures) => this.showFiguresOnBoard(clearedFigures)));
 
             this.showBoard();
@@ -34,10 +34,10 @@ class Board {
 
         this.boardDrawer.setDropFigureOnSquareHandler((fromCoord, toCoord) => {
             this.moveFigureOnBoard(fromCoord, toCoord);
-            this.boardRepository.moveFigureOnServer(fromCoord, toCoord, (data) => this.showFiguresOnBoard(data));
+            this.serverApi.moveFigureOnServer(fromCoord, toCoord, (data) => this.showFiguresOnBoard(data));
         });
 
-        this.boardRepository.getFiguresFromServer((data) => this.showFiguresOnBoard(data));
+        this.serverApi.getFiguresFromServer((data) => this.showFiguresOnBoard(data));
     }
 
     private flipBoard() {

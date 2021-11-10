@@ -10,7 +10,7 @@
     "outputFileName": "wwwroot/bundles/pages.js",
     "inputFiles": [
       "wwwroot/pages/board/board.js",
-      "wwwroot/pages/board/boardRepository.js",
+      "wwwroot/pages/board/serverApi.js",
       "wwwroot/pages/board/boardDrawer.js"
     ]
   }
