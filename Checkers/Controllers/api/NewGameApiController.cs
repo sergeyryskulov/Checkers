@@ -10,15 +10,14 @@ namespace Checkers.Controllers.api
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class NewGameController : ControllerBase
+    public class NewGameApiController : ControllerBase
     {
         private BoardRepository _boardRepository;
 
-        public NewGameController(BoardRepository boardRepository)
+        public NewGameApiController(BoardRepository boardRepository)
         {
             _boardRepository = boardRepository;
         }
-
 
         public string Post(string userId)
         {

@@ -9,7 +9,7 @@ var BoardRepository = /** @class */ (function () {
         });
     };
     BoardRepository.prototype.clearGameOnServer = function (callback) {
-        $.post('/api/newGame?userId=' + this.userId, callback);
+        $.post('/api/newgameapi?userId=' + this.userId, callback);
     };
     BoardRepository.prototype.getFiguresFromServer = function (callback) {
         $.post('/api/getfiguresapi?userId=' + this.userId, callback);

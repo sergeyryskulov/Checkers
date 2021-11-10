@@ -10,7 +10,7 @@
     }
 
     public clearGameOnServer(callback) {
-        $.post('/api/newGame?userId=' + this.userId, callback);
+        $.post('/api/newgameapi?userId=' + this.userId, callback);
     }
 
     public getFiguresFromServer(callback) {
