@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31624.102
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Checkers", "Checkers\Checkers.csproj", "{04CA9209-9991-400D-896C-5BBCFBEDCBFD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Checkers.Web", "Checkers\Checkers.Web.csproj", "{04CA9209-9991-400D-896C-5BBCFBEDCBFD}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Checkers.BL", "Checkers.BL\Checkers.BL.csproj", "{9394D9B3-D5FB-478B-83C4-5809DF76E9F5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ckeckers.DAL", "Ckeckers.DAL\Ckeckers.DAL.csproj", "{1290CD6C-49C9-4D64-839A-695428E8ABDB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ckeckers.DAL", "Ckeckers.DAL\Ckeckers.DAL.csproj", "{1290CD6C-49C9-4D64-839A-695428E8ABDB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
