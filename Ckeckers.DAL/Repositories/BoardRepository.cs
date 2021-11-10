@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Ckeckers.DAL.Repositories
 {
-    public class BoardRepository
+    public class BoardRepository : IBoardRepository
     {
 
         private static Dictionary<string, string> data = new Dictionary<string, string>();

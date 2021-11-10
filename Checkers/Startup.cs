@@ -32,9 +32,15 @@ namespace Checkers
                 services.AddTransient(type);
             }
 
-            foreach (var type in typeof(BoardRepository).Assembly.GetTypes().Where(t => t.Name.EndsWith("Repository")))
+            foreach (var type in typeof(BoardRepository).Assembly.GetTypes().Where(t => t.Name.EndsWith("Repository") && !t.IsAbstract) )
             {
+
                 services.AddTransient(type);
+                
+                foreach (var typeInterface in type.GetInterfaces())
+                {
+                    services.AddTransient(typeInterface, type);
+                }
             }
         }
 

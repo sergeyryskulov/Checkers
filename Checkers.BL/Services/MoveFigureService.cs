@@ -9,9 +9,9 @@ namespace Checkers.BL.Services
 {
     public class MoveFigureService
     {
-        private BoardRepository _boardRepository;
+        private IBoardRepository _boardRepository;
 
-        public MoveFigureService(BoardRepository boardRepository)
+        public MoveFigureService(IBoardRepository boardRepository)
         {
             _boardRepository = boardRepository;
         }
