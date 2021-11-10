@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Checkers.BL.Services
 {
-    public class RegisterApiService
+    public class RegisterService
     {
         public string Register()
         {

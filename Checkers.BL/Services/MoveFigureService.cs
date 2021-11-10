@@ -7,11 +7,11 @@ using Ckeckers.DAL.Repositories;
 
 namespace Checkers.BL.Services
 {
-    public class MoveFigureApiService
+    public class MoveFigureService
     {
         private BoardRepository _boardRepository;
 
-        public MoveFigureApiService(BoardRepository boardRepository)
+        public MoveFigureService(BoardRepository boardRepository)
         {
             _boardRepository = boardRepository;
         }

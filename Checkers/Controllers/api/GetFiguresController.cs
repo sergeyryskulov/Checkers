@@ -7,23 +7,22 @@ using System.Threading.Tasks;
 using Checkers.BL.Services;
 using Ckeckers.DAL.Repositories;
 
-namespace Checkers.Controllers.api
+namespace Checkers.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class NewGameApiController : ControllerBase
+    public class GetFiguresController : ControllerBase
     {
-        private NewGameApiService _newGameApiService;
+        private GetFiguresService _getFiguresService;
 
-
-        public NewGameApiController(NewGameApiService newGameApiService)
+        public GetFiguresController(GetFiguresService getFiguresService)
         {
-            _newGameApiService = newGameApiService;
+            _getFiguresService = getFiguresService;
         }
 
         public string Post(string userId)
         {
-            return _newGameApiService.NewGame(userId);
+            return _getFiguresService.GetFigures(userId);
         }
     }
 }

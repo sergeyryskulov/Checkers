@@ -10,18 +10,18 @@ namespace Checkers.Controllers.api
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class RegisterApiController : ControllerBase
+    public class RegisterController : ControllerBase
     {
-        private RegisterApiService _registerApiService;
+        private RegisterService _registerService;
 
-        public RegisterApiController(RegisterApiService registerApiService)
+        public RegisterController(RegisterService registerService)
         {
-            _registerApiService = registerApiService;
+            _registerService = registerService;
         }
 
         public string Post()
         {
-            return _registerApiService.Register();
+            return _registerService.Register();
         }
     }
 }

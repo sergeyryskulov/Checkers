@@ -12,20 +12,20 @@ namespace Checkers.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class MoveFigureApiController : ControllerBase
+    public class MoveFigureController : ControllerBase
     {
-        private MoveFigureApiService _moveFigureApiService;
+        private MoveFigureService _moveFigureService;
 
 
-        public MoveFigureApiController(MoveFigureApiService moveFigureApiService)
+        public MoveFigureController(MoveFigureService moveFigureService)
         {
-            _moveFigureApiService = moveFigureApiService;
+            _moveFigureService = moveFigureService;
         }
 
 
         public string Post(int fromCoord, int toCoord, string userId)
         {
-            return _moveFigureApiService.Move(fromCoord, toCoord, userId);
+            return _moveFigureService.Move(fromCoord, toCoord, userId);
         }
     }
 }
