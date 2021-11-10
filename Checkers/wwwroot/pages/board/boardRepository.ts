@@ -14,12 +14,12 @@
     }
 
     public getFiguresFromServer(callback) {
-        $.post('/api/getfigures?userId=' + this.userId, callback);
+        $.post('/api/getfiguresapi?userId=' + this.userId, callback);
     }
 
     public moveFigureOnServer(fromCoord, toCoord, callback) {
 
-        $.post('/api/movefigure?fromCoord=' + fromCoord + '&toCoord=' + toCoord + '&userId=' + this.userId, callback);
+        $.post('/api/movefigureapi?fromCoord=' + fromCoord + '&toCoord=' + toCoord + '&userId=' + this.userId, callback);
     }
 
 }

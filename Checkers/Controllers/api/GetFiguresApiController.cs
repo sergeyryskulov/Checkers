@@ -10,15 +10,14 @@ namespace Checkers.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class GetFiguresController : ControllerBase
+    public class GetFiguresApiController : ControllerBase
     {
         private BoardRepository _boardRepository;
 
-        public GetFiguresController(BoardRepository boardRepository)
+        public GetFiguresApiController(BoardRepository boardRepository)
         {
             _boardRepository = boardRepository;
         }
-
 
         public string Post(string userId)
         {

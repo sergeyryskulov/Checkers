@@ -12,15 +12,13 @@ namespace Checkers.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class MoveFigure : ControllerBase
+    public class MoveFigureApiController : ControllerBase
     {
-        private BoardRepository _boardRepository;
         private BoardService _boardService;
 
 
-        public MoveFigure(BoardRepository boardRepository, BoardService boardService)
+        public MoveFigureApiController(BoardService boardService)
         {
-            _boardRepository = boardRepository;
             _boardService = boardService;
         }
 

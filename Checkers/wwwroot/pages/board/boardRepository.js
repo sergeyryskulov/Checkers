@@ -12,10 +12,10 @@ var BoardRepository = /** @class */ (function () {
         $.post('/api/newGame?userId=' + this.userId, callback);
     };
     BoardRepository.prototype.getFiguresFromServer = function (callback) {
-        $.post('/api/getfigures?userId=' + this.userId, callback);
+        $.post('/api/getfiguresapi?userId=' + this.userId, callback);
     };
     BoardRepository.prototype.moveFigureOnServer = function (fromCoord, toCoord, callback) {
-        $.post('/api/movefigure?fromCoord=' + fromCoord + '&toCoord=' + toCoord + '&userId=' + this.userId, callback);
+        $.post('/api/movefigureapi?fromCoord=' + fromCoord + '&toCoord=' + toCoord + '&userId=' + this.userId, callback);
     };
     return BoardRepository;
 }());
