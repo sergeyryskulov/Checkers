@@ -20,9 +20,9 @@ namespace Checkers.Controllers
             _getFiguresService = getFiguresService;
         }
 
-        public string Post(string userId)
+        public string Post(string registrationId)
         {
-            return _getFiguresService.GetFigures(userId);
+            return _getFiguresService.GetFigures(registrationId);
         }
     }
 }

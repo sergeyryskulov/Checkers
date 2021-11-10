@@ -4,18 +4,18 @@ var ServerApi = /** @class */ (function () {
     ServerApi.prototype.registerOnServer = function (callback) {
         var _this = this;
         $.post('/api/register', function (data) {
-            _this.userId = data;
+            _this.registrationId = data;
             callback(data);
         });
     };
     ServerApi.prototype.clearGameOnServer = function (callback) {
-        $.post('/api/newgame?userId=' + this.userId, callback);
+        $.post('/api/newgame?registrationId=' + this.registrationId, callback);
     };
     ServerApi.prototype.getFiguresFromServer = function (callback) {
-        $.post('/api/getfigures?userId=' + this.userId, callback);
+        $.post('/api/getfigures?registrationId=' + this.registrationId, callback);
     };
     ServerApi.prototype.moveFigureOnServer = function (fromCoord, toCoord, callback) {
-        $.post('/api/movefigure?fromCoord=' + fromCoord + '&toCoord=' + toCoord + '&userId=' + this.userId, callback);
+        $.post('/api/movefigure?fromCoord=' + fromCoord + '&toCoord=' + toCoord + '&registrationId=' + this.registrationId, callback);
     };
     return ServerApi;
 }());

@@ -10,7 +10,8 @@ namespace Checkers.BL.Services
     {
         public string Register()
         {
-            return "" + Guid.NewGuid();
+            string registrationId = "" + Guid.NewGuid();
+            return registrationId;
         }
     }
 }

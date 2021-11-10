@@ -16,9 +16,9 @@ namespace Checkers.BL.Services
             _boardRepository = boardRepository;
         }
 
-        public string GetFigures(string userId)
+        public string GetFigures(string registrationId)
         {
-            return _boardRepository.Load(userId);
+            return _boardRepository.Load(registrationId);
         }
     }
 }

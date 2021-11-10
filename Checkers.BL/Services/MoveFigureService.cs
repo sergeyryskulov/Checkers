@@ -17,11 +17,11 @@ namespace Checkers.BL.Services
         }
 
 
-        public string Move(int fromCoord, int toCoord, string userId)
+        public string Move(int fromCoord, int toCoord, string registrationId)
         {
-            string state = _boardRepository.Load(userId);
+            string state = _boardRepository.Load(registrationId);
 
-            if (!CanMove(fromCoord, toCoord, userId))
+            if (!CanMove(fromCoord, toCoord, registrationId))
             {
                 return state;
             }
@@ -31,7 +31,7 @@ namespace Checkers.BL.Services
             someString[fromCoord] = '1';
 
             var result = someString.ToString();
-            _boardRepository.Save(userId, result);
+            _boardRepository.Save(registrationId, result);
             return result;
         }
 

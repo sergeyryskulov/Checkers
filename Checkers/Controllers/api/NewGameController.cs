@@ -21,9 +21,9 @@ namespace Checkers.Controllers.api
             _newGameService = newGameService;
         }
 
-        public string Post(string userId)
+        public string Post(string registrationId)
         {
-            return _newGameService.NewGame(userId);
+            return _newGameService.NewGame(registrationId);
         }
     }
 }

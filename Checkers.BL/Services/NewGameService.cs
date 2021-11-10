@@ -17,10 +17,10 @@ namespace Checkers.BL.Services
         }
 
 
-        public string NewGame(string userId)
+        public string NewGame(string registrationId)
         {
-            _boardRepository.Save(userId, "");
-            return _boardRepository.Load(userId);
+            _boardRepository.Save(registrationId, "");
+            return _boardRepository.Load(registrationId);
         }
     }
 }

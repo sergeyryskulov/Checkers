@@ -1,25 +1,25 @@
 ﻿class ServerApi {
 
-    userId: string;
+    registrationId: string;
 
     public registerOnServer(callback) {
         $.post('/api/register', (data) => {
-            this.userId = data;
+            this.registrationId = data;
             callback(data);
         });
     }
 
     public clearGameOnServer(callback) {
-        $.post('/api/newgame?userId=' + this.userId, callback);
+        $.post('/api/newgame?registrationId=' + this.registrationId, callback);
     }
 
     public getFiguresFromServer(callback) {
-        $.post('/api/getfigures?userId=' + this.userId, callback);
+        $.post('/api/getfigures?registrationId=' + this.registrationId, callback);
     }
 
     public moveFigureOnServer(fromCoord, toCoord, callback) {
 
-        $.post('/api/movefigure?fromCoord=' + fromCoord + '&toCoord=' + toCoord + '&userId=' + this.userId, callback);
+        $.post('/api/movefigure?fromCoord=' + fromCoord + '&toCoord=' + toCoord + '&registrationId=' + this.registrationId, callback);
     }
 
 }
