@@ -26,8 +26,16 @@ namespace Checkers
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-            services.AddTransient<BoardRepository>();
-            services.AddTransient<BoardService>();
+
+            foreach (var type in typeof(BoardService).Assembly.GetTypes().Where(t=>t.Name.EndsWith("Service")))
+            {
+                services.AddTransient(type);
+            }
+
+            foreach (var type in typeof(BoardRepository).Assembly.GetTypes().Where(t => t.Name.EndsWith("Repository")))
+            {
+                services.AddTransient(type);
+            }
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

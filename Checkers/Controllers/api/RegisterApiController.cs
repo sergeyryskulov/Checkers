@@ -11,6 +11,9 @@ namespace Checkers.Controllers.api
     [ApiController]
     public class RegisterApiController : ControllerBase
     {
+
+
+
         public string Post()
         {
             string userId = "" + Guid.NewGuid();
