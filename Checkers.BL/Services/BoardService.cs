@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Checkers.BL.Models;
+
 using Ckeckers.DAL.Repositories;
 
 namespace Checkers.BL.Services
@@ -35,10 +35,6 @@ namespace Checkers.BL.Services
             var result = someString.ToString();
             _boardRepository.Save(userId, result);
             return result;
-        }
-        public BoardViewModel GetBoardViewModel()
-        {
-            return null;
         }
 
         public bool CanMove(int fromCoord, int toCoord, string userId)
