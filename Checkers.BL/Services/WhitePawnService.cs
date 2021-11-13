@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Checkers.BL.Constants;
 using Checkers.BL.Constants.Enums;
 using Checkers.BL.Helper;
 using Checkers.BL.Models;
@@ -13,11 +14,14 @@ namespace Checkers.BL.Services
     {
         private VectorHelper _vectorHelper;
         private MathHelper _mathHelper;
+        private ColorHelper _colorHelper;
 
-        public WhitePawnService(VectorHelper vectorHelper, MathHelper mathHelper)
+
+        public WhitePawnService(VectorHelper vectorHelper, MathHelper mathHelper, ColorHelper colorHelper)
         {
             _vectorHelper = vectorHelper;
             _mathHelper = mathHelper;
+            _colorHelper = colorHelper;
         }
 
 
@@ -36,16 +40,16 @@ namespace Checkers.BL.Services
                 
                 if (coordOneStepTop != -1 )
                 {
-                    if (figures[coordOneStepTop] == '1')
+                    if (figures[coordOneStepTop] == Figures.Empty)
                     {
                         allowedVectors.Add(vectorOneStepTop);
                     }
-                    else if (GetFigureColor(figures[coordOneStepTop]) == "black")
+                    else if (_colorHelper.GetFigureColor(figures[coordOneStepTop]) == FigureColor.Black)
                     {
                         var coordTwoStepTop = _vectorHelper.Move(coordOneStepTop, vectorOneStepTop, boardWidth);
                         if (coordTwoStepTop != -1)
                         {
-                            if (figures[coordTwoStepTop] == '1')
+                            if (figures[coordTwoStepTop] == Figures.Empty)
                             {
                                 allowedVectors.Add(new Vector()
                                 {
@@ -64,18 +68,6 @@ namespace Checkers.BL.Services
 
         }
 
-        private string GetFigureColor(char figure)
-        {
-            if ("rnbqkp".Contains(figure))
-            {
-                return "white";
-            }
-            if ("RNBQKP".Contains(figure))
-            {
-                return "black";
-            }
-
-            return "empty";
-        }
+     
     }
 }

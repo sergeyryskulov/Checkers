@@ -14,13 +14,13 @@ namespace Checkers.BL.Services.Tests
     [TestClass()]
     public class WhitePawnServiceTests
     {
-        private WhitePawnService _whitePawnService = new WhitePawnService(new VectorHelper(), new MathHelper());
+        private WhitePawnService _whitePawnService = new WhitePawnService(new VectorHelper(), new MathHelper(), new ColorHelper());
 
         [TestMethod()]
         public void GetAllowedVectors_OneStepTop_Correct()
         {
-
-            var actual= _whitePawnService.GetAllowedVectors(2, "11p1");
+            
+            var actual= _whitePawnService.GetAllowedVectors(2, "11P1");
 
             var expected = new List<Vector>()
             {
@@ -39,8 +39,8 @@ namespace Checkers.BL.Services.Tests
 
             var actual = _whitePawnService.GetAllowedVectors(8, ""+ 
                                                                   "111"+ 
-                                                                  "1P1" +
-                                                                  "11p");
+                                                                  "1p1" +
+                                                                  "11P");
 
             var expected = new List<Vector>()
             {

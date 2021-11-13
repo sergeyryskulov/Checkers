@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Checkers.BL.Constants;
 using Checkers.BL.Helper;
 using Ckeckers.DAL.Repositories;
 
@@ -13,12 +14,15 @@ namespace Checkers.BL.Services
         private IBoardRepository _boardRepository;
         private VectorHelper _vectorHelper;
         private MathHelper _mathHelper;
-        
-        public MoveFigureService(IBoardRepository boardRepository, VectorHelper vectorHelper, MathHelper mathHelper)
+        private WhitePawnService _whitePawnService;
+
+        public MoveFigureService(IBoardRepository boardRepository, VectorHelper vectorHelper, MathHelper mathHelper, WhitePawnService whitePawnService)
         {
             _boardRepository = boardRepository;
             _vectorHelper = vectorHelper;
             _mathHelper = mathHelper;
+            _whitePawnService = whitePawnService;
+
         }
 
 
@@ -43,11 +47,7 @@ namespace Checkers.BL.Services
         private bool CanMove(int fromCoord, int toCoord, string userId)
         {
             string figures = _boardRepository.Load(userId);
-            if (figures[toCoord] == 'k' || figures[toCoord] == 'K')
-            {
-                return false;
-            }
-
+            
             var vector = _vectorHelper.ConvertToVector(fromCoord, toCoord, _mathHelper.Sqrt(figures.Length));
 
             if (vector == null)
@@ -55,23 +55,17 @@ namespace Checkers.BL.Services
                 return false;
             }
 
-                string fromColor = GetFigureColor(figures[fromCoord]);
-            string toColor = GetFigureColor(figures[toCoord]);
-            return fromColor != toColor;
-        }
-
-        private string GetFigureColor(char figure)
-        {
-            if ("rnbqkp".Contains(figure))
+            if (figures[fromCoord] == Figures.WhitePawn)
             {
-                return "white";
-            }
-            if ("RNBQKP".Contains(figure))
-            {
-                return "black";
+                if (!_whitePawnService.GetAllowedVectors(fromCoord, figures).Contains(vector))
+                {
+                    return false;
+                }
             }
 
-            return "empty";
+            return true;
         }
+
+      
     }
 }
