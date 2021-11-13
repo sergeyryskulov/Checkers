@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Checkers.BL.Constants;
 using Checkers.BL.Helper;
+using Checkers.BL.Models;
 using Ckeckers.DAL.Repositories;
 
 namespace Checkers.BL.Services
@@ -29,41 +30,42 @@ namespace Checkers.BL.Services
         public string Move(int fromCoord, int toCoord, string registrationId)
         {
             string figures = _boardRepository.Load(registrationId);
+            var boardWidth = _mathHelper.Sqrt(figures.Length);
 
-            if (!CanMove(fromCoord, toCoord, registrationId))
+            var vector = _vectorHelper.CoordToVector(fromCoord, toCoord, boardWidth);
+            if (vector == null)
             {
                 return figures;
             }
-            StringBuilder stringBuilder = new StringBuilder(figures);
-            stringBuilder[toCoord] = stringBuilder[fromCoord];
-            stringBuilder[fromCoord] = '1';
-            var result = stringBuilder.ToString();
-            _boardRepository.Save(registrationId, result);
-            return result;
-        }
 
-        
-
-        private bool CanMove(int fromCoord, int toCoord, string userId)
-        {
-            string figures = _boardRepository.Load(userId);
-            
-            var vector = _vectorHelper.ConvertToVector(fromCoord, toCoord, _mathHelper.Sqrt(figures.Length));
-
-            if (vector == null)
-            {
-                return false;
-            }
 
             if (figures[fromCoord] == Figures.WhitePawn || figures[fromCoord] == Figures.BlackPawn)
             {
                 if (!_pawnService.GetAllowedVectors(fromCoord, figures).Contains(vector))
                 {
-                    return false;
+                    return figures;
                 }
             }
 
-            return true;
+            StringBuilder newFiguresBuilder = new StringBuilder(figures);
+            newFiguresBuilder[toCoord] = newFiguresBuilder[fromCoord];
+            newFiguresBuilder[fromCoord] = Figures.Empty;
+
+            for (int i = 1; i < vector.Length; i++)
+            {
+                var dieCoord= _vectorHelper.VectorToCoord(fromCoord, new Vector()
+                {
+                    Length = i,
+                    Direction = vector.Direction
+                }, boardWidth);
+
+                newFiguresBuilder[dieCoord] = Figures.Empty;
+            }
+          
+
+            var result = newFiguresBuilder.ToString();
+            _boardRepository.Save(registrationId, result);
+            return result;
         }
 
       

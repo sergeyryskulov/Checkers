@@ -39,31 +39,31 @@ namespace Checkers.BL.Services
                     Direction = forwardDirection,
                     Length = 1
                 };
-                var coordOneStepTop = _vectorHelper.Move(coord, vectorOneStepForward, boardWidth);
-                if (coordOneStepTop == -1)
+                var coordinateOneStepForward = _vectorHelper.VectorToCoord(coord, vectorOneStepForward, boardWidth);
+                if (coordinateOneStepForward == -1)
                 {
                     continue;
                 }
 
-                if (figures[coordOneStepTop] == Figures.Empty)
+                if (figures[coordinateOneStepForward] == Figures.Empty)
                 {
                     allowedVectors.Add(vectorOneStepForward);
                 }
-                else if (_colorHelper.GetFigureColor(figures[coordOneStepTop]) == appositeColor)
+                else if (_colorHelper.GetFigureColor(figures[coordinateOneStepForward]) == appositeColor)
                 {
-                    var coordTwoStepTop = _vectorHelper.Move(coordOneStepTop, vectorOneStepForward, boardWidth);
-                    if (coordTwoStepTop == -1)
+                    var coordTwoStepForward = _vectorHelper.VectorToCoord(coordinateOneStepForward, vectorOneStepForward, boardWidth);
+                    if (coordTwoStepForward == -1)
                     {
                         continue;
                         ;
                     }
 
-                    if (figures[coordTwoStepTop] == Figures.Empty)
+                    if (figures[coordTwoStepForward] == Figures.Empty)
                     {
                         allowedVectors.Add(new Vector()
                         {
                             Length = 2,
-                            Direction = vectorOneStepForward.Direction
+                            Direction = vectorOneStepForward.Direction,
                         });
                     }
 

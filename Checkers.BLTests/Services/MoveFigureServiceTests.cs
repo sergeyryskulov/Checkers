@@ -28,5 +28,28 @@ namespace Checkers.BL.Services.Tests
 
             Assert.IsTrue(result=="111p");
         }
+
+        [TestMethod()]
+        public void Die_Correct()
+        {
+
+            var boardRepository = new Mock<IBoardRepository>();
+            boardRepository.Setup(m => m.Load("")).Returns("" +
+                                                           "111" +
+                                                           "1p1" +
+                                                           "P11");
+
+            var expected = "" +
+                           "11P" +
+                           "111" +
+                           "111";
+
+
+            var service = new MoveFigureService(boardRepository.Object, new VectorHelper(), new MathHelper(), new PawnService(new VectorHelper(), new MathHelper(), new ColorHelper()));
+
+            string actual = service.Move(6, 2, "");
+
+           Assert.AreEqual(expected, actual);
+        }
     }
 }

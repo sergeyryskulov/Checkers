@@ -50,7 +50,9 @@ namespace Checkers.BL.Services.Tests
                     Length = 2
                 }
             };
+            
             CollectionAssert.AreEquivalent(expected, actual);
+            
         }
 
         [TestMethod()]

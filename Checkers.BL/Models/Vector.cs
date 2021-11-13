@@ -13,7 +13,6 @@ namespace Checkers.BL.Models
 
         public int Length;
 
-       
         public override bool Equals(object obj)
         {
             if (obj==null || !(obj is Vector))
