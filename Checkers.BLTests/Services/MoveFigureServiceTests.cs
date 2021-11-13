@@ -23,10 +23,10 @@ namespace Checkers.BL.Services.Tests
 
             var service = new MoveFigureService(boardRepository.Object, new VectorHelper(), new MathHelper(), new PawnService(new VectorHelper(), new MathHelper(), new ColorHelper()));
 
-            string result =  service.Move(0, 3, "");
+            string result = service.Move(0, 3, "");
 
 
-            Assert.IsTrue(result=="111pb");
+            Assert.IsTrue(result == "111pb");
         }
 
         [TestMethod()]
@@ -49,7 +49,7 @@ namespace Checkers.BL.Services.Tests
 
             string actual = service.Move(6, 2, "");
 
-           Assert.AreEqual(expected, actual);
+            Assert.AreEqual(expected, actual);
         }
 
 
@@ -74,6 +74,32 @@ namespace Checkers.BL.Services.Tests
 
             string actual = service.Move(6, 2, "");
 
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod()]
+        public void Move_NotToggleTurm()
+        {
+            var boardRepository = new Mock<IBoardRepository>();
+            boardRepository.Setup(m => m.Load("")).Returns("" +
+
+                                                           "111111" +
+                                                           "111111" +
+                                                           "P11p11" +
+                                                           "111111" +
+                                                           "1p1111" +
+                                                           "P11111w");
+
+            var expected = "" +
+                         "111111" +
+                         "111111" +
+                         "P11p11" +
+                         "11P111" +
+                         "111111" +
+                         "111111w";
+            var service = new MoveFigureService(boardRepository.Object, new VectorHelper(), new MathHelper(), new PawnService(new VectorHelper(), new MathHelper(), new ColorHelper()));
+
+            var actual = service.Move(30, 20, "");
             Assert.AreEqual(expected, actual);
         }
     }

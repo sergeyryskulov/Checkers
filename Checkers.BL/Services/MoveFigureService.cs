@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using Checkers.BL.Constants;
@@ -56,6 +57,7 @@ namespace Checkers.BL.Services
             newFiguresBuilder[toCoord] = newFiguresBuilder[fromCoord];
             newFiguresBuilder[fromCoord] = Figures.Empty;
 
+            var isDie = false;
             for (int i = 1; i < vector.Length; i++)
             {
                 var dieCoord= _vectorHelper.VectorToCoord(fromCoord, new Vector()
@@ -64,11 +66,30 @@ namespace Checkers.BL.Services
                     Direction = vector.Direction
                 }, boardWidth);
 
-                newFiguresBuilder[dieCoord] = Figures.Empty;
+                if (newFiguresBuilder[dieCoord] != Figures.Empty)
+                {
+                    newFiguresBuilder[dieCoord] = Figures.Empty;
+                    isDie = true;
+                }
             }
-          
 
-            var result = newFiguresBuilder.ToString() + (turn == Turn.White ? Turn.Black : Turn.White);
+            var newFigures = newFiguresBuilder.ToString();
+            var toggleTurn = true;
+            if (isDie)
+            {
+                if (_pawnService.GetAllowedVectors(toCoord, newFigures).Exists(t => t.Length == 2))
+                {
+                    toggleTurn = false;
+                }
+            }
+
+            var nextTurn = turn;
+            if (toggleTurn)
+            {
+                nextTurn = (turn == Turn.White ? Turn.Black : Turn.White);
+            }
+
+            var result = newFigures + nextTurn;
             _boardRepository.Save(registrationId, result);
             return result;
         }
