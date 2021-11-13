@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Checkers.BL.Helper;
 using Ckeckers.DAL.Repositories;
 using Moq;
 
@@ -18,11 +19,11 @@ namespace Checkers.BL.Services.Tests
         {
 
             var boardRepository = new Mock<IBoardRepository>();
-            boardRepository.Setup(m => m.Load("registrationId")).Returns("P111");
+            boardRepository.Setup(m => m.Load("")).Returns("P111");
 
-            var service = new MoveFigureService(boardRepository.Object);
+            var service = new MoveFigureService(boardRepository.Object, new VectorHelper(), new MathHelper());
 
-            string result =  service.Move(0, 3, "registrationId");
+            string result =  service.Move(0, 3, "");
 
 
             Assert.IsTrue(result=="111P");

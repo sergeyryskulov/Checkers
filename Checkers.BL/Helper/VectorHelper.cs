@@ -10,6 +10,45 @@ namespace Checkers.BL.Helper
 {
     public class VectorHelper
     {
+
+        public Vector ConvertToVector(int fromCoord, int toCoord, int boardWidth)
+        {
+            int fromCoordXProjection = (fromCoord % boardWidth);
+
+            int toCoordXProjection = (toCoord % boardWidth);
+
+
+            bool right = (fromCoordXProjection < toCoordXProjection);
+
+            bool bottom = fromCoord < toCoord;
+
+            int length = Math.Abs(toCoordXProjection - fromCoordXProjection);
+
+            Direction direction;
+            if (right)
+            {
+                direction = bottom ? Direction.RightBottom : Direction.RightTop;
+            }
+            else
+            {
+                direction = bottom ? Direction.LeftBottom : Direction.LeftTop;
+            }
+
+            var result = new Vector()
+            {
+                Direction = direction,
+                Length = length
+            };
+
+            if (Move(fromCoord, result, boardWidth) == toCoord)
+            {
+                return result;
+            }
+
+            return null;
+        }
+
+      
         
         public int Move(int coord, Vector vector, int boardWidth)
         {

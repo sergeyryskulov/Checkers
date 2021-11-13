@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Checkers.BL.Helper;
 using Checkers.BL.Services;
 using Ckeckers.DAL.Repositories;
 
@@ -28,6 +29,11 @@ namespace Checkers
             services.AddControllersWithViews();
 
             foreach (var type in typeof(GetFiguresService).Assembly.GetTypes().Where(t=>t.Name.EndsWith("Service")))
+            {
+                services.AddTransient(type);
+            }
+
+            foreach (var type in typeof(VectorHelper).Assembly.GetTypes().Where(t => t.Name.EndsWith("Helper")))
             {
                 services.AddTransient(type);
             }

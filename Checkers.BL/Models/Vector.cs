@@ -24,6 +24,11 @@ namespace Checkers.BL.Models
             return Direction == other.Direction && Length == other.Length;
         }
 
+        public override string ToString()
+        {
+            return "" + Direction + " (" + Length + ")";
+        }
+
         public override int GetHashCode()
         {
             return 10*Length  +  (int) Direction;

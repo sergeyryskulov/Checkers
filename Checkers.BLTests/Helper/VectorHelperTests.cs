@@ -21,7 +21,7 @@ namespace Checkers.BL.Helper.Tests
         public void MoveTest_Correct()
         {
 
-            var actual= _vectorHelper.Move(0, new Vector()
+            var actual = _vectorHelper.Move(0, new Vector()
             {
                 Direction = Direction.RightBottom,
                 Length = 1
@@ -38,15 +38,29 @@ namespace Checkers.BL.Helper.Tests
         {
 
             var actual = _vectorHelper.Move(0, new Vector()
-                {
-                    Direction = Direction.LeftBottom,
-                    Length = 1
-                },
+            {
+                Direction = Direction.LeftBottom,
+                Length = 1
+            },
                 2);
 
             var expected = -1;
 
             Assert.AreEqual(actual, expected);
+        }
+
+        [TestMethod()]
+        public void ConvertToVector_RightBottom_Correct()
+        {
+            var actual= _vectorHelper.ConvertToVector(0, 3, 2);
+
+            var expected = new Vector()
+            {
+                Length = 1,
+                Direction = Direction.RightBottom
+            };
+
+            Assert.AreEqual(expected, actual);
         }
     }
 }
