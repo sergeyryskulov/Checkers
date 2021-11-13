@@ -79,9 +79,9 @@ namespace Checkers.BL.Services.Tests
         public void GetAllowedVectors_Blocked_Error()
         {
 
-            var actual = _pawnService.GetAllowedVectors(4, "" +
-                                                           "1111" +
+            var actual = _pawnService.GetAllowedVectors(0, "" +
                                                            "P111" +
+                                                           "1111" +
                                                            "1p11" +
                                                            "P111");
 
@@ -108,6 +108,26 @@ namespace Checkers.BL.Services.Tests
             var actualLength= _pawnService.GetAllowedVectors(8, figures).Count;
 
             Assert.IsTrue(actualLength > 0);
+        }
+
+
+        [TestMethod()]
+        public void GetAllowedVectorsBackTest()
+        {
+            var actual = _pawnService.GetAllowedVectors(0, "" +
+                                                           "P11" +
+                                                           "1p1" +
+                                                           "111");
+
+            var expected = new List<Vector>()
+            {
+                new Vector()
+                {
+                    Direction = Direction.RightBottom,
+                    Length = 2
+                }
+            };
+            CollectionAssert.AreEquivalent(expected, actual);
         }
     }
 }
