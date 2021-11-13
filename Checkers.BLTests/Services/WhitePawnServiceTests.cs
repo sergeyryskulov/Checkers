@@ -74,5 +74,22 @@ namespace Checkers.BL.Services.Tests
             };
             CollectionAssert.AreEquivalent(expected, actual);
         }
+
+        [TestMethod()]
+        public void GetAllowedVectors_Blocked_Error()
+        {
+
+            var actual = _pawnService.GetAllowedVectors(4, "" +
+                                                           "1111" +
+                                                           "P111" +
+                                                           "1p11" + 
+                                                           "P111");
+
+            var expected = new List<Vector>()
+            {
+               
+            };
+            CollectionAssert.AreEquivalent(expected, actual);
+        }
     }
 }

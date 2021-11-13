@@ -24,8 +24,29 @@ namespace Checkers.BL.Services
             _colorHelper = colorHelper;
         }
 
+        public bool IsBlocked(int coord, string figures)
+        {
+            var color = _colorHelper.GetFigureColor(figures[coord]);
 
-        public List<Vector> GetAllowedVectors(int coord, string figures)
+            for (int figureCoord = 0; figureCoord < figures.Length; figureCoord++)
+            {
+                var iteratedFigure = figures[coord];
+
+                if (
+                    _colorHelper.GetFigureColor(iteratedFigure) == color &&
+                    (iteratedFigure == Figures.WhitePawn || iteratedFigure == Figures.BlackPawn))
+                {
+                    if (GetAllowedVectors(figureCoord, figures, true).Exists(m=>m.Length==2))
+                    {
+                        return true;
+                    }
+                }
+            }
+
+            return false;
+        }
+
+        public List<Vector> GetAllowedVectors(int coord, string figures, bool ignoreBlock=false)
         {
             int boardWidth= _mathHelper.Sqrt(figures.Length);
 
@@ -70,6 +91,17 @@ namespace Checkers.BL.Services
                 }
             }
 
+            if (allowedVectors.Exists(m=>m.Length==2))
+            {
+                allowedVectors = allowedVectors.Where(m => m.Length == 2).ToList();
+            }
+            else
+            {
+                if (!ignoreBlock && IsBlocked(coord, figures))
+                {
+                    return new List<Vector>();
+                }
+            }
 
             return allowedVectors;
 
