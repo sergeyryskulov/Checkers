@@ -9,7 +9,7 @@ namespace Checkers.BL.Models
 {
     public class Vector
     {
-        public Direction Base;
+        public Direction Direction;
 
         public int Length;
 
@@ -21,12 +21,12 @@ namespace Checkers.BL.Models
 
             var other = (Vector)obj;
 
-            return Base == other.Base && Length == other.Length;
+            return Direction == other.Direction && Length == other.Length;
         }
 
         public override int GetHashCode()
         {
-            return 10*Length  +  (int) Base;
+            return 10*Length  +  (int) Direction;
         }
 
     }
