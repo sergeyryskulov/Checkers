@@ -32,9 +32,15 @@ var Board = /** @class */ (function () {
         this.showFigureAt(fromCoord, '1');
         this.showFigureAt(toCoord, figure);
     };
-    Board.prototype.showFiguresOnBoard = function (figures) {
+    Board.prototype.showFiguresOnBoard = function (boardState) {
         for (var coord = 0; coord < 64; coord++) {
-            this.showFigureAt(coord, figures[coord]);
+            this.showFigureAt(coord, boardState[coord]);
+        }
+        if (boardState[64] == 'w') {
+            $('.turn').text('Ход белых');
+        }
+        else {
+            $('.turn').text('Ход черных');
         }
     };
     Board.prototype.showFigureAt = function (coord, figure) {

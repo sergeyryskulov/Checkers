@@ -30,9 +30,10 @@ namespace Checkers.BL.Services
 
             for (int figureCoord = 0; figureCoord < figures.Length; figureCoord++)
             {
-                var iteratedFigure = figures[coord];
+                var iteratedFigure = figures[figureCoord];
 
                 if (
+                    coord != iteratedFigure &&
                     _colorHelper.GetFigureColor(iteratedFigure) == color &&
                     (iteratedFigure == Figures.WhitePawn || iteratedFigure == Figures.BlackPawn))
                 {

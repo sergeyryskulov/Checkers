@@ -12,15 +12,15 @@ using Checkers.BL.Models;
 namespace Checkers.BL.Services.Tests
 {
     [TestClass()]
-    public class WhitePawnServiceTests
+    public class PawnServiceTests
     {
         private PawnService _pawnService = new PawnService(new VectorHelper(), new MathHelper(), new ColorHelper());
 
         [TestMethod()]
         public void GetAllowedVectors_OneStepTop_Correct()
         {
-            
-            var actual= _pawnService.GetAllowedVectors(2, "11P1");
+
+            var actual = _pawnService.GetAllowedVectors(2, "11P1");
 
             var expected = new List<Vector>()
             {
@@ -37,8 +37,8 @@ namespace Checkers.BL.Services.Tests
         public void GetAllowedVectors_TwoStepTop_Correct()
         {
 
-            var actual = _pawnService.GetAllowedVectors(8, ""+ 
-                                                                  "111"+ 
+            var actual = _pawnService.GetAllowedVectors(8, "" +
+                                                                  "111" +
                                                                   "1p1" +
                                                                   "11P");
 
@@ -50,9 +50,9 @@ namespace Checkers.BL.Services.Tests
                     Length = 2
                 }
             };
-            
+
             CollectionAssert.AreEquivalent(expected, actual);
-            
+
         }
 
         [TestMethod()]
@@ -82,14 +82,32 @@ namespace Checkers.BL.Services.Tests
             var actual = _pawnService.GetAllowedVectors(4, "" +
                                                            "1111" +
                                                            "P111" +
-                                                           "1p11" + 
+                                                           "1p11" +
                                                            "P111");
 
             var expected = new List<Vector>()
             {
-               
+
             };
             CollectionAssert.AreEquivalent(expected, actual);
+        }
+
+        [TestMethod()]
+        public void GetAllowedVectorsTest()
+        {
+            var figures = "" +
+                         "1p1p1p1p" +
+                         "p1p1p1p1" +
+                         "111p1p1p" +
+                         "p1111111" +
+                         "11111P11" +
+                         "P1P1P111" +
+                         "1P1P1P1P" +
+                         "P1P1P1P1";
+
+            var actualLength= _pawnService.GetAllowedVectors(8, figures).Count;
+
+            Assert.IsTrue(actualLength > 0);
         }
     }
 }

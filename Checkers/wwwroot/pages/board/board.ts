@@ -51,9 +51,15 @@ class Board {
         this.showFigureAt(toCoord, figure);
     }
 
-    private showFiguresOnBoard(figures) {
+    private showFiguresOnBoard(boardState) {
         for (let coord = 0; coord < 64; coord++) {
-            this.showFigureAt(coord, figures[coord]);
+            this.showFigureAt(coord, boardState[coord]);
+        }
+
+        if (boardState[64] == 'w') {
+            $('.turn').text('Ход белых');
+        } else {
+            $('.turn').text('Ход черных');
         }
     }
 

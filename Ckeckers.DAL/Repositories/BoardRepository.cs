@@ -27,7 +27,7 @@ namespace Ckeckers.DAL.Repositories
             {
                 if (!data.ContainsKey(key) || data[key] == "")
                 {
-                    data[key] = "1p1p1p1pp1p1p1p11p1p1p1p1111111111111111P1P1P1P11P1P1P1PP1P1P1P1";
+                    data[key] = "1p1p1p1pp1p1p1p11p1p1p1p1111111111111111P1P1P1P11P1P1P1PP1P1P1P1w";
                 }
 
                 return data[key];

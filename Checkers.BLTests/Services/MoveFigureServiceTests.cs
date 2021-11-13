@@ -19,14 +19,14 @@ namespace Checkers.BL.Services.Tests
         {
 
             var boardRepository = new Mock<IBoardRepository>();
-            boardRepository.Setup(m => m.Load("")).Returns("p111");
+            boardRepository.Setup(m => m.Load("")).Returns("p111w");
 
             var service = new MoveFigureService(boardRepository.Object, new VectorHelper(), new MathHelper(), new PawnService(new VectorHelper(), new MathHelper(), new ColorHelper()));
 
             string result =  service.Move(0, 3, "");
 
 
-            Assert.IsTrue(result=="111p");
+            Assert.IsTrue(result=="111pb");
         }
 
         [TestMethod()]
@@ -37,12 +37,12 @@ namespace Checkers.BL.Services.Tests
             boardRepository.Setup(m => m.Load("")).Returns("" +
                                                            "111" +
                                                            "1p1" +
-                                                           "P11");
+                                                           "P11w");
 
             var expected = "" +
                            "11P" +
                            "111" +
-                           "111";
+                           "111b";
 
 
             var service = new MoveFigureService(boardRepository.Object, new VectorHelper(), new MathHelper(), new PawnService(new VectorHelper(), new MathHelper(), new ColorHelper()));
@@ -50,6 +50,31 @@ namespace Checkers.BL.Services.Tests
             string actual = service.Move(6, 2, "");
 
            Assert.AreEqual(expected, actual);
+        }
+
+
+        [TestMethod()]
+        public void Block_Correct()
+        {
+
+            var boardRepository = new Mock<IBoardRepository>();
+            boardRepository.Setup(m => m.Load("")).Returns("" +
+
+                                                           "111" +
+                                                           "1p1" +
+                                                           "P11w");
+
+            var expected = "" +
+                           "11P" +
+                           "111" +
+                           "111b";
+
+
+            var service = new MoveFigureService(boardRepository.Object, new VectorHelper(), new MathHelper(), new PawnService(new VectorHelper(), new MathHelper(), new ColorHelper()));
+
+            string actual = service.Move(6, 2, "");
+
+            Assert.AreEqual(expected, actual);
         }
     }
 }

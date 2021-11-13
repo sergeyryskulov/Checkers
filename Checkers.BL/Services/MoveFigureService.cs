@@ -29,13 +29,18 @@ namespace Checkers.BL.Services
 
         public string Move(int fromCoord, int toCoord, string registrationId)
         {
-            string figures = _boardRepository.Load(registrationId);
+            string boardState = _boardRepository.Load(registrationId);
+
+            char turn = boardState[boardState.Length - 1];
+            string figures = boardState.Substring(0, boardState.Length - 1);
+
+
             var boardWidth = _mathHelper.Sqrt(figures.Length);
 
             var vector = _vectorHelper.CoordToVector(fromCoord, toCoord, boardWidth);
             if (vector == null)
             {
-                return figures;
+                return boardState;
             }
 
 
@@ -43,7 +48,7 @@ namespace Checkers.BL.Services
             {
                 if (!_pawnService.GetAllowedVectors(fromCoord, figures).Contains(vector))
                 {
-                    return figures;
+                    return boardState;
                 }
             }
 
@@ -63,7 +68,7 @@ namespace Checkers.BL.Services
             }
           
 
-            var result = newFiguresBuilder.ToString();
+            var result = newFiguresBuilder.ToString() + (turn == Turn.White ? Turn.Black : Turn.White);
             _boardRepository.Save(registrationId, result);
             return result;
         }
