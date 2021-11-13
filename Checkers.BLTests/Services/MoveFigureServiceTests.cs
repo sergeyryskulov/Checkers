@@ -21,7 +21,7 @@ namespace Checkers.BL.Services.Tests
             var boardRepository = new Mock<IBoardRepository>();
             boardRepository.Setup(m => m.Load("")).Returns("p111");
 
-            var service = new MoveFigureService(boardRepository.Object, new VectorHelper(), new MathHelper(), new WhitePawnService(new VectorHelper(), new MathHelper(), new ColorHelper()));
+            var service = new MoveFigureService(boardRepository.Object, new VectorHelper(), new MathHelper(), new PawnService(new VectorHelper(), new MathHelper(), new ColorHelper()));
 
             string result =  service.Move(0, 3, "");
 

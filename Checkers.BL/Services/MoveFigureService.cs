@@ -14,14 +14,14 @@ namespace Checkers.BL.Services
         private IBoardRepository _boardRepository;
         private VectorHelper _vectorHelper;
         private MathHelper _mathHelper;
-        private WhitePawnService _whitePawnService;
+        private PawnService _pawnService;
 
-        public MoveFigureService(IBoardRepository boardRepository, VectorHelper vectorHelper, MathHelper mathHelper, WhitePawnService whitePawnService)
+        public MoveFigureService(IBoardRepository boardRepository, VectorHelper vectorHelper, MathHelper mathHelper, PawnService pawnService)
         {
             _boardRepository = boardRepository;
             _vectorHelper = vectorHelper;
             _mathHelper = mathHelper;
-            _whitePawnService = whitePawnService;
+            _pawnService = pawnService;
 
         }
 
@@ -55,9 +55,9 @@ namespace Checkers.BL.Services
                 return false;
             }
 
-            if (figures[fromCoord] == Figures.WhitePawn)
+            if (figures[fromCoord] == Figures.WhitePawn || figures[fromCoord] == Figures.BlackPawn)
             {
-                if (!_whitePawnService.GetAllowedVectors(fromCoord, figures).Contains(vector))
+                if (!_pawnService.GetAllowedVectors(fromCoord, figures).Contains(vector))
                 {
                     return false;
                 }
