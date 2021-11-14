@@ -55,11 +55,18 @@ class Board {
     }
 
     private showFiguresOnBoard(boardState) {
-        for (let coord = 0; coord < boardState.length-1; coord++) {
+        var figuresLength = boardState.length - 1;
+        if (boardState[boardState.length - 1] !== 'w' &&
+            boardState[boardState.length - 1] !== 'b') {
+
+            figuresLength = Math.max(boardState.indexOf('w'), boardState.indexOf('b'));
+        }
+
+        for (let coord = 0; coord < figuresLength; coord++) {
             this.showFigureAt(coord, boardState[coord]);
         }
 
-        if (boardState[boardState.length - 1] == 'w') {
+        if (boardState[figuresLength] == 'w') {
             $('.turn').text('Ход белых');
         } else {
             $('.turn').text('Ход черных');

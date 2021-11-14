@@ -16,16 +16,16 @@ namespace Checkers.BL.Services
         private IBoardRepository _boardRepository;
         private VectorHelper _vectorHelper;
         private MathHelper _mathHelper;
-        private PawnService _pawnService;
+        private ValidateService _validateService;
         private ColorHelper _colorHelper;
 
 
-        public MoveFigureService(IBoardRepository boardRepository, VectorHelper vectorHelper, MathHelper mathHelper, PawnService pawnService, ColorHelper colorHelper)
+        public MoveFigureService(IBoardRepository boardRepository, VectorHelper vectorHelper, MathHelper mathHelper, ValidateService validateService, ColorHelper colorHelper)
         {
             _boardRepository = boardRepository;
             _vectorHelper = vectorHelper;
             _mathHelper = mathHelper;
-            _pawnService = pawnService;
+            _validateService = validateService;
             _colorHelper = colorHelper;
         }
 
@@ -35,8 +35,26 @@ namespace Checkers.BL.Services
 
             char turn = boardState[boardState.Length - 1];
             string figures = boardState.Substring(0, boardState.Length - 1);
+            if (turn != Turn.White && turn != Turn.Black)
+            {
+                figures = boardState.Split(new char[]
+                {
+                    Turn.White, Turn.Black
+                }, StringSplitOptions.None)[0];
 
+                var mustCoordString = boardState.Split(new char[]
+                {
+                    Turn.White, Turn.Black
+                }, StringSplitOptions.None)[1];
 
+                if (fromCoord != int.Parse(mustCoordString))
+                {
+                    return boardState;
+                }
+
+                turn = boardState.Contains(Turn.White) ? Turn.White : Turn.Black;
+            }
+            
             var boardWidth = _mathHelper.Sqrt(figures.Length);
 
             var vector = _vectorHelper.CoordToVector(fromCoord, toCoord, boardWidth);
@@ -55,7 +73,7 @@ namespace Checkers.BL.Services
             if (figures[fromCoord] == Figures.WhitePawn || figures[fromCoord] == Figures.BlackPawn ||
                 figures[fromCoord] == Figures.WhiteQueen || figures[fromCoord] == Figures.BlackQueen)
             {
-                if (!_pawnService.GetAllowedVectors(fromCoord, figures, out isDie).Contains(vector))
+                if (!_validateService.GetAllowedVectors(fromCoord, figures, out isDie).Contains(vector))
                 {
                     return boardState;
                 }
@@ -90,7 +108,7 @@ namespace Checkers.BL.Services
         
             if (isDie)
             {
-                _pawnService.GetAllowedVectors(toCoord, newFigures, out var isDie2);
+                _validateService.GetAllowedVectors(toCoord, newFigures, out var isDie2);
                 {
                     if (isDie2)
                     {
@@ -105,7 +123,7 @@ namespace Checkers.BL.Services
                 nextTurn = (turn == Turn.White ? Turn.Black : Turn.White);
             }
 
-            var result = newFigures + nextTurn;
+            var result = newFigures + nextTurn + (toggleTurn?"" : toCoord);
             _boardRepository.Save(registrationId, result);
             return result;
         }

@@ -18,7 +18,7 @@ namespace Ckeckers.DAL.Repositories
             "1p1111"+
             "111111"+
             "1p1111" +
-            "111111w";
+            "P11111w";
         
         private static object lockOnject = new object();
         public void Save(string key, string state)

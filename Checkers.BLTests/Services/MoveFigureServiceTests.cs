@@ -19,7 +19,7 @@ namespace Checkers.BL.Services.Tests
         private MoveFigureService GetMoveFigureService(IBoardRepository boardRepository)
         {
             return new MoveFigureService(boardRepository, new VectorHelper(), new MathHelper(), 
-                new PawnService(new VectorHelper(), new MathHelper(), new ColorHelper()),
+                new ValidateService(new VectorHelper(), new MathHelper(), new ColorHelper()),
                 new ColorHelper());
         }
 
@@ -136,7 +136,7 @@ namespace Checkers.BL.Services.Tests
                          "P11p11" +
                          "11P111" +
                          "111111" +
-                         "111111w";
+                         "111111w20";
 
             var service = GetMoveFigureService(boardRepository.Object);
 
@@ -162,7 +162,7 @@ namespace Checkers.BL.Services.Tests
                            "111111" +
                            "Q11111" +
                            "1p1111" +
-                           "111111w";
+                           "111111w18";
 
             var service = GetMoveFigureService(boardRepository.Object);
 

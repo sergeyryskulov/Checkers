@@ -10,14 +10,14 @@ using Checkers.BL.Models;
 
 namespace Checkers.BL.Services
 {
-    public class PawnService
+    public class ValidateService
     {
         private VectorHelper _vectorHelper;
         private MathHelper _mathHelper;
         private ColorHelper _colorHelper;
 
 
-        public PawnService(VectorHelper vectorHelper, MathHelper mathHelper, ColorHelper colorHelper)
+        public ValidateService(VectorHelper vectorHelper, MathHelper mathHelper, ColorHelper colorHelper)
         {
             _vectorHelper = vectorHelper;
             _mathHelper = mathHelper;
