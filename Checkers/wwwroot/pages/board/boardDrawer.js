@@ -7,11 +7,11 @@ var BoardDrawer = /** @class */ (function () {
     BoardDrawer.prototype.setNewGameClickHandler = function (callback) {
         $('.newGame').click(callback);
     };
-    BoardDrawer.prototype.drawSquares = function (isFlipped) {
+    BoardDrawer.prototype.drawSquares = function (isFlipped, width) {
         $('.board').html('');
         var divSquare = '<div  id=s$coord class="square $color"></div>';
-        for (var coord = 0; coord < 64; coord++) {
-            $('.board').append(divSquare.replace('$coord', '' + (isFlipped ? 63 - coord : coord)).replace('$color', this.isBlackSquareAt(coord) ? 'black' : 'white'));
+        for (var coord = 0; coord < width * width; coord++) {
+            $('.board').append(divSquare.replace('$coord', '' + (isFlipped ? width * width - 1 - coord : coord)).replace('$color', this.isBlackSquareAt(coord, width) ? 'black' : 'white'));
         }
     };
     BoardDrawer.prototype.drawFigure = function (coord, figure) {
@@ -28,8 +28,8 @@ var BoardDrawer = /** @class */ (function () {
             }
         });
     };
-    BoardDrawer.prototype.isBlackSquareAt = function (coord) {
-        return ((coord % 8 + Math.floor(coord / 8)) % 2) !== 0;
+    BoardDrawer.prototype.isBlackSquareAt = function (coord, width) {
+        return ((coord % width + Math.floor(coord / width)) % 2) !== 0;
     };
     BoardDrawer.prototype.gettChessSymbol = function (figure) {
         switch (figure) {

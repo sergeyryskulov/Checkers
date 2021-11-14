@@ -8,12 +8,12 @@
         $('.newGame').click(callback);
     }
 
-    public  drawSquares(isFlipped) {
+    public  drawSquares(isFlipped, width) {
         $('.board').html('');
         let divSquare = '<div  id=s$coord class="square $color"></div>';
 
-        for (let coord = 0; coord < 64; coord++) {
-            $('.board').append(divSquare.replace('$coord', '' + (isFlipped ? 63 - coord : coord)).replace('$color', this.isBlackSquareAt(coord) ? 'black' : 'white'));
+        for (let coord = 0; coord < width*width; coord++) {
+            $('.board').append(divSquare.replace('$coord', '' + (isFlipped ? width * width-1 - coord : coord)).replace('$color', this.isBlackSquareAt(coord, width) ? 'black' : 'white'));
         }
     }
 
@@ -37,8 +37,8 @@
         });
     }
 
-    private isBlackSquareAt(coord: number): boolean {
-        return ((coord % 8 + Math.floor(coord / 8)) % 2) !== 0;
+    private isBlackSquareAt(coord: number, width : number): boolean {
+        return ((coord % width + Math.floor(coord / width)) % 2) !== 0;
 
     }
 

@@ -14,6 +14,15 @@ namespace Checkers.BL.Services.Tests
     [TestClass()]
     public class MoveFigureServiceTests
     {
+
+
+        private MoveFigureService GetMoveFigureService(IBoardRepository boardRepository)
+        {
+            return new MoveFigureService(boardRepository, new VectorHelper(), new MathHelper(), 
+                new PawnService(new VectorHelper(), new MathHelper(), new ColorHelper()),
+                new QueenService(new VectorHelper(),new MathHelper(), new ColorHelper()));
+        }
+
         [TestMethod()]
         public void Move_Correct()
         {
@@ -21,7 +30,7 @@ namespace Checkers.BL.Services.Tests
             var boardRepository = new Mock<IBoardRepository>();
             boardRepository.Setup(m => m.Load("")).Returns("p111w");
 
-            var service = new MoveFigureService(boardRepository.Object, new VectorHelper(), new MathHelper(), new PawnService(new VectorHelper(), new MathHelper(), new ColorHelper()));
+            var service = GetMoveFigureService(boardRepository.Object);
 
             string result = service.Move(0, 3, "");
 
@@ -44,8 +53,7 @@ namespace Checkers.BL.Services.Tests
                            "111" +
                            "111b";
 
-
-            var service = new MoveFigureService(boardRepository.Object, new VectorHelper(), new MathHelper(), new PawnService(new VectorHelper(), new MathHelper(), new ColorHelper()));
+            var service = GetMoveFigureService(boardRepository.Object);
 
             string actual = service.Move(6, 2, "");
 
@@ -70,7 +78,7 @@ namespace Checkers.BL.Services.Tests
                            "111b";
 
 
-            var service = new MoveFigureService(boardRepository.Object, new VectorHelper(), new MathHelper(), new PawnService(new VectorHelper(), new MathHelper(), new ColorHelper()));
+            var service = GetMoveFigureService(boardRepository.Object);
 
             string actual = service.Move(6, 2, "");
 
@@ -97,7 +105,8 @@ namespace Checkers.BL.Services.Tests
                          "11P111" +
                          "111111" +
                          "111111w";
-            var service = new MoveFigureService(boardRepository.Object, new VectorHelper(), new MathHelper(), new PawnService(new VectorHelper(), new MathHelper(), new ColorHelper()));
+
+            var service = GetMoveFigureService(boardRepository.Object);
 
             var actual = service.Move(30, 20, "");
             Assert.AreEqual(expected, actual);

@@ -15,13 +15,18 @@ var Board = /** @class */ (function () {
     };
     Board.prototype.showBoard = function () {
         var _this = this;
-        this.figuresCache = new Array(64);
-        this.boardDrawer.drawSquares(this.isFlipped);
-        this.boardDrawer.setDropFigureOnSquareHandler(function (fromCoord, toCoord) {
-            _this.moveFigureOnBoard(fromCoord, toCoord);
-            _this.serverApi.moveFigureOnServer(fromCoord, toCoord, function (data) { return _this.showFiguresOnBoard(data); });
+        this.serverApi.getFiguresFromServer(function (data) {
+            _this.figuresCache = new Array(data.length - 1);
+            var width = Math.sqrt(_this.figuresCache.length);
+            $('.board').width(width * 80);
+            $('.board').height(width * 80);
+            _this.boardDrawer.drawSquares(_this.isFlipped, width);
+            _this.boardDrawer.setDropFigureOnSquareHandler(function (fromCoord, toCoord) {
+                _this.moveFigureOnBoard(fromCoord, toCoord);
+                _this.serverApi.moveFigureOnServer(fromCoord, toCoord, function (data) { return _this.showFiguresOnBoard(data); });
+            });
+            _this.showFiguresOnBoard(data);
         });
-        this.serverApi.getFiguresFromServer(function (data) { return _this.showFiguresOnBoard(data); });
     };
     Board.prototype.flipBoard = function () {
         this.isFlipped = !this.isFlipped;
@@ -33,10 +38,10 @@ var Board = /** @class */ (function () {
         this.showFigureAt(toCoord, figure);
     };
     Board.prototype.showFiguresOnBoard = function (boardState) {
-        for (var coord = 0; coord < 64; coord++) {
+        for (var coord = 0; coord < boardState.length - 1; coord++) {
             this.showFigureAt(coord, boardState[coord]);
         }
-        if (boardState[64] == 'w') {
+        if (boardState[boardState.length - 1] == 'w') {
             $('.turn').text('Ход белых');
         }
         else {

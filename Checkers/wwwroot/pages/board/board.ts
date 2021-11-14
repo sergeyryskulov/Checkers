@@ -28,16 +28,19 @@ class Board {
 
     private showBoard() {
 
-        this.figuresCache = new Array(64);
 
-        this.boardDrawer.drawSquares(this.isFlipped);
-
-        this.boardDrawer.setDropFigureOnSquareHandler((fromCoord, toCoord) => {
-            this.moveFigureOnBoard(fromCoord, toCoord);
-            this.serverApi.moveFigureOnServer(fromCoord, toCoord, (data) => this.showFiguresOnBoard(data));
+        this.serverApi.getFiguresFromServer((data) => {
+            this.figuresCache = new Array(data.length - 1);
+            let width = Math.sqrt(this.figuresCache.length);
+            $('.board').width(width * 80);
+            $('.board').height(width * 80);
+            this.boardDrawer.drawSquares(this.isFlipped, width);
+            this.boardDrawer.setDropFigureOnSquareHandler((fromCoord, toCoord) => {
+                this.moveFigureOnBoard(fromCoord, toCoord);
+                this.serverApi.moveFigureOnServer(fromCoord, toCoord, (data) => this.showFiguresOnBoard(data));
+            });
+            this.showFiguresOnBoard(data);
         });
-
-        this.serverApi.getFiguresFromServer((data) => this.showFiguresOnBoard(data));
     }
 
     private flipBoard() {
@@ -52,11 +55,11 @@ class Board {
     }
 
     private showFiguresOnBoard(boardState) {
-        for (let coord = 0; coord < 64; coord++) {
+        for (let coord = 0; coord < boardState.length-1; coord++) {
             this.showFigureAt(coord, boardState[coord]);
         }
 
-        if (boardState[64] == 'w') {
+        if (boardState[boardState.length - 1] == 'w') {
             $('.turn').text('Ход белых');
         } else {
             $('.turn').text('Ход черных');

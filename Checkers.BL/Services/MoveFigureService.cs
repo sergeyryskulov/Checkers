@@ -17,14 +17,15 @@ namespace Checkers.BL.Services
         private VectorHelper _vectorHelper;
         private MathHelper _mathHelper;
         private PawnService _pawnService;
+        private QueenService _queenService;
 
-        public MoveFigureService(IBoardRepository boardRepository, VectorHelper vectorHelper, MathHelper mathHelper, PawnService pawnService)
+        public MoveFigureService(IBoardRepository boardRepository, VectorHelper vectorHelper, MathHelper mathHelper, PawnService pawnService, QueenService queenService)
         {
             _boardRepository = boardRepository;
             _vectorHelper = vectorHelper;
             _mathHelper = mathHelper;
             _pawnService = pawnService;
-
+            _queenService = queenService;
         }
 
 
@@ -48,6 +49,14 @@ namespace Checkers.BL.Services
             if (figures[fromCoord] == Figures.WhitePawn || figures[fromCoord] == Figures.BlackPawn)
             {
                 if (!_pawnService.GetAllowedVectors(fromCoord, figures).Contains(vector))
+                {
+                    return boardState;
+                }
+            }
+
+            if (figures[fromCoord] == Figures.BlackQueen || figures[fromCoord] == Figures.WhiteQueen)
+            {
+                if (!_queenService.GetAllowedVectors(fromCoord, figures).Contains(vector))
                 {
                     return boardState;
                 }

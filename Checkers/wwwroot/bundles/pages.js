@@ -15,13 +15,18 @@ var Board = /** @class */ (function () {
     };
     Board.prototype.showBoard = function () {
         var _this = this;
-        this.figuresCache = new Array(64);
-        this.boardDrawer.drawSquares(this.isFlipped);
-        this.boardDrawer.setDropFigureOnSquareHandler(function (fromCoord, toCoord) {
-            _this.moveFigureOnBoard(fromCoord, toCoord);
-            _this.serverApi.moveFigureOnServer(fromCoord, toCoord, function (data) { return _this.showFiguresOnBoard(data); });
+        this.serverApi.getFiguresFromServer(function (data) {
+            _this.figuresCache = new Array(data.length - 1);
+            var width = Math.sqrt(_this.figuresCache.length);
+            $('.board').width(width * 80);
+            $('.board').height(width * 80);
+            _this.boardDrawer.drawSquares(_this.isFlipped, width);
+            _this.boardDrawer.setDropFigureOnSquareHandler(function (fromCoord, toCoord) {
+                _this.moveFigureOnBoard(fromCoord, toCoord);
+                _this.serverApi.moveFigureOnServer(fromCoord, toCoord, function (data) { return _this.showFiguresOnBoard(data); });
+            });
+            _this.showFiguresOnBoard(data);
         });
-        this.serverApi.getFiguresFromServer(function (data) { return _this.showFiguresOnBoard(data); });
     };
     Board.prototype.flipBoard = function () {
         this.isFlipped = !this.isFlipped;
@@ -33,10 +38,10 @@ var Board = /** @class */ (function () {
         this.showFigureAt(toCoord, figure);
     };
     Board.prototype.showFiguresOnBoard = function (boardState) {
-        for (var coord = 0; coord < 64; coord++) {
+        for (var coord = 0; coord < boardState.length - 1; coord++) {
             this.showFigureAt(coord, boardState[coord]);
         }
-        if (boardState[64] == 'w') {
+        if (boardState[boardState.length - 1] == 'w') {
             $('.turn').text('Ход белых');
         }
         else {
@@ -84,11 +89,11 @@ var BoardDrawer = /** @class */ (function () {
     BoardDrawer.prototype.setNewGameClickHandler = function (callback) {
         $('.newGame').click(callback);
     };
-    BoardDrawer.prototype.drawSquares = function (isFlipped) {
+    BoardDrawer.prototype.drawSquares = function (isFlipped, width) {
         $('.board').html('');
         var divSquare = '<div  id=s$coord class="square $color"></div>';
-        for (var coord = 0; coord < 64; coord++) {
-            $('.board').append(divSquare.replace('$coord', '' + (isFlipped ? 63 - coord : coord)).replace('$color', this.isBlackSquareAt(coord) ? 'black' : 'white'));
+        for (var coord = 0; coord < width * width; coord++) {
+            $('.board').append(divSquare.replace('$coord', '' + (isFlipped ? width * width - 1 - coord : coord)).replace('$color', this.isBlackSquareAt(coord, width) ? 'black' : 'white'));
         }
     };
     BoardDrawer.prototype.drawFigure = function (coord, figure) {
@@ -105,8 +110,8 @@ var BoardDrawer = /** @class */ (function () {
             }
         });
     };
-    BoardDrawer.prototype.isBlackSquareAt = function (coord) {
-        return ((coord % 8 + Math.floor(coord / 8)) % 2) !== 0;
+    BoardDrawer.prototype.isBlackSquareAt = function (coord, width) {
+        return ((coord % width + Math.floor(coord / width)) % 2) !== 0;
     };
     BoardDrawer.prototype.gettChessSymbol = function (figure) {
         switch (figure) {
