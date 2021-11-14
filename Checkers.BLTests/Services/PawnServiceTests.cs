@@ -204,5 +204,21 @@ namespace Checkers.BL.Services.Tests
             CollectionAssert.AreEquivalent(expected, actual);
             Assert.IsFalse(isDie);
         }
+        [TestMethod()]
+        public void GetAllowedVectorsQueen_DieExists()
+        {
+            _pawnService.GetAllowedVectors(3, "" +
+                                                           "111Q11" +
+                                                           "111111" +
+                                                           "1p1111" +
+                                                           "111111" +
+                                                           "1p1111" +
+                                                           "111111w",
+                out var isDie);
+
+            
+            Assert.IsTrue(isDie);
+        }
+
     }
 }

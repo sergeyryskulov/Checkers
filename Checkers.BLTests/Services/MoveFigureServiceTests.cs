@@ -144,6 +144,32 @@ namespace Checkers.BL.Services.Tests
             Assert.AreEqual(expected, actual);
         }
 
+        [TestMethod()]
+        public void Move_NotToggleTurn2()
+        {
+            var boardRepository = new Mock<IBoardRepository>();
+            boardRepository.Setup(m => m.Load("")).Returns("" +
+                                                           "111Q11" +
+                                                           "111111" +
+                                                           "1p1111" +
+                                                           "111111" +
+                                                           "1p1111" +
+                                                           "111111w");
+
+            var expected = "" +
+                           "111111" +
+                           "111111" +
+                           "111111" +
+                           "Q11111" +
+                           "1p1111" +
+                           "111111w";
+
+            var service = GetMoveFigureService(boardRepository.Object);
+
+            var actual = service.Move(3, 18, "");
+            Assert.AreEqual(expected, actual);
+        }
+
 
     }
 }

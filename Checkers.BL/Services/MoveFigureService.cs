@@ -52,7 +52,8 @@ namespace Checkers.BL.Services
             }
 
             bool isDie = false;
-            if (figures[fromCoord] == Figures.WhitePawn || figures[fromCoord] == Figures.BlackPawn)
+            if (figures[fromCoord] == Figures.WhitePawn || figures[fromCoord] == Figures.BlackPawn ||
+                figures[fromCoord] == Figures.WhiteQueen || figures[fromCoord] == Figures.BlackQueen)
             {
                 if (!_pawnService.GetAllowedVectors(fromCoord, figures, out isDie).Contains(vector))
                 {
