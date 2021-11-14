@@ -20,7 +20,6 @@ namespace Checkers.BL.Services.Tests
         {
             return new MoveFigureService(boardRepository, new VectorHelper(), new MathHelper(), 
                 new PawnService(new VectorHelper(), new MathHelper(), new ColorHelper()),
-                new QueenService(new VectorHelper(),new MathHelper(), new ColorHelper()),
                 new ColorHelper());
         }
 

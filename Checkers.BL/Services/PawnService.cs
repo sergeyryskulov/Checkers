@@ -24,7 +24,7 @@ namespace Checkers.BL.Services
             _colorHelper = colorHelper;
         }
 
-        public bool IsBlocked(int coord, string figures)
+        private bool IsBlocked(int coord, string figures)
         {
             var color = _colorHelper.GetFigureColor(figures[coord]);
 
@@ -34,10 +34,10 @@ namespace Checkers.BL.Services
 
                 if (
                     coord != iteratedFigure &&
-                    _colorHelper.GetFigureColor(iteratedFigure) == color &&
-                    (iteratedFigure == Figures.WhitePawn || iteratedFigure == Figures.BlackPawn))
+                    _colorHelper.GetFigureColor(iteratedFigure) == color )
                 {
-                    if (GetAllowedVectors(figureCoord, figures, true).Exists(m=>m.Length==2))
+                    GetAllowedVectors(figureCoord, figures, out var isDie, true);
+                    if (isDie)
                     {
                         return true;
                     }
@@ -47,7 +47,105 @@ namespace Checkers.BL.Services
             return false;
         }
 
-        public List<Vector> GetAllowedVectors(int coord, string figures, bool ignoreBlock=false)
+        public List<Vector> GetAllowedVectors(int coord, string figures, out bool isDie, bool ignoreBlock = false)
+        {
+            var figure = figures[coord];
+            if (figure == Figures.WhitePawn || figure == Figures.BlackPawn)
+            {
+                return GetAllowedVectorsPawn(coord, figures, out isDie, ignoreBlock);
+            }
+            if (figure == Figures.WhiteQueen || figure == Figures.BlackQueen)
+            {
+                return GetAllowedVectorsQueen(coord, figures, out isDie, ignoreBlock);
+            }
+
+            isDie = false;
+            return new List<Vector>();
+        }
+        private List<Vector> GetAllowedVectorsQueen(int coord, string figures, out bool isDieParam, bool ignoreBlock)
+        {
+            int boardWidth = _mathHelper.Sqrt(figures.Length);
+
+            var color = _colorHelper.GetFigureColor(figures[coord]);
+            var oppositeColor = color == FigureColor.White ? FigureColor.Black : FigureColor.White;
+            var allowedVectors = new List<Vector>();
+            var dieVectors = new List<Vector>();
+
+            foreach (var direction in new[]
+            {
+                Direction.LeftBottom,
+                Direction.LeftTop,
+                Direction.RightBottom,
+                Direction.RightTop
+            })
+            {
+                bool isDieOnDirection = false;
+                for (int i = 1; i < boardWidth; i++)
+                {
+                    var vector = new Vector()
+                    {
+                        Length = i,
+                        Direction = direction
+                    };
+
+                    var stepCoord = _vectorHelper.VectorToCoord(coord, vector, boardWidth);
+                    if (stepCoord == -1)
+                    {
+                        break;
+                    }
+
+                    var figure = figures[stepCoord];
+
+                    if (_colorHelper.GetFigureColor(figure) == FigureColor.Empty)
+                    {
+                        if (isDieOnDirection)
+                        {
+                            dieVectors.Add(vector);
+                        }
+                        else
+                        {
+                            allowedVectors.Add(vector);
+                        }
+
+                    }
+                    else if (_colorHelper.GetFigureColor(figure) == oppositeColor)
+                    {
+                        if (!isDieOnDirection)
+                        {
+                            isDieOnDirection = true;
+                            continue;
+
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    }
+                    else
+                    {
+                        break;
+                    }
+
+                }
+
+            }
+
+            if (dieVectors.Count > 0)
+            {
+                isDieParam = true;
+                return dieVectors;
+            }
+            isDieParam = false;
+
+            if (!ignoreBlock && IsBlocked(coord, figures))
+            {
+                return new List<Vector>();
+            }
+            return allowedVectors;
+
+        }
+
+        private List<Vector> GetAllowedVectorsPawn(int coord, string figures, out bool isDie, bool ignoreBlock=false)
         {
             int boardWidth= _mathHelper.Sqrt(figures.Length);
 
@@ -128,10 +226,12 @@ namespace Checkers.BL.Services
             }
             if (allowedVectors.Exists(m=>m.Length==2))
             {
+                isDie = true;
                 allowedVectors = allowedVectors.Where(m => m.Length == 2).ToList();
             }
             else
             {
+                isDie = false;
                 if (!ignoreBlock && IsBlocked(coord, figures))
                 {
                     return new List<Vector>();

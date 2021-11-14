@@ -17,17 +17,15 @@ namespace Checkers.BL.Services
         private VectorHelper _vectorHelper;
         private MathHelper _mathHelper;
         private PawnService _pawnService;
-        private QueenService _queenService;
         private ColorHelper _colorHelper;
 
 
-        public MoveFigureService(IBoardRepository boardRepository, VectorHelper vectorHelper, MathHelper mathHelper, PawnService pawnService, QueenService queenService, ColorHelper colorHelper)
+        public MoveFigureService(IBoardRepository boardRepository, VectorHelper vectorHelper, MathHelper mathHelper, PawnService pawnService, ColorHelper colorHelper)
         {
             _boardRepository = boardRepository;
             _vectorHelper = vectorHelper;
             _mathHelper = mathHelper;
             _pawnService = pawnService;
-            _queenService = queenService;
             _colorHelper = colorHelper;
         }
 
@@ -54,17 +52,10 @@ namespace Checkers.BL.Services
                 return boardState;
             }
 
+            bool isDie = false;
             if (figures[fromCoord] == Figures.WhitePawn || figures[fromCoord] == Figures.BlackPawn)
             {
-                if (!_pawnService.GetAllowedVectors(fromCoord, figures).Contains(vector))
-                {
-                    return boardState;
-                }
-            }
-
-            if (figures[fromCoord] == Figures.BlackQueen || figures[fromCoord] == Figures.WhiteQueen)
-            {
-                if (!_queenService.GetAllowedVectors(fromCoord, figures).Contains(vector))
+                if (!_pawnService.GetAllowedVectors(fromCoord, figures, out isDie).Contains(vector))
                 {
                     return boardState;
                 }
@@ -82,29 +73,29 @@ namespace Checkers.BL.Services
             }
             newFiguresBuilder[fromCoord] = Figures.Empty;
 
-            var isDie = false;
             for (int i = 1; i < vector.Length; i++)
             {
-                var dieCoord= _vectorHelper.VectorToCoord(fromCoord, new Vector()
+                var cleanCoord = _vectorHelper.VectorToCoord(fromCoord, new Vector()
                 {
                     Length = i,
                     Direction = vector.Direction
                 }, boardWidth);
 
-                if (newFiguresBuilder[dieCoord] != Figures.Empty)
-                {
-                    newFiguresBuilder[dieCoord] = Figures.Empty;
-                    isDie = true;
-                }
+                newFiguresBuilder[cleanCoord] = Figures.Empty;
             }
 
             var newFigures = newFiguresBuilder.ToString();
             var toggleTurn = true;
+
+        
             if (isDie)
             {
-                if (_pawnService.GetAllowedVectors(toCoord, newFigures).Exists(t => t.Length == 2))
+                _pawnService.GetAllowedVectors(toCoord, newFigures, out var isDie2);
                 {
-                    toggleTurn = false;
+                    if (isDie2)
+                    {
+                        toggleTurn = false;
+                    }
                 }
             }
 

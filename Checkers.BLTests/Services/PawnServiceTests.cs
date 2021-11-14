@@ -20,7 +20,7 @@ namespace Checkers.BL.Services.Tests
         public void GetAllowedVectors_OneStepTop_Correct()
         {
 
-            var actual = _pawnService.GetAllowedVectors(2, "11P1");
+            var actual = _pawnService.GetAllowedVectors(2, "11P1", out var isDie);
 
             var expected = new List<Vector>()
             {
@@ -31,6 +31,7 @@ namespace Checkers.BL.Services.Tests
                 }
             };
             CollectionAssert.AreEquivalent(expected, actual);
+            Assert.IsFalse(isDie);
         }
 
         [TestMethod()]
@@ -40,7 +41,8 @@ namespace Checkers.BL.Services.Tests
             var actual = _pawnService.GetAllowedVectors(8, "" +
                                                                   "111" +
                                                                   "1p1" +
-                                                                  "11P");
+                                                                  "11P",
+                out var isDie);
 
             var expected = new List<Vector>()
             {
@@ -52,6 +54,7 @@ namespace Checkers.BL.Services.Tests
             };
 
             CollectionAssert.AreEquivalent(expected, actual);
+            Assert.IsTrue(isDie);
 
         }
 
@@ -62,7 +65,7 @@ namespace Checkers.BL.Services.Tests
             var actual = _pawnService.GetAllowedVectors(0, "" +
                                                            "p11" +
                                                            "1P1" +
-                                                           "111");
+                                                           "111", out var isDie);
 
             var expected = new List<Vector>()
             {
@@ -73,6 +76,7 @@ namespace Checkers.BL.Services.Tests
                 }
             };
             CollectionAssert.AreEquivalent(expected, actual);
+            Assert.IsTrue(isDie);
         }
 
         [TestMethod()]
@@ -83,13 +87,14 @@ namespace Checkers.BL.Services.Tests
                                                            "P111" +
                                                            "1111" +
                                                            "1p11" +
-                                                           "P111");
+                                                           "P111", out var isDie);
 
             var expected = new List<Vector>()
             {
 
             };
             CollectionAssert.AreEquivalent(expected, actual);
+            Assert.IsFalse(isDie);
         }
 
         [TestMethod()]
@@ -105,9 +110,10 @@ namespace Checkers.BL.Services.Tests
                          "1P1P1P1P" +
                          "P1P1P1P1";
 
-            var actualLength= _pawnService.GetAllowedVectors(8, figures).Count;
+            var actualLength= _pawnService.GetAllowedVectors(8, figures, out var isDie).Count;
 
             Assert.IsTrue(actualLength > 0);
+            Assert.IsFalse(isDie);
         }
 
 
@@ -117,7 +123,8 @@ namespace Checkers.BL.Services.Tests
             var actual = _pawnService.GetAllowedVectors(0, "" +
                                                            "P11" +
                                                            "1p1" +
-                                                           "111");
+                                                           "111",
+                out var isDie);
 
             var expected = new List<Vector>()
             {
@@ -127,7 +134,75 @@ namespace Checkers.BL.Services.Tests
                     Length = 2
                 }
             };
+
+
             CollectionAssert.AreEquivalent(expected, actual);
+            Assert.IsTrue(isDie);
+        }
+
+
+        [TestMethod()]
+        public void GetAllowedVectorsQueen_DieCorrect()
+        {
+            var actual = _pawnService.GetAllowedVectors(0, "" +
+                                                           "Q111" +
+                                                           "1p11" +
+                                                           "1111" +
+                                                           "1111",
+                out var isDie);
+
+            var expected = new List<Vector>()
+            {
+                new Vector()
+                {
+                    Direction = Direction.RightBottom,
+                    Length = 2,
+                },
+                new Vector()
+                {
+                    Direction = Direction.RightBottom,
+                    Length = 3,
+                },
+            };
+            CollectionAssert.AreEquivalent(expected, actual);
+            Assert.IsTrue(isDie);
+        }
+
+        [TestMethod()]
+        public void GetAllowedVectorsQueen_NotDieCorrect()
+        {
+            var actual = _pawnService.GetAllowedVectors(5, "" +
+                                                           "p111" +
+                                                           "1Q11" +
+                                                           "1111" +
+                                                           "1111",
+                out var isDie);
+
+            var expected = new List<Vector>()
+            {
+                new Vector()
+                {
+                    Direction = Direction.RightBottom,
+                    Length = 1,
+                },
+                new Vector()
+                {
+                    Direction = Direction.RightBottom,
+                    Length = 2,
+                },
+                new Vector()
+                {
+                    Direction = Direction.RightTop,
+                    Length = 1,
+                },
+                new Vector()
+                {
+                    Direction = Direction.LeftBottom,
+                    Length = 1,
+                },
+            };
+            CollectionAssert.AreEquivalent(expected, actual);
+            Assert.IsFalse(isDie);
         }
     }
 }
