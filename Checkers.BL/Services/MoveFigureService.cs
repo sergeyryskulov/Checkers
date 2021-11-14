@@ -72,6 +72,14 @@ namespace Checkers.BL.Services
 
             StringBuilder newFiguresBuilder = new StringBuilder(figures);
             newFiguresBuilder[toCoord] = newFiguresBuilder[fromCoord];
+            if (toCoord < boardWidth && turn==Turn.White)
+            {
+                newFiguresBuilder[toCoord] = Figures.WhiteQueen;
+            }
+            if (toCoord >= boardWidth * (boardWidth - 1) && turn == Turn.Black)
+            {
+                newFiguresBuilder[toCoord] = Figures.BlackQueen; 
+            }
             newFiguresBuilder[fromCoord] = Figures.Empty;
 
             var isDie = false;

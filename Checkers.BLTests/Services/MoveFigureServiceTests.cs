@@ -36,7 +36,7 @@ namespace Checkers.BL.Services.Tests
             string result = service.Move(0, 3, "");
 
 
-            Assert.IsTrue(result == "111pw");
+            Assert.IsTrue(result == "111qw");
         }
 
         [TestMethod()]
@@ -50,7 +50,7 @@ namespace Checkers.BL.Services.Tests
                                                            "P11w");
 
             var expected = "" +
-                           "11P" +
+                           "11Q" +
                            "111" +
                            "111b";
 
@@ -74,7 +74,7 @@ namespace Checkers.BL.Services.Tests
                                                            "P11w");
 
             var expected = "" +
-                           "11P" +
+                           "11Q" +
                            "111" +
                            "111b";
 
