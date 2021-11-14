@@ -11,5 +11,9 @@ namespace Checkers.BL.Constants
         public static char White = 'w';
 
         public static char Black = 'b';
+
+        public static char WhiteWin = 'W';
+
+        public static char BlackWin = 'B';
     }
 }

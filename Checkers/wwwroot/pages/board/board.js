@@ -40,17 +40,25 @@ var Board = /** @class */ (function () {
     Board.prototype.showFiguresOnBoard = function (boardState) {
         var figuresLength = boardState.length - 1;
         if (boardState[boardState.length - 1] !== 'w' &&
+            boardState[boardState.length - 1] !== 'W' &&
+            boardState[boardState.length - 1] !== 'b' &&
             boardState[boardState.length - 1] !== 'b') {
-            figuresLength = Math.max(boardState.indexOf('w'), boardState.indexOf('b'));
+            figuresLength = Math.max(boardState.indexOf('w'), boardState.indexOf('W'), boardState.indexOf('b'), boardState.indexOf('B'));
         }
         for (var coord = 0; coord < figuresLength; coord++) {
             this.showFigureAt(coord, boardState[coord]);
         }
-        if (boardState[figuresLength] == 'w') {
+        if (boardState[figuresLength] === 'w') {
             $('.turn').text('Ход белых');
         }
-        else {
+        if (boardState[figuresLength] === 'W') {
+            $('.turn').text('Белые выиграли!');
+        }
+        else if (boardState[figuresLength] === 'b') {
             $('.turn').text('Ход черных');
+        }
+        else if (boardState[figuresLength] === 'B') {
+            $('.turn').text('Черные выиграли!');
         }
     };
     Board.prototype.showFigureAt = function (coord, figure) {

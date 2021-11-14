@@ -35,16 +35,16 @@ namespace Checkers.BL.Services
 
             char turn = boardState[boardState.Length - 1];
             string figures = boardState.Substring(0, boardState.Length - 1);
-            if (turn != Turn.White && turn != Turn.Black)
+            if (turn != Turn.White && turn != Turn.Black && turn!=Turn.WhiteWin && turn!= Turn.BlackWin)
             {
                 figures = boardState.Split(new char[]
                 {
-                    Turn.White, Turn.Black
+                    Turn.White, Turn.Black, Turn.WhiteWin, Turn.BlackWin
                 }, StringSplitOptions.None)[0];
 
                 var mustCoordString = boardState.Split(new char[]
                 {
-                    Turn.White, Turn.Black
+                    Turn.White, Turn.Black, Turn.WhiteWin, Turn.BlackWin
                 }, StringSplitOptions.None)[1];
 
                 if (fromCoord != int.Parse(mustCoordString))
@@ -52,7 +52,7 @@ namespace Checkers.BL.Services
                     return boardState;
                 }
 
-                turn = boardState.Contains(Turn.White) ? Turn.White : Turn.Black;
+                turn = boardState[figures.Length];
             }
             
             var boardWidth = _mathHelper.Sqrt(figures.Length);
@@ -122,6 +122,16 @@ namespace Checkers.BL.Services
             {
                 nextTurn = (turn == Turn.White ? Turn.Black : Turn.White);
             }
+
+            if (turn == Turn.White && !newFigures.Contains(Figures.BlackPawn) && !newFigures.Contains(Figures.BlackQueen))
+            {
+                nextTurn = Turn.WhiteWin;
+            }
+            if (turn == Turn.Black && !newFigures.Contains(Figures.WhitePawn) && !newFigures.Contains(Figures.WhiteQueen))
+            {
+                nextTurn = Turn.BlackWin;
+            }
+
 
             var result = newFigures + nextTurn + (toggleTurn?"" : toCoord);
             _boardRepository.Save(registrationId, result);

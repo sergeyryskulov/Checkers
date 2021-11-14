@@ -35,7 +35,7 @@ namespace Checkers.BL.Services.Tests
             string result = service.Move(0, 3, "");
 
 
-            Assert.IsTrue(result == "111qw");
+            Assert.IsTrue(result == "111qB");
         }
 
         [TestMethod()]
@@ -82,7 +82,7 @@ namespace Checkers.BL.Services.Tests
             var expected = "" +
                            "11Q" +
                            "111" +
-                           "111b";
+                           "111W";
 
             var service = GetMoveFigureService(boardRepository.Object);
 
@@ -106,7 +106,7 @@ namespace Checkers.BL.Services.Tests
             var expected = "" +
                            "11Q" +
                            "111" +
-                           "111b";
+                           "111W";
 
 
             var service = GetMoveFigureService(boardRepository.Object);
