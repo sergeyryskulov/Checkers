@@ -29,7 +29,6 @@ namespace Checkers.BL.Services
             _colorHelper = colorHelper;
         }
 
-
         public string Move(int fromCoord, int toCoord, string registrationId)
         {
             string boardState = _boardRepository.Load(registrationId);

@@ -13,11 +13,12 @@ namespace Ckeckers.DAL.Repositories
 
         //static string DefaultData= "1p1p1p1pp1p1p1p11p1p1p1p1111111111111111P1P1P1P11P1P1P1PP1P1P1P1w";
         static string DefaultData =""+
-            "1p1p1" +
-            "11111" +
-            "11111"+
-            "11111"+
-            "1Q1P1w";
+            "111Q11" +
+            "111111" +
+            "1p1111"+
+            "111111"+
+            "1p1111" +
+            "111111w";
         
         private static object lockOnject = new object();
         public void Save(string key, string state)

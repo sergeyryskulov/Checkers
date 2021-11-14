@@ -39,6 +39,37 @@ namespace Checkers.BL.Services.Tests
         }
 
         [TestMethod()]
+        public void Move_Pawder_SelfIncorrect()
+        {
+
+            var boardRepository = new Mock<IBoardRepository>();
+            boardRepository.Setup(m => m.Load("")).Returns("p111b");
+
+            var service = GetMoveFigureService(boardRepository.Object);
+
+            string result = service.Move(0, 0, "");
+
+
+            Assert.IsTrue(result == "p111b");
+        }
+
+        [TestMethod()]
+        public void Move_Queen_SelfIncorrect()
+        {
+
+            var boardRepository = new Mock<IBoardRepository>();
+            boardRepository.Setup(m => m.Load("")).Returns("q111b");
+
+            var service = GetMoveFigureService(boardRepository.Object);
+
+            string result = service.Move(0, 0, "");
+
+
+            Assert.IsTrue(result == "q111b");
+        }
+
+
+        [TestMethod()]
         public void Die_Correct()
         {
 
@@ -85,6 +116,7 @@ namespace Checkers.BL.Services.Tests
             Assert.AreEqual(expected, actual);
         }
 
+     
         [TestMethod()]
         public void Move_NotToggleTurm()
         {
@@ -111,5 +143,7 @@ namespace Checkers.BL.Services.Tests
             var actual = service.Move(30, 20, "");
             Assert.AreEqual(expected, actual);
         }
+
+
     }
 }

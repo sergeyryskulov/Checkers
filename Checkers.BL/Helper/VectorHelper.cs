@@ -13,6 +13,11 @@ namespace Checkers.BL.Helper
 
         public Vector CoordToVector(int fromCoord, int toCoord, int boardWidth)
         {
+            if (fromCoord == toCoord)
+            {
+                return null;
+            }
+
             int fromCoordXProjection = (fromCoord % boardWidth);
 
             int toCoordXProjection = (toCoord % boardWidth);
