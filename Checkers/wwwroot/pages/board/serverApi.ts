@@ -22,4 +22,8 @@
         $.post('/api/movefigure?fromCoord=' + fromCoord + '&toCoord=' + toCoord + '&registrationId=' + this.registrationId, callback);
     }
 
+    public intellectStep(callback) {
+
+        $.post('/api/intellectStep?registrationId=' + this.registrationId, callback);
+    }
 }

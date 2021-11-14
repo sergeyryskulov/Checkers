@@ -59,7 +59,7 @@ class Board {
         if (boardState[boardState.length - 1] !== 'w' &&
             boardState[boardState.length - 1] !== 'W' &&
             boardState[boardState.length - 1] !== 'b' &&
-            boardState[boardState.length - 1] !== 'b') {
+            boardState[boardState.length - 1] !== 'B') {
 
             figuresLength = Math.max(boardState.indexOf('w'), boardState.indexOf('W'), boardState.indexOf('b'), boardState.indexOf('B'));
         }
@@ -68,6 +68,8 @@ class Board {
             this.showFigureAt(coord, boardState[coord]);
         }
 
+        $('.state').text(boardState);
+
         if (boardState[figuresLength]=== 'w') {
             $('.turn').text('Ход белых');
         } if (boardState[figuresLength] === 'W') {
@@ -75,6 +77,7 @@ class Board {
             
         } else if (boardState[figuresLength] === 'b'){
             $('.turn').text('Ход черных');
+            this.serverApi.intellectStep((boardState) => this.showFiguresOnBoard(boardState));
             
         } else if (boardState[figuresLength] === 'B') {
             $('.turn').text('Черные выиграли!');

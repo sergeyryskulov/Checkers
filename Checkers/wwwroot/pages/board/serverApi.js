@@ -17,6 +17,9 @@ var ServerApi = /** @class */ (function () {
     ServerApi.prototype.moveFigureOnServer = function (fromCoord, toCoord, callback) {
         $.post('/api/movefigure?fromCoord=' + fromCoord + '&toCoord=' + toCoord + '&registrationId=' + this.registrationId, callback);
     };
+    ServerApi.prototype.intellectStep = function (callback) {
+        $.post('/api/intellectStep?registrationId=' + this.registrationId, callback);
+    };
     return ServerApi;
 }());
 //# sourceMappingURL=serverApi.js.map

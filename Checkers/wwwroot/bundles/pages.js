@@ -38,16 +38,18 @@ var Board = /** @class */ (function () {
         this.showFigureAt(toCoord, figure);
     };
     Board.prototype.showFiguresOnBoard = function (boardState) {
+        var _this = this;
         var figuresLength = boardState.length - 1;
         if (boardState[boardState.length - 1] !== 'w' &&
             boardState[boardState.length - 1] !== 'W' &&
             boardState[boardState.length - 1] !== 'b' &&
-            boardState[boardState.length - 1] !== 'b') {
+            boardState[boardState.length - 1] !== 'B') {
             figuresLength = Math.max(boardState.indexOf('w'), boardState.indexOf('W'), boardState.indexOf('b'), boardState.indexOf('B'));
         }
         for (var coord = 0; coord < figuresLength; coord++) {
             this.showFigureAt(coord, boardState[coord]);
         }
+        $('.state').text(boardState);
         if (boardState[figuresLength] === 'w') {
             $('.turn').text('Ход белых');
         }
@@ -56,6 +58,7 @@ var Board = /** @class */ (function () {
         }
         else if (boardState[figuresLength] === 'b') {
             $('.turn').text('Ход черных');
+            this.serverApi.intellectStep(function (boardState) { return _this.showFiguresOnBoard(boardState); });
         }
         else if (boardState[figuresLength] === 'B') {
             $('.turn').text('Черные выиграли!');
@@ -89,6 +92,9 @@ var ServerApi = /** @class */ (function () {
     };
     ServerApi.prototype.moveFigureOnServer = function (fromCoord, toCoord, callback) {
         $.post('/api/movefigure?fromCoord=' + fromCoord + '&toCoord=' + toCoord + '&registrationId=' + this.registrationId, callback);
+    };
+    ServerApi.prototype.intellectStep = function (callback) {
+        $.post('/api/intellectStep?registrationId=' + this.registrationId, callback);
     };
     return ServerApi;
 }());

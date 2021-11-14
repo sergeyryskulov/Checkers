@@ -11,14 +11,14 @@ namespace Ckeckers.DAL.Repositories
 
         private static Dictionary<string, string> data = new Dictionary<string, string>();
 
-        //static string DefaultData= "1p1p1p1pp1p1p1p11p1p1p1p1111111111111111P1P1P1P11P1P1P1PP1P1P1P1w";
-        static string DefaultData =""+
+        static string DefaultData= "1p1p1p1pp1p1p1p11p1p1p1p1111111111111111P1P1P1P11P1P1P1PP1P1P1P1w";
+        /*static string DefaultData =""+
             "111Q11" +
             "111111" +
             "1p1111"+
             "111111"+
             "1p1111" +
-            "P11111w";
+            "P11111w";*/
         
         private static object lockOnject = new object();
         public void Save(string key, string state)
