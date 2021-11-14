@@ -20,7 +20,8 @@ namespace Checkers.BL.Services.Tests
         {
             return new MoveFigureService(boardRepository, new VectorHelper(), new MathHelper(), 
                 new PawnService(new VectorHelper(), new MathHelper(), new ColorHelper()),
-                new QueenService(new VectorHelper(),new MathHelper(), new ColorHelper()));
+                new QueenService(new VectorHelper(),new MathHelper(), new ColorHelper()),
+                new ColorHelper());
         }
 
         [TestMethod()]
@@ -28,14 +29,14 @@ namespace Checkers.BL.Services.Tests
         {
 
             var boardRepository = new Mock<IBoardRepository>();
-            boardRepository.Setup(m => m.Load("")).Returns("p111w");
+            boardRepository.Setup(m => m.Load("")).Returns("p111b");
 
             var service = GetMoveFigureService(boardRepository.Object);
 
             string result = service.Move(0, 3, "");
 
 
-            Assert.IsTrue(result == "111pb");
+            Assert.IsTrue(result == "111pw");
         }
 
         [TestMethod()]

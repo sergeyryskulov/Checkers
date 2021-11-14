@@ -18,14 +18,17 @@ namespace Checkers.BL.Services
         private MathHelper _mathHelper;
         private PawnService _pawnService;
         private QueenService _queenService;
+        private ColorHelper _colorHelper;
 
-        public MoveFigureService(IBoardRepository boardRepository, VectorHelper vectorHelper, MathHelper mathHelper, PawnService pawnService, QueenService queenService)
+
+        public MoveFigureService(IBoardRepository boardRepository, VectorHelper vectorHelper, MathHelper mathHelper, PawnService pawnService, QueenService queenService, ColorHelper colorHelper)
         {
             _boardRepository = boardRepository;
             _vectorHelper = vectorHelper;
             _mathHelper = mathHelper;
             _pawnService = pawnService;
             _queenService = queenService;
+            _colorHelper = colorHelper;
         }
 
 
@@ -45,6 +48,11 @@ namespace Checkers.BL.Services
                 return boardState;
             }
 
+            if (_colorHelper.GetFigureColor(figures[fromCoord]) == FigureColor.White && turn != Turn.White ||
+                _colorHelper.GetFigureColor(figures[fromCoord]) == FigureColor.Black && turn != Turn.Black)
+            {
+                return boardState;
+            }
 
             if (figures[fromCoord] == Figures.WhitePawn || figures[fromCoord] == Figures.BlackPawn)
             {
