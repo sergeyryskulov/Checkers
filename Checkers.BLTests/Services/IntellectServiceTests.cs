@@ -28,7 +28,7 @@ namespace Checkers.BL.Services.Tests
 
             string expected = "111qB";
             
-            Assert.AreEqual(actual, expected);
+            Assert.AreEqual(expected, actual);
         
         }
 
@@ -43,9 +43,9 @@ namespace Checkers.BL.Services.Tests
 
             string actual = service.IntellectStep("");
 
-            string expected = "1p1p1p1pp111p1111111111p1111p11111111111P11111P11P1P1p11P1P1P1P1b53";
+            string notExpected = "1p1p1p1pp111p1111111111p1111p11111111111P11111P11P1P1p11P1P1P1P1b53";
 
-            Assert.IsTrue(actual!= expected);
+            Assert.AreNotEqual(notExpected, actual);
 
         }
 
@@ -63,7 +63,6 @@ namespace Checkers.BL.Services.Tests
                 new MathHelper()
 
             );
-
         }
     }
 }
