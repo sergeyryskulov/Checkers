@@ -53,14 +53,16 @@ namespace Checkers.BL.Services.Tests
         {
             var moveService = new MoveFigureService(new VectorHelper(), new MathHelper(),
                 new ValidateService(new VectorHelper(), new MathHelper(), new ColorHelper()),
-                new ColorHelper());
+                new ColorHelper(),
+                new StateParserHelper());
 
             return new IntellectService(new ValidateService(new VectorHelper(), new MathHelper(), new ColorHelper()),
                 boardRepository,
                 new ColorHelper(),
                 moveService,
                 new VectorHelper(),
-                new MathHelper()
+                new MathHelper(),
+                new StateParserHelper()
 
             );
         }

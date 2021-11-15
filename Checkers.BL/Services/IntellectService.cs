@@ -22,8 +22,10 @@ namespace Checkers.BL.Services
         private MoveFigureService _moveFigureService;
         private VectorHelper _vectorHelper;
         private MathHelper _mathHelper;
+        private StateParserHelper _stateParserHelper;
 
-        public IntellectService(ValidateService validateService, IBoardRepository boardRepository, ColorHelper colorHelper, MoveFigureService moveFigureService, VectorHelper vectorHelper, MathHelper mathHelper)
+
+        public IntellectService(ValidateService validateService, IBoardRepository boardRepository, ColorHelper colorHelper, MoveFigureService moveFigureService, VectorHelper vectorHelper, MathHelper mathHelper, StateParserHelper stateParserHelper)
         {
             _validateService = validateService;
             _boardRepository = boardRepository;
@@ -31,38 +33,19 @@ namespace Checkers.BL.Services
             _moveFigureService = moveFigureService;
             _vectorHelper = vectorHelper;
             _mathHelper = mathHelper;
+            _stateParserHelper = stateParserHelper;
         }
 
         public string IntellectStep(string registrationId)
         {
-            string boardState = _boardRepository.Load(registrationId);
-
-            char turn = boardState[boardState.Length - 1];
-            string figures = boardState.Substring(0, boardState.Length - 1);
-            var mustCoord = -1;
-
-            if (turn != Turn.White && turn != Turn.Black && turn != Turn.WhiteWin && turn != Turn.BlackWin)
-            {
-                figures = boardState.Split(new char[]
-                {
-                    Turn.White, Turn.Black, Turn.WhiteWin, Turn.BlackWin
-                }, StringSplitOptions.None)[0];
-
-                var mustCoordString = boardState.Split(new char[]
-                {
-                    Turn.White, Turn.Black, Turn.WhiteWin, Turn.BlackWin
-                }, StringSplitOptions.None)[1];
-
-                mustCoord = int.Parse(mustCoordString);
-                
-
-                turn = boardState[figures.Length];
-            }
+            string boardStateString = _boardRepository.Load(registrationId);
+            var boardState= _stateParserHelper.ParseState(boardStateString);
+            string figures = boardState.Figures;
 
             Dictionary<int, List<Vector>> allVariants = new Dictionary<int, List< Vector>>();
             for (int coord = 0; coord < figures.Length; coord++)
             {
-                if (mustCoord != -1 && coord != mustCoord)
+                if (boardState.MustCoord != -1 && coord != boardState.MustCoord)
                 {
                     continue;
                 }
@@ -74,7 +57,6 @@ namespace Checkers.BL.Services
                     {
                         allVariants.Add(coord, allowedVectors);
                     }
-                    
                 }
             }
 
@@ -84,7 +66,7 @@ namespace Checkers.BL.Services
             var randomVector = randomVectors[rand.Next(randomVectors.Count)];
             var boardWidth  = _mathHelper.Sqrt(figures.Length);
             var randomToCoord = _vectorHelper.VectorToCoord(randomCoord, randomVector, boardWidth);
-            string resultState= _moveFigureService.Move(boardState, randomCoord, randomToCoord);
+            string resultState= _moveFigureService.Move(boardStateString, randomCoord, randomToCoord);
             _boardRepository.Save(registrationId, resultState);
             return resultState;
         }

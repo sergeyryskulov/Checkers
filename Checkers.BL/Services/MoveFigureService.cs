@@ -18,52 +18,39 @@ namespace Checkers.BL.Services
         private ValidateService _validateService;
         private ColorHelper _colorHelper;
 
+        private StateParserHelper _stateParserHelper;
 
-        public MoveFigureService( VectorHelper vectorHelper, MathHelper mathHelper, ValidateService validateService, ColorHelper colorHelper)
+        public MoveFigureService( VectorHelper vectorHelper, MathHelper mathHelper, ValidateService validateService, ColorHelper colorHelper, StateParserHelper stateParserHelper)
         {
             _vectorHelper = vectorHelper;
             _mathHelper = mathHelper;
             _validateService = validateService;
             _colorHelper = colorHelper;
+            _stateParserHelper = stateParserHelper;
         }
 
-        public string Move(string boardState, int fromCoord, int toCoord, string regId="")
+        public string Move(string boardStateString, int fromCoord, int toCoord, string regId="")
         {
-            
-            char turn = boardState[boardState.Length - 1];
-            string figures = boardState.Substring(0, boardState.Length - 1);
-            if (turn != Turn.White && turn != Turn.Black && turn!=Turn.WhiteWin && turn!= Turn.BlackWin)
+            var boardState=  _stateParserHelper.ParseState(boardStateString);
+            if (boardState.MustCoord != -1 && boardState.MustCoord != fromCoord)
             {
-                figures = boardState.Split(new char[]
-                {
-                    Turn.White, Turn.Black, Turn.WhiteWin, Turn.BlackWin
-                }, StringSplitOptions.None)[0];
-
-                var mustCoordString = boardState.Split(new char[]
-                {
-                    Turn.White, Turn.Black, Turn.WhiteWin, Turn.BlackWin
-                }, StringSplitOptions.None)[1];
-
-                if (fromCoord != int.Parse(mustCoordString))
-                {
-                    return boardState;
-                }
-
-                turn = boardState[figures.Length];
+                return boardStateString;
             }
-            
+
+            string figures = boardState.Figures;
+
             var boardWidth = _mathHelper.Sqrt(figures.Length);
 
             var vector = _vectorHelper.CoordToVector(fromCoord, toCoord, boardWidth);
             if (vector == null)
             {
-                return boardState;
+                return boardStateString;
             }
 
-            if (_colorHelper.GetFigureColor(figures[fromCoord]) == FigureColor.White && turn != Turn.White ||
-                _colorHelper.GetFigureColor(figures[fromCoord]) == FigureColor.Black && turn != Turn.Black)
+            if (_colorHelper.GetFigureColor(figures[fromCoord]) == FigureColor.White && boardState.Turn != Turn.White ||
+                _colorHelper.GetFigureColor(figures[fromCoord]) == FigureColor.Black && boardState.Turn != Turn.Black)
             {
-                return boardState;
+                return boardStateString;
             }
 
             bool isDie = false;
@@ -72,17 +59,17 @@ namespace Checkers.BL.Services
             {
                 if (!_validateService.GetAllowedVectors(fromCoord, figures, out isDie).Contains(vector))
                 {
-                    return boardState;
+                    return boardStateString;
                 }
             }
 
             StringBuilder newFiguresBuilder = new StringBuilder(figures);
             newFiguresBuilder[toCoord] = newFiguresBuilder[fromCoord];
-            if (toCoord < boardWidth && turn==Turn.White)
+            if (toCoord < boardWidth && boardState.Turn==Turn.White)
             {
                 newFiguresBuilder[toCoord] = Figures.WhiteQueen;
             }
-            if (toCoord >= boardWidth * (boardWidth - 1) && turn == Turn.Black)
+            if (toCoord >= boardWidth * (boardWidth - 1) && boardState.Turn == Turn.Black)
             {
                 newFiguresBuilder[toCoord] = Figures.BlackQueen; 
             }
@@ -114,17 +101,17 @@ namespace Checkers.BL.Services
                 }
             }
 
-            var nextTurn = turn;
+            var nextTurn = boardState.Turn;
             if (toggleTurn)
             {
-                nextTurn = (turn == Turn.White ? Turn.Black : Turn.White);
+                nextTurn = (boardState.Turn == Turn.White ? Turn.Black : Turn.White);
             }
 
-            if (turn == Turn.White && !newFigures.Contains(Figures.BlackPawn) && !newFigures.Contains(Figures.BlackQueen))
+            if (boardState.Turn == Turn.White && !newFigures.Contains(Figures.BlackPawn) && !newFigures.Contains(Figures.BlackQueen))
             {
                 nextTurn = Turn.WhiteWin;
             }
-            if (turn == Turn.Black && !newFigures.Contains(Figures.WhitePawn) && !newFigures.Contains(Figures.WhiteQueen))
+            if (boardState.Turn == Turn.Black && !newFigures.Contains(Figures.WhitePawn) && !newFigures.Contains(Figures.WhiteQueen))
             {
                 nextTurn = Turn.BlackWin;
             }

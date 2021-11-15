@@ -14,15 +14,6 @@ namespace Checkers.BL.Services.Tests
     [TestClass()]
     public class MoveFigureServiceTests
     {
-
-
-        private MoveFigureService GetMoveFigureService()
-        {
-            return new MoveFigureService(new VectorHelper(), new MathHelper(), 
-                new ValidateService(new VectorHelper(), new MathHelper(), new ColorHelper()),
-                new ColorHelper());
-        }
-
         [TestMethod()]
         public void Move_Correct()
         {
@@ -150,6 +141,12 @@ namespace Checkers.BL.Services.Tests
             Assert.AreEqual(expected, actual);
         }
 
-
+        private MoveFigureService GetMoveFigureService()
+        {
+            return new MoveFigureService(new VectorHelper(), new MathHelper(),
+                new ValidateService(new VectorHelper(), new MathHelper(), new ColorHelper()),
+                new ColorHelper(),
+                new StateParserHelper());
+        }
     }
 }
