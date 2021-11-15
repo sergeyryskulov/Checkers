@@ -29,7 +29,7 @@ namespace Checkers.BL.Services
             _stateParserHelper = stateParserHelper;
         }
 
-        public string Move(string boardStateString, int fromCoord, int toCoord, string regId="")
+        public string Move(string boardStateString, int fromCoord, int toCoord)
         {
             var boardState=  _stateParserHelper.ParseState(boardStateString);
             if (boardState.MustCoord != -1 && boardState.MustCoord != fromCoord)

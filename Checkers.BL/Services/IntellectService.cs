@@ -41,6 +41,7 @@ namespace Checkers.BL.Services
             string boardStateString = _boardRepository.Load(registrationId);
             var boardState= _stateParserHelper.ParseState(boardStateString);
             string figures = boardState.Figures;
+            var boardWidth = _mathHelper.Sqrt(figures.Length);
 
             Dictionary<int, List<Vector>> allVariants = new Dictionary<int, List< Vector>>();
             for (int coord = 0; coord < figures.Length; coord++)
@@ -60,11 +61,18 @@ namespace Checkers.BL.Services
                 }
             }
 
+            foreach (var fromCoord in allVariants.Keys)
+            {
+                foreach (var vector in allVariants[fromCoord])
+                {
+                    var toCoord = _vectorHelper.VectorToCoord(fromCoord, vector, boardWidth);
+                    //_moveFigureService.Move(figures, fromCoord, toCoord)
+                }
+                }
             var rand = new Random();
             var randomCoord= allVariants.Keys.ToList()[rand.Next(allVariants.Keys.Count)];
             var randomVectors= allVariants[randomCoord];
             var randomVector = randomVectors[rand.Next(randomVectors.Count)];
-            var boardWidth  = _mathHelper.Sqrt(figures.Length);
             var randomToCoord = _vectorHelper.VectorToCoord(randomCoord, randomVector, boardWidth);
             string resultState= _moveFigureService.Move(boardStateString, randomCoord, randomToCoord);
             _boardRepository.Save(registrationId, resultState);

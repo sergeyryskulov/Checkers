@@ -43,7 +43,7 @@ namespace Checkers.BL.Services.Tests
         {
             var service = GetMoveFigureService();
 
-            string actual = service.Move("q111b", 0, 0, "");
+            string actual = service.Move("q111b", 0, 0);
 
             var expected = "q111b";
 
@@ -65,7 +65,7 @@ namespace Checkers.BL.Services.Tests
             string actual = service.Move("" +
                                          "111" +
                                          "1p1" +
-                                         "P11w", 6, 2, "");
+                                         "P11w", 6, 2);
 
             Assert.AreEqual(expected, actual);
         }
@@ -87,7 +87,7 @@ namespace Checkers.BL.Services.Tests
             string actual = service.Move("" +
                                          "111" +
                                          "1p1" +
-                                         "P11w", 6, 2, "");
+                                         "P11w", 6, 2);
 
             Assert.AreEqual(expected, actual);
         }
@@ -113,7 +113,7 @@ namespace Checkers.BL.Services.Tests
                                       "P11p11" +
                                       "111111" +
                                       "1p1111" +
-                                      "P11111w", 30, 20, "");
+                                      "P11111w", 30, 20);
             Assert.AreEqual(expected, actual);
         }
 
@@ -137,7 +137,7 @@ namespace Checkers.BL.Services.Tests
                                       "1p1111" +
                                       "111111" +
                                       "1p1111" +
-                                      "111111w", 3, 18, "");
+                                      "111111w", 3, 18);
             Assert.AreEqual(expected, actual);
         }
 
