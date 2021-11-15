@@ -13,26 +13,23 @@ namespace Checkers.BL.Services
 {
     public class MoveFigureService
     {
-        private IBoardRepository _boardRepository;
         private VectorHelper _vectorHelper;
         private MathHelper _mathHelper;
         private ValidateService _validateService;
         private ColorHelper _colorHelper;
 
 
-        public MoveFigureService(IBoardRepository boardRepository, VectorHelper vectorHelper, MathHelper mathHelper, ValidateService validateService, ColorHelper colorHelper)
+        public MoveFigureService( VectorHelper vectorHelper, MathHelper mathHelper, ValidateService validateService, ColorHelper colorHelper)
         {
-            _boardRepository = boardRepository;
             _vectorHelper = vectorHelper;
             _mathHelper = mathHelper;
             _validateService = validateService;
             _colorHelper = colorHelper;
         }
 
-        public string Move(int fromCoord, int toCoord, string registrationId)
+        public string Move(string boardState, int fromCoord, int toCoord, string regId="")
         {
-            string boardState = _boardRepository.Load(registrationId);
-
+            
             char turn = boardState[boardState.Length - 1];
             string figures = boardState.Substring(0, boardState.Length - 1);
             if (turn != Turn.White && turn != Turn.Black && turn!=Turn.WhiteWin && turn!= Turn.BlackWin)
@@ -133,9 +130,9 @@ namespace Checkers.BL.Services
             }
 
 
-            var result = newFigures + nextTurn + (toggleTurn?"" : toCoord);
-            _boardRepository.Save(registrationId, result);
-            return result;
+            var resultState = newFigures + nextTurn + (toggleTurn?"" : toCoord);
+            
+            return resultState;
         }
 
       

@@ -15,17 +15,25 @@ namespace Checkers.Controllers
     public class MoveFigureController : ControllerBase
     {
         private MoveFigureService _moveFigureService;
+        private BoardRepository _boardRepository;
 
-
-        public MoveFigureController(MoveFigureService moveFigureService)
+        public MoveFigureController(MoveFigureService moveFigureService, BoardRepository boardRepository)
         {
             _moveFigureService = moveFigureService;
+            _boardRepository = boardRepository;
         }
 
 
         public string Post(int fromCoord, int toCoord, string registrationId)
         {
-            return _moveFigureService.Move(fromCoord, toCoord, registrationId);
+            var oldState= _boardRepository.Load(registrationId);
+            var newState= _moveFigureService.Move(oldState, fromCoord, toCoord);
+            if (oldState != newState)
+            {
+                _boardRepository.Save(registrationId, newState);
+            }
+
+            return newState;
         }
     }
 }

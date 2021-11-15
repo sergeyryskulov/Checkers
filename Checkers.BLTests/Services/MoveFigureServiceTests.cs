@@ -16,9 +16,9 @@ namespace Checkers.BL.Services.Tests
     {
 
 
-        private MoveFigureService GetMoveFigureService(IBoardRepository boardRepository)
+        private MoveFigureService GetMoveFigureService()
         {
-            return new MoveFigureService(boardRepository, new VectorHelper(), new MathHelper(), 
+            return new MoveFigureService(new VectorHelper(), new MathHelper(), 
                 new ValidateService(new VectorHelper(), new MathHelper(), new ColorHelper()),
                 new ColorHelper());
         }
@@ -26,46 +26,37 @@ namespace Checkers.BL.Services.Tests
         [TestMethod()]
         public void Move_Correct()
         {
+            var service = GetMoveFigureService();
 
-            var boardRepository = new Mock<IBoardRepository>();
-            boardRepository.Setup(m => m.Load("")).Returns("p111b");
+            string actual = service.Move("p111b",0, 3);
 
-            var service = GetMoveFigureService(boardRepository.Object);
+            var expected = "111qB";
 
-            string result = service.Move(0, 3, "");
-
-
-            Assert.IsTrue(result == "111qB");
+            Assert.AreEqual(expected, actual);
         }
 
         [TestMethod()]
         public void Move_Pawder_SelfIncorrect()
         {
+            var service = GetMoveFigureService();
 
-            var boardRepository = new Mock<IBoardRepository>();
-            boardRepository.Setup(m => m.Load("")).Returns("p111b");
+            var actual = service.Move("p111b", 0, 0);
 
-            var service = GetMoveFigureService(boardRepository.Object);
+            var expected = "p111b";
 
-            string result = service.Move(0, 0, "");
-
-
-            Assert.IsTrue(result == "p111b");
+            Assert.AreEqual(expected, actual);
         }
 
         [TestMethod()]
         public void Move_Queen_SelfIncorrect()
         {
+            var service = GetMoveFigureService();
 
-            var boardRepository = new Mock<IBoardRepository>();
-            boardRepository.Setup(m => m.Load("")).Returns("q111b");
+            string actual = service.Move("q111b", 0, 0, "");
 
-            var service = GetMoveFigureService(boardRepository.Object);
+            var expected = "q111b";
 
-            string result = service.Move(0, 0, "");
-
-
-            Assert.IsTrue(result == "q111b");
+            Assert.AreEqual(expected, actual);
         }
 
 
@@ -73,20 +64,17 @@ namespace Checkers.BL.Services.Tests
         public void Die_Correct()
         {
 
-            var boardRepository = new Mock<IBoardRepository>();
-            boardRepository.Setup(m => m.Load("")).Returns("" +
-                                                           "111" +
-                                                           "1p1" +
-                                                           "P11w");
-
             var expected = "" +
                            "11Q" +
                            "111" +
                            "111W";
 
-            var service = GetMoveFigureService(boardRepository.Object);
+            var service = GetMoveFigureService();
 
-            string actual = service.Move(6, 2, "");
+            string actual = service.Move("" +
+                                         "111" +
+                                         "1p1" +
+                                         "P11w", 6, 2, "");
 
             Assert.AreEqual(expected, actual);
         }
@@ -96,12 +84,6 @@ namespace Checkers.BL.Services.Tests
         public void Block_Correct()
         {
 
-            var boardRepository = new Mock<IBoardRepository>();
-            boardRepository.Setup(m => m.Load("")).Returns("" +
-
-                                                           "111" +
-                                                           "1p1" +
-                                                           "P11w");
 
             var expected = "" +
                            "11Q" +
@@ -109,9 +91,12 @@ namespace Checkers.BL.Services.Tests
                            "111W";
 
 
-            var service = GetMoveFigureService(boardRepository.Object);
+            var service = GetMoveFigureService();
 
-            string actual = service.Move(6, 2, "");
+            string actual = service.Move("" +
+                                         "111" +
+                                         "1p1" +
+                                         "P11w", 6, 2, "");
 
             Assert.AreEqual(expected, actual);
         }
@@ -120,42 +105,31 @@ namespace Checkers.BL.Services.Tests
         [TestMethod()]
         public void Move_NotToggleTurm()
         {
-            var boardRepository = new Mock<IBoardRepository>();
-            boardRepository.Setup(m => m.Load("")).Returns("" +
-
-                                                           "111111" +
-                                                           "111111" +
-                                                           "P11p11" +
-                                                           "111111" +
-                                                           "1p1111" +
-                                                           "P11111w");
 
             var expected = "" +
-                         "111111" +
-                         "111111" +
-                         "P11p11" +
-                         "11P111" +
-                         "111111" +
-                         "111111w20";
+                           "111111" +
+                           "111111" +
+                           "P11p11" +
+                           "11P111" +
+                           "111111" +
+                           "111111w20";
 
-            var service = GetMoveFigureService(boardRepository.Object);
+            var service = GetMoveFigureService();
 
-            var actual = service.Move(30, 20, "");
+            var actual = service.Move("" +
+                                      "111111" +
+                                      "111111" +
+                                      "P11p11" +
+                                      "111111" +
+                                      "1p1111" +
+                                      "P11111w", 30, 20, "");
             Assert.AreEqual(expected, actual);
         }
 
         [TestMethod()]
         public void Move_NotToggleTurn2()
         {
-            var boardRepository = new Mock<IBoardRepository>();
-            boardRepository.Setup(m => m.Load("")).Returns("" +
-                                                           "111Q11" +
-                                                           "111111" +
-                                                           "1p1111" +
-                                                           "111111" +
-                                                           "1p1111" +
-                                                           "111111w");
-
+            
             var expected = "" +
                            "111111" +
                            "111111" +
@@ -164,9 +138,15 @@ namespace Checkers.BL.Services.Tests
                            "1p1111" +
                            "111111w18";
 
-            var service = GetMoveFigureService(boardRepository.Object);
+            var service = GetMoveFigureService();
 
-            var actual = service.Move(3, 18, "");
+            var actual = service.Move("" +
+                                      "111Q11" +
+                                      "111111" +
+                                      "1p1111" +
+                                      "111111" +
+                                      "1p1111" +
+                                      "111111w", 3, 18, "");
             Assert.AreEqual(expected, actual);
         }
 

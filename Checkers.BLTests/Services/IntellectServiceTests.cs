@@ -51,7 +51,7 @@ namespace Checkers.BL.Services.Tests
 
         private IntellectService GetIntellectService(IBoardRepository boardRepository)
         {
-            var moveService = new MoveFigureService(boardRepository, new VectorHelper(), new MathHelper(),
+            var moveService = new MoveFigureService(new VectorHelper(), new MathHelper(),
                 new ValidateService(new VectorHelper(), new MathHelper(), new ColorHelper()),
                 new ColorHelper());
 

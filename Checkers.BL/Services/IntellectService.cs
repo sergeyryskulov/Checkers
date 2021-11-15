@@ -84,7 +84,9 @@ namespace Checkers.BL.Services
             var randomVector = randomVectors[rand.Next(randomVectors.Count)];
             var boardWidth  = _mathHelper.Sqrt(figures.Length);
             var randomToCoord = _vectorHelper.VectorToCoord(randomCoord, randomVector, boardWidth);
-            return _moveFigureService.Move(randomCoord, randomToCoord, registrationId);
+            string resultState= _moveFigureService.Move(boardState, randomCoord, randomToCoord);
+            _boardRepository.Save(registrationId, resultState);
+            return resultState;
         }
     }
 }
