@@ -36,48 +36,42 @@ namespace Checkers.BL.Services
             _stateParserHelper = stateParserHelper;
         }
 
+     
         public string IntellectStep(string registrationId)
         {
             string boardStateString = _boardRepository.Load(registrationId);
-            var boardState= _stateParserHelper.ParseState(boardStateString);
-            string figures = boardState.Figures;
-            var boardWidth = _mathHelper.Sqrt(figures.Length);
-
-            Dictionary<int, List<Vector>> allVariants = new Dictionary<int, List< Vector>>();
-            for (int coord = 0; coord < figures.Length; coord++)
-            {
-                if (boardState.MustCoord != -1 && coord != boardState.MustCoord)
-                {
-                    continue;
-                }
-
-                if (_colorHelper.GetFigureColor(figures[coord]) == FigureColor.Black)
-                {
-                    var allowedVectors = _validateService.GetAllowedVectors(coord, figures, out var isDie);
-                    if (allowedVectors.Count > 0)
-                    {
-                        allVariants.Add(coord, allowedVectors);
-                    }
-                }
-            }
-
             var maxWeight = -100;
-           
-            string bestState = "";
-            foreach (var fromCoord in allVariants.Keys)
+            
+            int worstWhiteInWariants = 19999;
+            string stateWhereWorstWhiteInVariants = "";
+            foreach (var outputState in GetNextStepVariants(boardStateString))
             {
-                foreach (var vector in allVariants[fromCoord])
+
+                var weight = GetWeight(outputState, Turn.Black);
+                if (weight > maxWeight)
                 {
-                    var toCoord = _vectorHelper.VectorToCoord(fromCoord, vector, boardWidth);
-                    var newState= _moveFigureService.Move(boardStateString, fromCoord, toCoord, true);
-                    var weight = GetWeight(newState);
-                    if (weight > maxWeight && newState!=boardStateString)
+                    maxWeight = weight;
+                }
+
+                int bestWeight2 = -100;
+
+                foreach (var outputStateWhite in GetNextStepVariants(outputState))
+                {
+                    var weigh2 = GetWeight(outputStateWhite, Turn.White);
+                    if (weigh2 > bestWeight2)
                     {
-                        maxWeight = weight;
-                        bestState = newState;
+                        bestWeight2 = weigh2;
                     }
                 }
+
+                if (bestWeight2 < worstWhiteInWariants)
+                {
+                    worstWhiteInWariants = bestWeight2;
+                    stateWhereWorstWhiteInVariants = outputState;
+                }
             }
+
+            string  bestState = stateWhereWorstWhiteInVariants;
             _boardRepository.Save(registrationId, bestState);
             return bestState;
             /* var rand = new Random();
@@ -91,8 +85,43 @@ namespace Checkers.BL.Services
 
 
         }
+        private List<string> GetNextStepVariants(string inputState)
+        {
+            var result = new List<string>();
 
-        private int GetWeight(string boardState)
+            var boardState = _stateParserHelper.ParseState(inputState);
+            string figures = boardState.Figures;
+            var boardWidth = _mathHelper.Sqrt(figures.Length);
+
+            for (int fromCoord = 0; fromCoord < figures.Length; fromCoord++)
+            {
+                if (boardState.MustCoord != -1 && fromCoord != boardState.MustCoord)
+                {
+                    continue;
+                }
+
+                if ((boardState.Turn == Turn.Black && _colorHelper.GetFigureColor(figures[fromCoord]) == FigureColor.Black) ||
+                    (boardState.Turn == Turn.White && _colorHelper.GetFigureColor(figures[fromCoord]) == FigureColor.White
+                    ))
+                {
+                    var allowedVectors = _validateService.GetAllowedVectors(fromCoord, figures, out var isDie);
+                    foreach (var allowedVector in allowedVectors)
+                    {
+                        var toCoord = _vectorHelper.VectorToCoord(fromCoord, allowedVector, boardWidth);
+                        var newState = _moveFigureService.Move(inputState, fromCoord, toCoord, true);
+                        if (newState != inputState)
+                        {
+                            result.Add(newState);
+                        }
+                    }
+                }
+            }
+
+            return result;
+
+        }
+
+        private int GetWeight(string boardState, char turn)
         {
             int result = 0;
             foreach (var figure in boardState)
@@ -105,6 +134,11 @@ namespace Checkers.BL.Services
                     case Figures.WhitePawn: result -= 1; break;
                     default: break;
                 }
+            }
+
+            if (turn==Turn.White)
+            {
+                return -1*result;
             }
 
             return result;
