@@ -40,34 +40,41 @@ namespace Checkers.BL.Services
         public string IntellectStep(string registrationId)
         {
             string boardStateString = _boardRepository.Load(registrationId);
-            var maxWeight = -100;
             
-            int worstWhiteInWariants = 19999;
+            int worstWhiteInVariants = 19999;
             string stateWhereWorstWhiteInVariants = "";
-            foreach (var outputState in GetNextStepVariants(boardStateString))
+            foreach (var outputBlackState in GetNextStepVariants(boardStateString))
             {
+                int bestWhiteWeight = -100;
 
-                var weight = GetWeight(outputState, Turn.Black);
-                if (weight > maxWeight)
+                string outputBlackStateMustBeBlack = outputBlackState;
+                while (!outputBlackStateMustBeBlack.Contains(Turn.Black))
                 {
-                    maxWeight = weight;
+                    outputBlackStateMustBeBlack = GetNextStepVariants(outputBlackStateMustBeBlack)[0];
+
                 }
 
-                int bestWeight2 = -100;
 
-                foreach (var outputStateWhite in GetNextStepVariants(outputState))
+                foreach (var outputWhiteState in GetNextStepVariants(outputBlackStateMustBeBlack))
                 {
-                    var weigh2 = GetWeight(outputStateWhite, Turn.White);
-                    if (weigh2 > bestWeight2)
+                    string outpuWhiteStateMustBeWhite = outputWhiteState;
+                    while (!outpuWhiteStateMustBeWhite.Contains(Turn.White))
                     {
-                        bestWeight2 = weigh2;
+                        outpuWhiteStateMustBeWhite = GetNextStepVariants(outpuWhiteStateMustBeWhite)[0];
+
+                    }
+
+                    var weigh2 = GetWeight(outpuWhiteStateMustBeWhite, Turn.White);
+                    if (weigh2 > bestWhiteWeight)
+                    {
+                        bestWhiteWeight = weigh2;
                     }
                 }
 
-                if (bestWeight2 < worstWhiteInWariants)
+                if (bestWhiteWeight < worstWhiteInVariants)
                 {
-                    worstWhiteInWariants = bestWeight2;
-                    stateWhereWorstWhiteInVariants = outputState;
+                    worstWhiteInVariants = bestWhiteWeight;
+                    stateWhereWorstWhiteInVariants = outputBlackState;
                 }
             }
 
