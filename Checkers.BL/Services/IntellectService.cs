@@ -47,24 +47,10 @@ namespace Checkers.BL.Services
             {
                 int bestWhiteWeight = -100;
 
-                string outputBlackStateMustBeBlack = outputBlackState;
-                while (!outputBlackStateMustBeBlack.Contains(Turn.Black))
+                foreach (var outputWhiteState in GetNextStepVariants(outputBlackState))
                 {
-                    outputBlackStateMustBeBlack = GetNextStepVariants(outputBlackStateMustBeBlack)[0];
-
-                }
-
-
-                foreach (var outputWhiteState in GetNextStepVariants(outputBlackStateMustBeBlack))
-                {
-                    string outpuWhiteStateMustBeWhite = outputWhiteState;
-                    while (!outpuWhiteStateMustBeWhite.Contains(Turn.White))
-                    {
-                        outpuWhiteStateMustBeWhite = GetNextStepVariants(outpuWhiteStateMustBeWhite)[0];
-
-                    }
-
-                    var weigh2 = GetWeight(outpuWhiteStateMustBeWhite, Turn.White);
+                    
+                    var weigh2 = GetWeight(outputWhiteState, Turn.White);
                     if (weigh2 > bestWhiteWeight)
                     {
                         bestWhiteWeight = weigh2;
@@ -100,6 +86,8 @@ namespace Checkers.BL.Services
             string figures = boardState.Figures;
             var boardWidth = _mathHelper.Sqrt(figures.Length);
 
+            var stateWithNoChangeTurn = new List<string>();
+
             for (int fromCoord = 0; fromCoord < figures.Length; fromCoord++)
             {
                 if (boardState.MustCoord != -1 && fromCoord != boardState.MustCoord)
@@ -118,10 +106,24 @@ namespace Checkers.BL.Services
                         var newState = _moveFigureService.Move(inputState, fromCoord, toCoord, true);
                         if (newState != inputState)
                         {
-                            result.Add(newState);
+                            if (boardState.Turn == Turn.Black && newState.Contains(Turn.Black))
+                            {
+                                stateWithNoChangeTurn.Add(newState);
+                                
+                            }
+                            else
+                            {
+                                result.Add(newState);
+                            }
+                            
                         }
                     }
                 }
+            }
+
+            foreach (var noChangeCOlorState in stateWithNoChangeTurn)
+            {
+                result.AddRange(GetNextStepVariants(noChangeCOlorState));
             }
 
             return result;
