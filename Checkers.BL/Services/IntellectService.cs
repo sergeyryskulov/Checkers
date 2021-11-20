@@ -43,6 +43,11 @@ namespace Checkers.BL.Services
         {
             var nextWhiteVariants = GetNextStepVariants(state);
 
+            if (nextWhiteVariants.Count == 0)
+            {
+                return -100;
+            }
+
             var minimumWhite = nextWhiteVariants.OrderByDescending(t => GetWeight(t, FigureColor.White)).First();
 
             return GetWeight(minimumWhite, FigureColor.White);
@@ -57,8 +62,6 @@ namespace Checkers.BL.Services
 
             string bestState= GetNextStepVariants(boardStateString).OrderBy(t => GetBestForWhite(t)).First();
             
-           
-
 
             //string bestState = nextVariants.OrderByDescending(t => GetWeight(t, intellectColor)).First();
 

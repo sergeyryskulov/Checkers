@@ -30,8 +30,26 @@ namespace Checkers.BL.Services.Tests
             string expected = "111qB";
             
             Assert.AreEqual(expected, actual);
-        
+
         }
+
+
+        [TestMethod()]
+        public void IntellectStep_NoWhiteMove()
+        {
+            var boardRepository = new Mock<IBoardRepository>();
+            boardRepository.Setup(m => m.Load("")).Returns("1111111p111111p11p111p1pp11111p11p11111P11111111111P111111q11111b");
+
+            var service = GetIntellectService(boardRepository.Object);
+
+            string actual = service.IntellectStep("");
+
+            string notExpected = "1111111p111111p11p111p1pp11111p11p11111P11111111111P111111q11111b";
+
+            Assert.AreNotEqual(notExpected, actual);
+
+        }
+
         [TestMethod()]
         public void IntellectStepOneDeepTest()
         {
