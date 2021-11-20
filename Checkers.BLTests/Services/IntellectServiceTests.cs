@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Checkers.BL.Constants;
 using Checkers.BL.Helper;
 using Ckeckers.DAL.Repositories;
 using Moq;
@@ -30,6 +31,34 @@ namespace Checkers.BL.Services.Tests
             
             Assert.AreEqual(expected, actual);
         
+        }
+        [TestMethod()]
+        public void IntellectStepOneDeepTest()
+        {
+            var boardRepository = new Mock<IBoardRepository>();
+            boardRepository.Setup(m => m.Load("")).Returns("" +
+                                                           "" +
+                                                           "111111" +
+                                                           "111111" +
+                                                           "111111" +
+                                                           "111111" +
+                                                           "1p1p11" +
+                                                           "P1P111w");
+
+            var service = GetIntellectService(boardRepository.Object);
+
+            string actual = service.IntellectStep("", FigureColor.White);
+
+            string expected = "" +
+                              "111111" +
+                              "111111" +
+                              "111111" +
+                              "111111" +
+                              "111111" +
+                              "11P1P1W";
+
+            Assert.AreEqual(expected, actual);
+
         }
 
 

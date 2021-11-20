@@ -15,7 +15,12 @@ class Board {
 
         this.boardDrawer = new BoardDrawer();
 
-        this.serverApi.registerOnServer(() => {
+        let position = '';
+        if (window.location.href.split('?pos=').length === 2) {
+            position = window.location.href.split('?pos=')[1];
+        }
+
+        this.serverApi.registerOnServer(position, () => {
             this.boardDrawer.setFlipClickHandler(() => this.flipBoard());
 
             this.boardDrawer.setNewGameClickHandler(

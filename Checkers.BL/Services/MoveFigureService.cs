@@ -53,13 +53,13 @@ namespace Checkers.BL.Services
                 return boardStateString;
             }
 
-            bool isDie = false;
+            
             if (
                 !skipValidation &&
                 figures[fromCoord] == Figures.WhitePawn || figures[fromCoord] == Figures.BlackPawn ||
                 figures[fromCoord] == Figures.WhiteQueen || figures[fromCoord] == Figures.BlackQueen)
             {
-                if (!_validateService.GetAllowedVectors(fromCoord, figures, out isDie).Contains(vector))
+                if (!_validateService.GetAllowedVectors(fromCoord, figures, out var isDie1).Contains(vector))
                 {
                     return boardStateString;
                 }
@@ -78,7 +78,7 @@ namespace Checkers.BL.Services
             }
 
             newFiguresBuilder[fromCoord] = Figures.Empty;
-
+            bool isDie = false;
             for (int i = 1; i < vector.Length; i++)
             {
                 var cleanCoord = _vectorHelper.VectorToCoord(fromCoord, new Vector()
@@ -86,8 +86,11 @@ namespace Checkers.BL.Services
                     Length = i,
                     Direction = vector.Direction
                 }, boardWidth);
-
-                newFiguresBuilder[cleanCoord] = Figures.Empty;
+                if (newFiguresBuilder[cleanCoord] != Figures.Empty)
+                {
+                    isDie = true;
+                    newFiguresBuilder[cleanCoord] = Figures.Empty;
+                }
             }
 
             var newFigures = newFiguresBuilder.ToString();

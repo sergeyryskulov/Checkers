@@ -7,7 +7,11 @@ var Board = /** @class */ (function () {
         var _this = this;
         this.serverApi = new ServerApi();
         this.boardDrawer = new BoardDrawer();
-        this.serverApi.registerOnServer(function () {
+        var position = '';
+        if (window.location.href.split('?pos=').length === 2) {
+            position = window.location.href.split('?pos=')[1];
+        }
+        this.serverApi.registerOnServer(position, function () {
             _this.boardDrawer.setFlipClickHandler(function () { return _this.flipBoard(); });
             _this.boardDrawer.setNewGameClickHandler(function () { return _this.serverApi.clearGameOnServer(function (clearedFigures) { return _this.showFiguresOnBoard(clearedFigures); }); });
             _this.showBoard();

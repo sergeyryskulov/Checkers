@@ -2,8 +2,8 @@
 
     registrationId: string;
 
-    public registerOnServer(callback) {
-        $.post('/api/register', (data) => {
+    public registerOnServer(position, callback) {
+        $.post('/api/register?position=' + position, (data) => {
             this.registrationId = data;
             callback(data);
         });

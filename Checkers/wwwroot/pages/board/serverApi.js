@@ -1,9 +1,9 @@
 var ServerApi = /** @class */ (function () {
     function ServerApi() {
     }
-    ServerApi.prototype.registerOnServer = function (callback) {
+    ServerApi.prototype.registerOnServer = function (position, callback) {
         var _this = this;
-        $.post('/api/register', function (data) {
+        $.post('/api/register?position=' + position, function (data) {
             _this.registrationId = data;
             callback(data);
         });

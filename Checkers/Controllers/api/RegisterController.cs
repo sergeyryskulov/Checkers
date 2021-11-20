@@ -19,9 +19,9 @@ namespace Checkers.Controllers.api
             _registerService = registerService;
         }
 
-        public string Post()
+        public string Post(string position)
         {
-            return _registerService.Register();
+            return _registerService.Register("" + position);
         }
     }
 }

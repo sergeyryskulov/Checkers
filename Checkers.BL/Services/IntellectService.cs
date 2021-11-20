@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices.ComTypes;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Checkers.BL.Constants;
 using Checkers.BL.Helper;
@@ -36,35 +38,30 @@ namespace Checkers.BL.Services
             _stateParserHelper = stateParserHelper;
         }
 
-     
-        public string IntellectStep(string registrationId)
+
+        int GetBestForWhite(string state)
+        {
+            var nextWhiteVariants = GetNextStepVariants(state);
+
+            var minimumWhite = nextWhiteVariants.OrderByDescending(t => GetWeight(t, FigureColor.White)).First();
+
+            return GetWeight(minimumWhite, FigureColor.White);
+
+        }
+        public string IntellectStep(string registrationId, FigureColor intellectColor = FigureColor.Black)
         {
             string boardStateString = _boardRepository.Load(registrationId);
+
+            var turn = _stateParserHelper.ParseState(boardStateString).Turn;
+
+
+            string bestState= GetNextStepVariants(boardStateString).OrderBy(t => GetBestForWhite(t)).First();
             
-            int worstWhiteInVariants = 19999;
-            string stateWhereWorstWhiteInVariants = "";
-            foreach (var outputBlackState in GetNextStepVariants(boardStateString))
-            {
-                int bestWhiteWeight = -100;
+           
 
-                foreach (var outputWhiteState in GetNextStepVariants(outputBlackState))
-                {
-                    
-                    var weigh2 = GetWeight(outputWhiteState, Turn.White);
-                    if (weigh2 > bestWhiteWeight)
-                    {
-                        bestWhiteWeight = weigh2;
-                    }
-                }
 
-                if (bestWhiteWeight < worstWhiteInVariants)
-                {
-                    worstWhiteInVariants = bestWhiteWeight;
-                    stateWhereWorstWhiteInVariants = outputBlackState;
-                }
-            }
+            //string bestState = nextVariants.OrderByDescending(t => GetWeight(t, intellectColor)).First();
 
-            string  bestState = stateWhereWorstWhiteInVariants;
             _boardRepository.Save(registrationId, bestState);
             return bestState;
             /* var rand = new Random();
@@ -106,7 +103,8 @@ namespace Checkers.BL.Services
                         var newState = _moveFigureService.Move(inputState, fromCoord, toCoord, true);
                         if (newState != inputState)
                         {
-                            if (boardState.Turn == Turn.Black && newState.Contains(Turn.Black))
+                            if (boardState.Turn == Turn.Black && newState.Contains(Turn.Black) ||
+                                boardState.Turn == Turn.White && newState.Contains(Turn.White))
                             {
                                 stateWithNoChangeTurn.Add(newState);
                                 
@@ -130,7 +128,7 @@ namespace Checkers.BL.Services
 
         }
 
-        private int GetWeight(string boardState, char turn)
+        private int GetWeight(string boardState, FigureColor forWhom)
         {
             int result = 0;
             foreach (var figure in boardState)
@@ -145,7 +143,7 @@ namespace Checkers.BL.Services
                 }
             }
 
-            if (turn==Turn.White)
+            if (forWhom == FigureColor.White)
             {
                 return -1*result;
             }
