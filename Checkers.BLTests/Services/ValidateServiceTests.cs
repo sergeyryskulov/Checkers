@@ -67,8 +67,8 @@ namespace Checkers.BL.Services.Tests
         {
 
             var actual = CreateValidateService().GetAllowedMoveVectors(0, "" +
-                                                                      "p11" +
-                                                                      "1P1" +
+                                                                      "P11" +
+                                                                      "1p1" +
                                                                       "111", out var isDie);
 
             var expected = new List<Vector>()
@@ -100,53 +100,10 @@ namespace Checkers.BL.Services.Tests
             CollectionAssert.AreEquivalent(expected, actual);
             Assert.IsFalse(isDie);
         }
+        
 
         [TestMethod()]
-        public void GetAllowedVectorsTest()
-        {
-            var figures = "" +
-                         "1p1p1p1p" +
-                         "p1p1p1p1" +
-                         "111p1p1p" +
-                         "p1111111" +
-                         "11111P11" +
-                         "P1P1P111" +
-                         "1P1P1P1P" +
-                         "P1P1P1P1";
-
-            var actualLength= CreateValidateService().GetAllowedMoveVectors(8, figures, out var isDie).Count;
-
-            Assert.IsTrue(actualLength > 0);
-            Assert.IsFalse(isDie);
-        }
-
-
-        [TestMethod()]
-        public void GetAllowedVectorsBackTest()
-        {
-            var actual = CreateValidateService().GetAllowedMoveVectors(0, "" +
-                                                                      "P11" +
-                                                                      "1p1" +
-                                                                      "111",
-                out var isDie);
-
-            var expected = new List<Vector>()
-            {
-                new Vector()
-                {
-                    Direction = Direction.RightBottom,
-                    Length = 2
-                }
-            };
-
-
-            CollectionAssert.AreEquivalent(expected, actual);
-            Assert.IsTrue(isDie);
-        }
-
-
-        [TestMethod()]
-        public void GetAllowedVectorsQueen_DieCorrect()
+        public void CanTake_ByQueen_MultiVariants()
         {
             var actual = CreateValidateService().GetAllowedMoveVectors(0, "" +
                                                                       "Q111" +
@@ -173,7 +130,7 @@ namespace Checkers.BL.Services.Tests
         }
 
         [TestMethod()]
-        public void GetAllowedVectorsQueen_NotDieCorrect()
+        public void QueenCanMove_OnAllBoard()
         {
             var actual = CreateValidateService().GetAllowedMoveVectors(5, "" +
                                                                       "p111" +
@@ -209,7 +166,7 @@ namespace Checkers.BL.Services.Tests
             Assert.IsFalse(isDie);
         }
         [TestMethod()]
-        public void GetAllowedVectorsQueen_DieExists()
+        public void QueenCanTake_OppositeFigure()
         {
             CreateValidateService().GetAllowedMoveVectors(3, "" +
                                                        "111Q11" +
