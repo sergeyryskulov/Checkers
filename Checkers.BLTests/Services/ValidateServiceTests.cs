@@ -18,7 +18,7 @@ namespace Checkers.BL.Services.Tests
         [TestMethod()]
         public void CanMove_OnlyRightTop_OnSmallBoard()
         {
-            var service = CreateValidateService();
+            var validateService = CreateValidateService();
 
             var expected = new List<Vector>()
             {
@@ -29,22 +29,17 @@ namespace Checkers.BL.Services.Tests
                 }
             };
 
-            var actual = service.GetAllowedMoveVectors(2, "11P1", out var isDie);
+            var actual = validateService.GetAllowedMoveVectors(2, "11P1", out var oppositeFigureTaken);
 
             CollectionAssert.AreEquivalent(expected, actual);
 
-            Assert.IsFalse(isDie);
+            Assert.IsFalse(oppositeFigureTaken);
         }
 
         [TestMethod()]
         public void CanTake_OppositeFigure()
         {
-
-            var actual = CreateValidateService().GetAllowedMoveVectors(8, "" +
-                                                                          "111" +
-                                                                          "1p1" +
-                                                                          "11P",
-                out var takeOppositeFigure);
+            var service = CreateValidateService();
 
             var expected = new List<Vector>()
             {
@@ -54,6 +49,13 @@ namespace Checkers.BL.Services.Tests
                     Length = 2
                 }
             };
+
+            var actual = service.GetAllowedMoveVectors(8, "" +
+                                                                          "111" +
+                                                                          "1p1" +
+                                                                          "11P",
+                out var takeOppositeFigure);
+
 
             CollectionAssert.AreEquivalent(expected, actual);
             Assert.IsTrue(takeOppositeFigure);
@@ -82,19 +84,19 @@ namespace Checkers.BL.Services.Tests
         }
 
         [TestMethod()]
-        public void GetAllowedVectors_Blocked_Error()
+        public void CannotMove_IfBlockedOnOtherFigureAndBoardBound()
         {
 
-            var actual = CreateValidateService().GetAllowedMoveVectors(0, "" +
+            var actual = CreateValidateService().GetAllowedMoveVectors(4, "" +
+                                                                      "1p11" +
                                                                       "P111" +
                                                                       "1111" +
-                                                                      "1p11" +
-                                                                      "P111", out var isDie);
+                                                                      "1111", out var isDie);
 
             var expected = new List<Vector>()
             {
-
             };
+
             CollectionAssert.AreEquivalent(expected, actual);
             Assert.IsFalse(isDie);
         }
