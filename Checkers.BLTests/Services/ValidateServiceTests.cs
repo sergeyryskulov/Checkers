@@ -16,7 +16,7 @@ namespace Checkers.BL.Services.Tests
     {
 
         [TestMethod()]
-        public void GetAllowedVectors_OneStepTop_Correct()
+        public void CanMove_OnlyRightTop_OnSmallBoard()
         {
             var service = CreateValidateService();
 
@@ -29,7 +29,7 @@ namespace Checkers.BL.Services.Tests
                 }
             };
 
-            var actual = service.GetAllowedVectors(2, "11P1", out var isDie);
+            var actual = service.GetAllowedMoveVectors(2, "11P1", out var isDie);
 
             CollectionAssert.AreEquivalent(expected, actual);
 
@@ -37,14 +37,14 @@ namespace Checkers.BL.Services.Tests
         }
 
         [TestMethod()]
-        public void GetAllowedVectors_TwoStepTop_Correct()
+        public void CanTake_OppositeFigure()
         {
 
-            var actual = CreateValidateService().GetAllowedVectors(8, "" +
-                                                                      "111" +
-                                                                      "1p1" +
-                                                                      "11P",
-                out var isDie);
+            var actual = CreateValidateService().GetAllowedMoveVectors(8, "" +
+                                                                          "111" +
+                                                                          "1p1" +
+                                                                          "11P",
+                out var takeOppositeFigure);
 
             var expected = new List<Vector>()
             {
@@ -56,15 +56,15 @@ namespace Checkers.BL.Services.Tests
             };
 
             CollectionAssert.AreEquivalent(expected, actual);
-            Assert.IsTrue(isDie);
+            Assert.IsTrue(takeOppositeFigure);
 
         }
 
         [TestMethod()]
-        public void GetAllowedVectors_TwoStepBottom_Correct()
+        public void CanTake_OppositeFigure_OnBackMove()
         {
 
-            var actual = CreateValidateService().GetAllowedVectors(0, "" +
+            var actual = CreateValidateService().GetAllowedMoveVectors(0, "" +
                                                                       "p11" +
                                                                       "1P1" +
                                                                       "111", out var isDie);
@@ -85,7 +85,7 @@ namespace Checkers.BL.Services.Tests
         public void GetAllowedVectors_Blocked_Error()
         {
 
-            var actual = CreateValidateService().GetAllowedVectors(0, "" +
+            var actual = CreateValidateService().GetAllowedMoveVectors(0, "" +
                                                                       "P111" +
                                                                       "1111" +
                                                                       "1p11" +
@@ -112,7 +112,7 @@ namespace Checkers.BL.Services.Tests
                          "1P1P1P1P" +
                          "P1P1P1P1";
 
-            var actualLength= CreateValidateService().GetAllowedVectors(8, figures, out var isDie).Count;
+            var actualLength= CreateValidateService().GetAllowedMoveVectors(8, figures, out var isDie).Count;
 
             Assert.IsTrue(actualLength > 0);
             Assert.IsFalse(isDie);
@@ -122,7 +122,7 @@ namespace Checkers.BL.Services.Tests
         [TestMethod()]
         public void GetAllowedVectorsBackTest()
         {
-            var actual = CreateValidateService().GetAllowedVectors(0, "" +
+            var actual = CreateValidateService().GetAllowedMoveVectors(0, "" +
                                                                       "P11" +
                                                                       "1p1" +
                                                                       "111",
@@ -146,7 +146,7 @@ namespace Checkers.BL.Services.Tests
         [TestMethod()]
         public void GetAllowedVectorsQueen_DieCorrect()
         {
-            var actual = CreateValidateService().GetAllowedVectors(0, "" +
+            var actual = CreateValidateService().GetAllowedMoveVectors(0, "" +
                                                                       "Q111" +
                                                                       "1p11" +
                                                                       "1111" +
@@ -173,7 +173,7 @@ namespace Checkers.BL.Services.Tests
         [TestMethod()]
         public void GetAllowedVectorsQueen_NotDieCorrect()
         {
-            var actual = CreateValidateService().GetAllowedVectors(5, "" +
+            var actual = CreateValidateService().GetAllowedMoveVectors(5, "" +
                                                                       "p111" +
                                                                       "1Q11" +
                                                                       "1111" +
@@ -209,7 +209,7 @@ namespace Checkers.BL.Services.Tests
         [TestMethod()]
         public void GetAllowedVectorsQueen_DieExists()
         {
-            CreateValidateService().GetAllowedVectors(3, "" +
+            CreateValidateService().GetAllowedMoveVectors(3, "" +
                                                        "111Q11" +
                                                        "111111" +
                                                        "1p1111" +

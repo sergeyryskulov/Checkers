@@ -36,7 +36,7 @@ namespace Checkers.BL.Services
                     coord != iteratedFigure &&
                     _colorHelper.GetFigureColor(iteratedFigure) == color )
                 {
-                    GetAllowedVectors(figureCoord, figures, out var isDie, true);
+                    GetAllowedMoveVectors(figureCoord, figures, out var isDie, true);
                     if (isDie)
                     {
                         return true;
@@ -47,7 +47,7 @@ namespace Checkers.BL.Services
             return false;
         }
 
-        public List<Vector> GetAllowedVectors(int coord, string figures, out bool isDie, bool ignoreBlock = false)
+        public List<Vector> GetAllowedMoveVectors(int coord, string figures, out bool isDie, bool ignoreBlock = false)
         {
             var figure = figures[coord];
             if (figure == Figures.WhitePawn || figure == Figures.BlackPawn)
