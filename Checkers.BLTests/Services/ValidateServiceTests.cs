@@ -14,13 +14,11 @@ namespace Checkers.BL.Services.Tests
     [TestClass()]
     public class ValidateServiceTests
     {
-        private ValidateService _validateService = new ValidateService(new VectorHelper(), new MathHelper(), new ColorHelper());
 
         [TestMethod()]
         public void GetAllowedVectors_OneStepTop_Correct()
         {
-
-            var actual = _validateService.GetAllowedVectors(2, "11P1", out var isDie);
+            var service = CreateValidateService();
 
             var expected = new List<Vector>()
             {
@@ -30,7 +28,11 @@ namespace Checkers.BL.Services.Tests
                     Length = 1
                 }
             };
+
+            var actual = service.GetAllowedVectors(2, "11P1", out var isDie);
+
             CollectionAssert.AreEquivalent(expected, actual);
+
             Assert.IsFalse(isDie);
         }
 
@@ -38,10 +40,10 @@ namespace Checkers.BL.Services.Tests
         public void GetAllowedVectors_TwoStepTop_Correct()
         {
 
-            var actual = _validateService.GetAllowedVectors(8, "" +
-                                                                  "111" +
-                                                                  "1p1" +
-                                                                  "11P",
+            var actual = CreateValidateService().GetAllowedVectors(8, "" +
+                                                                      "111" +
+                                                                      "1p1" +
+                                                                      "11P",
                 out var isDie);
 
             var expected = new List<Vector>()
@@ -62,10 +64,10 @@ namespace Checkers.BL.Services.Tests
         public void GetAllowedVectors_TwoStepBottom_Correct()
         {
 
-            var actual = _validateService.GetAllowedVectors(0, "" +
-                                                           "p11" +
-                                                           "1P1" +
-                                                           "111", out var isDie);
+            var actual = CreateValidateService().GetAllowedVectors(0, "" +
+                                                                      "p11" +
+                                                                      "1P1" +
+                                                                      "111", out var isDie);
 
             var expected = new List<Vector>()
             {
@@ -83,11 +85,11 @@ namespace Checkers.BL.Services.Tests
         public void GetAllowedVectors_Blocked_Error()
         {
 
-            var actual = _validateService.GetAllowedVectors(0, "" +
-                                                           "P111" +
-                                                           "1111" +
-                                                           "1p11" +
-                                                           "P111", out var isDie);
+            var actual = CreateValidateService().GetAllowedVectors(0, "" +
+                                                                      "P111" +
+                                                                      "1111" +
+                                                                      "1p11" +
+                                                                      "P111", out var isDie);
 
             var expected = new List<Vector>()
             {
@@ -110,7 +112,7 @@ namespace Checkers.BL.Services.Tests
                          "1P1P1P1P" +
                          "P1P1P1P1";
 
-            var actualLength= _validateService.GetAllowedVectors(8, figures, out var isDie).Count;
+            var actualLength= CreateValidateService().GetAllowedVectors(8, figures, out var isDie).Count;
 
             Assert.IsTrue(actualLength > 0);
             Assert.IsFalse(isDie);
@@ -120,10 +122,10 @@ namespace Checkers.BL.Services.Tests
         [TestMethod()]
         public void GetAllowedVectorsBackTest()
         {
-            var actual = _validateService.GetAllowedVectors(0, "" +
-                                                           "P11" +
-                                                           "1p1" +
-                                                           "111",
+            var actual = CreateValidateService().GetAllowedVectors(0, "" +
+                                                                      "P11" +
+                                                                      "1p1" +
+                                                                      "111",
                 out var isDie);
 
             var expected = new List<Vector>()
@@ -144,11 +146,11 @@ namespace Checkers.BL.Services.Tests
         [TestMethod()]
         public void GetAllowedVectorsQueen_DieCorrect()
         {
-            var actual = _validateService.GetAllowedVectors(0, "" +
-                                                           "Q111" +
-                                                           "1p11" +
-                                                           "1111" +
-                                                           "1111",
+            var actual = CreateValidateService().GetAllowedVectors(0, "" +
+                                                                      "Q111" +
+                                                                      "1p11" +
+                                                                      "1111" +
+                                                                      "1111",
                 out var isDie);
 
             var expected = new List<Vector>()
@@ -171,11 +173,11 @@ namespace Checkers.BL.Services.Tests
         [TestMethod()]
         public void GetAllowedVectorsQueen_NotDieCorrect()
         {
-            var actual = _validateService.GetAllowedVectors(5, "" +
-                                                           "p111" +
-                                                           "1Q11" +
-                                                           "1111" +
-                                                           "1111",
+            var actual = CreateValidateService().GetAllowedVectors(5, "" +
+                                                                      "p111" +
+                                                                      "1Q11" +
+                                                                      "1111" +
+                                                                      "1111",
                 out var isDie);
 
             var expected = new List<Vector>()
@@ -207,17 +209,22 @@ namespace Checkers.BL.Services.Tests
         [TestMethod()]
         public void GetAllowedVectorsQueen_DieExists()
         {
-            _validateService.GetAllowedVectors(3, "" +
-                                                           "111Q11" +
-                                                           "111111" +
-                                                           "1p1111" +
-                                                           "111111" +
-                                                           "1p1111" +
-                                                           "111111w",
+            CreateValidateService().GetAllowedVectors(3, "" +
+                                                       "111Q11" +
+                                                       "111111" +
+                                                       "1p1111" +
+                                                       "111111" +
+                                                       "1p1111" +
+                                                       "111111w",
                 out var isDie);
 
             
             Assert.IsTrue(isDie);
+        }
+
+        private ValidateService CreateValidateService()
+        {
+            return new ValidateService(new VectorHelper(), new MathHelper(), new ColorHelper());
         }
 
     }

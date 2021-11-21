@@ -62,7 +62,7 @@ namespace Checkers.BL.Services
 
             string bestState= GetNextStepVariants(boardStateString).OrderBy(t => GetBestForWhite(t)).First();
             
-
+            
             //string bestState = nextVariants.OrderByDescending(t => GetWeight(t, intellectColor)).First();
 
             _boardRepository.Save(registrationId, bestState);
