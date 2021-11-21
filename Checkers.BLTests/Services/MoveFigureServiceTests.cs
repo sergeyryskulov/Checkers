@@ -15,11 +15,11 @@ namespace Checkers.BL.Services.Tests
     public class MoveFigureServiceTests
     {
         [TestMethod()]
-        public void Move_Correct()
+        public void SimpleMoveCorrect()
         {
-            var service = GetMoveFigureService();
+            var moveService = CreateMoveFigureService();
 
-            string actual = service.Move("p111b",0, 3);
+            string actual = moveService.Move("p111b",0, 3);
 
             var expected = "111qB";
 
@@ -27,9 +27,9 @@ namespace Checkers.BL.Services.Tests
         }
 
         [TestMethod()]
-        public void Move_Pawder_SelfIncorrect()
+        public void CannotMoveToSelf()
         {
-            var service = GetMoveFigureService();
+            var service = CreateMoveFigureService();
 
             var actual = service.Move("p111b", 0, 0);
 
@@ -39,9 +39,9 @@ namespace Checkers.BL.Services.Tests
         }
 
         [TestMethod()]
-        public void Move_Queen_SelfIncorrect()
+        public void Queen_CannotMoveToSelf()
         {
-            var service = GetMoveFigureService();
+            var service = CreateMoveFigureService();
 
             string actual = service.Move("q111b", 0, 0);
 
@@ -60,7 +60,7 @@ namespace Checkers.BL.Services.Tests
                            "111" +
                            "111W";
 
-            var service = GetMoveFigureService();
+            var service = CreateMoveFigureService();
 
             string actual = service.Move("" +
                                          "111" +
@@ -82,7 +82,7 @@ namespace Checkers.BL.Services.Tests
                            "111W";
 
 
-            var service = GetMoveFigureService();
+            var service = CreateMoveFigureService();
 
             string actual = service.Move("" +
                                          "111" +
@@ -105,7 +105,7 @@ namespace Checkers.BL.Services.Tests
                            "111111" +
                            "111111w20";
 
-            var service = GetMoveFigureService();
+            var service = CreateMoveFigureService();
 
             var actual = service.Move("" +
                                       "111111" +
@@ -129,7 +129,7 @@ namespace Checkers.BL.Services.Tests
                            "1p1111" +
                            "111111w18";
 
-            var service = GetMoveFigureService();
+            var service = CreateMoveFigureService();
 
             var actual = service.Move("" +
                                       "111Q11" +
@@ -141,7 +141,7 @@ namespace Checkers.BL.Services.Tests
             Assert.AreEqual(expected, actual);
         }
 
-        private MoveFigureService GetMoveFigureService()
+        private MoveFigureService CreateMoveFigureService()
         {
             return new MoveFigureService(new VectorHelper(), new MathHelper(),
                 new ValidateService(new VectorHelper(), new MathHelper(), new ColorHelper()),
