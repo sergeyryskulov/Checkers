@@ -127,7 +127,10 @@ namespace Checkers.BL.Services
             }
 
 
-            var resultState = newFigures + nextTurn + (toggleTurn ? "" : toCoord);
+//            var resultState = newFigures + nextTurn + (toggleTurn ? "" : toCoord);
+
+            var resultState = 
+                toggleTurn ? newFigures + nextTurn : newFigures + nextTurn + toCoord;
 
             return resultState;
         }

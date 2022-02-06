@@ -30,6 +30,7 @@ namespace Ckeckers.DAL.Repositories
             
         }
 
+
         public string Load(string key)
         {
             lock (lockOnject)
