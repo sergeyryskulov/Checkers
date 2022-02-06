@@ -21,10 +21,12 @@ var Board = /** @class */ (function () {
         var _this = this;
         this.serverApi.getFiguresFromServer(function (data) {
             _this.figuresCache = new Array(data.length - 1);
-            var width = Math.sqrt(_this.figuresCache.length);
-            $('.board').width(width * 80);
-            $('.board').height(width * 80);
-            _this.boardDrawer.drawSquares(_this.isFlipped, width);
+            var lineSquareCount = Math.sqrt(_this.figuresCache.length);
+            ;
+            var boardWidth = Math.min(document.documentElement.clientWidth, document.documentElement.clientHeight) - 60;
+            $('.board').width(boardWidth);
+            $('.board').height(boardWidth);
+            _this.boardDrawer.drawSquares(_this.isFlipped, lineSquareCount);
             _this.boardDrawer.setDropFigureOnSquareHandler(function (fromCoord, toCoord) {
                 _this.moveFigureOnBoard(fromCoord, toCoord);
                 _this.serverApi.moveFigureOnServer(fromCoord, toCoord, function (data) { return _this.showFiguresOnBoard(data); });

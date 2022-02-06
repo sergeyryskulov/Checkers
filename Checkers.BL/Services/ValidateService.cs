@@ -174,8 +174,7 @@ namespace Checkers.BL.Services
                     var coordTwoStepForward = _vectorHelper.VectorToCoord(coordinateOneStepForward, vectorOneStepForward, boardWidth);
                     if (coordTwoStepForward == -1)
                     {
-                        continue;
-                        ;
+                        continue;                        
                     }
 
                     if (figures[coordTwoStepForward] == Figures.Empty)

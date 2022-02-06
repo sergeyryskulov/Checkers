@@ -36,10 +36,13 @@ class Board {
 
         this.serverApi.getFiguresFromServer((data) => {
             this.figuresCache = new Array(data.length - 1);
-            let width = Math.sqrt(this.figuresCache.length);
-            $('.board').width(width * 80);
-            $('.board').height(width * 80);
-            this.boardDrawer.drawSquares(this.isFlipped, width);
+            let lineSquareCount = Math.sqrt(this.figuresCache.length);
+            ;
+            let boardWidth = Math.min(document.documentElement.clientWidth, document.documentElement.clientHeight) - 60;
+                                   
+            $('.board').width(boardWidth);
+            $('.board').height(boardWidth);
+            this.boardDrawer.drawSquares(this.isFlipped, lineSquareCount);
             this.boardDrawer.setDropFigureOnSquareHandler((fromCoord, toCoord) => {
                 this.moveFigureOnBoard(fromCoord, toCoord);
                 this.serverApi.moveFigureOnServer(fromCoord, toCoord, (data) => this.showFiguresOnBoard(data));

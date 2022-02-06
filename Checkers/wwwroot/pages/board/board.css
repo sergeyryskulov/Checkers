@@ -1,6 +1,6 @@
 ﻿.square {
-  width: 80px;
-  height: 80px;
+  width: 12.5%;
+  height: 12.5%;
   float: left;
   display: flex;
   align-items: center;
@@ -13,8 +13,6 @@
   background-color: #eee; }
 
 .board {
-  width: 640px;
-  height: 640px;
   border: 20px solid #55cdef; }
 
 .figure {
