@@ -9,9 +9,9 @@ namespace Checkers.BL.Services
 {
     public class GetFiguresService
     {
-        private BoardRepository _boardRepository;
+        private IBoardRepository _boardRepository;
 
-        public GetFiguresService(BoardRepository boardRepository)
+        public GetFiguresService(IBoardRepository boardRepository)
         {
             _boardRepository = boardRepository;
         }

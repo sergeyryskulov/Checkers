@@ -15,9 +15,9 @@ namespace Checkers.Controllers
     public class MoveFigureController : ControllerBase
     {
         private MoveFigureService _moveFigureService;
-        private BoardRepository _boardRepository;
+        private IBoardRepository _boardRepository;
 
-        public MoveFigureController(MoveFigureService moveFigureService, BoardRepository boardRepository)
+        public MoveFigureController(MoveFigureService moveFigureService, IBoardRepository boardRepository)
         {
             _moveFigureService = moveFigureService;
             _boardRepository = boardRepository;

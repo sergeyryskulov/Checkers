@@ -28,7 +28,7 @@ namespace Ckeckers.DAL.Repositories.Tests
         {
             var boardRepository = new BoardRepository();
 
-            var defaultData = boardRepository.Load("testkey");
+            var defaultData = boardRepository.Load("testkey2");
 
             Assert.AreEqual('1', defaultData[0]); ;            
         }

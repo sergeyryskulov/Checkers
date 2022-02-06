@@ -5,11 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Ckeckers.DAL\Ckeckers.DAL.csproj" />
+    <Folder Include="Interfaces\" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Interfaces\" />
+    <ProjectReference Include="..\Checkers.IDAL\Checkers.IDAL.csproj" />
   </ItemGroup>
 
 </Project>

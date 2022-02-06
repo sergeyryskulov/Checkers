@@ -9,9 +9,9 @@ namespace Checkers.BL.Services
 {
     public class NewGameService
     {
-        private BoardRepository _boardRepository;
+        private IBoardRepository _boardRepository;
 
-        public NewGameService(BoardRepository boardRepository)
+        public NewGameService(IBoardRepository boardRepository)
         {
             _boardRepository = boardRepository;
         }

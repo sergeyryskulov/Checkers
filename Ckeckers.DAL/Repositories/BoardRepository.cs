@@ -9,9 +9,17 @@ namespace Ckeckers.DAL.Repositories
     public class BoardRepository : IBoardRepository
     {
 
-        private static Dictionary<string, string> data = new Dictionary<string, string>();
+        private Dictionary<string, string> _data = new Dictionary<string, string>();
 
-        static string DefaultData= "1p1p1p1pp1p1p1p11p1p1p1p1111111111111111P1P1P1P11P1P1P1PP1P1P1P1w";
+        private object _lockObject = new object();
+
+        public BoardRepository()
+        {
+            ;
+        }
+        
+
+        string DefaultData= "1p1p1p1pp1p1p1p11p1p1p1p1111111111111111P1P1P1P11P1P1P1PP1P1P1P1w";
       /*  static string DefaultData =""+
                                    "111111" +
                                    "111111" +
@@ -20,12 +28,12 @@ namespace Ckeckers.DAL.Repositories
                                    "1p1p11" +
                                    "P1P111w";*/
         
-        private static object lockOnject = new object();
+        
         public void Save(string key, string state)
         {
-            lock (lockOnject)
+            lock (_lockObject)
             {
-                data[key] = state;
+                _data[key] = state;
             }
             
         }
@@ -33,14 +41,14 @@ namespace Ckeckers.DAL.Repositories
 
         public string Load(string key)
         {
-            lock (lockOnject)
+            lock (_lockObject)
             {
-                if (!data.ContainsKey(key) || data[key] == "")
+                if (!_data.ContainsKey(key) || _data[key] == "")
                 {
-                    data[key] = DefaultData;
+                    _data[key] = DefaultData;
                 }
 
-                return data[key];
+                return _data[key];
             }
         }
     }
