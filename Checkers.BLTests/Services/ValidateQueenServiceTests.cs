@@ -93,5 +93,31 @@ namespace Checkers.BL.Services.Tests
         {
             return new ValidateQueenService(new MathHelper(), new ColorHelper(), new VectorHelper());
         }
+
+        [TestMethod()]
+        public void QueenCannotEatTwoFiguresInOneStep()
+        {
+            var actual = CreateValidateService().GetAllowedMoveVectors(10, "" +
+                                                                          "111111" +
+                                                                          "1111Q1" +
+                                                                          "111p11" +
+                                                                          "111111" +
+                                                                          "1p1111" +
+                                                                          "111111w");
+
+
+            var expected = new List<Vector>()
+            {
+                new Vector()
+                {
+                    Direction = Direction.LeftBottom,
+                    Length = 2,
+                },
+            };
+            CollectionAssert.AreEquivalent(expected, actual.Vectors);
+            Assert.IsTrue(actual.EatFigure);
+
+
+        }
     }
 }
