@@ -16,13 +16,15 @@ namespace Checkers.BL.Services
         private VectorHelper _vectorHelper;
         private MathHelper _mathHelper;
         private ColorHelper _colorHelper;
+        private ValidatePawnService _validatePawnService;
 
 
-        public ValidateService(VectorHelper vectorHelper, MathHelper mathHelper, ColorHelper colorHelper)
+        public ValidateService(VectorHelper vectorHelper, MathHelper mathHelper, ColorHelper colorHelper, ValidatePawnService validatePawnService)
         {
             _vectorHelper = vectorHelper;
             _mathHelper = mathHelper;
             _colorHelper = colorHelper;
+            _validatePawnService = validatePawnService;
         }
 
         private bool IsBlocked(int coord, string figures)
@@ -50,50 +52,35 @@ namespace Checkers.BL.Services
         public AllowedVectors GetAllowedMoveVectors(int coord, string figures, bool ignoreBlock = false)
         {
             var figure = figures[coord];
-          
-            if (figure == Figures.WhitePawn || figure == Figures.BlackPawn)
-            {
-                return GetAllowedVectorsPawn(coord, figures, ignoreBlock);
-            }
-            else if (figure == Figures.WhiteQueen || figure == Figures.BlackQueen)
-            {
-                return  GetAllowedVectorsQueen(coord, figures, ignoreBlock);
-            }
 
-            return new AllowedVectors()
+            var result = new AllowedVectors()
             {
                 Vectors = new List<Vector>(),
                 EatFigure = false
             };
-        }
 
-        private AllowedVectors ComposeAllowedVectors(List<Vector> eatingVectors, List<Vector> notEatingVectors, bool ignoreBlock, int coord, string figures)
-        {
+            if (figure == Figures.WhitePawn || figure == Figures.BlackPawn)
+            {
+                result = _validatePawnService.GetAllowedVectorsPawn(coord, figures);
+            }
+            else if (figure == Figures.WhiteQueen || figure == Figures.BlackQueen)
+            {
+                result = GetAllowedVectorsQueen(coord, figures, ignoreBlock);
+            }
 
-            if (eatingVectors.Count > 0)
+            if (!ignoreBlock && result.EatFigure==false && result.Vectors.Count > 0 && IsBlocked(coord, figures))
             {
                 return new AllowedVectors()
                 {
-                    EatFigure = true,
-                    Vectors = eatingVectors
+                    Vectors = new List<Vector>(),
+                    EatFigure = false
                 };
             }
 
-            if (!ignoreBlock && IsBlocked(coord, figures))
-            {
-                return new AllowedVectors()
-                {
-                    EatFigure = false,
-                    Vectors = new List<Vector>()
-                };
-            }
-
-            return new AllowedVectors()
-            {
-                EatFigure = false,
-                Vectors = notEatingVectors
-            };
+            return result;
         }
+
+      
 
         private AllowedVectors GetAllowedVectorsQueenDirection(int coord, string figures, Direction direction)
         {
@@ -183,130 +170,19 @@ namespace Checkers.BL.Services
                 }
             }
 
-            return ComposeAllowedVectors(eatingVectors, notEatingVectors, ignoreBlock, coord, figures);
-        }
-
-      
-        private AllowedVectors GetAllowedVectorsPawn(int coord, string figures, bool ignoreBlock=false)
-        {
-            int boardWidth= _mathHelper.Sqrt(figures.Length);
-
-            var color = _colorHelper.GetFigureColor(figures[coord]);
-            var oppositeColor = color == FigureColor.White ? FigureColor.Black : FigureColor.White;
-            var allowedVectors = new List<Vector>();
-            foreach (var forwardDirection in GetForwardDirections(color))
+            if (eatingVectors.Count > 0)
             {
-                var vectorOneStepForward = new Vector()
+                return new AllowedVectors()
                 {
-                    Direction = forwardDirection,
-                    Length = 1
-                };
-                var coordinateOneStepForward = _vectorHelper.VectorToCoord(coord, vectorOneStepForward, boardWidth);
-                if (coordinateOneStepForward == -1)
-                {
-                    continue;
-                }
-
-                if (figures[coordinateOneStepForward] == Figures.Empty)
-                {
-                    allowedVectors.Add(vectorOneStepForward);
-                }
-                else if (_colorHelper.GetFigureColor(figures[coordinateOneStepForward]) == oppositeColor)
-                {
-                    var coordTwoStepForward = _vectorHelper.VectorToCoord(coordinateOneStepForward, vectorOneStepForward, boardWidth);
-                    if (coordTwoStepForward == -1)
-                    {
-                        continue;                        
-                    }
-
-                    if (figures[coordTwoStepForward] == Figures.Empty)
-                    {
-                        allowedVectors.Add(new Vector()
-                        {
-                            Length = 2,
-                            Direction = vectorOneStepForward.Direction,
-                        });
-                    }
-
-                }
-            }
-
-
-            foreach (var backwardDirection in GetBackwardDirections(color))
-            {
-
-                var vectorOneStepBackward = new Vector()
-                {
-                    Direction = backwardDirection,
-                    Length = 1
-                };
-                var coordinateOneStepBackward = _vectorHelper.VectorToCoord(coord, vectorOneStepBackward, boardWidth);
-                if (coordinateOneStepBackward == -1)
-                {
-                    continue;
-                }
-
-                if (_colorHelper.GetFigureColor(figures[coordinateOneStepBackward]) == oppositeColor)
-                {
-                    var coordTwoStepBackward = _vectorHelper.VectorToCoord(coordinateOneStepBackward, vectorOneStepBackward, boardWidth);
-                    if (coordTwoStepBackward == -1)
-                    {
-                        continue;
-                    }
-
-                    if (figures[coordTwoStepBackward] == Figures.Empty)
-                    {
-                        allowedVectors.Add(new Vector()
-                        {
-                            Length = 2,
-                            Direction = backwardDirection,
-                        });
-                    }
-                }
-
-            }
-
-            return ComposeAllowedVectors(
-                allowedVectors.Where(m => m.Length == 2).ToList(),
-                allowedVectors.Where(m => m.Length != 2).ToList(),
-                ignoreBlock, coord, figures);
-        }
-
-
-        private Direction[] GetForwardDirections(FigureColor color)
-        {
-            if (color == FigureColor.White)
-            {
-                return new[]
-                {
-                    Direction.LeftTop,
-                    Direction.RightTop
+                    EatFigure = true,
+                    Vectors = eatingVectors
                 };
             }
-            return new[]
+            return new AllowedVectors()
             {
-                Direction.LeftBottom,
-                Direction.RightBottom
+                EatFigure = false,
+                Vectors = notEatingVectors
             };
-
-        }
-
-        private Direction[] GetBackwardDirections(FigureColor color)
-        {
-            if (color == FigureColor.White)
-            {
-                return new[]
-                {
-                    Direction.LeftBottom,
-                    Direction.RightBottom
-                };
-            }
-            return new[]
-            {
-                Direction.LeftTop,
-                Direction.RightTop
-            };
-
         }
 
     }

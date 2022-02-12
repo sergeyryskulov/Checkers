@@ -179,7 +179,7 @@ namespace Checkers.BL.Services.Tests
 
         private ValidateService CreateValidateService()
         {
-            return new ValidateService(new VectorHelper(), new MathHelper(), new ColorHelper());
+            return new ValidateService(new VectorHelper(), new MathHelper(), new ColorHelper(), new ValidatePawnService(new MathHelper(), new ColorHelper(), new VectorHelper()));
         }
 
         [TestMethod()]
