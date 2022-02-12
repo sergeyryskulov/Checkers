@@ -4,6 +4,6 @@ namespace Checkers.BL.Interfaces
 {
     public interface IValidateQueenService
     {
-        AllowedVectors GetAllowedVectorsQueen(int coord, string figures);
+        AllowedVectors GetAllowedMoveVectors(int coord, string figures);
     }
 }

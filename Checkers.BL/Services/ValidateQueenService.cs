@@ -19,7 +19,7 @@ namespace Checkers.BL.Services
             _colorHelper = colorHelper;
             _vectorHelper = vectorHelper;
         }
-        public AllowedVectors GetAllowedVectorsQueen(int coord, string figures)
+        public AllowedVectors GetAllowedMoveVectors(int coord, string figures)
         {
 
             List<Vector> eatingVectors = new List<Vector>();

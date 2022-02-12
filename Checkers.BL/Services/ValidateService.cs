@@ -42,7 +42,7 @@ namespace Checkers.BL.Services
             }
             else if (figure == Figures.WhiteQueen || figure == Figures.BlackQueen)
             {
-                result = _validateQueenService.GetAllowedVectorsQueen(coord, figures);
+                result = _validateQueenService.GetAllowedMoveVectors(coord, figures);
             }
 
             if (!ignoreBlock && result.EatFigure==false && result.Vectors.Count > 0 && IsBlocked(coord, figures))
