@@ -37,8 +37,7 @@ namespace Checkers.BL.Services
                     coord != iteratedFigure &&
                     _colorHelper.GetFigureColor(iteratedFigure) == color )
                 {
-                    GetAllowedMoveVectors(figureCoord, figures, out var isDie, true);
-                    if (isDie)
+                    if (GetAllowedMoveVectors(figureCoord, figures, true).EatFigure)
                     {
                         return true;
                     }
@@ -48,25 +47,24 @@ namespace Checkers.BL.Services
             return false;
         }
 
-        public List<Vector> GetAllowedMoveVectors(int coord, string figures, out bool isDie, bool ignoreBlock = false)
+        public AllowedVectors GetAllowedMoveVectors(int coord, string figures, bool ignoreBlock = false)
         {
             var figure = figures[coord];
-            var result = new AllowedVectors()
+          
+            if (figure == Figures.WhitePawn || figure == Figures.BlackPawn)
+            {
+                return GetAllowedVectorsPawn(coord, figures, ignoreBlock);
+            }
+            else if (figure == Figures.WhiteQueen || figure == Figures.BlackQueen)
+            {
+                return  GetAllowedVectorsQueen(coord, figures, ignoreBlock);
+            }
+
+            return new AllowedVectors()
             {
                 Vectors = new List<Vector>(),
                 EatFigure = false
             };
-            if (figure == Figures.WhitePawn || figure == Figures.BlackPawn)
-            {
-                result = GetAllowedVectorsPawn(coord, figures, ignoreBlock);
-            }
-            else if (figure == Figures.WhiteQueen || figure == Figures.BlackQueen)
-            {
-                result = GetAllowedVectorsQueen(coord, figures, ignoreBlock);
-            }
-
-            isDie = result.EatFigure;
-            return result.Vectors;
         }
         private AllowedVectors  GetAllowedVectorsQueen(int coord, string figures, bool ignoreBlock)
         {

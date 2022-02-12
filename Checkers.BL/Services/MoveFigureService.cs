@@ -59,7 +59,7 @@ namespace Checkers.BL.Services
                 figures[fromCoord] == Figures.WhitePawn || figures[fromCoord] == Figures.BlackPawn ||
                 figures[fromCoord] == Figures.WhiteQueen || figures[fromCoord] == Figures.BlackQueen)
             {
-                if (!_validateService.GetAllowedMoveVectors(fromCoord, figures, out var isDie1).Contains(vector))
+                if (!_validateService.GetAllowedMoveVectors(fromCoord, figures).Vectors.Contains(vector))
                 {
                     return boardStateString;
                 }
@@ -99,9 +99,9 @@ namespace Checkers.BL.Services
 
             if (isDie)
             {
-                _validateService.GetAllowedMoveVectors(toCoord, newFigures, out var isDie2);
+                var possibleNextStepVectors = _validateService.GetAllowedMoveVectors(toCoord, newFigures);
                 {
-                    if (isDie2)
+                    if (possibleNextStepVectors.EatFigure)
                     {
                         toggleTurn = false;
                     }

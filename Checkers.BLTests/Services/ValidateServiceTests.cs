@@ -29,11 +29,11 @@ namespace Checkers.BL.Services.Tests
                 }
             };
 
-            var actual = validateService.GetAllowedMoveVectors(2, "11P1", out var oppositeFigureTaken);
+            var actual = validateService.GetAllowedMoveVectors(2, "11P1");
 
-            CollectionAssert.AreEquivalent(expected, actual);
+            CollectionAssert.AreEquivalent(expected, actual.Vectors);
 
-            Assert.IsFalse(oppositeFigureTaken);
+            Assert.IsFalse(actual.EatFigure);
         }
 
         [TestMethod()]
@@ -53,12 +53,11 @@ namespace Checkers.BL.Services.Tests
             var actual = service.GetAllowedMoveVectors(8, "" +
                                                                           "111" +
                                                                           "1p1" +
-                                                                          "11P",
-                out var takeOppositeFigure);
+                                                                          "11P");
 
 
-            CollectionAssert.AreEquivalent(expected, actual);
-            Assert.IsTrue(takeOppositeFigure);
+            CollectionAssert.AreEquivalent(expected, actual.Vectors);
+            Assert.IsTrue(actual.EatFigure);
 
         }
 
@@ -69,7 +68,7 @@ namespace Checkers.BL.Services.Tests
             var actual = CreateValidateService().GetAllowedMoveVectors(0, "" +
                                                                       "P11" +
                                                                       "1p1" +
-                                                                      "111", out var isDie);
+                                                                      "111");
 
             var expected = new List<Vector>()
             {
@@ -79,8 +78,8 @@ namespace Checkers.BL.Services.Tests
                     Length = 2
                 }
             };
-            CollectionAssert.AreEquivalent(expected, actual);
-            Assert.IsTrue(isDie);
+            CollectionAssert.AreEquivalent(expected, actual.Vectors);
+            Assert.IsTrue(actual.EatFigure);
         }
 
         [TestMethod()]
@@ -91,14 +90,14 @@ namespace Checkers.BL.Services.Tests
                                                                       "1p11" +
                                                                       "P111" +
                                                                       "1111" +
-                                                                      "1111", out var isDie);
+                                                                      "1111");
 
             var expected = new List<Vector>()
             {
             };
 
-            CollectionAssert.AreEquivalent(expected, actual);
-            Assert.IsFalse(isDie);
+            CollectionAssert.AreEquivalent(expected, actual.Vectors);
+            Assert.IsFalse(actual.EatFigure);
         }
 
 
@@ -109,8 +108,7 @@ namespace Checkers.BL.Services.Tests
                                                                       "Q111" +
                                                                       "1p11" +
                                                                       "1111" +
-                                                                      "1111",
-                out var isDie);
+                                                                      "1111");
 
             var expected = new List<Vector>()
             {
@@ -125,8 +123,8 @@ namespace Checkers.BL.Services.Tests
                     Length = 3,
                 },
             };
-            CollectionAssert.AreEquivalent(expected, actual);
-            Assert.IsTrue(isDie);
+            CollectionAssert.AreEquivalent(expected, actual.Vectors);
+            Assert.IsTrue(actual.EatFigure);
         }
 
         [TestMethod()]
@@ -136,8 +134,7 @@ namespace Checkers.BL.Services.Tests
                                                                       "p111" +
                                                                       "1Q11" +
                                                                       "1111" +
-                                                                      "1111",
-                out var isDie);
+                                                                      "1111");
 
             var expected = new List<Vector>()
             {
@@ -162,23 +159,22 @@ namespace Checkers.BL.Services.Tests
                     Length = 1,
                 },
             };
-            CollectionAssert.AreEquivalent(expected, actual);
-            Assert.IsFalse(isDie);
+            CollectionAssert.AreEquivalent(expected, actual.Vectors);
+            Assert.IsFalse(actual.EatFigure);
         }
         [TestMethod()]
         public void QueenCanTake_OppositeFigure()
         {
-            CreateValidateService().GetAllowedMoveVectors(3, "" +
+            var actual= CreateValidateService().GetAllowedMoveVectors(3, "" +
                                                        "111Q11" +
                                                        "111111" +
                                                        "1p1111" +
                                                        "111111" +
                                                        "1p1111" +
-                                                       "111111w",
-                out var isDie);
+                                                       "111111w");
 
 
-            Assert.IsTrue(isDie);
+            Assert.IsTrue(actual.EatFigure);
         }
 
         private ValidateService CreateValidateService()
@@ -189,12 +185,10 @@ namespace Checkers.BL.Services.Tests
         [TestMethod()]
         public void GetAllowedMoveVectorsIncorrectFigureTest()
         {
-            bool isDie;
+            var actual = CreateValidateService().GetAllowedMoveVectors(0, "G111");
 
-            var actualVectorsCount = CreateValidateService().GetAllowedMoveVectors(0, "G111", out isDie).Count;
-
-            Assert.AreEqual(actualVectorsCount, 0);
-            Assert.IsFalse(isDie);
+            Assert.AreEqual(actual.Vectors.Count, 0);
+            Assert.IsFalse(actual.EatFigure);
         }
     }
 }

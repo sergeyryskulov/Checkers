@@ -99,7 +99,7 @@ namespace Checkers.BL.Services
                     (boardState.Turn == Turn.White && _colorHelper.GetFigureColor(figures[fromCoord]) == FigureColor.White
                     ))
                 {
-                    var allowedVectors = _validateService.GetAllowedMoveVectors(fromCoord, figures, out var isDie);
+                    var allowedVectors = _validateService.GetAllowedMoveVectors(fromCoord, figures).Vectors;
                     foreach (var allowedVector in allowedVectors)
                     {
                         var toCoord = _vectorHelper.VectorToCoord(fromCoord, allowedVector, boardWidth);
