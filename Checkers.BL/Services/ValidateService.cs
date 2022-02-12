@@ -61,7 +61,7 @@ namespace Checkers.BL.Services
 
             if (figure == Figures.WhitePawn || figure == Figures.BlackPawn)
             {
-                result = _validatePawnService.GetAllowedVectorsPawn(coord, figures);
+                result = _validatePawnService.GetAllowedMoveVectors(coord, figures);
             }
             else if (figure == Figures.WhiteQueen || figure == Figures.BlackQueen)
             {

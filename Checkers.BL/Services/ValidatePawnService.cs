@@ -24,7 +24,7 @@ namespace Checkers.BL.Services
             _vectorHelper = vectorHelper;
         }
 
-        public AllowedVectors GetAllowedVectorsPawn(int coord, string figures)
+        public AllowedVectors GetAllowedMoveVectors(int coord, string figures)
         {
             int boardWidth = _mathHelper.Sqrt(figures.Length);
 
