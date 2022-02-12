@@ -52,7 +52,7 @@ namespace Checkers.BL.Helper.Tests
         [TestMethod()]
         public void ConvertToVector_RightBottom_Correct()
         {
-            var actual= _vectorHelper.CoordToVector(0, 3, 2);
+            var actual = _vectorHelper.CoordToVector(0, 3, 2);
 
             var expected = new Vector()
             {
@@ -61,6 +61,15 @@ namespace Checkers.BL.Helper.Tests
             };
 
             Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod()]
+        public void CoordToVectorTest()
+        {
+            var actualVector = _vectorHelper.CoordToVector(0, 100, 2);
+
+            Assert.IsNull(actualVector);
+            
         }
     }
 }

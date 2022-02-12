@@ -100,7 +100,7 @@ namespace Checkers.BL.Services.Tests
             CollectionAssert.AreEquivalent(expected, actual);
             Assert.IsFalse(isDie);
         }
-        
+
 
         [TestMethod()]
         public void CanTake_ByQueen_MultiVariants()
@@ -177,7 +177,7 @@ namespace Checkers.BL.Services.Tests
                                                        "111111w",
                 out var isDie);
 
-            
+
             Assert.IsTrue(isDie);
         }
 
@@ -186,5 +186,15 @@ namespace Checkers.BL.Services.Tests
             return new ValidateService(new VectorHelper(), new MathHelper(), new ColorHelper());
         }
 
+        [TestMethod()]
+        public void GetAllowedMoveVectorsIncorrectFigureTest()
+        {
+            bool isDie;
+
+            var actualVectorsCount = CreateValidateService().GetAllowedMoveVectors(0, "G111", out isDie).Count;
+
+            Assert.AreEqual(actualVectorsCount, 0);
+            Assert.IsFalse(isDie);
+        }
     }
 }

@@ -21,6 +21,21 @@ namespace Checkers.BL.Models.Tests
             var isEqualsToNull = vector.Equals(null);
 
             Assert.AreEqual(false, isEqualsToNull);
+
+        }
+
+        [TestMethod()]
+        public void ToStringTest()
+        {
+            var vector = new Vector()
+            {
+                Direction = Constants.Enums.Direction.LeftTop,
+                Length = 2
+            };
+
+            var actualString = vector.ToString();
+
+            Assert.AreEqual("LeftTop (2)", actualString);
             
         }
     }
