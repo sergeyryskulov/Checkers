@@ -96,11 +96,24 @@ namespace Checkers.BL.Services.Tests
             CollectionAssert.AreEquivalent(expected, actual.Vectors);
             Assert.IsFalse(actual.EatFigure);
         }
+        [TestMethod()]
+        public void GetAllowedMoveVectorsTest()
+        {
+            var actual = CreateValidateService().GetAllowedMoveVectors(1, "" +
+                                                                          "1P1" +
+                                                                          "p11" +
+                                                                          "111");
+
+            Assert.AreEqual(0, actual.Vectors.Count);
+            Assert.IsFalse(actual.EatFigure);
+        }
 
 
         ValidatePawnService CreateValidateService()
         {
             return new ValidatePawnService(new MathHelper(), new ColorHelper(), new VectorHelper());
         }
+
+      
     }
 }

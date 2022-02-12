@@ -65,7 +65,7 @@ namespace Checkers.BL.Services
             }
             else if (figure == Figures.WhiteQueen || figure == Figures.BlackQueen)
             {
-                result = GetAllowedVectorsQueen(coord, figures, ignoreBlock);
+                result = GetAllowedVectorsQueen(coord, figures);
             }
 
             if (!ignoreBlock && result.EatFigure==false && result.Vectors.Count > 0 && IsBlocked(coord, figures))
@@ -146,7 +146,7 @@ namespace Checkers.BL.Services
             return result;
 
         }
-        private AllowedVectors  GetAllowedVectorsQueen(int coord, string figures, bool ignoreBlock)
+        private AllowedVectors  GetAllowedVectorsQueen(int coord, string figures)
         {
 
             List<Vector> eatingVectors = new List<Vector>();
