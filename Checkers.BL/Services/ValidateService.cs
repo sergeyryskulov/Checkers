@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using Checkers.BL.Constants;
@@ -50,19 +51,24 @@ namespace Checkers.BL.Services
         public List<Vector> GetAllowedMoveVectors(int coord, string figures, out bool isDie, bool ignoreBlock = false)
         {
             var figure = figures[coord];
+            var result = new AllowedVectors()
+            {
+                Vectors = new List<Vector>(),
+                EatFigure = false
+            };
             if (figure == Figures.WhitePawn || figure == Figures.BlackPawn)
             {
-                return GetAllowedVectorsPawn(coord, figures, out isDie, ignoreBlock);
+                result = GetAllowedVectorsPawn(coord, figures, ignoreBlock);
             }
-            if (figure == Figures.WhiteQueen || figure == Figures.BlackQueen)
+            else if (figure == Figures.WhiteQueen || figure == Figures.BlackQueen)
             {
-                return GetAllowedVectorsQueen(coord, figures, out isDie, ignoreBlock);
+                result = GetAllowedVectorsQueen(coord, figures, ignoreBlock);
             }
 
-            isDie = false;
-            return new List<Vector>();
+            isDie = result.EatFigure;
+            return result.Vectors;
         }
-        private List<Vector> GetAllowedVectorsQueen(int coord, string figures, out bool isDieParam, bool ignoreBlock)
+        private AllowedVectors  GetAllowedVectorsQueen(int coord, string figures, bool ignoreBlock)
         {
             int boardWidth = _mathHelper.Sqrt(figures.Length);
 
@@ -132,20 +138,30 @@ namespace Checkers.BL.Services
 
             if (dieVectors.Count > 0)
             {
-                isDieParam = true;
-                return dieVectors;
+                return new AllowedVectors()
+                {
+                    EatFigure = true,
+                    Vectors = dieVectors
+                };
             }
-            isDieParam = false;
-
+            
             if (!ignoreBlock && IsBlocked(coord, figures))
             {
-                return new List<Vector>();
+                return new AllowedVectors()
+                {
+                    EatFigure = false,
+                    Vectors = dieVectors
+                };
             }
-            return allowedVectors;
 
+            return new AllowedVectors()
+            {
+                EatFigure = false,
+                Vectors = allowedVectors
+            };
         }
 
-        private List<Vector> GetAllowedVectorsPawn(int coord, string figures, out bool isDie, bool ignoreBlock=false)
+        private AllowedVectors GetAllowedVectorsPawn(int coord, string figures, bool ignoreBlock=false)
         {
             int boardWidth= _mathHelper.Sqrt(figures.Length);
 
@@ -225,20 +241,27 @@ namespace Checkers.BL.Services
             }
             if (allowedVectors.Exists(m=>m.Length==2))
             {
-                isDie = true;
-                allowedVectors = allowedVectors.Where(m => m.Length == 2).ToList();
-            }
-            else
-            {
-                isDie = false;
-                if (!ignoreBlock && IsBlocked(coord, figures))
+                return new AllowedVectors()
                 {
-                    return new List<Vector>();
-                }
+                    EatFigure = true, 
+                    Vectors = allowedVectors.Where(m => m.Length == 2).ToList()
+                };
             }
 
-            return allowedVectors;
+            if (!ignoreBlock && IsBlocked(coord, figures))
+            {
+                return new AllowedVectors()
+                {
+                    EatFigure = false,
+                    Vectors = new List<Vector>()
+                };
+            }
 
+            return new AllowedVectors()
+            {
+                EatFigure = false,
+                Vectors = allowedVectors
+            };
         }
 
 
