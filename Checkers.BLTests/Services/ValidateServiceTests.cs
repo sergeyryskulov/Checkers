@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Checkers.BL.Constants.Enums;
 using Checkers.BL.Helper;
 using Checkers.BL.Models;
+using Moq;
 
 namespace Checkers.BL.Services.Tests
 {
@@ -95,7 +96,7 @@ namespace Checkers.BL.Services.Tests
 
         private ValidateService CreateValidateService()
         {
-            return new ValidateService(new VectorHelper(), new MathHelper(), new ColorHelper(), new ValidatePawnService(new MathHelper(), new ColorHelper(), new VectorHelper()));
+            return new ValidateService(new VectorHelper(), new MathHelper(), new ColorHelper(), new Mock<IValidatePawnService>().Object);
         }
 
         [TestMethod()]

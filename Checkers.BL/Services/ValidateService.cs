@@ -16,10 +16,10 @@ namespace Checkers.BL.Services
         private VectorHelper _vectorHelper;
         private MathHelper _mathHelper;
         private ColorHelper _colorHelper;
-        private ValidatePawnService _validatePawnService;
+        private IValidatePawnService _validatePawnService;
 
 
-        public ValidateService(VectorHelper vectorHelper, MathHelper mathHelper, ColorHelper colorHelper, ValidatePawnService validatePawnService)
+        public ValidateService(VectorHelper vectorHelper, MathHelper mathHelper, ColorHelper colorHelper, IValidatePawnService validatePawnService)
         {
             _vectorHelper = vectorHelper;
             _mathHelper = mathHelper;

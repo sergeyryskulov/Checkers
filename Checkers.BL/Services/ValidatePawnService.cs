@@ -11,7 +11,7 @@ namespace Checkers.BL.Services
 {
 
 
-    public class ValidatePawnService
+    public class ValidatePawnService : IValidatePawnService
     {
         private MathHelper _mathHelper;
         private ColorHelper _colorHelper;
