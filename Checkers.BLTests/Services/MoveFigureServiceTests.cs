@@ -144,9 +144,10 @@ namespace Checkers.BL.Services.Tests
         private MoveFigureService CreateMoveFigureService()
         {
             return new MoveFigureService(new VectorHelper(), new MathHelper(),
-                new ValidateService(new VectorHelper(), new MathHelper(), new ColorHelper(),
-                    new ValidatePawnService(new MathHelper(), new ColorHelper(), new VectorHelper())
-                    ),
+                new ValidateService(new ColorHelper(),
+                    new ValidatePawnService(new MathHelper(), new ColorHelper(), new VectorHelper()),
+                    new ValidateQueenService(new MathHelper(), new ColorHelper(), new VectorHelper())
+                ),
                 new ColorHelper(),
                 new StateParserHelper());
         }

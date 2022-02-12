@@ -96,7 +96,10 @@ namespace Checkers.BL.Services.Tests
 
         private ValidateService CreateValidateService()
         {
-            return new ValidateService(new VectorHelper(), new MathHelper(), new ColorHelper(), new Mock<IValidatePawnService>().Object);
+            return new ValidateService( new ColorHelper(), new Mock<IValidatePawnService>().Object, 
+                new ValidateQueenService(new MathHelper(), new ColorHelper(), new VectorHelper())
+                
+                );
         }
 
         [TestMethod()]

@@ -7,46 +7,23 @@ using System.Threading.Tasks;
 using Checkers.BL.Constants;
 using Checkers.BL.Constants.Enums;
 using Checkers.BL.Helper;
+using Checkers.BL.Interfaces;
 using Checkers.BL.Models;
 
 namespace Checkers.BL.Services
 {
     public class ValidateService
     {
-        private VectorHelper _vectorHelper;
-        private MathHelper _mathHelper;
         private ColorHelper _colorHelper;
         private IValidatePawnService _validatePawnService;
+        private IValidateQueenService _validateQueenService;
 
 
-        public ValidateService(VectorHelper vectorHelper, MathHelper mathHelper, ColorHelper colorHelper, IValidatePawnService validatePawnService)
+        public ValidateService(ColorHelper colorHelper, IValidatePawnService validatePawnService, IValidateQueenService validateQueenService)
         {
-            _vectorHelper = vectorHelper;
-            _mathHelper = mathHelper;
             _colorHelper = colorHelper;
             _validatePawnService = validatePawnService;
-        }
-
-        private bool IsBlocked(int coord, string figures)
-        {
-            var color = _colorHelper.GetFigureColor(figures[coord]);
-
-            for (int figureCoord = 0; figureCoord < figures.Length; figureCoord++)
-            {
-                var iteratedFigure = figures[figureCoord];
-
-                if (
-                    coord != iteratedFigure &&
-                    _colorHelper.GetFigureColor(iteratedFigure) == color )
-                {
-                    if (GetAllowedMoveVectors(figureCoord, figures, true).EatFigure)
-                    {
-                        return true;
-                    }
-                }
-            }
-
-            return false;
+            _validateQueenService = validateQueenService;
         }
 
         public AllowedVectors GetAllowedMoveVectors(int coord, string figures, bool ignoreBlock = false)
@@ -65,7 +42,7 @@ namespace Checkers.BL.Services
             }
             else if (figure == Figures.WhiteQueen || figure == Figures.BlackQueen)
             {
-                result = GetAllowedVectorsQueen(coord, figures);
+                result = _validateQueenService.GetAllowedVectorsQueen(coord, figures);
             }
 
             if (!ignoreBlock && result.EatFigure==false && result.Vectors.Count > 0 && IsBlocked(coord, figures))
@@ -80,109 +57,26 @@ namespace Checkers.BL.Services
             return result;
         }
 
-      
-
-        private AllowedVectors GetAllowedVectorsQueenDirection(int coord, string figures, Direction direction)
+        private bool IsBlocked(int coord, string figures)
         {
-
-            AllowedVectors result = new AllowedVectors()
-            {
-                EatFigure = false,
-                Vectors = new List<Vector>()
-            };
-
-            int boardWidth = _mathHelper.Sqrt(figures.Length);
             var color = _colorHelper.GetFigureColor(figures[coord]);
-            var oppositeColor = color == FigureColor.White ? FigureColor.Black : FigureColor.White;
 
-            bool figureHasBeenEated = false;
-            
-            for (int i = 1; i < boardWidth; i++)
+            for (int figureCoord = 0; figureCoord < figures.Length; figureCoord++)
             {
-                var vector = new Vector()
-                {
-                    Length = i,
-                    Direction = direction
-                };
+                var iteratedFigure = figures[figureCoord];
 
-                var stepCoord = _vectorHelper.VectorToCoord(coord, vector, boardWidth);
-                if (stepCoord == -1)
+                if (
+                    coord != iteratedFigure &&
+                    _colorHelper.GetFigureColor(iteratedFigure) == color)
                 {
-                    return result;
-                }
-
-                var figure = figures[stepCoord];
-
-                if (_colorHelper.GetFigureColor(figure) == FigureColor.Empty)
-                {
-                    if (figureHasBeenEated)
+                    if (GetAllowedMoveVectors(figureCoord, figures, true).EatFigure)
                     {
-                        result.Vectors.Clear();
-                        result.EatFigure = true;
-                        figureHasBeenEated = false;
+                        return true;
                     }
-
-                    result.Vectors.Add(vector);
-                }
-                else if (_colorHelper.GetFigureColor(figure) == oppositeColor)
-                {
-                    if (!result.EatFigure)
-                    {
-                        figureHasBeenEated = true;
-                        continue;
-                    }
-                    else
-                    {
-                        return result;
-                    }
-                }
-                else
-                {
-                    return result;
-                }
-
-            }
-
-            return result;
-
-        }
-        private AllowedVectors  GetAllowedVectorsQueen(int coord, string figures)
-        {
-
-            List<Vector> eatingVectors = new List<Vector>();
-            List<Vector> notEatingVectors = new List<Vector>();
-
-            foreach (var direction in new[]
-                     {
-                         Direction.LeftBottom,
-                         Direction.LeftTop,
-                         Direction.RightBottom,
-                         Direction.RightTop })
-            {
-                var directionAllowedVectores = GetAllowedVectorsQueenDirection(coord, figures, direction);
-                if (directionAllowedVectores.EatFigure)
-                {
-                    eatingVectors.AddRange(directionAllowedVectores.Vectors);
-                }
-                else
-                {
-                    notEatingVectors.AddRange(directionAllowedVectores.Vectors);
                 }
             }
 
-            if (eatingVectors.Count > 0)
-            {
-                return new AllowedVectors()
-                {
-                    EatFigure = true,
-                    Vectors = eatingVectors
-                };
-            }
-            return new AllowedVectors()
-            {
-                EatFigure = false,
-                Vectors = notEatingVectors
-            };
+            return false;
         }
 
     }
