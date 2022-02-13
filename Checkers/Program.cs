@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore;
 
 namespace Checkers
 {
@@ -22,5 +23,10 @@ namespace Checkers
                 {
                     webBuilder.UseStartup<Startup>();
                 });
+
+        public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
+            WebHost.CreateDefaultBuilder(args)
+                .UseUrls("http://0.0.0.0:5106")
+                .UseStartup<Startup>();
     }
 }

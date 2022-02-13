@@ -2,10 +2,12 @@
 using Checkers.Controllers;
 using System;
 using System.Collections.Generic;
+using System.Security.AccessControl;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace Checkers.Controllers.Tests
@@ -19,6 +21,8 @@ namespace Checkers.Controllers.Tests
         {
             var boardController = new BoardController();
             var actual = boardController.Index() as ViewResult;
+
+          // actual.ExecuteResult(new ActionContext(new DefaultHttpContext(), ));
 
             Assert.IsNull(actual.Model);
 

@@ -8,8 +8,10 @@ using Checkers.BL.Services;
 using Checkers.Controllers;
 using Ckeckers.DAL.Repositories;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http.Features;
+using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Moq;
@@ -29,6 +31,8 @@ namespace Checkers.Tests
             var target = new Startup(configurationStub.Object);
 
             target.ConfigureServices(services);
+
+            var configuration = target.Configuration;
             //  Mimic internal asp.net core logic.
             //services.AddTransient<HomeController>();
 
@@ -45,6 +49,15 @@ namespace Checkers.Tests
                  var controller = serviceProvider.GetService(type);
                  Assert.IsNotNull(controller);
             }
+        }
+
+        [TestMethod]
+        public void FunctionalStartupTest()
+        {
+            var client = new WebApplicationFactory<Startup>().CreateClient();
+            var callResult = client.GetAsync("/Board").Result;
+            var callResultString = callResult.Content.ReadAsStringAsync().Result;
+            Assert.IsTrue(callResultString.Contains("Игра"));
         }
     }
 }
