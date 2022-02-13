@@ -7,6 +7,7 @@ using Castle.DynamicProxy;
 using Checkers.BL.Constants.Enums;
 using Checkers.BL.Helper;
 using Checkers.BL.Models;
+using Checkers.UnitTests.Extensions;
 
 namespace Checkers.BL.Services.Tests
 {
@@ -14,7 +15,7 @@ namespace Checkers.BL.Services.Tests
     public class ValidateQueenServiceTests
     {
         [TestMethod()]
-        public void CanTake_ByQueen_MultiVariants()
+        public void CanTake_MultiVariantsAfter()
         {
             var actual = CreateValidateService().GetAllowedMoveVectors(0, "" +
                                                                       "Q111" +
@@ -22,25 +23,30 @@ namespace Checkers.BL.Services.Tests
                                                                       "1111" +
                                                                       "1111");
 
-            var expected = new List<Vector>()
+            var expected = new AllowedVectors()
             {
-                new Vector()
+                EatFigure = true,
+                Vectors = new List<Vector>()
                 {
-                    Direction = Direction.RightBottom,
-                    Length = 2,
-                },
-                new Vector()
-                {
-                    Direction = Direction.RightBottom,
-                    Length = 3,
+                    new Vector()
+                    {
+                        Direction = Direction.RightBottom,
+                        Length = 2,
+                    },
+                    new Vector()
+                    {
+                        Direction = Direction.RightBottom,
+                        Length = 3,
+                    },
                 },
             };
-            CollectionAssert.AreEquivalent(expected, actual.Vectors);
-            Assert.IsTrue(actual.EatFigure);
+
+            AssertHelper.AllowedVectorsEquivalent(expected, actual);
+            
         }
 
         [TestMethod()]
-        public void QueenCanMove_OnAllBoard()
+        public void CanMove_OnAllBoard()
         {
             var actual = CreateValidateService().GetAllowedMoveVectors(5, "" +
                                                                       "p111" +
@@ -48,34 +54,38 @@ namespace Checkers.BL.Services.Tests
                                                                       "1111" +
                                                                       "1111");
 
-            var expected = new List<Vector>()
+            var expected = new AllowedVectors()
             {
-                new Vector()
-                {
-                    Direction = Direction.RightBottom,
-                    Length = 1,
+                EatFigure = false,
+                Vectors = new List<Vector>(){
+                    new Vector()
+                    {
+                        Direction = Direction.RightBottom,
+                        Length = 1,
+                    },
+                    new Vector()
+                    {
+                        Direction = Direction.RightBottom,
+                        Length = 2,
+                    },
+                    new Vector()
+                    {
+                        Direction = Direction.RightTop,
+                        Length = 1,
+                    },
+                    new Vector()
+                    {
+                        Direction = Direction.LeftBottom,
+                        Length = 1,
+                    },
                 },
-                new Vector()
-                {
-                    Direction = Direction.RightBottom,
-                    Length = 2,
-                },
-                new Vector()
-                {
-                    Direction = Direction.RightTop,
-                    Length = 1,
-                },
-                new Vector()
-                {
-                    Direction = Direction.LeftBottom,
-                    Length = 1,
-                },
+
             };
-            CollectionAssert.AreEquivalent(expected, actual.Vectors);
-            Assert.IsFalse(actual.EatFigure);
+
+            AssertHelper.AllowedVectorsEquivalent(expected, actual);
         }
         [TestMethod()]
-        public void QueenCanTake_OppositeFigure()
+        public void CanTake_OppositeFigure()
         {
             var actual = CreateValidateService().GetAllowedMoveVectors(3, "" +
                                                        "111Q11" +
@@ -83,10 +93,22 @@ namespace Checkers.BL.Services.Tests
                                                        "1p1111" +
                                                        "111111" +
                                                        "1p1111" +
-                                                       "111111w");
+                                                       "111111");
 
+            var expected = new AllowedVectors()
+            {
+                EatFigure = true,
+                Vectors = new List<Vector>(){
+                    new Vector()
+                    {
+                        Direction = Direction.LeftBottom,
+                        Length = 3,
+                    },
+                  
+                },
 
-            Assert.IsTrue(actual.EatFigure);
+            };
+            AssertHelper.AllowedVectorsEquivalent(expected, actual);
         }
 
         private ValidateQueenService CreateValidateService()
@@ -95,7 +117,7 @@ namespace Checkers.BL.Services.Tests
         }
 
         [TestMethod()]
-        public void QueenCannotEatTwoFiguresInOneStep()
+        public void CannotTake_TwoFiguresOnOneSimpleStep()
         {
             var actual = CreateValidateService().GetAllowedMoveVectors(10, "" +
                                                                           "111111" +
@@ -103,21 +125,22 @@ namespace Checkers.BL.Services.Tests
                                                                           "111p11" +
                                                                           "111111" +
                                                                           "1p1111" +
-                                                                          "111111w");
+                                                                          "111111");
 
 
-            var expected = new List<Vector>()
+            var expected = new AllowedVectors()
             {
-                new Vector()
-                {
-                    Direction = Direction.LeftBottom,
-                    Length = 2,
-                },
+                EatFigure = true,
+                Vectors = new List<Vector>(){
+                    new Vector()
+                    {
+                        Direction = Direction.LeftBottom,
+                        Length = 2,
+                    }
+                }
             };
-            CollectionAssert.AreEquivalent(expected, actual.Vectors);
-            Assert.IsTrue(actual.EatFigure);
 
-
+            AssertHelper.AllowedVectorsEquivalent(expected, actual);
         }
     }
 }
