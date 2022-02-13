@@ -2,7 +2,9 @@
 using Checkers;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using Checkers.BL.Services;
 using Checkers.Controllers;
 using Ckeckers.DAL.Repositories;
 using Microsoft.AspNetCore.Builder;
@@ -30,11 +32,19 @@ namespace Checkers.Tests
             //  Mimic internal asp.net core logic.
             //services.AddTransient<HomeController>();
 
+         
+            foreach (var type in typeof(HomeController).Assembly.GetTypes().Where(t => t.Name.EndsWith("Controller") && !t.IsInterface))
+            {
+                services.AddTransient(type);
+            }
             var serviceProvider = services.BuildServiceProvider();
 
-            var boardRepository = serviceProvider.GetService<IBoardRepository>();
 
-            Assert.IsNotNull(boardRepository);
+            foreach (var type in typeof(HomeController).Assembly.GetTypes().Where(t => t.Name.EndsWith("Controller") && !t.IsInterface))
+            {
+                 var controller = serviceProvider.GetService(type);
+                 Assert.IsNotNull(controller);
+            }
         }
     }
 }

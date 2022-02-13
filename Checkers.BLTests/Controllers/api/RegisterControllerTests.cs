@@ -24,5 +24,18 @@ namespace Checkers.Controllers.api.Tests
 
             Assert.AreEqual("registrationId", actual);
         }
+
+        [TestMethod()]
+        public void PostNullTest()
+        {
+            var registerService = new Mock<IRegisterService>();
+            registerService.Setup(m => m.Register("")).Returns("registrationId");
+
+            var registerController = new RegisterController(registerService.Object);
+
+            var actual = registerController.Post(null);
+
+            Assert.AreEqual("registrationId", actual);
+        }
     }
 }
