@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Checkers.Controllers
 {
-    public class BoardController : Controller
+    public class BoardController : Controller 
     {
         public IActionResult Index()
         {
