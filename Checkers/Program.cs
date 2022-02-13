@@ -17,16 +17,25 @@ namespace Checkers
             CreateHostBuilder(args).Build().Run();
         }
 
-        public static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
+        public static IHostBuilder CreateHostBuilder(string[] args)
+        {
+            if (args.Any(m => m == "/checkersunittest"))
+            {
+                return HostBuilderStub;
+            }
+            return Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
                 });
+        }
+            
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
                 .UseUrls("http://0.0.0.0:5106")
                 .UseStartup<Startup>();
+
+        public static IHostBuilder HostBuilderStub { get; set; }
     }
 }
