@@ -12,7 +12,7 @@ using Ckeckers.DAL.Repositories;
 
 namespace Checkers.BL.Services
 {
-    public class IntellectService
+    public class IntellectService : IIntellectService
     {
         private ValidateService _validateService;
 

@@ -11,9 +11,9 @@ namespace Checkers.Web.Controllers.api
     [ApiController]
     public class IntellectStepController : ControllerBase
     {
-        private IntellectService _intellectService;
+        private IIntellectService _intellectService;
 
-        public IntellectStepController(IntellectService intellectService)
+        public IntellectStepController(IIntellectService intellectService)
         {
             _intellectService = intellectService;
         }

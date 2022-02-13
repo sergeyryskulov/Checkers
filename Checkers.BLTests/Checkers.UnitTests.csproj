@@ -16,6 +16,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Checkers.BL\Checkers.BL.csproj" />
+    <ProjectReference Include="..\Checkers\Checkers.Web.csproj" />
     <ProjectReference Include="..\Ckeckers.DAL\Ckeckers.DAL.csproj" />
   </ItemGroup>
 

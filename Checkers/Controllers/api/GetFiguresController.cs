@@ -13,9 +13,9 @@ namespace Checkers.Controllers
     [ApiController]
     public class GetFiguresController : ControllerBase
     {
-        private GetFiguresService _getFiguresService;
+        private IGetFiguresService _getFiguresService;
 
-        public GetFiguresController(GetFiguresService getFiguresService)
+        public GetFiguresController(IGetFiguresService getFiguresService)
         {
             _getFiguresService = getFiguresService;
         }

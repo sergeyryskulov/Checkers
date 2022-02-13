@@ -7,7 +7,7 @@ using Ckeckers.DAL.Repositories;
 
 namespace Checkers.BL.Services
 {
-    public class GetFiguresService
+    public class GetFiguresService : IGetFiguresService
     {
         private IBoardRepository _boardRepository;
 
