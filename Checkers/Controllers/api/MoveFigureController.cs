@@ -14,26 +14,17 @@ namespace Checkers.Controllers
     [ApiController]
     public class MoveFigureController : ControllerBase
     {
-        private MoveFigureService _moveFigureService;
-        private IBoardRepository _boardRepository;
-
-        public MoveFigureController(MoveFigureService moveFigureService, IBoardRepository boardRepository)
+        private IMoveAndSaveFigureService _moveAndSaveFigureService;
+        
+        public MoveFigureController(IMoveAndSaveFigureService moveAndSaveFigureService)
         {
-            _moveFigureService = moveFigureService;
-            _boardRepository = boardRepository;
+            _moveAndSaveFigureService = moveAndSaveFigureService;
         }
 
 
         public string Post(int fromCoord, int toCoord, string registrationId)
         {
-            var oldState= _boardRepository.Load(registrationId);
-            var newState= _moveFigureService.Move(oldState, fromCoord, toCoord);
-            if (oldState != newState)
-            {
-                _boardRepository.Save(registrationId, newState);
-            }
-
-            return newState;
+            return _moveAndSaveFigureService.MoveAndSaveFigure(fromCoord, toCoord, registrationId);
         }
     }
 }

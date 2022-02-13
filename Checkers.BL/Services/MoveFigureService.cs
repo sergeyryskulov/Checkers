@@ -11,7 +11,7 @@ using Ckeckers.DAL.Repositories;
 
 namespace Checkers.BL.Services
 {
-    public class MoveFigureService
+    public class MoveFigureService : IMoveFigureService
     {
         private VectorHelper _vectorHelper;
         private MathHelper _mathHelper;
