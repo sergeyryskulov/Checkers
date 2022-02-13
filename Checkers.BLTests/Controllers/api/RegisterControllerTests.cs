@@ -11,18 +11,18 @@ namespace Checkers.Controllers.api.Tests
     [TestClass()]
     public class RegisterControllerTests
     {
+      
         [TestMethod()]
         public void PostTest()
         {
-            var newGameService = new Mock<INewGameService>();
+            var registerService = new Mock<IRegisterService>();
+            registerService.Setup(m => m.Register("test")).Returns("registrationId");
+            
+            var registerController = new RegisterController(registerService.Object);
 
-            newGameService.Setup(m => m.NewGame("registrationId")).Returns("defaultFigures");
+            var actual = registerController.Post("test");
 
-            var newGameController = new NewGameController(newGameService.Object);
-
-            var actual = newGameController.Post("registrationId");
-
-            Assert.AreEqual("defaultFigures", actual);
+            Assert.AreEqual("registrationId", actual);
         }
     }
 }

@@ -12,9 +12,9 @@ namespace Checkers.Controllers.api
     [ApiController]
     public class RegisterController : ControllerBase
     {
-        private RegisterService _registerService;
+        private IRegisterService _registerService;
 
-        public RegisterController(RegisterService registerService)
+        public RegisterController(IRegisterService registerService)
         {
             _registerService = registerService;
         }
