@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 using Checkers.BL.Constants;
 using Checkers.BL.Constants.Enums;
 using Checkers.BL.Helper;
@@ -61,17 +62,15 @@ namespace Checkers.BL.Services
         private AllowedVectors GetAllowedVectorsQueenDirection(int coord, string figures, Direction direction)
         {
 
-            AllowedVectors result = new AllowedVectors()
-            {
-                EatFigure = false,
-                Vectors = new List<Vector>()
-            };
+
 
             int boardWidth = _mathHelper.Sqrt(figures.Length);
             var color = _colorHelper.GetFigureColor(figures[coord]);
             var oppositeColor = color == FigureColor.White ? FigureColor.Black : FigureColor.White;
 
-            bool figureHasBeenEated = false;
+            var eatVectors = new List<Vector>();
+            var notEatVectors = new List<Vector>();
+            var eatFigure = false;
 
             for (int i = 1; i < boardWidth; i++)
             {
@@ -84,43 +83,52 @@ namespace Checkers.BL.Services
                 var stepCoord = _vectorHelper.VectorToCoord(coord, vector, boardWidth);
                 if (stepCoord == -1)
                 {
-                    return result;
+                    break;
                 }
 
                 var figure = figures[stepCoord];
 
                 if (_colorHelper.GetFigureColor(figure) == FigureColor.Empty)
                 {
-                    if (figureHasBeenEated)
+                    if (eatFigure)
                     {
-                        result.Vectors.Clear();
-                        result.EatFigure = true;
-                        figureHasBeenEated = false;
-                    }
-
-                    result.Vectors.Add(vector);
-                }
-                else if (_colorHelper.GetFigureColor(figure) == oppositeColor)
-                {
-                    if (!result.EatFigure)
-                    {
-                        figureHasBeenEated = true;
-                        continue;
+                        eatVectors.Add(vector);
                     }
                     else
                     {
-                        return result;
+                        notEatVectors.Add(vector);
                     }
+                }
+                else if (_colorHelper.GetFigureColor(figure) == oppositeColor)
+                {
+                    if (eatFigure)
+                    {
+                        break;
+                    }
+
+                    eatFigure = true;
                 }
                 else
                 {
-                    return result;
+                    break;
                 }
 
             }
 
-            return result;
+            if (eatVectors.Count > 0)
+            {
+                return new AllowedVectors()
+                {
+                    EatFigure = true,
+                    Vectors = eatVectors
+                };
+            }
 
+            return new AllowedVectors()
+            {
+                EatFigure = false,
+                Vectors = notEatVectors
+            };
         }
      
 

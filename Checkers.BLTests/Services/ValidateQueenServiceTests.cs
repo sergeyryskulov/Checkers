@@ -142,5 +142,27 @@ namespace Checkers.BL.Services.Tests
 
             AssertHelper.AllowedVectorsEquivalent(expected, actual);
         }
+
+        [TestMethod()]
+        public void CannotTake_TwoNearFiguresOnOneSimpleStep()
+        {
+            var actual = CreateValidateService().GetAllowedMoveVectors(10, "" +
+                                                                          "111p1p" +
+                                                                          "1111Q1" +
+                                                                          "111p1p" +
+                                                                          "11p111" +
+                                                                          "111111" +
+                                                                          "111111");
+
+
+            var expected = new AllowedVectors()
+            {
+                EatFigure = false,
+                Vectors = new List<Vector>()
+            };
+
+            AssertHelper.AllowedVectorsEquivalent(expected, actual);
+        }
+
     }
 }
