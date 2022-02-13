@@ -70,8 +70,7 @@ namespace Checkers.BL.Services
                 {
                     foreach (var newState  in GetAllowedNextStates(inputState, fromCoord, figures, boardWidth))
                     {
-                        if (boardState.Turn == Turn.Black && newState.Contains(Turn.Black) ||
-                            boardState.Turn == Turn.White && newState.Contains(Turn.White))
+                        if (newState.Contains(boardState.Turn))
                         {
                             stateWithNoChangeTurn.Add(newState);
                         }
