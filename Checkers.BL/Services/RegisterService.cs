@@ -7,7 +7,7 @@ using Ckeckers.DAL.Repositories;
 
 namespace Checkers.BL.Services
 {
-    public class RegisterService
+    public class RegisterService : IRegisterService
     {
         private IBoardRepository _boardRepository;
         private IRegistrationIdGeneratorRepository _registrationIdGeneratorRepository;

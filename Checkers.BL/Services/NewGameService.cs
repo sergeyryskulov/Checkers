@@ -7,7 +7,7 @@ using Ckeckers.DAL.Repositories;
 
 namespace Checkers.BL.Services
 {
-    public class NewGameService
+    public class NewGameService : INewGameService
     {
         private IBoardRepository _boardRepository;
 

@@ -13,10 +13,9 @@ namespace Checkers.Controllers.api
     [ApiController]
     public class NewGameController : ControllerBase
     {
-        private NewGameService _newGameService;
+        private INewGameService _newGameService;
 
-
-        public NewGameController(NewGameService newGameService)
+        public NewGameController(INewGameService newGameService)
         {
             _newGameService = newGameService;
         }
