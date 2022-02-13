@@ -15,12 +15,32 @@ namespace Checkers.BL.Services.Tests
         public void RegisterTest()
         {
             var boardRepository = new Mock<IBoardRepository>();
-            
-            var registerService = new RegisterService(boardRepository.Object);
 
-            registerService.Register("firstPosition");
+            var idGeneratorRepository = new Mock<IRegistrationIdGeneratorRepository>();
+            idGeneratorRepository.Setup(m => m.GenerateId()).Returns("testid");
+
+            var registerService = new RegisterService(boardRepository.Object, idGeneratorRepository.Object);
+
+            string actual = registerService.Register("firstPosition");
 
             boardRepository.Verify(m => m.Save(It.IsAny<string>(), "firstPosition"));            
+
+            Assert.AreEqual("testid", actual);
+        }
+
+        [TestMethod()]
+        public void RegisterDefaultPositionTest()
+        {
+            var boardRepository = new Mock<IBoardRepository>();
+
+            var idGeneratorRepository = new Mock<IRegistrationIdGeneratorRepository>();
+            idGeneratorRepository.Setup(m => m.GenerateId()).Returns("testid");
+
+            var registerService = new RegisterService(boardRepository.Object, idGeneratorRepository.Object);
+
+            string actual = registerService.Register("");
+
+            Assert.AreEqual("testid", actual);
         }
     }
 }

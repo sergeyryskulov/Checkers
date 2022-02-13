@@ -79,6 +79,29 @@ namespace Checkers.BL.Services.Tests
 
         }
 
+        [TestMethod()]
+        public void IntellectStep_QueenWeightTest()
+        {
+            var boardRepository = new Mock<IBoardRepository>();
+            boardRepository.Setup(m => m.Load("")).Returns("" +
+                                                           "11Q" +
+                                                           "111" +
+                                                           "q11b");
+
+            var service = GetIntellectService(boardRepository.Object);
+
+            string actual = service.IntellectStep("");
+
+            string expected = "" +
+                              "11Q" +
+                              "1q1" +
+                              "111w";
+
+            Assert.AreEqual(expected, actual);
+
+        }
+
+
 
         [TestMethod()]
         public void IntellectStepMustGoTest()

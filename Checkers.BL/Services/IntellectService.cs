@@ -14,9 +14,6 @@ namespace Checkers.BL.Services
 {
     public class IntellectService
     {
-
-      
-
         private ValidateService _validateService;
 
         private IBoardRepository _boardRepository;
@@ -25,7 +22,6 @@ namespace Checkers.BL.Services
         private VectorHelper _vectorHelper;
         private MathHelper _mathHelper;
         private StateParserHelper _stateParserHelper;
-
 
         public IntellectService(ValidateService validateService, IBoardRepository boardRepository, ColorHelper colorHelper, MoveFigureService moveFigureService, VectorHelper vectorHelper, MathHelper mathHelper, StateParserHelper stateParserHelper)
         {
@@ -72,24 +68,16 @@ namespace Checkers.BL.Services
                     (boardState.Turn == Turn.White && _colorHelper.GetFigureColor(figures[fromCoord]) == FigureColor.White
                     ))
                 {
-                    var allowedVectors = _validateService.GetAllowedMoveVectors(fromCoord, figures).Vectors;
-                    foreach (var allowedVector in allowedVectors)
+                    foreach (var newState  in GetAllowedNextStates(inputState, fromCoord, figures, boardWidth))
                     {
-                        var toCoord = _vectorHelper.VectorToCoord(fromCoord, allowedVector, boardWidth);
-                        var newState = _moveFigureService.Move(inputState, fromCoord, toCoord, true);
-                        if (newState != inputState)
+                        if (boardState.Turn == Turn.Black && newState.Contains(Turn.Black) ||
+                            boardState.Turn == Turn.White && newState.Contains(Turn.White))
                         {
-                            if (boardState.Turn == Turn.Black && newState.Contains(Turn.Black) ||
-                                boardState.Turn == Turn.White && newState.Contains(Turn.White))
-                            {
-                                stateWithNoChangeTurn.Add(newState);
-                                
-                            }
-                            else
-                            {
-                                result.Add(newState);
-                            }
-                            
+                            stateWithNoChangeTurn.Add(newState);
+                        }
+                        else
+                        {
+                            result.Add(newState);
                         }
                     }
                 }
@@ -102,6 +90,23 @@ namespace Checkers.BL.Services
 
             return result;
 
+        }
+
+        private List<string> GetAllowedNextStates(string inputState, int fromCoord, string figures, int boardWidth)
+        {
+            List<string> result = new List<string>();
+            var allowedVectors = _validateService.GetAllowedMoveVectors(fromCoord, figures).Vectors;
+            foreach (var allowedVector in allowedVectors)
+            {
+                var toCoord = _vectorHelper.VectorToCoord(fromCoord, allowedVector, boardWidth);
+                var newState = _moveFigureService.Move(inputState, fromCoord, toCoord, true);
+                if (inputState != newState)
+                {
+                    result.Add(newState);
+                }
+            }
+
+            return result;
         }
 
         int GetBestWeightForWhite(string state)
