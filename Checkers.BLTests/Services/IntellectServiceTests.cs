@@ -65,7 +65,7 @@ namespace Checkers.BL.Services.Tests
 
             var service = GetIntellectService(boardRepository.Object);
 
-            string actual = service.IntellectStep("", FigureColor.White);
+            string actual = service.IntellectStep("");
 
             string expected = "" +
                               "111111" +

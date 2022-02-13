@@ -38,46 +38,19 @@ namespace Checkers.BL.Services
             _stateParserHelper = stateParserHelper;
         }
 
-
-        int GetBestForWhite(string state)
-        {
-            var nextWhiteVariants = GetNextStepVariants(state);
-
-            if (nextWhiteVariants.Count == 0)
-            {
-                return -100;
-            }
-
-            var minimumWhite = nextWhiteVariants.OrderByDescending(t => GetWeight(t, FigureColor.White)).First();
-
-            return GetWeight(minimumWhite, FigureColor.White);
-
-        }
-        public string IntellectStep(string registrationId, FigureColor intellectColor = FigureColor.Black)
+        public string IntellectStep(string registrationId)
         {
             string boardStateString = _boardRepository.Load(registrationId);
 
-            var turn = _stateParserHelper.ParseState(boardStateString).Turn;
-
-
-            string bestState= GetNextStepVariants(boardStateString).OrderBy(t => GetBestForWhite(t)).First();
+            var nextStepVariants = GetNextStepVariants(boardStateString);
             
+            var worstForWhiteVariant = nextStepVariants.OrderBy(t => GetBestWeightForWhite(t)).First();
             
-            //string bestState = nextVariants.OrderByDescending(t => GetWeight(t, intellectColor)).First();
+            _boardRepository.Save(registrationId, worstForWhiteVariant);
 
-            _boardRepository.Save(registrationId, bestState);
-            return bestState;
-            /* var rand = new Random();
-             var randomCoord= allVariants.Keys.ToList()[rand.Next(allVariants.Keys.Count)];
-             var randomVectors= allVariants[randomCoord];
-             var randomVector = randomVectors[rand.Next(randomVectors.Count)];
-             var randomToCoord = _vectorHelper.VectorToCoord(randomCoord, randomVector, boardWidth);
-             string resultState= _moveFigureService.Move(boardStateString, randomCoord, randomToCoord);
-             _boardRepository.Save(registrationId, resultState);*/
-
-
-
+            return worstForWhiteVariant;
         }
+
         private List<string> GetNextStepVariants(string inputState)
         {
             var result = new List<string>();
@@ -131,29 +104,36 @@ namespace Checkers.BL.Services
 
         }
 
-        private int GetWeight(string boardState, FigureColor forWhom)
+        int GetBestWeightForWhite(string state)
+        {
+            var nextWhiteVariants = GetNextStepVariants(state);
+
+            if (nextWhiteVariants.Count == 0)
+            {
+                return -100;
+            }
+
+            var maximumWhite = nextWhiteVariants.OrderByDescending(t => GetWeightForWhite(t)).First();
+
+            return GetWeightForWhite(maximumWhite);
+        }
+
+        private int GetWeightForWhite(string boardState)
         {
             int result = 0;
             foreach (var figure in boardState)
             {
                 switch (figure)
                 {
-                    case Figures.BlackQueen: result += 2; break;
-                    case Figures.BlackPawn: result += 1; break;
-                    case Figures.WhiteQueen: result -= 2; break;
-                    case Figures.WhitePawn: result -= 1; break;
+                    case Figures.BlackQueen: result -= 2; break;
+                    case Figures.BlackPawn: result -= 1; break;
+                    case Figures.WhiteQueen: result += 2; break;
+                    case Figures.WhitePawn: result += 1; break;
                     default: break;
                 }
-            }
-
-            if (forWhom == FigureColor.White)
-            {
-                return -1*result;
             }
 
             return result;
         }
     }
-
-    
 }
