@@ -7,11 +7,11 @@ using Checkers.BL.Models;
 
 namespace Checkers.BL.Services
 {
-    public class DirectMoveFigureService
+    public class DirectMoveService
     {
         private readonly ValidateFiguresService _validateFiguresService;
 
-        public DirectMoveFigureService(ValidateFiguresService validateFiguresService)
+        public DirectMoveService(ValidateFiguresService validateFiguresService)
         {
             _validateFiguresService = validateFiguresService;
         }

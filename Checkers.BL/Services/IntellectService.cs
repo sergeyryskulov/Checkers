@@ -17,14 +17,14 @@ namespace Checkers.BL.Services
         private ValidateFiguresService _validateFiguresService;
 
         private IBoardRepository _boardRepository;
-        
-        private MoveFigureService _moveFigureService;        
 
-        public IntellectService(ValidateFiguresService validateFiguresService, IBoardRepository boardRepository, MoveFigureService moveFigureService)
+        private DirectMoveService _directMoveService;
+
+        public IntellectService(ValidateFiguresService validateFiguresService, IBoardRepository boardRepository, DirectMoveService directMoveService)
         {
             _validateFiguresService = validateFiguresService;
-            _boardRepository = boardRepository;            
-            _moveFigureService = moveFigureService;            
+            _boardRepository = boardRepository;
+            _directMoveService = directMoveService;
         }
 
         public string IntellectStep(string registrationId)
@@ -91,7 +91,7 @@ namespace Checkers.BL.Services
             foreach (var allowedVector in allowedVectors)
             {
                 var toCoord = allowedVector.ToCoord(fromCoord, boardWidth);
-                var newState = _moveFigureService.Move(inputState, fromCoord, toCoord, true);
+                var newState = _directMoveService.DirectMove(inputState, fromCoord, toCoord);
                 if (inputState != newState)
                 {
                     result.Add(newState);

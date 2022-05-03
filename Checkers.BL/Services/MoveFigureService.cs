@@ -15,14 +15,14 @@ namespace Checkers.BL.Services
     {        
         private ValidateFiguresService _validateFiguresService;
 
-        private DirectMoveFigureService _directMoveFigureService;
+        private DirectMoveService _directMoveService;
 
         public MoveFigureService(
             ValidateFiguresService validateFiguresService,
-            DirectMoveFigureService directMoveFigureService)
+            DirectMoveService directMoveService)
         {
             _validateFiguresService = validateFiguresService;
-            _directMoveFigureService = directMoveFigureService;
+            _directMoveService = directMoveService;
         }
 
 
@@ -36,10 +36,8 @@ namespace Checkers.BL.Services
                 }
             }
 
-            return _directMoveFigureService.DirectMove(boardStateString, fromCoord, toCoord);
+            return _directMoveService.DirectMove(boardStateString, fromCoord, toCoord);
         }
-
-       
 
 
         private bool CanMove(string boardStateString, int fromCoord, int toCoord)
