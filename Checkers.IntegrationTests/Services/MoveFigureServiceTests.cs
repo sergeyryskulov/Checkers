@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Checkers.BL.Helper;
 using Ckeckers.DAL.Repositories;
 using Moq;
 
