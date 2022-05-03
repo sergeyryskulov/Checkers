@@ -20,45 +20,29 @@ namespace Checkers.BL.Services
             _validateFiguresService = validateFiguresService;            
         }
 
+
         public string Move(string boardStateString, int fromCoord, int toCoord, bool skipValidation = false)
         {
-            var boardState = boardStateString.ToBoardState();
-
-            var needStartFromOtherCoord = (boardState.MustCoord != -1 && boardState.MustCoord != fromCoord);
-            if (needStartFromOtherCoord)
+            if (!skipValidation)
             {
-                return boardStateString;
+                if (!CanMove(boardStateString, fromCoord, toCoord))
+                {
+                    return boardStateString;
+                }
             }
+
+            return DirectMove(boardStateString, fromCoord, toCoord);
+        }
+
+        private string DirectMove(string boardStateString, int fromCoord, int toCoord)
+        {
+            var boardState = boardStateString.ToBoardState();
 
             string figures = boardState.Figures;
 
             var boardWidth = figures.Length.SquareRoot();
 
             var vector = fromCoord.ToVector(toCoord, boardWidth);
-
-            var incorrectVector = (vector == null);
-            if (incorrectVector)
-            {
-                return boardStateString;
-            }
-
-            var incorrectTurn = (figures[fromCoord].IsWhite() && boardState.Turn != Turn.White || figures[fromCoord].IsBlack() && boardState.Turn != Turn.Black);
-            if (incorrectTurn)
-            {
-                return boardStateString;
-            }
-
-            
-            if (
-                !skipValidation &&
-                figures[fromCoord] == Figures.WhitePawn || figures[fromCoord] == Figures.BlackPawn ||
-                figures[fromCoord] == Figures.WhiteQueen || figures[fromCoord] == Figures.BlackQueen)
-            {
-                if (!_validateFiguresService.GetAllowedMoveVectors(fromCoord, figures).Vectors.Contains(vector))
-                {
-                    return boardStateString;
-                }
-            }
 
             StringBuilder newFiguresBuilder = new StringBuilder(figures);
             newFiguresBuilder[toCoord] = newFiguresBuilder[fromCoord];
@@ -76,7 +60,7 @@ namespace Checkers.BL.Services
             bool isDie = false;
             for (int i = 1; i < vector.Length; i++)
             {
-                var cleanCoord =(new Vector()
+                var cleanCoord = (new Vector()
                 {
                     Length = i,
                     Direction = vector.Direction
@@ -123,12 +107,50 @@ namespace Checkers.BL.Services
             }
 
 
-//            var resultState = newFigures + nextTurn + (toggleTurn ? "" : toCoord);
-
-            var resultState = 
+            var resultState =
                 toggleTurn ? newFigures + nextTurn : newFigures + nextTurn + toCoord;
 
             return resultState;
+        }
+
+
+        private bool CanMove(string boardStateString, int fromCoord, int toCoord)
+        {
+
+            var boardState = boardStateString.ToBoardState();
+
+            string figures = boardState.Figures;
+
+            var boardWidth = figures.Length.SquareRoot();
+
+            var vector = fromCoord.ToVector(toCoord, boardWidth);
+
+            var needStartFromOtherCoord = (boardState.MustCoord != -1 && boardState.MustCoord != fromCoord);
+            if (needStartFromOtherCoord)
+            {
+                return false;
+            }
+
+            var incorrectVector = (vector == null);
+            if (incorrectVector)
+            {
+                return false;
+            }
+
+            var incorrectTurn = (figures[fromCoord].IsWhite() && boardState.Turn != Turn.White || figures[fromCoord].IsBlack() && boardState.Turn != Turn.Black);
+            if (incorrectTurn)
+            {
+                return false;
+            }
+
+            var notInAllowedVectors = !_validateFiguresService.GetAllowedMoveVectors(fromCoord, figures).Vectors.Contains(vector);
+            if (notInAllowedVectors)
+            {
+                return false;
+            }
+
+            return true;
+
         }
 
 
