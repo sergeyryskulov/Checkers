@@ -13,82 +13,63 @@ namespace Checkers.BL.Services.Tests
     [TestClass()]
     public class MoveFigureServiceTests
     {
-        [TestMethod()]
-        public void SimpleMoveCorrect()
+
+        private void AssertMove(string from, int fromCoord, int toCoord, string expected)
         {
             var moveService = CreateMoveFigureService();
 
-            string actual = moveService.Move("p111b", 0, 3);
-
-            var expected = "111qB";
+            string actual = moveService.Move(from, fromCoord, toCoord);
 
             Assert.AreEqual(expected, actual);
         }
 
         [TestMethod()]
-        public void CannotMoveToSelf()
+        public void PawnToQueen()
         {
-            var service = CreateMoveFigureService();
-
-            var actual = service.Move("p111b", 0, 0);
-
-            var expected = "p111b";
-
-            Assert.AreEqual(expected, actual);
+            AssertMove(
+                "p1" +
+                "11b",
+                0, 3,
+                "11" +
+                "1qB");
         }
 
         [TestMethod()]
-        public void Queen_CannotMoveToSelf()
+        public void PawnCannotMoveToSelf()
         {
-            var service = CreateMoveFigureService();
-
-            string actual = service.Move("q111b", 0, 0);
-
-            var expected = "q111b";
-
-            Assert.AreEqual(expected, actual);
+            AssertMove(
+                "p1" +
+                "11b",
+                0, 0,
+                "p1" +
+                "11b");
         }
 
-
         [TestMethod()]
-        public void Die_Correct()
+        public void QueenCannotMoveToSelf()
         {
-
-            var expected = "" +
-                           "11Q" +
-                           "111" +
-                           "111W";
-
-            var service = CreateMoveFigureService();
-
-            string actual = service.Move("" +
-                                         "111" +
-                                         "1p1" +
-                                         "P11w", 6, 2);
-
-            Assert.AreEqual(expected, actual);
+            AssertMove(
+                "q1" +
+                "11b",
+                0, 0,
+                "q1" +
+                "11b"
+                );
         }
 
 
         [TestMethod()]
-        public void Block_Correct()
+        public void PawnEatPawn()
         {
-
-
-            var expected = "" +
-                           "11Q" +
-                           "111" +
-                           "111W";
-
-
-            var service = CreateMoveFigureService();
-
-            string actual = service.Move("" +
-                                         "111" +
-                                         "1p1" +
-                                         "P11w", 6, 2);
-
-            Assert.AreEqual(expected, actual);
+            AssertMove(
+                "111" + 
+                "1p1" + 
+                "P11w",
+                6, 2,
+                "11Q" +
+                "111" +
+                "111W"
+            );
         }
 
 
