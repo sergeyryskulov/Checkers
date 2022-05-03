@@ -14,15 +14,6 @@ namespace Checkers.BL.Services.Tests
     public class MoveFigureServiceTests
     {
 
-        private void AssertMove(string from, int fromCoord, int toCoord, string expected)
-        {
-            var moveService = CreateMoveFigureService();
-
-            string actual = moveService.Move(from, fromCoord, toCoord);
-
-            Assert.AreEqual(expected, actual);
-        }
-
         [TestMethod()]
         public void PawnToQueen()
         {
@@ -74,51 +65,44 @@ namespace Checkers.BL.Services.Tests
 
 
         [TestMethod()]
-        public void Move_NotToggleTurm()
+        public void TurnNotToggledAfterPawnMove()
         {
-
-            var expected = "" +
-                           "111111" +
-                           "111111" +
-                           "P11p11" +
-                           "11P111" +
-                           "111111" +
-                           "111111w20";
-
-            var service = CreateMoveFigureService();
-
-            var actual = service.Move("" +
-                                      "111111" +
-                                      "111111" +
-                                      "P11p11" +
-                                      "111111" +
-                                      "1p1111" +
-                                      "P11111w", 30, 20);
-            Assert.AreEqual(expected, actual);
+            AssertMove(
+                "111111" +
+                "111111" +
+                "P11p11" +
+                "111111" +
+                "1p1111" +
+                "P11111w",
+                30, 20,
+                "" +
+                "111111" +
+                "111111" +
+                "P11p11" +
+                "11P111" +
+                "111111" +
+                "111111w20");
         }
 
         [TestMethod()]
-        public void Move_NotToggleTurn2()
+        public void TurnNotToggleAfterQueenMove()
         {
+            AssertMove(
+                "111Q11" +
+                "111111" +
+                "1p1111" +
+                "111111" +
+                "1p1111" +
+                "111111w",
+                3, 18,
+                "111111" +
+                "111111" +
+                "111111" +
+                "Q11111" +
+                "1p1111" +
+                "111111w18"
 
-            var expected = "" +
-                           "111111" +
-                           "111111" +
-                           "111111" +
-                           "Q11111" +
-                           "1p1111" +
-                           "111111w18";
-
-            var service = CreateMoveFigureService();
-
-            var actual = service.Move("" +
-                                      "111Q11" +
-                                      "111111" +
-                                      "1p1111" +
-                                      "111111" +
-                                      "1p1111" +
-                                      "111111w", 3, 18);
-            Assert.AreEqual(expected, actual);
+            );
         }
 
         private MoveFigureService CreateMoveFigureService()
@@ -138,61 +122,61 @@ namespace Checkers.BL.Services.Tests
                 );
         }
 
-        [TestMethod()]
-        public void CannotMove_BlockByOther()
+        private void AssertMove(string from, int fromCoord, int toCoord, string expected)
         {
+            var moveService = CreateMoveFigureService();
 
-            var expected = "" +
-                           "111111" +
-                           "1p1111" +
-                           "P11111" +
-                           "11P111" +
-                           "111111" +
-                           "111111w20";
-
-            var service = CreateMoveFigureService();
-
-            var actual = service.Move("" +
-                                      "111111" +
-                                      "1p1111" +
-                                      "P11111" +
-                                      "11P111" +
-                                      "111111" +
-                                      "111111w20", 12, 2);
-            Assert.AreEqual(expected, actual);
-        }
-
-
-        [TestMethod()]
-        public void CannotMove_OtherColor()
-        {
-
-            var actual = CreateMoveFigureService().Move("" +
-                                                        "111" +
-                                                        "1p1" +
-                                                        "P11b", 6, 2);
-            var expected = "" +
-                           "111" +
-                           "1p1" +
-                           "P11b";
+            string actual = moveService.Move(from, fromCoord, toCoord);
 
             Assert.AreEqual(expected, actual);
         }
 
         [TestMethod()]
-        public void CannotMove_IncorrectStep()
+        public void BlockedByOtherFigureThatMustMove()
+        {
+            AssertMove(
+                "111111" +
+                "1p1111" +
+                "P11111" +
+                "11P111" +
+                "111111" +
+                "111111w20",
+                12, 2,
+                "111111" +
+                "1p1111" +
+                "P11111" +
+                "11P111" +
+                "111111" +
+                "111111w20");
+        }
+
+
+        [TestMethod()]
+        public void CannotMoveOnOtherColorTurn()
+        {
+            AssertMove(
+                "111" +
+                "1p1" +
+                "P11b",
+                6, 2,
+                "111" +
+                "1p1" +
+                "P11b"
+                );
+        }
+
+        [TestMethod()]
+        public void CannotMoveToOtherColorPawnPosition()
         {
 
-            var actual = CreateMoveFigureService().Move("" +
-                                                        "111" +
-                                                        "1p1" +
-                                                        "P11w", 6, 4);
-            var expected = "" +
-                           "111" +
-                           "1p1" +
-                           "P11w";
-
-            Assert.AreEqual(expected, actual);
+            AssertMove(
+                "111" +
+                "1p1" +
+                "P11w",
+                6, 4,
+                "111" +
+                "1p1" +
+                "P11w");
         }
     }
 }
