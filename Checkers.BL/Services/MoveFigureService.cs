@@ -13,11 +13,11 @@ namespace Checkers.BL.Services
 {
     public class MoveFigureService : IMoveFigureService
     {        
-        private ValidateService _validateService;                
+        private ValidateFiguresService _validateFiguresService;                
 
-        public MoveFigureService(ValidateService validateService)
+        public MoveFigureService(ValidateFiguresService validateFiguresService)
         {            
-            _validateService = validateService;            
+            _validateFiguresService = validateFiguresService;            
         }
 
         public string Move(string boardStateString, int fromCoord, int toCoord, bool skipValidation = false)
@@ -50,7 +50,7 @@ namespace Checkers.BL.Services
                 figures[fromCoord] == Figures.WhitePawn || figures[fromCoord] == Figures.BlackPawn ||
                 figures[fromCoord] == Figures.WhiteQueen || figures[fromCoord] == Figures.BlackQueen)
             {
-                if (!_validateService.GetAllowedMoveVectors(fromCoord, figures).Vectors.Contains(vector))
+                if (!_validateFiguresService.GetAllowedMoveVectors(fromCoord, figures).Vectors.Contains(vector))
                 {
                     return boardStateString;
                 }
@@ -91,7 +91,7 @@ namespace Checkers.BL.Services
 
             if (isDie)
             {
-                var possibleNextStepVectors = _validateService.GetAllowedMoveVectors(toCoord, newFigures);
+                var possibleNextStepVectors = _validateFiguresService.GetAllowedMoveVectors(toCoord, newFigures);
                 {
                     if (possibleNextStepVectors.EatFigure)
                     {

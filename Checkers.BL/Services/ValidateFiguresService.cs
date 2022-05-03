@@ -12,11 +12,11 @@ using Checkers.BL.Models;
 
 namespace Checkers.BL.Services
 {
-    public class ValidateService
+    public class ValidateFiguresService
     {
         private readonly IValidateFigureService _validateFigureService;
 
-        public ValidateService(IValidateFigureService validateFigureService)
+        public ValidateFiguresService(IValidateFigureService validateFigureService)
         {
             _validateFigureService = validateFigureService;
         }
@@ -26,7 +26,7 @@ namespace Checkers.BL.Services
             
             var result = _validateFigureService.GetAllowedMoveVectors(coord, figures);
 
-            if (result.EatFigure==false && result.Vectors.Count > 0 && IsBlocked(coord, figures))
+            if (result.EatFigure==false && result.Vectors.Count > 0 && IsBlockedByAnotherFigure(coord, figures))
             {
                 return new AllowedVectors()
                 {
@@ -38,7 +38,7 @@ namespace Checkers.BL.Services
             return result;
         }
 
-        private bool IsBlocked(int coord, string figures)
+        private bool IsBlockedByAnotherFigure(int coord, string figures)
         {
             var color = figures[coord].ToFigureColor();
 

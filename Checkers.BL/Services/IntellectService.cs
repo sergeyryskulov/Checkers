@@ -14,15 +14,15 @@ namespace Checkers.BL.Services
 {
     public class IntellectService : IIntellectService
     {
-        private ValidateService _validateService;
+        private ValidateFiguresService _validateFiguresService;
 
         private IBoardRepository _boardRepository;
         
         private MoveFigureService _moveFigureService;        
 
-        public IntellectService(ValidateService validateService, IBoardRepository boardRepository, MoveFigureService moveFigureService)
+        public IntellectService(ValidateFiguresService validateFiguresService, IBoardRepository boardRepository, MoveFigureService moveFigureService)
         {
-            _validateService = validateService;
+            _validateFiguresService = validateFiguresService;
             _boardRepository = boardRepository;            
             _moveFigureService = moveFigureService;            
         }
@@ -87,7 +87,7 @@ namespace Checkers.BL.Services
         private List<string> GetAllowedNextStates(string inputState, int fromCoord, string figures, int boardWidth)
         {
             List<string> result = new List<string>();
-            var allowedVectors = _validateService.GetAllowedMoveVectors(fromCoord, figures).Vectors;
+            var allowedVectors = _validateFiguresService.GetAllowedMoveVectors(fromCoord, figures).Vectors;
             foreach (var allowedVector in allowedVectors)
             {
                 var toCoord = allowedVector.ToCoord(fromCoord, boardWidth);
