@@ -20,5 +20,15 @@ namespace Checkers.BL.Extensions
 
             return FigureColor.Empty;
         }
+
+        public static bool IsWhite(this char figure)
+        {
+            return figure.ToFigureColor() == FigureColor.White;
+        }
+
+        public static bool IsBlack(this char figure)
+        {
+            return figure.ToFigureColor() == FigureColor.Black;
+        }
     }
 }

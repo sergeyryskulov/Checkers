@@ -38,8 +38,8 @@ namespace Checkers.BL.Services
                 return boardStateString;
             }
             
-            if (figures[fromCoord].ToFigureColor() == FigureColor.White && boardState.Turn != Turn.White ||
-                figures[fromCoord].ToFigureColor() == FigureColor.Black && boardState.Turn != Turn.Black)
+            if (figures[fromCoord].IsWhite() && boardState.Turn != Turn.White ||
+                figures[fromCoord].IsBlack() && boardState.Turn != Turn.Black)
             {
                 return boardStateString;
             }
