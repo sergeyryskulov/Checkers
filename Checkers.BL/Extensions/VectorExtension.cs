@@ -8,7 +8,7 @@ namespace Checkers.BL.Extensions
 {
     public static class VectorExtension
     {
-        public static Vector CoordToVector(this int fromCoord, int toCoord, int boardWidth)
+        public static Vector ToVector(this int fromCoord, int toCoord, int boardWidth)
         {
             if (fromCoord == toCoord)
             {
@@ -41,7 +41,7 @@ namespace Checkers.BL.Extensions
                 Length = length
             };
 
-            if (resultVector.VectorToCoord(fromCoord, boardWidth) == toCoord)
+            if (resultVector.ToCoord(fromCoord, boardWidth) == toCoord)
             {
                 return resultVector;
             }
@@ -49,7 +49,7 @@ namespace Checkers.BL.Extensions
             return null;
         }
 
-        public static int VectorToCoord(this Vector vector, int fromCoord, int boardWidth)
+        public static int ToCoord(this Vector vector, int fromCoord, int boardWidth)
         {
             int shiftLeftRight = vector.Length * (IsRight(vector.Direction) ? 1 : -1);
             int xProjection = (fromCoord % boardWidth) + shiftLeftRight;

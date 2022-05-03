@@ -24,7 +24,7 @@ namespace Checkers.BL.Helper.Tests
             {
                 Direction = Direction.RightBottom,
                 Length = 1
-            }).VectorToCoord(0, 2);
+            }).ToCoord(0, 2);
 
             var expected = 3;
 
@@ -39,7 +39,7 @@ namespace Checkers.BL.Helper.Tests
             {
                 Direction = Direction.LeftBottom,
                 Length = 1
-            }).VectorToCoord(0, 2);
+            }).ToCoord(0, 2);
 
             var expected = -1;
 
@@ -49,7 +49,7 @@ namespace Checkers.BL.Helper.Tests
         [TestMethod()]
         public void ConvertToVector_RightBottom_Correct()
         {
-            var actual = 0.CoordToVector(3, 2);
+            var actual = 0.ToVector(3, 2);
 
             var expected = new Vector()
             {
@@ -63,7 +63,7 @@ namespace Checkers.BL.Helper.Tests
         [TestMethod()]
         public void CoordToVectorTest()
         {
-            var actualVector = 0.CoordToVector(100, 2);
+            var actualVector = 0.ToVector(100, 2);
 
             Assert.IsNull(actualVector);
             

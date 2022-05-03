@@ -63,7 +63,7 @@ namespace Checkers.BL.Services
                 Direction = forwardDirection,
                 Length = 1
             };
-            var coordinateOneStepForward = vectorOneStepForward.VectorToCoord(coord, boardWidth);
+            var coordinateOneStepForward = vectorOneStepForward.ToCoord(coord, boardWidth);
             if (coordinateOneStepForward == -1)
             {
                 return new List<Vector>();
@@ -76,7 +76,7 @@ namespace Checkers.BL.Services
             }
             else if (figures[coordinateOneStepForward].ToFigureColor() == oppositeColor)
             {
-                var coordTwoStepForward = vectorOneStepForward.VectorToCoord(coordinateOneStepForward, boardWidth);
+                var coordTwoStepForward = vectorOneStepForward.ToCoord(coordinateOneStepForward, boardWidth);
                 if (coordTwoStepForward == -1)
                 {
                     return result;
@@ -108,7 +108,7 @@ namespace Checkers.BL.Services
             };
             var result = new List<Vector>();
 
-            var coordinateOneStepBackward = vectorOneStepBackward.VectorToCoord(coord,  boardWidth);
+            var coordinateOneStepBackward = vectorOneStepBackward.ToCoord(coord,  boardWidth);
             if (coordinateOneStepBackward == -1)
             {
                 return result;
@@ -116,7 +116,7 @@ namespace Checkers.BL.Services
 
             if (figures[coordinateOneStepBackward].ToFigureColor() == oppositeColor)
             {
-                var coordTwoStepBackward = vectorOneStepBackward.VectorToCoord(coordinateOneStepBackward, boardWidth);
+                var coordTwoStepBackward = vectorOneStepBackward.ToCoord(coordinateOneStepBackward, boardWidth);
                 if (coordTwoStepBackward == -1)
                 {
                     return result;

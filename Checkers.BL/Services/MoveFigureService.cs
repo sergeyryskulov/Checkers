@@ -32,7 +32,7 @@ namespace Checkers.BL.Services
 
             var boardWidth = figures.Length.SquareRoot();
 
-            var vector = fromCoord.CoordToVector(toCoord, boardWidth);
+            var vector = fromCoord.ToVector(toCoord, boardWidth);
             if (vector == null)
             {
                 return boardStateString;
@@ -76,7 +76,7 @@ namespace Checkers.BL.Services
                 {
                     Length = i,
                     Direction = vector.Direction
-                }).VectorToCoord(fromCoord, boardWidth);
+                }).ToCoord(fromCoord, boardWidth);
 
                 if (newFiguresBuilder[cleanCoord] != Figures.Empty)
                 {

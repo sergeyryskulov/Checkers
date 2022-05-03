@@ -90,7 +90,7 @@ namespace Checkers.BL.Services
             var allowedVectors = _validateService.GetAllowedMoveVectors(fromCoord, figures).Vectors;
             foreach (var allowedVector in allowedVectors)
             {
-                var toCoord = allowedVector.VectorToCoord(fromCoord, boardWidth);
+                var toCoord = allowedVector.ToCoord(fromCoord, boardWidth);
                 var newState = _moveFigureService.Move(inputState, fromCoord, toCoord, true);
                 if (inputState != newState)
                 {

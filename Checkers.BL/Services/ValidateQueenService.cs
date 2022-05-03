@@ -72,7 +72,7 @@ namespace Checkers.BL.Services
                     Direction = direction
                 };
 
-                var stepCoord = vector.VectorToCoord(coord, boardWidth);
+                var stepCoord = vector.ToCoord(coord, boardWidth);
                 if (stepCoord == -1)
                 {
                     break;
