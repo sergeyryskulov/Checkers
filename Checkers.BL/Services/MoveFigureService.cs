@@ -23,7 +23,9 @@ namespace Checkers.BL.Services
         public string Move(string boardStateString, int fromCoord, int toCoord, bool skipValidation = false)
         {
             var boardState = boardStateString.ToBoardState();
-            if (boardState.MustCoord != -1 && boardState.MustCoord != fromCoord)
+
+            var needStartFromOtherCoord = (boardState.MustCoord != -1 && boardState.MustCoord != fromCoord);
+            if (needStartFromOtherCoord)
             {
                 return boardStateString;
             }
@@ -33,13 +35,15 @@ namespace Checkers.BL.Services
             var boardWidth = figures.Length.SquareRoot();
 
             var vector = fromCoord.ToVector(toCoord, boardWidth);
-            if (vector == null)
+
+            var incorrectVector = (vector == null);
+            if (incorrectVector)
             {
                 return boardStateString;
             }
-            
-            if (figures[fromCoord].IsWhite() && boardState.Turn != Turn.White ||
-                figures[fromCoord].IsBlack() && boardState.Turn != Turn.Black)
+
+            var incorrectTurn = (figures[fromCoord].IsWhite() && boardState.Turn != Turn.White || figures[fromCoord].IsBlack() && boardState.Turn != Turn.Black);
+            if (incorrectTurn)
             {
                 return boardStateString;
             }
