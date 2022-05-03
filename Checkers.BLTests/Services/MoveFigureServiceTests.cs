@@ -147,8 +147,7 @@ namespace Checkers.BL.Services.Tests
                 new ValidateService(
                     new ValidatePawnService( new VectorHelper()),
                     new ValidateQueenService(new VectorHelper())
-                ),                
-                new StateParserHelper());
+                ));
         }
 
         [TestMethod()]

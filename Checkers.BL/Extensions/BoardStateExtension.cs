@@ -1,25 +1,15 @@
-﻿using System;
+﻿using Checkers.BL.Constants;
+using Checkers.BL.Helper;
+using Checkers.BL.Models;
+using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-using Checkers.BL.Constants;
 
-namespace Checkers.BL.Helper
+namespace Checkers.BL.Extensions
 {
-
-    public class BoardState
+    public static class BoardStateExtension
     {
-        public char Turn;
-
-        public string Figures;
-
-        public int MustCoord;
-    }
-
-    public class StateParserHelper
-    {
-        public BoardState ParseState(string boardState)
+        public static BoardState ParseBoardState(this string boardState)
         {
             char turn = boardState[boardState.Length - 1];
             string figures = boardState.Substring(0, boardState.Length - 1);
@@ -36,7 +26,7 @@ namespace Checkers.BL.Helper
                     Turn.White, Turn.Black, Turn.WhiteWin, Turn.BlackWin
                 }, StringSplitOptions.None)[1];
 
-                mustCoord=  int.Parse(mustCoordString);
+                mustCoord = int.Parse(mustCoordString);
                 turn = boardState[figures.Length];
             }
 

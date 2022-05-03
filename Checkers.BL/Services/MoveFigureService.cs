@@ -15,20 +15,17 @@ namespace Checkers.BL.Services
     public class MoveFigureService : IMoveFigureService
     {
         private VectorHelper _vectorHelper;        
-        private ValidateService _validateService;        
+        private ValidateService _validateService;                
 
-        private StateParserHelper _stateParserHelper;
-
-        public MoveFigureService( VectorHelper vectorHelper, ValidateService validateService, StateParserHelper stateParserHelper)
+        public MoveFigureService( VectorHelper vectorHelper, ValidateService validateService)
         {
             _vectorHelper = vectorHelper;            
             _validateService = validateService;            
-            _stateParserHelper = stateParserHelper;
         }
 
         public string Move(string boardStateString, int fromCoord, int toCoord, bool skipValidation = false)
         {
-            var boardState = _stateParserHelper.ParseState(boardStateString);
+            var boardState = boardStateString.ParseBoardState();
             if (boardState.MustCoord != -1 && boardState.MustCoord != fromCoord)
             {
                 return boardStateString;

@@ -128,9 +128,7 @@ namespace Checkers.BL.Services.Tests
                     new ValidateQueenService(                                                
                         new VectorHelper()
                     )
-
-                    ),                
-                new StateParserHelper());
+                    ));
 
             return new IntellectService(new ValidateService(
                     
@@ -139,9 +137,7 @@ namespace Checkers.BL.Services.Tests
                     ),
                 boardRepository,                
                 moveService,
-                new VectorHelper(),                
-                new StateParserHelper()
-
+                new VectorHelper()                
             );
         }
     }

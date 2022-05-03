@@ -21,15 +21,13 @@ namespace Checkers.BL.Services
         
         private MoveFigureService _moveFigureService;
         private VectorHelper _vectorHelper;        
-        private StateParserHelper _stateParserHelper;
 
-        public IntellectService(ValidateService validateService, IBoardRepository boardRepository, MoveFigureService moveFigureService, VectorHelper vectorHelper, StateParserHelper stateParserHelper)
+        public IntellectService(ValidateService validateService, IBoardRepository boardRepository, MoveFigureService moveFigureService, VectorHelper vectorHelper)
         {
             _validateService = validateService;
             _boardRepository = boardRepository;            
             _moveFigureService = moveFigureService;
-            _vectorHelper = vectorHelper;
-            _stateParserHelper = stateParserHelper;
+            _vectorHelper = vectorHelper;            
         }
 
         public string IntellectStep(string registrationId)
@@ -48,8 +46,8 @@ namespace Checkers.BL.Services
         private List<string> GetNextStepVariants(string inputState)
         {
             var result = new List<string>();
-
-            var boardState = _stateParserHelper.ParseState(inputState);
+            
+            var boardState = inputState.ParseBoardState();
             string figures = boardState.Figures;
             var boardWidth = figures.Length.SquareRoot();
 
