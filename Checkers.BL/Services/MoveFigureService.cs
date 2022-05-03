@@ -22,7 +22,7 @@ namespace Checkers.BL.Services
 
         public string Move(string boardStateString, int fromCoord, int toCoord, bool skipValidation = false)
         {
-            var boardState = boardStateString.ParseBoardState();
+            var boardState = boardStateString.ToBoardState();
             if (boardState.MustCoord != -1 && boardState.MustCoord != fromCoord)
             {
                 return boardStateString;
@@ -38,8 +38,8 @@ namespace Checkers.BL.Services
                 return boardStateString;
             }
             
-            if (figures[fromCoord].GetFigureColor() == FigureColor.White && boardState.Turn != Turn.White ||
-                figures[fromCoord].GetFigureColor() == FigureColor.Black && boardState.Turn != Turn.Black)
+            if (figures[fromCoord].ToFigureColor() == FigureColor.White && boardState.Turn != Turn.White ||
+                figures[fromCoord].ToFigureColor() == FigureColor.Black && boardState.Turn != Turn.Black)
             {
                 return boardStateString;
             }

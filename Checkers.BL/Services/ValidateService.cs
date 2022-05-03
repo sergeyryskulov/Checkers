@@ -57,7 +57,7 @@ namespace Checkers.BL.Services
 
         private bool IsBlocked(int coord, string figures)
         {
-            var color = figures[coord].GetFigureColor();
+            var color = figures[coord].ToFigureColor();
 
             for (int figureCoord = 0; figureCoord < figures.Length; figureCoord++)
             {
@@ -65,7 +65,7 @@ namespace Checkers.BL.Services
 
                 if (
                     coord != iteratedFigure &&
-                    iteratedFigure.GetFigureColor() == color)
+                    iteratedFigure.ToFigureColor() == color)
                 {
                     if (GetAllowedMoveVectors(figureCoord, figures, true).EatFigure)
                     {

@@ -8,7 +8,7 @@ namespace Checkers.BL.Extensions
 {
     public static class BoardStateExtension
     {
-        public static BoardState ParseBoardState(this string boardState)
+        public static BoardState ToBoardState(this string boardState)
         {
             char turn = boardState[boardState.Length - 1];
             string figures = boardState.Substring(0, boardState.Length - 1);

@@ -21,7 +21,7 @@ namespace Checkers.BL.Services
 
         public AllowedVectors GetAllowedMoveVectors(int coord, string figures)
         {
-            var color = figures[coord].GetFigureColor();
+            var color = figures[coord].ToFigureColor();
             var allowedVectors = new List<Vector>();
             foreach (var forwardDirection in GetForwardDirections(color))
             {
@@ -55,7 +55,7 @@ namespace Checkers.BL.Services
         private List<Vector> GetAllowedVectorsForForwardDirection(int coord, string figures, Direction forwardDirection)
         {
             int boardWidth = figures.Length.SquareRoot();
-            var color = figures[coord].GetFigureColor();
+            var color = figures[coord].ToFigureColor();
             var oppositeColor = color == FigureColor.White ? FigureColor.Black : FigureColor.White;
 
             var vectorOneStepForward = new Vector()
@@ -74,7 +74,7 @@ namespace Checkers.BL.Services
             {
                 result.Add(vectorOneStepForward);
             }
-            else if (figures[coordinateOneStepForward].GetFigureColor() == oppositeColor)
+            else if (figures[coordinateOneStepForward].ToFigureColor() == oppositeColor)
             {
                 var coordTwoStepForward = vectorOneStepForward.VectorToCoord(coordinateOneStepForward, boardWidth);
                 if (coordTwoStepForward == -1)
@@ -98,7 +98,7 @@ namespace Checkers.BL.Services
         private List<Vector> GetAllowedVectorsForBackwardDirection(int coord, string figures, Direction backwardDirection)
         {
             int boardWidth = figures.Length.SquareRoot();
-            var color = figures[coord].GetFigureColor();
+            var color = figures[coord].ToFigureColor();
             var oppositeColor = color == FigureColor.White ? FigureColor.Black : FigureColor.White;
 
             var vectorOneStepBackward = new Vector()
@@ -114,7 +114,7 @@ namespace Checkers.BL.Services
                 return result;
             }
 
-            if (figures[coordinateOneStepBackward].GetFigureColor() == oppositeColor)
+            if (figures[coordinateOneStepBackward].ToFigureColor() == oppositeColor)
             {
                 var coordTwoStepBackward = vectorOneStepBackward.VectorToCoord(coordinateOneStepBackward, boardWidth);
                 if (coordTwoStepBackward == -1)

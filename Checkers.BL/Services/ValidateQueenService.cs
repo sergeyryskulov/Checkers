@@ -57,7 +57,7 @@ namespace Checkers.BL.Services
         {
 
             int boardWidth = figures.Length.SquareRoot();
-            var color = figures[coord].GetFigureColor();
+            var color = figures[coord].ToFigureColor();
             var oppositeColor = color == FigureColor.White ? FigureColor.Black : FigureColor.White;
 
             var eatVectors = new List<Vector>();
@@ -80,7 +80,7 @@ namespace Checkers.BL.Services
 
                 var figure = figures[stepCoord];
 
-                if (figure.GetFigureColor() == FigureColor.Empty)
+                if (figure.ToFigureColor() == FigureColor.Empty)
                 {
                     if (eatFigure)
                     {
@@ -91,7 +91,7 @@ namespace Checkers.BL.Services
                         notEatVectors.Add(vector);
                     }
                 }
-                else if (figure.GetFigureColor() == oppositeColor)
+                else if (figure.ToFigureColor() == oppositeColor)
                 {
                     if (eatFigure)
                     {

@@ -7,7 +7,7 @@ namespace Checkers.BL.Extensions
 {
     public static class ColorExtension
     {
-        public static FigureColor GetFigureColor(this char figure)
+        public static FigureColor ToFigureColor(this char figure)
         {
             if (figure == Figures.WhitePawn || figure == Figures.WhiteQueen)
             {

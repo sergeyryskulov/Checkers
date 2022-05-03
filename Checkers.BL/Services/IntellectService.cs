@@ -44,7 +44,7 @@ namespace Checkers.BL.Services
         {
             var result = new List<string>();
             
-            var boardState = inputState.ParseBoardState();
+            var boardState = inputState.ToBoardState();
             string figures = boardState.Figures;
             var boardWidth = figures.Length.SquareRoot();
 
@@ -57,8 +57,8 @@ namespace Checkers.BL.Services
                     continue;
                 }
 
-                if ((boardState.Turn == Turn.Black && figures[fromCoord].GetFigureColor() == FigureColor.Black) ||
-                    (boardState.Turn == Turn.White && figures[fromCoord].GetFigureColor() == FigureColor.White
+                if ((boardState.Turn == Turn.Black && figures[fromCoord].ToFigureColor() == FigureColor.Black) ||
+                    (boardState.Turn == Turn.White && figures[fromCoord].ToFigureColor() == FigureColor.White
                     ))
                 {
                     foreach (var newState  in GetAllowedNextStates(inputState, fromCoord, figures, boardWidth))
