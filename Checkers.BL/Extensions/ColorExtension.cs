@@ -1,17 +1,15 @@
-﻿using System;
+﻿using Checkers.BL.Constants;
+using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-using Checkers.BL.Constants;
 
-namespace Checkers.BL.Helper
+namespace Checkers.BL.Extensions
 {
-    public class ColorHelper
+    public static class ColorExtension
     {
-        public FigureColor GetFigureColor(char figure)
+        public static FigureColor GetFigureColor(this char figure)
         {
-            if (figure == Figures.WhitePawn || figure==Figures.WhiteQueen)
+            if (figure == Figures.WhitePawn || figure == Figures.WhiteQueen)
             {
                 return FigureColor.White;
             }

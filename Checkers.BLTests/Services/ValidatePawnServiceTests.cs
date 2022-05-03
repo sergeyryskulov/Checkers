@@ -120,7 +120,7 @@ namespace Checkers.BL.Services.Tests
 
         ValidatePawnService CreateValidateService()
         {
-            return new ValidatePawnService( new ColorHelper(), new VectorHelper());
+            return new ValidatePawnService( new VectorHelper());
         }
     }
 }

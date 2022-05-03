@@ -15,16 +15,14 @@ namespace Checkers.BL.Services
     public class MoveFigureService : IMoveFigureService
     {
         private VectorHelper _vectorHelper;        
-        private ValidateService _validateService;
-        private ColorHelper _colorHelper;
+        private ValidateService _validateService;        
 
         private StateParserHelper _stateParserHelper;
 
-        public MoveFigureService( VectorHelper vectorHelper, ValidateService validateService, ColorHelper colorHelper, StateParserHelper stateParserHelper)
+        public MoveFigureService( VectorHelper vectorHelper, ValidateService validateService, StateParserHelper stateParserHelper)
         {
             _vectorHelper = vectorHelper;            
-            _validateService = validateService;
-            _colorHelper = colorHelper;
+            _validateService = validateService;            
             _stateParserHelper = stateParserHelper;
         }
 
@@ -46,8 +44,8 @@ namespace Checkers.BL.Services
                 return boardStateString;
             }
             
-            if (_colorHelper.GetFigureColor(figures[fromCoord]) == FigureColor.White && boardState.Turn != Turn.White ||
-                _colorHelper.GetFigureColor(figures[fromCoord]) == FigureColor.Black && boardState.Turn != Turn.Black)
+            if (figures[fromCoord].GetFigureColor() == FigureColor.White && boardState.Turn != Turn.White ||
+                figures[fromCoord].GetFigureColor() == FigureColor.Black && boardState.Turn != Turn.Black)
             {
                 return boardStateString;
             }

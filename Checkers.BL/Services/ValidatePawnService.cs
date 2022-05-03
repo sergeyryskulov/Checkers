@@ -14,19 +14,17 @@ namespace Checkers.BL.Services
 {
 
     public class ValidatePawnService : IValidatePawnService
-    {        
-        private ColorHelper _colorHelper;
+    {                
         private VectorHelper _vectorHelper;
 
-        public ValidatePawnService( ColorHelper colorHelper, VectorHelper vectorHelper)
-        {            
-            _colorHelper = colorHelper;
+        public ValidatePawnService(VectorHelper vectorHelper)
+        {                    
             _vectorHelper = vectorHelper;
         }
 
         public AllowedVectors GetAllowedMoveVectors(int coord, string figures)
         {
-            var color = _colorHelper.GetFigureColor(figures[coord]);
+            var color = figures[coord].GetFigureColor();
             var allowedVectors = new List<Vector>();
             foreach (var forwardDirection in GetForwardDirections(color))
             {
@@ -60,7 +58,7 @@ namespace Checkers.BL.Services
         private List<Vector> GetAllowedVectorsForForwardDirection(int coord, string figures, Direction forwardDirection)
         {
             int boardWidth = figures.Length.SquareRoot();
-            var color = _colorHelper.GetFigureColor(figures[coord]);
+            var color = figures[coord].GetFigureColor();
             var oppositeColor = color == FigureColor.White ? FigureColor.Black : FigureColor.White;
 
             var vectorOneStepForward = new Vector()
@@ -79,7 +77,7 @@ namespace Checkers.BL.Services
             {
                 result.Add(vectorOneStepForward);
             }
-            else if (_colorHelper.GetFigureColor(figures[coordinateOneStepForward]) == oppositeColor)
+            else if (figures[coordinateOneStepForward].GetFigureColor() == oppositeColor)
             {
                 var coordTwoStepForward = _vectorHelper.VectorToCoord(coordinateOneStepForward, vectorOneStepForward, boardWidth);
                 if (coordTwoStepForward == -1)
@@ -103,7 +101,7 @@ namespace Checkers.BL.Services
         private List<Vector> GetAllowedVectorsForBackwardDirection(int coord, string figures, Direction backwardDirection)
         {
             int boardWidth = figures.Length.SquareRoot();
-            var color = _colorHelper.GetFigureColor(figures[coord]);
+            var color = figures[coord].GetFigureColor();
             var oppositeColor = color == FigureColor.White ? FigureColor.Black : FigureColor.White;
 
             var vectorOneStepBackward = new Vector()
@@ -119,7 +117,7 @@ namespace Checkers.BL.Services
                 return result;
             }
 
-            if (_colorHelper.GetFigureColor(figures[coordinateOneStepBackward]) == oppositeColor)
+            if (figures[coordinateOneStepBackward].GetFigureColor() == oppositeColor)
             {
                 var coordTwoStepBackward = _vectorHelper.VectorToCoord(coordinateOneStepBackward, vectorOneStepBackward, boardWidth);
                 if (coordTwoStepBackward == -1)

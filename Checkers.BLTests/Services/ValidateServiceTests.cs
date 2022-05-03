@@ -28,7 +28,7 @@ namespace Checkers.BL.Services.Tests
 
         private ValidateService CreateValidateService()
         {
-            return new ValidateService(new ColorHelper(), new Mock<IValidatePawnService>().Object, new Mock<IValidateQueenService>().Object);
+            return new ValidateService(new Mock<IValidatePawnService>().Object, new Mock<IValidateQueenService>().Object);
         }
     }
 }

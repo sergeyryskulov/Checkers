@@ -10,13 +10,11 @@ using Checkers.BL.Models;
 namespace Checkers.BL.Services
 {
     public class ValidateQueenService : IValidateQueenService
-    {        
-        private ColorHelper _colorHelper;
+    {                
         private VectorHelper _vectorHelper;
 
-        public ValidateQueenService(ColorHelper colorHelper, VectorHelper vectorHelper)
-        {            
-            _colorHelper = colorHelper;
+        public ValidateQueenService(VectorHelper vectorHelper)
+        {                        
             _vectorHelper = vectorHelper;
         }
         public AllowedVectors GetAllowedMoveVectors(int coord, string figures)
@@ -62,7 +60,7 @@ namespace Checkers.BL.Services
         {
 
             int boardWidth = figures.Length.SquareRoot();
-            var color = _colorHelper.GetFigureColor(figures[coord]);
+            var color = figures[coord].GetFigureColor();
             var oppositeColor = color == FigureColor.White ? FigureColor.Black : FigureColor.White;
 
             var eatVectors = new List<Vector>();
@@ -85,7 +83,7 @@ namespace Checkers.BL.Services
 
                 var figure = figures[stepCoord];
 
-                if (_colorHelper.GetFigureColor(figure) == FigureColor.Empty)
+                if (figure.GetFigureColor() == FigureColor.Empty)
                 {
                     if (eatFigure)
                     {
@@ -96,7 +94,7 @@ namespace Checkers.BL.Services
                         notEatVectors.Add(vector);
                     }
                 }
-                else if (_colorHelper.GetFigureColor(figure) == oppositeColor)
+                else if (figure.GetFigureColor() == oppositeColor)
                 {
                     if (eatFigure)
                     {

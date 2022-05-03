@@ -113,7 +113,7 @@ namespace Checkers.BL.Services.Tests
 
         private ValidateQueenService CreateValidateService()
         {
-            return new ValidateQueenService(new ColorHelper(), new VectorHelper());
+            return new ValidateQueenService(new VectorHelper());
         }
 
         [TestMethod()]

@@ -18,16 +18,15 @@ namespace Checkers.BL.Services
         private ValidateService _validateService;
 
         private IBoardRepository _boardRepository;
-        ColorHelper _colorHelper;
+        
         private MoveFigureService _moveFigureService;
         private VectorHelper _vectorHelper;        
         private StateParserHelper _stateParserHelper;
 
-        public IntellectService(ValidateService validateService, IBoardRepository boardRepository, ColorHelper colorHelper, MoveFigureService moveFigureService, VectorHelper vectorHelper, StateParserHelper stateParserHelper)
+        public IntellectService(ValidateService validateService, IBoardRepository boardRepository, MoveFigureService moveFigureService, VectorHelper vectorHelper, StateParserHelper stateParserHelper)
         {
             _validateService = validateService;
-            _boardRepository = boardRepository;
-            _colorHelper = colorHelper;
+            _boardRepository = boardRepository;            
             _moveFigureService = moveFigureService;
             _vectorHelper = vectorHelper;
             _stateParserHelper = stateParserHelper;
@@ -63,8 +62,8 @@ namespace Checkers.BL.Services
                     continue;
                 }
 
-                if ((boardState.Turn == Turn.Black && _colorHelper.GetFigureColor(figures[fromCoord]) == FigureColor.Black) ||
-                    (boardState.Turn == Turn.White && _colorHelper.GetFigureColor(figures[fromCoord]) == FigureColor.White
+                if ((boardState.Turn == Turn.Black && figures[fromCoord].GetFigureColor() == FigureColor.Black) ||
+                    (boardState.Turn == Turn.White && figures[fromCoord].GetFigureColor() == FigureColor.White
                     ))
                 {
                     foreach (var newState  in GetAllowedNextStates(inputState, fromCoord, figures, boardWidth))

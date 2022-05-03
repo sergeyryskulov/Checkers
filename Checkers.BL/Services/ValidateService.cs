@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Checkers.BL.Constants;
 using Checkers.BL.Constants.Enums;
+using Checkers.BL.Extensions;
 using Checkers.BL.Helper;
 using Checkers.BL.Interfaces;
 using Checkers.BL.Models;
@@ -13,15 +14,13 @@ using Checkers.BL.Models;
 namespace Checkers.BL.Services
 {
     public class ValidateService
-    {
-        private ColorHelper _colorHelper;
+    {        
         private IValidatePawnService _validatePawnService;
         private IValidateQueenService _validateQueenService;
 
 
-        public ValidateService(ColorHelper colorHelper, IValidatePawnService validatePawnService, IValidateQueenService validateQueenService)
-        {
-            _colorHelper = colorHelper;
+        public ValidateService(IValidatePawnService validatePawnService, IValidateQueenService validateQueenService)
+        {            
             _validatePawnService = validatePawnService;
             _validateQueenService = validateQueenService;
         }
@@ -59,7 +58,7 @@ namespace Checkers.BL.Services
 
         private bool IsBlocked(int coord, string figures)
         {
-            var color = _colorHelper.GetFigureColor(figures[coord]);
+            var color = figures[coord].GetFigureColor();
 
             for (int figureCoord = 0; figureCoord < figures.Length; figureCoord++)
             {
@@ -67,7 +66,7 @@ namespace Checkers.BL.Services
 
                 if (
                     coord != iteratedFigure &&
-                    _colorHelper.GetFigureColor(iteratedFigure) == color)
+                    iteratedFigure.GetFigureColor() == color)
                 {
                     if (GetAllowedMoveVectors(figureCoord, figures, true).EatFigure)
                     {
