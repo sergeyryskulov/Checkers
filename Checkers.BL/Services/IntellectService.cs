@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Checkers.BL.Constants;
+using Checkers.BL.Extensions;
 using Checkers.BL.Helper;
 using Checkers.BL.Models;
 using Ckeckers.DAL.Repositories;
@@ -19,18 +20,16 @@ namespace Checkers.BL.Services
         private IBoardRepository _boardRepository;
         ColorHelper _colorHelper;
         private MoveFigureService _moveFigureService;
-        private VectorHelper _vectorHelper;
-        private MathHelper _mathHelper;
+        private VectorHelper _vectorHelper;        
         private StateParserHelper _stateParserHelper;
 
-        public IntellectService(ValidateService validateService, IBoardRepository boardRepository, ColorHelper colorHelper, MoveFigureService moveFigureService, VectorHelper vectorHelper, MathHelper mathHelper, StateParserHelper stateParserHelper)
+        public IntellectService(ValidateService validateService, IBoardRepository boardRepository, ColorHelper colorHelper, MoveFigureService moveFigureService, VectorHelper vectorHelper, StateParserHelper stateParserHelper)
         {
             _validateService = validateService;
             _boardRepository = boardRepository;
             _colorHelper = colorHelper;
             _moveFigureService = moveFigureService;
             _vectorHelper = vectorHelper;
-            _mathHelper = mathHelper;
             _stateParserHelper = stateParserHelper;
         }
 
@@ -53,7 +52,7 @@ namespace Checkers.BL.Services
 
             var boardState = _stateParserHelper.ParseState(inputState);
             string figures = boardState.Figures;
-            var boardWidth = _mathHelper.Sqrt(figures.Length);
+            var boardWidth = figures.Length.SquareRoot();
 
             var stateWithNoChangeTurn = new List<string>();
 

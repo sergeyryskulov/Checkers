@@ -1,15 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.SqlTypes;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
-namespace Checkers.BL.Helper
+namespace Checkers.BL.Extensions
 {
-    public class MathHelper
+    public static class MathExtension
     {
-        public int Sqrt(int value)
+        public static int SquareRoot(this int value)
         {
             if (value == 64)
             {

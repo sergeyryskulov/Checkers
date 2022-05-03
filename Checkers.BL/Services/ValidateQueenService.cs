@@ -2,6 +2,7 @@
 using System.IO;
 using Checkers.BL.Constants;
 using Checkers.BL.Constants.Enums;
+using Checkers.BL.Extensions;
 using Checkers.BL.Helper;
 using Checkers.BL.Interfaces;
 using Checkers.BL.Models;
@@ -9,14 +10,12 @@ using Checkers.BL.Models;
 namespace Checkers.BL.Services
 {
     public class ValidateQueenService : IValidateQueenService
-    {
-        private MathHelper _mathHelper;
+    {        
         private ColorHelper _colorHelper;
         private VectorHelper _vectorHelper;
 
-        public ValidateQueenService(MathHelper mathHelper, ColorHelper colorHelper, VectorHelper vectorHelper)
-        {
-            _mathHelper = mathHelper;
+        public ValidateQueenService(ColorHelper colorHelper, VectorHelper vectorHelper)
+        {            
             _colorHelper = colorHelper;
             _vectorHelper = vectorHelper;
         }
@@ -62,9 +61,7 @@ namespace Checkers.BL.Services
         private AllowedVectors GetAllowedVectorsQueenDirection(int coord, string figures, Direction direction)
         {
 
-
-
-            int boardWidth = _mathHelper.Sqrt(figures.Length);
+            int boardWidth = figures.Length.SquareRoot();
             var color = _colorHelper.GetFigureColor(figures[coord]);
             var oppositeColor = color == FigureColor.White ? FigureColor.Black : FigureColor.White;
 

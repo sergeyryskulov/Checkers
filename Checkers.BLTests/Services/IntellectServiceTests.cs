@@ -121,14 +121,12 @@ namespace Checkers.BL.Services.Tests
 
         private IntellectService GetIntellectService(IBoardRepository boardRepository)
         {
-            var moveService = new MoveFigureService(new VectorHelper(), new MathHelper(),
-                new ValidateService( new ColorHelper(), new ValidatePawnService(
-                    new MathHelper(),
+            var moveService = new MoveFigureService(new VectorHelper(),
+                new ValidateService( new ColorHelper(), new ValidatePawnService(                    
                     new ColorHelper(),
                     new VectorHelper()
                     ),
-                    new ValidateQueenService(
-                        new MathHelper(),
+                    new ValidateQueenService(                        
                         new ColorHelper(),
                         new VectorHelper()
                     )
@@ -139,14 +137,13 @@ namespace Checkers.BL.Services.Tests
 
             return new IntellectService(new ValidateService(new ColorHelper(),
                     
-                    new ValidatePawnService(new MathHelper(), new ColorHelper(), new VectorHelper()),
-                    new ValidateQueenService(new MathHelper(), new ColorHelper(), new VectorHelper())
+                    new ValidatePawnService(new ColorHelper(), new VectorHelper()),
+                    new ValidateQueenService( new ColorHelper(), new VectorHelper())
                     ),
                 boardRepository,
                 new ColorHelper(),
                 moveService,
-                new VectorHelper(),
-                new MathHelper(),
+                new VectorHelper(),                
                 new StateParserHelper()
 
             );

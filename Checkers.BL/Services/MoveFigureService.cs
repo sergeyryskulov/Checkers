@@ -5,6 +5,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using Checkers.BL.Constants;
+using Checkers.BL.Extensions;
 using Checkers.BL.Helper;
 using Checkers.BL.Models;
 using Ckeckers.DAL.Repositories;
@@ -13,17 +14,15 @@ namespace Checkers.BL.Services
 {
     public class MoveFigureService : IMoveFigureService
     {
-        private VectorHelper _vectorHelper;
-        private MathHelper _mathHelper;
+        private VectorHelper _vectorHelper;        
         private ValidateService _validateService;
         private ColorHelper _colorHelper;
 
         private StateParserHelper _stateParserHelper;
 
-        public MoveFigureService( VectorHelper vectorHelper, MathHelper mathHelper, ValidateService validateService, ColorHelper colorHelper, StateParserHelper stateParserHelper)
+        public MoveFigureService( VectorHelper vectorHelper, ValidateService validateService, ColorHelper colorHelper, StateParserHelper stateParserHelper)
         {
-            _vectorHelper = vectorHelper;
-            _mathHelper = mathHelper;
+            _vectorHelper = vectorHelper;            
             _validateService = validateService;
             _colorHelper = colorHelper;
             _stateParserHelper = stateParserHelper;
@@ -39,7 +38,7 @@ namespace Checkers.BL.Services
 
             string figures = boardState.Figures;
 
-            var boardWidth = _mathHelper.Sqrt(figures.Length);
+            var boardWidth = figures.Length.SquareRoot();
 
             var vector = _vectorHelper.CoordToVector(fromCoord, toCoord, boardWidth);
             if (vector == null)
