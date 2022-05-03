@@ -7,11 +7,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Checkers.Web", "Checkers\Ch
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Checkers.BL", "Checkers.BL\Checkers.BL.csproj", "{9394D9B3-D5FB-478B-83C4-5809DF76E9F5}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ckeckers.DAL", "Ckeckers.DAL\Ckeckers.DAL.csproj", "{1290CD6C-49C9-4D64-839A-695428E8ABDB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Checkers.DAL", "Ckeckers.DAL\Checkers.DAL.csproj", "{1290CD6C-49C9-4D64-839A-695428E8ABDB}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Checkers.UnitTests", "Checkers.BLTests\Checkers.UnitTests.csproj", "{CBBC8FD6-4960-4922-B88A-8DE72D43F641}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Checkers.IDAL", "Checkers.IDAL\Checkers.IDAL.csproj", "{BB9CD19E-5DD9-4A3B-B854-5C3596742BCB}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Checkers.IntegrationTests", "Checkers.IntegrationTests\Checkers.IntegrationTests.csproj", "{A83E535F-E594-407B-82F1-D6A3E02473AB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{BB9CD19E-5DD9-4A3B-B854-5C3596742BCB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BB9CD19E-5DD9-4A3B-B854-5C3596742BCB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BB9CD19E-5DD9-4A3B-B854-5C3596742BCB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A83E535F-E594-407B-82F1-D6A3E02473AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A83E535F-E594-407B-82F1-D6A3E02473AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A83E535F-E594-407B-82F1-D6A3E02473AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A83E535F-E594-407B-82F1-D6A3E02473AB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
