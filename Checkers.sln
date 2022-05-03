@@ -15,6 +15,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Checkers.IDAL", "Checkers.I
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Checkers.IntegrationTests", "Checkers.IntegrationTests\Checkers.IntegrationTests.csproj", "{A83E535F-E594-407B-82F1-D6A3E02473AB}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{0DA0C6BF-F8D7-41F8-BE7C-207C7A0DA93E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -48,6 +50,10 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{CBBC8FD6-4960-4922-B88A-8DE72D43F641} = {0DA0C6BF-F8D7-41F8-BE7C-207C7A0DA93E}
+		{A83E535F-E594-407B-82F1-D6A3E02473AB} = {0DA0C6BF-F8D7-41F8-BE7C-207C7A0DA93E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DDDFEF2B-F556-403F-BB39-51579937443B}
