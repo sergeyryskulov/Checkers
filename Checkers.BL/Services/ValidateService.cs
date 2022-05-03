@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 using Checkers.BL.Constants;
 using Checkers.BL.Constants.Enums;
 using Checkers.BL.Extensions;
-using Checkers.BL.Helper;
 using Checkers.BL.Interfaces;
 using Checkers.BL.Models;
 

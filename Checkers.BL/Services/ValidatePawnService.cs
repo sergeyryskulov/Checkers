@@ -7,19 +7,16 @@ using System.Text;
 using Checkers.BL.Constants;
 using Checkers.BL.Constants.Enums;
 using Checkers.BL.Extensions;
-using Checkers.BL.Helper;
 using Checkers.BL.Models;
 
 namespace Checkers.BL.Services
 {
 
     public class ValidatePawnService : IValidatePawnService
-    {                
-        private VectorHelper _vectorHelper;
-
-        public ValidatePawnService(VectorHelper vectorHelper)
-        {                    
-            _vectorHelper = vectorHelper;
+    {                        
+        public ValidatePawnService()
+        {
+            ;
         }
 
         public AllowedVectors GetAllowedMoveVectors(int coord, string figures)
@@ -66,7 +63,7 @@ namespace Checkers.BL.Services
                 Direction = forwardDirection,
                 Length = 1
             };
-            var coordinateOneStepForward = _vectorHelper.VectorToCoord(coord, vectorOneStepForward, boardWidth);
+            var coordinateOneStepForward = vectorOneStepForward.VectorToCoord(coord, boardWidth);
             if (coordinateOneStepForward == -1)
             {
                 return new List<Vector>();
@@ -79,7 +76,7 @@ namespace Checkers.BL.Services
             }
             else if (figures[coordinateOneStepForward].GetFigureColor() == oppositeColor)
             {
-                var coordTwoStepForward = _vectorHelper.VectorToCoord(coordinateOneStepForward, vectorOneStepForward, boardWidth);
+                var coordTwoStepForward = vectorOneStepForward.VectorToCoord(coordinateOneStepForward, boardWidth);
                 if (coordTwoStepForward == -1)
                 {
                     return result;
@@ -111,7 +108,7 @@ namespace Checkers.BL.Services
             };
             var result = new List<Vector>();
 
-            var coordinateOneStepBackward = _vectorHelper.VectorToCoord(coord, vectorOneStepBackward, boardWidth);
+            var coordinateOneStepBackward = vectorOneStepBackward.VectorToCoord(coord,  boardWidth);
             if (coordinateOneStepBackward == -1)
             {
                 return result;
@@ -119,7 +116,7 @@ namespace Checkers.BL.Services
 
             if (figures[coordinateOneStepBackward].GetFigureColor() == oppositeColor)
             {
-                var coordTwoStepBackward = _vectorHelper.VectorToCoord(coordinateOneStepBackward, vectorOneStepBackward, boardWidth);
+                var coordTwoStepBackward = vectorOneStepBackward.VectorToCoord(coordinateOneStepBackward, boardWidth);
                 if (coordTwoStepBackward == -1)
                 {
                     return result;

@@ -6,20 +6,17 @@ using System.Text;
 using System.Threading.Tasks;
 using Checkers.BL.Constants;
 using Checkers.BL.Extensions;
-using Checkers.BL.Helper;
 using Checkers.BL.Models;
 using Ckeckers.DAL.Repositories;
 
 namespace Checkers.BL.Services
 {
     public class MoveFigureService : IMoveFigureService
-    {
-        private VectorHelper _vectorHelper;        
+    {        
         private ValidateService _validateService;                
 
-        public MoveFigureService( VectorHelper vectorHelper, ValidateService validateService)
-        {
-            _vectorHelper = vectorHelper;            
+        public MoveFigureService(ValidateService validateService)
+        {            
             _validateService = validateService;            
         }
 
@@ -35,7 +32,7 @@ namespace Checkers.BL.Services
 
             var boardWidth = figures.Length.SquareRoot();
 
-            var vector = _vectorHelper.CoordToVector(fromCoord, toCoord, boardWidth);
+            var vector = fromCoord.CoordToVector(toCoord, boardWidth);
             if (vector == null)
             {
                 return boardStateString;
@@ -75,11 +72,12 @@ namespace Checkers.BL.Services
             bool isDie = false;
             for (int i = 1; i < vector.Length; i++)
             {
-                var cleanCoord = _vectorHelper.VectorToCoord(fromCoord, new Vector()
+                var cleanCoord =(new Vector()
                 {
                     Length = i,
                     Direction = vector.Direction
-                }, boardWidth);
+                }).VectorToCoord(fromCoord, boardWidth);
+
                 if (newFiguresBuilder[cleanCoord] != Figures.Empty)
                 {
                     isDie = true;

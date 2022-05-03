@@ -7,7 +7,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using Checkers.BL.Constants;
 using Checkers.BL.Extensions;
-using Checkers.BL.Helper;
 using Checkers.BL.Models;
 using Ckeckers.DAL.Repositories;
 
@@ -19,15 +18,13 @@ namespace Checkers.BL.Services
 
         private IBoardRepository _boardRepository;
         
-        private MoveFigureService _moveFigureService;
-        private VectorHelper _vectorHelper;        
+        private MoveFigureService _moveFigureService;        
 
-        public IntellectService(ValidateService validateService, IBoardRepository boardRepository, MoveFigureService moveFigureService, VectorHelper vectorHelper)
+        public IntellectService(ValidateService validateService, IBoardRepository boardRepository, MoveFigureService moveFigureService)
         {
             _validateService = validateService;
             _boardRepository = boardRepository;            
-            _moveFigureService = moveFigureService;
-            _vectorHelper = vectorHelper;            
+            _moveFigureService = moveFigureService;            
         }
 
         public string IntellectStep(string registrationId)
@@ -93,7 +90,7 @@ namespace Checkers.BL.Services
             var allowedVectors = _validateService.GetAllowedMoveVectors(fromCoord, figures).Vectors;
             foreach (var allowedVector in allowedVectors)
             {
-                var toCoord = _vectorHelper.VectorToCoord(fromCoord, allowedVector, boardWidth);
+                var toCoord = allowedVector.VectorToCoord(fromCoord, boardWidth);
                 var newState = _moveFigureService.Move(inputState, fromCoord, toCoord, true);
                 if (inputState != newState)
                 {

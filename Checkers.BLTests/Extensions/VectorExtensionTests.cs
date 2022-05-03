@@ -7,26 +7,24 @@ using System.Text;
 using System.Threading.Tasks;
 using Checkers.BL.Constants.Enums;
 using Checkers.BL.Models;
+using Checkers.BL.Extensions;
 
 namespace Checkers.BL.Helper.Tests
 {
     [TestClass()]
-    public class VectorHelperTests
+    public class VectorExtensionTests
     {
-
-        private VectorHelper _vectorHelper = new VectorHelper();
-
+        
 
         [TestMethod()]
         public void MoveTest_Correct()
         {
 
-            var actual = _vectorHelper.VectorToCoord(0, new Vector()
+            var actual = (new Vector()
             {
                 Direction = Direction.RightBottom,
                 Length = 1
-            },
-                2);
+            }).VectorToCoord(0, 2);
 
             var expected = 3;
 
@@ -37,12 +35,11 @@ namespace Checkers.BL.Helper.Tests
         public void MoveTest_Incorrect()
         {
 
-            var actual = _vectorHelper.VectorToCoord(0, new Vector()
+            var actual =  (new Vector()
             {
                 Direction = Direction.LeftBottom,
                 Length = 1
-            },
-                2);
+            }).VectorToCoord(0, 2);
 
             var expected = -1;
 
@@ -52,7 +49,7 @@ namespace Checkers.BL.Helper.Tests
         [TestMethod()]
         public void ConvertToVector_RightBottom_Correct()
         {
-            var actual = _vectorHelper.CoordToVector(0, 3, 2);
+            var actual = 0.CoordToVector(3, 2);
 
             var expected = new Vector()
             {
@@ -66,7 +63,7 @@ namespace Checkers.BL.Helper.Tests
         [TestMethod()]
         public void CoordToVectorTest()
         {
-            var actualVector = _vectorHelper.CoordToVector(0, 100, 2);
+            var actualVector = 0.CoordToVector(100, 2);
 
             Assert.IsNull(actualVector);
             

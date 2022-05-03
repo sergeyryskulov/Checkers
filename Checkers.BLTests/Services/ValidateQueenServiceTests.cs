@@ -41,7 +41,7 @@ namespace Checkers.BL.Services.Tests
                 },
             };
 
-            AssertHelper.AllowedVectorsEquivalent(expected, actual);
+            AllowedVectorsAssert.AreEquivalent(expected, actual);
             
         }
 
@@ -82,7 +82,7 @@ namespace Checkers.BL.Services.Tests
 
             };
 
-            AssertHelper.AllowedVectorsEquivalent(expected, actual);
+            AllowedVectorsAssert.AreEquivalent(expected, actual);
         }
         [TestMethod()]
         public void CanTake_OppositeFigure()
@@ -108,12 +108,12 @@ namespace Checkers.BL.Services.Tests
                 },
 
             };
-            AssertHelper.AllowedVectorsEquivalent(expected, actual);
+            AllowedVectorsAssert.AreEquivalent(expected, actual);
         }
 
         private ValidateQueenService CreateValidateService()
         {
-            return new ValidateQueenService(new VectorHelper());
+            return new ValidateQueenService();
         }
 
         [TestMethod()]
@@ -140,7 +140,7 @@ namespace Checkers.BL.Services.Tests
                 }
             };
 
-            AssertHelper.AllowedVectorsEquivalent(expected, actual);
+            AllowedVectorsAssert.AreEquivalent(expected, actual);
         }
 
         [TestMethod()]
@@ -161,7 +161,7 @@ namespace Checkers.BL.Services.Tests
                 Vectors = new List<Vector>()
             };
 
-            AssertHelper.AllowedVectorsEquivalent(expected, actual);
+            AllowedVectorsAssert.AreEquivalent(expected, actual);
         }
 
     }

@@ -3,19 +3,16 @@ using System.IO;
 using Checkers.BL.Constants;
 using Checkers.BL.Constants.Enums;
 using Checkers.BL.Extensions;
-using Checkers.BL.Helper;
 using Checkers.BL.Interfaces;
 using Checkers.BL.Models;
 
 namespace Checkers.BL.Services
 {
     public class ValidateQueenService : IValidateQueenService
-    {                
-        private VectorHelper _vectorHelper;
-
-        public ValidateQueenService(VectorHelper vectorHelper)
-        {                        
-            _vectorHelper = vectorHelper;
+    {                        
+        public ValidateQueenService()
+        {
+            ;
         }
         public AllowedVectors GetAllowedMoveVectors(int coord, string figures)
         {
@@ -75,7 +72,7 @@ namespace Checkers.BL.Services
                     Direction = direction
                 };
 
-                var stepCoord = _vectorHelper.VectorToCoord(coord, vector, boardWidth);
+                var stepCoord = vector.VectorToCoord(coord, boardWidth);
                 if (stepCoord == -1)
                 {
                     break;

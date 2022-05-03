@@ -1,17 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Checkers.BL.Constants.Enums;
+﻿using Checkers.BL.Constants.Enums;
 using Checkers.BL.Models;
+using System;
+using System.Collections.Generic;
+using System.Text;
 
-namespace Checkers.BL.Helper
+namespace Checkers.BL.Extensions
 {
-    public class VectorHelper
+    public static class VectorExtension
     {
-
-        public Vector CoordToVector(int fromCoord, int toCoord, int boardWidth)
+        public static Vector CoordToVector(this int fromCoord, int toCoord, int boardWidth)
         {
             if (fromCoord == toCoord)
             {
@@ -44,7 +41,7 @@ namespace Checkers.BL.Helper
                 Length = length
             };
 
-            if (VectorToCoord(fromCoord, resultVector, boardWidth) == toCoord)
+            if (resultVector.VectorToCoord(fromCoord, boardWidth) == toCoord)
             {
                 return resultVector;
             }
@@ -52,20 +49,18 @@ namespace Checkers.BL.Helper
             return null;
         }
 
-      
-        
-        public int VectorToCoord(int coord, Vector vector, int boardWidth)
+        public static int VectorToCoord(this Vector vector, int fromCoord, int boardWidth)
         {
             int shiftLeftRight = vector.Length * (IsRight(vector.Direction) ? 1 : -1);
-            int xProjection = (coord % boardWidth) + shiftLeftRight;
-            
+            int xProjection = (fromCoord % boardWidth) + shiftLeftRight;
+
             if (xProjection < 0 || xProjection >= boardWidth)
             {
                 return -1;
             }
 
             int shiftTopBottom = (boardWidth * vector.Length * (IsBottom(vector.Direction) ? 1 : -1));
-            int result = coord + shiftLeftRight + shiftTopBottom; ;
+            int result = fromCoord + shiftLeftRight + shiftTopBottom; ;
             if (result < 0 || result >= boardWidth * boardWidth)
             {
                 return -1;
@@ -74,12 +69,12 @@ namespace Checkers.BL.Helper
             return result;
         }
 
-        bool IsBottom(Direction direction)
+        static bool IsBottom(Direction direction)
         {
             return direction == Direction.LeftBottom || direction == Direction.RightBottom;
         }
 
-        bool IsRight(Direction direction)
+        static bool IsRight(Direction direction)
         {
             return direction == Direction.RightBottom || direction == Direction.RightTop;
         }

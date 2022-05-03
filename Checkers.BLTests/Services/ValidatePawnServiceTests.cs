@@ -25,7 +25,7 @@ namespace Checkers.BL.Services.Tests
                 EatFigure = false,
                 Vectors = new List<Vector>()
             };
-            AssertHelper.AllowedVectorsEquivalent(expected, actual);
+            AllowedVectorsAssert.AreEquivalent(expected, actual);
         }
 
         [TestMethod()]
@@ -46,7 +46,7 @@ namespace Checkers.BL.Services.Tests
                 }
             };
 
-            AssertHelper.AllowedVectorsEquivalent(expected, actual);
+            AllowedVectorsAssert.AreEquivalent(expected, actual);
         }
 
       
@@ -71,7 +71,7 @@ namespace Checkers.BL.Services.Tests
                 }
             };
 
-            AssertHelper.AllowedVectorsEquivalent(expected, actual);
+            AllowedVectorsAssert.AreEquivalent(expected, actual);
         }
 
         [TestMethod()]
@@ -95,7 +95,7 @@ namespace Checkers.BL.Services.Tests
                     }
                 }
             };
-            AssertHelper.AllowedVectorsEquivalent(expected, actual);
+            AllowedVectorsAssert.AreEquivalent(expected, actual);
             
         }
 
@@ -115,12 +115,12 @@ namespace Checkers.BL.Services.Tests
                 Vectors = new List<Vector>()
             };
 
-            AssertHelper.AllowedVectorsEquivalent(expected, actual);
+            AllowedVectorsAssert.AreEquivalent(expected, actual);
         }
 
         ValidatePawnService CreateValidateService()
         {
-            return new ValidatePawnService( new VectorHelper());
+            return new ValidatePawnService();
         }
     }
 }
