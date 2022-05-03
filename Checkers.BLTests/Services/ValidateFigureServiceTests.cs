@@ -14,21 +14,22 @@ using Moq;
 namespace Checkers.BL.Services.Tests
 {
     [TestClass()]
-    public class ValidateServiceTests
+    public class ValidateFigureServiceTests
     {
         
         [TestMethod()]
         public void GetAllowedMoveVectorsIncorrectFigureTest()
         {
-            var actual = CreateValidateService().GetAllowedMoveVectors(0, "G111");
+            var actual = CreateValidateFigureService().GetAllowedMoveVectors(0, "G111");
 
             Assert.AreEqual(actual.Vectors.Count, 0);
+
             Assert.IsFalse(actual.EatFigure);
         }
 
-        private ValidateService CreateValidateService()
+        private ValidateFigureService  CreateValidateFigureService()
         {
-            return new ValidateService(new Mock<IValidatePawnService>().Object, new Mock<IValidateQueenService>().Object);
+            return new ValidateFigureService(new Mock<IValidatePawnService>().Object, new Mock<IValidateQueenService>().Object);
         }
     }
 }

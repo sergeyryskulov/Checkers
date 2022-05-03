@@ -144,8 +144,9 @@ namespace Checkers.BL.Services.Tests
         {
             return new MoveFigureService( 
                 new ValidateService(
+                    new ValidateFigureService(
                     new ValidatePawnService(),
-                    new ValidateQueenService()
+                    new ValidateQueenService())
                 ));
         }
 

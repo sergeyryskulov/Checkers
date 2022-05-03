@@ -121,15 +121,18 @@ namespace Checkers.BL.Services.Tests
         private IntellectService GetIntellectService(IBoardRepository boardRepository)
         {
             var moveService = new MoveFigureService(
-                new ValidateService( new ValidatePawnService(),
-                    new ValidateQueenService(                                                                        )
-                    ));
-
-            return new IntellectService(new ValidateService(
+                new ValidateService(
+                    new ValidateFigureService(
                     
                     new ValidatePawnService(),
+                    new ValidateQueenService(                                                                        )
+                    )));
+
+            return new IntellectService(new ValidateService(
+                new ValidateFigureService(
+                    new ValidatePawnService(),
                     new ValidateQueenService()
-                    ),
+                    )),
                 boardRepository,                
                 moveService                              
             );

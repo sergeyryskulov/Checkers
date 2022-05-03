@@ -13,37 +13,20 @@ using Checkers.BL.Models;
 namespace Checkers.BL.Services
 {
     public class ValidateService
-    {        
-        private IValidatePawnService _validatePawnService;
-        private IValidateQueenService _validateQueenService;
+    {
+        private readonly IValidateFigureService _validateFigureService;
 
-
-        public ValidateService(IValidatePawnService validatePawnService, IValidateQueenService validateQueenService)
-        {            
-            _validatePawnService = validatePawnService;
-            _validateQueenService = validateQueenService;
+        public ValidateService(IValidateFigureService validateFigureService)
+        {
+            _validateFigureService = validateFigureService;
         }
 
-        public AllowedVectors GetAllowedMoveVectors(int coord, string figures, bool ignoreBlock = false)
+        public AllowedVectors GetAllowedMoveVectors(int coord, string figures)
         {
-            var figure = figures[coord];
+            
+            var result = _validateFigureService.GetAllowedMoveVectors(coord, figures);
 
-            var result = new AllowedVectors()
-            {
-                Vectors = new List<Vector>(),
-                EatFigure = false
-            };
-
-            if (figure == Figures.WhitePawn || figure == Figures.BlackPawn)
-            {
-                result = _validatePawnService.GetAllowedMoveVectors(coord, figures);
-            }
-            else if (figure == Figures.WhiteQueen || figure == Figures.BlackQueen)
-            {
-                result = _validateQueenService.GetAllowedMoveVectors(coord, figures);
-            }
-
-            if (!ignoreBlock && result.EatFigure==false && result.Vectors.Count > 0 && IsBlocked(coord, figures))
+            if (result.EatFigure==false && result.Vectors.Count > 0 && IsBlocked(coord, figures))
             {
                 return new AllowedVectors()
                 {
@@ -67,7 +50,7 @@ namespace Checkers.BL.Services
                     coord != iteratedFigure &&
                     iteratedFigure.ToFigureColor() == color)
                 {
-                    if (GetAllowedMoveVectors(figureCoord, figures, true).EatFigure)
+                    if (_validateFigureService.GetAllowedMoveVectors(figureCoord, figures).EatFigure)
                     {
                         return true;
                     }
