@@ -126,7 +126,19 @@ namespace Checkers.BL.Services.Tests
                     
                     new ValidatePawnService(),
                     new ValidateQueenService(                                                                        )
-                    )));
+                    )),
+                
+                new DirectMoveFigureService(
+                    new ValidateFiguresService(
+                        new ValidateFigureService(
+
+                            new ValidatePawnService(),
+                            new ValidateQueenService()
+                        ))
+
+                    )
+                
+                );
 
             return new IntellectService(new ValidateFiguresService(
                 new ValidateFigureService(
