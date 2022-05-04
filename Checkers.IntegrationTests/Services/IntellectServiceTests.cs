@@ -15,20 +15,15 @@ namespace Checkers.BL.Services.Tests
     public class IntellectServiceTests
     {
 
-        
         [TestMethod()]
-        public void IntellectStepTest()
+        public void PawnToQueen()
         {
-            var boardRepository = new Mock<IBoardRepository>();
-            boardRepository.Setup(m => m.Load("")).Returns("p111b");
+            AssertEqual(
+                "p1" +
+                "11b",
 
-            var service = GetIntellectService(boardRepository.Object);
-
-            string actual = service.IntellectStep("");
-
-            string expected = "111qB";
-            
-            Assert.AreEqual(expected, actual);
+                "11" +
+                "1qB");
 
         }
 
@@ -36,85 +31,85 @@ namespace Checkers.BL.Services.Tests
         [TestMethod()]
         public void IntellectStep_NoWhiteMove()
         {
-            var boardRepository = new Mock<IBoardRepository>();
-            boardRepository.Setup(m => m.Load("")).Returns("1111111p111111p11p111p1pp11111p11p11111P11111111111P111111q11111b");
+            AssertNotEqual(
+                "1111111p" +
+                "111111p1" +
+                "1p111p1p" +
+                "p11111p1" +
+                "1p11111P" +
+                "11111111" +
+                "111P1111" +
+                "11q11111b",
 
-            var service = GetIntellectService(boardRepository.Object);
-
-            string actual = service.IntellectStep("");
-
-            string notExpected = "1111111p111111p11p111p1pp11111p11p11111P11111111111P111111q11111b";
-
-            Assert.AreNotEqual(notExpected, actual);
-
+                "1111111p" +
+                "111111p1" +
+                "1p111p1p" +
+                "p11111p1" +
+                "1p11111P" +
+                "11111111" +
+                "111P1111" +
+                "11q11111b");
         }
 
         [TestMethod()]
-        public void IntellectStepOneDeepTest()
+        public void TwoTurn()
         {
-            var boardRepository = new Mock<IBoardRepository>();
-            boardRepository.Setup(m => m.Load("")).Returns("" +
-                                                           "" +
-                                                           "111111" +
-                                                           "111111" +
-                                                           "111111" +
-                                                           "111111" +
-                                                           "1p1p11" +
-                                                           "P1P111w");
 
-            var service = GetIntellectService(boardRepository.Object);
+            AssertEqual(
+                "111111" +
+                "111111" +
+                "111111" +
+                "111111" +
+                "1p1p11" +
+                "P1P111w",
 
-            string actual = service.IntellectStep("");
-
-            string expected = "" +
-                              "111111" +
-                              "111111" +
-                              "111111" +
-                              "111111" +
-                              "111111" +
-                              "11P1P1W";
-
-            Assert.AreEqual(expected, actual);
+                "111111" +
+                "111111" +
+                "111111" +
+                "111111" +
+                "111111" +
+                "11P1P1W");
 
         }
 
         [TestMethod()]
         public void IntellectStep_QueenWeightTest()
         {
-            var boardRepository = new Mock<IBoardRepository>();
-            boardRepository.Setup(m => m.Load("")).Returns("" +
-                                                           "11Q" +
-                                                           "111" +
-                                                           "q11b");
+            AssertEqual(
+                "11Q" + 
+                "111" + 
+                "q11b",
 
-            var service = GetIntellectService(boardRepository.Object);
-
-            string actual = service.IntellectStep("");
-
-            string expected = "" +
-                              "11Q" +
-                              "1q1" +
-                              "111w";
-
-            Assert.AreEqual(expected, actual);
+                "11Q" +
+                "1q1" +
+                "111w"
+            );
 
         }
-
 
 
         [TestMethod()]
         public void IntellectStepMustGoTest()
         {
-            var boardRepository = new Mock<IBoardRepository>();
-            boardRepository.Setup(m => m.Load("")).Returns("1p1p1p1pp111p1111111111p1111p11111111111P11111P11P1P1p11P1P1P1P1b53");
+            
+            AssertNotEqual(
+                "1p1p1p1p" +
+                "p111p111" +
+                "1111111p" +
+                "1111p111" +
+                "11111111" +
+                "P11111P1" +
+                "1P1P1p11" +
+                "P1P1P1P1b53", 
 
-            var service = GetIntellectService(boardRepository.Object);
-
-            string actual = service.IntellectStep("");
-
-            string notExpected = "1p1p1p1pp111p1111111111p1111p11111111111P11111P11P1P1p11P1P1P1P1b53";
-
-            Assert.AreNotEqual(notExpected, actual);
+                "1p1p1p1p" +
+                "p111p111" +
+                "1111111p" +
+                "1111p111" +
+                "11111111" +
+                "P11111P1" +
+                "1P1P1p11" +
+                "P1P1P1P1b53");
 
         }
 
@@ -137,6 +132,34 @@ namespace Checkers.BL.Services.Tests
                 boardRepository,                
                 moveService                              
             );
+        }
+
+        private void AssertEqual(string from, string to)
+        {
+            var boardRepository = new Mock<IBoardRepository>();
+            boardRepository.Setup(m => m.Load("")).Returns(from);
+
+            var service = GetIntellectService(boardRepository.Object);
+
+            string actual = service.IntellectStep("");
+
+            string expected = to;
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        private void AssertNotEqual(string from, string to)
+        {
+            var boardRepository = new Mock<IBoardRepository>();
+            boardRepository.Setup(m => m.Load("")).Returns(from);
+
+            var service = GetIntellectService(boardRepository.Object);
+
+            string actual = service.IntellectStep("");
+
+            string expected = to;
+
+            Assert.AreNotEqual(expected, actual);
         }
     }
 }
