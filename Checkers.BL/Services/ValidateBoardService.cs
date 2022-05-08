@@ -6,7 +6,7 @@ using Checkers.BL.Extensions;
 
 namespace Checkers.BL.Services
 {
-    public class ValidateBoardService
+    public class ValidateBoardService : IValidateBoardService
     {
 
         private ValidateFiguresService _validateFiguresService;

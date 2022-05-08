@@ -7,7 +7,7 @@ using Checkers.BL.Models;
 
 namespace Checkers.BL.Services
 {
-    public class DirectMoveService
+    public class DirectMoveService : IDirectMoveService
     {
         private readonly ValidateFiguresService _validateFiguresService;
 

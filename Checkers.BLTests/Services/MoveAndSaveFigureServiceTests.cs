@@ -19,16 +19,22 @@ namespace Checkers.BL.Services.Tests
                 "11" +
                 "P1w");
 
-            var moveFigureService = new Mock<IMoveFigureService>();
-            moveFigureService.Setup(m => m.Move(
+            var validateBoardService = new Mock<IValidateBoardService>();
+            validateBoardService.Setup(m => m.CanMove("11P1w", 3, 0)).Returns(true);
+
+            
+            var directMoveService = new Mock<IDirectMoveService>();
+            directMoveService.Setup(m => m.DirectMove(
                 "11" +
                 "P1w", 3, 0)).Returns(
                 "1Q" +
                 "11W");
 
+
             var moveAndSaveFigureService = new MoveAndSaveFigureService(
                 boardRepository.Object,
-                moveFigureService.Object
+                validateBoardService.Object,
+                directMoveService.Object
             );
 
             var actual = moveAndSaveFigureService.MoveAndSaveFigure(3, 0, "registrationid");
