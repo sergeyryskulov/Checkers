@@ -107,20 +107,17 @@ namespace Checkers.BL.Services.Tests
 
         private MoveFigureService CreateMoveFigureService()
         {
-            return new MoveFigureService( 
-                new ValidateFiguresService(
-                    new ValidateFigureService(
-                    new ValidatePawnService(),
-                    new ValidateQueenService())
-                ),
+            return new MoveFigureService(
                 new DirectMoveService(new ValidateFiguresService(
                     new ValidateFigureService(
                         new ValidatePawnService(),
                         new ValidateQueenService())
                 )),
-                new ValidateBoardService()
-                
-                );
+                new ValidateBoardService(new ValidateFiguresService(
+                    new ValidateFigureService(
+                        new ValidatePawnService(),
+                        new ValidateQueenService()))))
+                ;
         }
 
         private void AssertMove(string from, int fromCoord, int toCoord, string expected)

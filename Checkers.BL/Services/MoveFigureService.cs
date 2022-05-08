@@ -13,18 +13,14 @@ namespace Checkers.BL.Services
 {
     public class MoveFigureService : IMoveFigureService
     {        
-        private ValidateFiguresService _validateFiguresService;
-
+        
         private DirectMoveService _directMoveService;
 
         private ValidateBoardService _validateBoardService;
 
-
-        public MoveFigureService(
-            ValidateFiguresService validateFiguresService,
-            DirectMoveService directMoveService, ValidateBoardService validateBoardService)
+        public MoveFigureService(DirectMoveService directMoveService, ValidateBoardService validateBoardService)
         {
-            _validateFiguresService = validateFiguresService;
+        
             _directMoveService = directMoveService;
             _validateBoardService = validateBoardService;
         }
@@ -32,38 +28,13 @@ namespace Checkers.BL.Services
 
         public string Move(string boardStateString, int fromCoord, int toCoord)
         {
-           
-            if (!CanMove(boardStateString, fromCoord, toCoord))
+
+            if (!_validateBoardService.CanMove(boardStateString, fromCoord, toCoord))
             {
                 return boardStateString;
             }
+
             return _directMoveService.DirectMove(boardStateString, fromCoord, toCoord);
         }
-
-
-        private bool CanMove(string boardStateString, int fromCoord, int toCoord)
-        {
-            if (!_validateBoardService.CanMove(boardStateString, fromCoord, toCoord))
-            {
-                return false;
-            }
-
-            var boardState = boardStateString.ToBoardState();
-
-            string figures = boardState.Figures;
-
-            var boardWidth = figures.Length.SquareRoot();
-
-            var vector = fromCoord.ToVector(toCoord, boardWidth);
-
-            var notInAllowedVectors = !_validateFiguresService.GetAllowedMoveVectors(fromCoord, figures).Vectors.Contains(vector);
-            if (notInAllowedVectors)
-            {
-                return false;
-            }
-
-            return true;
-        }
-
     }
 }

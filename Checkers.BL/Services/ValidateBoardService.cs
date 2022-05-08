@@ -8,6 +8,15 @@ namespace Checkers.BL.Services
 {
     public class ValidateBoardService
     {
+
+        private ValidateFiguresService _validateFiguresService;
+
+        public ValidateBoardService(ValidateFiguresService validateFiguresService)
+        {
+            _validateFiguresService = validateFiguresService;
+        }
+
+
         public bool CanMove(string boardStateString, int fromCoord, int toCoord)
         {
 
@@ -33,6 +42,12 @@ namespace Checkers.BL.Services
 
             var incorrectTurn = (figures[fromCoord].IsWhite() && boardState.Turn != Turn.White || figures[fromCoord].IsBlack() && boardState.Turn != Turn.Black);
             if (incorrectTurn)
+            {
+                return false;
+            }
+
+            var notInAllowedVectors = !_validateFiguresService.GetAllowedMoveVectors(fromCoord, figures).Vectors.Contains(vector);
+            if (notInAllowedVectors)
             {
                 return false;
             }
