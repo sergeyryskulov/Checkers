@@ -14,9 +14,9 @@ namespace Checkers.Controllers.Tests
         [TestMethod()]
         public void PostTest()
         {
-            var moveAndSaveFigureService = new Mock<IMoveAndSaveFigureService>();
+            var moveAndSaveFigureService = new Mock<IMoveFigureService>();
 
-            moveAndSaveFigureService.Setup(m => m.MoveAndSaveFigure(3, 0, "registrationId")).Returns(
+            moveAndSaveFigureService.Setup(m => m.Move(3, 0, "registrationId")).Returns(
                 "1Q" +
                 "11W");
 

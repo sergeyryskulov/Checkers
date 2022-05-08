@@ -5,21 +5,20 @@ using Ckeckers.DAL.Repositories;
 
 namespace Checkers.BL.Services
 {
-    public class MoveAndSaveFigureService : IMoveAndSaveFigureService
+    public class MoveFigureService : IMoveFigureService
     {
         private IBoardRepository _boardRepository;
         private IValidateBoardService _validateBoardService;
         private IDirectMoveService _directMoveService;
 
-
-        public MoveAndSaveFigureService(IBoardRepository boardRepository,  IValidateBoardService validateBoardService, IDirectMoveService directMoveService)
+        public MoveFigureService(IBoardRepository boardRepository,  IValidateBoardService validateBoardService, IDirectMoveService directMoveService)
         {
             _boardRepository = boardRepository;
             _validateBoardService = validateBoardService;
             _directMoveService = directMoveService;
         }
 
-        public string MoveAndSaveFigure(int fromCoord, int toCoord, string registrationId)
+        public string Move(int fromCoord, int toCoord, string registrationId)
         {
             var oldState = _boardRepository.Load(registrationId);
 

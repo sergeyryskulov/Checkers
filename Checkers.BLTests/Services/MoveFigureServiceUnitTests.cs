@@ -9,10 +9,10 @@ using Moq;
 namespace Checkers.BL.Services.Tests
 {
     [TestClass()]
-    public class MoveAndSaveFigureServiceTests
+    public class MoveFigureServiceUnitTests
     {
         [TestMethod()]
-        public void MoveAndSaveFigureTest()
+        public void MoveFigureTest()
         {
             var boardRepository = new Mock<IBoardRepository>();
             boardRepository.Setup(m => m.Load("registrationid")).Returns(
@@ -31,13 +31,13 @@ namespace Checkers.BL.Services.Tests
                 "11W");
 
 
-            var moveAndSaveFigureService = new MoveAndSaveFigureService(
+            var moveFigureService = new MoveFigureService(
                 boardRepository.Object,
                 validateBoardService.Object,
                 directMoveService.Object
             );
 
-            var actual = moveAndSaveFigureService.MoveAndSaveFigure(3, 0, "registrationid");
+            var actual = moveFigureService.Move(3, 0, "registrationid");
 
             boardRepository.Verify(m => m.Save("registrationid", "1Q" +
                                                                  "11W"));

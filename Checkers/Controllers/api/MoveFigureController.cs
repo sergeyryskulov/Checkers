@@ -14,17 +14,17 @@ namespace Checkers.Controllers
     [ApiController]
     public class MoveFigureController : ControllerBase
     {
-        private IMoveAndSaveFigureService _moveAndSaveFigureService;
+        private IMoveFigureService _moveFigureService;
         
-        public MoveFigureController(IMoveAndSaveFigureService moveAndSaveFigureService)
+        public MoveFigureController(IMoveFigureService moveFigureService)
         {
-            _moveAndSaveFigureService = moveAndSaveFigureService;
+            _moveFigureService = moveFigureService;
         }
 
 
         public string Post(int fromCoord, int toCoord, string registrationId)
         {
-            return _moveAndSaveFigureService.MoveAndSaveFigure(fromCoord, toCoord, registrationId);
+            return _moveFigureService.Move(fromCoord, toCoord, registrationId);
         }
     }
 }
