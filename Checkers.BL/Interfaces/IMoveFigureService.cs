@@ -2,6 +2,6 @@
 {
     public interface IMoveFigureService
     {
-        string Move(string boardStateString, int fromCoord, int toCoord, bool skipValidation = false);
+        string Move(string boardStateString, int fromCoord, int toCoord);
     }
 }

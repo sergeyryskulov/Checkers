@@ -26,16 +26,12 @@ namespace Checkers.BL.Services
         }
 
 
-        public string Move(string boardStateString, int fromCoord, int toCoord, bool skipValidation = false)
+        public string Move(string boardStateString, int fromCoord, int toCoord)
         {
-            if (!skipValidation)
+            if (!CanMove(boardStateString, fromCoord, toCoord))
             {
-                if (!CanMove(boardStateString, fromCoord, toCoord))
-                {
-                    return boardStateString;
-                }
+                return boardStateString;
             }
-
             return _directMoveService.DirectMove(boardStateString, fromCoord, toCoord);
         }
 

@@ -22,4 +22,10 @@
     <ProjectReference Include="..\Ckeckers.DAL\Checkers.DAL.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="TestFiles\Test1.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

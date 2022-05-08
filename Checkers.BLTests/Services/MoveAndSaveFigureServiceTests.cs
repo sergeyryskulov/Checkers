@@ -22,7 +22,7 @@ namespace Checkers.BL.Services.Tests
             var moveFigureService = new Mock<IMoveFigureService>();
             moveFigureService.Setup(m => m.Move(
                 "11" +
-                "P1w", 3, 0, false)).Returns(
+                "P1w", 3, 0)).Returns(
                 "1Q" +
                 "11W");
 
