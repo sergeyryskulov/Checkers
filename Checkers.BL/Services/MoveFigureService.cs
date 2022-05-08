@@ -17,17 +17,22 @@ namespace Checkers.BL.Services
 
         private DirectMoveService _directMoveService;
 
+        private ValidateBoardService _validateBoardService;
+
+
         public MoveFigureService(
             ValidateFiguresService validateFiguresService,
-            DirectMoveService directMoveService)
+            DirectMoveService directMoveService, ValidateBoardService validateBoardService)
         {
             _validateFiguresService = validateFiguresService;
             _directMoveService = directMoveService;
+            _validateBoardService = validateBoardService;
         }
 
 
         public string Move(string boardStateString, int fromCoord, int toCoord)
         {
+           
             if (!CanMove(boardStateString, fromCoord, toCoord))
             {
                 return boardStateString;
@@ -38,6 +43,10 @@ namespace Checkers.BL.Services
 
         private bool CanMove(string boardStateString, int fromCoord, int toCoord)
         {
+            if (!_validateBoardService.CanMove(boardStateString, fromCoord, toCoord))
+            {
+                return false;
+            }
 
             var boardState = boardStateString.ToBoardState();
 
@@ -47,24 +56,6 @@ namespace Checkers.BL.Services
 
             var vector = fromCoord.ToVector(toCoord, boardWidth);
 
-            var needStartFromOtherCoord = (boardState.MustCoord != -1 && boardState.MustCoord != fromCoord);
-            if (needStartFromOtherCoord)
-            {
-                return false;
-            }
-
-            var incorrectVector = (vector == null);
-            if (incorrectVector)
-            {
-                return false;
-            }
-
-            var incorrectTurn = (figures[fromCoord].IsWhite() && boardState.Turn != Turn.White || figures[fromCoord].IsBlack() && boardState.Turn != Turn.Black);
-            if (incorrectTurn)
-            {
-                return false;
-            }
-
             var notInAllowedVectors = !_validateFiguresService.GetAllowedMoveVectors(fromCoord, figures).Vectors.Contains(vector);
             if (notInAllowedVectors)
             {
@@ -72,9 +63,7 @@ namespace Checkers.BL.Services
             }
 
             return true;
-
         }
-
 
     }
 }

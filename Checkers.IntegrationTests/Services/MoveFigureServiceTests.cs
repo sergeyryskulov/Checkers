@@ -117,7 +117,8 @@ namespace Checkers.BL.Services.Tests
                     new ValidateFigureService(
                         new ValidatePawnService(),
                         new ValidateQueenService())
-                ))
+                )),
+                new ValidateBoardService()
                 
                 );
         }
