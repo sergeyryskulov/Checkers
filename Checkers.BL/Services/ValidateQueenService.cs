@@ -10,10 +10,7 @@ namespace Checkers.BL.Services
 {
     public class ValidateQueenService : IValidateQueenService
     {                        
-        public ValidateQueenService()
-        {
-            ;
-        }
+      
         public AllowedVectors GetAllowedMoveVectors(int coord, string figures)
         {
 

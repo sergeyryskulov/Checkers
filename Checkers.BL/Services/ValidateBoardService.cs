@@ -9,9 +9,9 @@ namespace Checkers.BL.Services
     public class ValidateBoardService : IValidateBoardService
     {
 
-        private ValidateFiguresService _validateFiguresService;
+        private IValidateFiguresService _validateFiguresService;
 
-        public ValidateBoardService(ValidateFiguresService validateFiguresService)
+        public ValidateBoardService(IValidateFiguresService validateFiguresService)
         {
             _validateFiguresService = validateFiguresService;
         }

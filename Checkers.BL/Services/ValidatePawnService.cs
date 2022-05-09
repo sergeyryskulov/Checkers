@@ -14,11 +14,7 @@ namespace Checkers.BL.Services
 
     public class ValidatePawnService : IValidatePawnService
     {                        
-        public ValidatePawnService()
-        {
-            ;
-        }
-
+        
         public AllowedVectors GetAllowedMoveVectors(int coord, string figures)
         {
             var color = figures[coord].ToFigureColor();

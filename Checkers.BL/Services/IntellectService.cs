@@ -16,11 +16,11 @@ namespace Checkers.BL.Services
     {
         private IBoardRepository _boardRepository;
 
-        private StepIteratorService _stepIteratorService;
+        private IStepIteratorService _stepIteratorService;
 
-        private PositionWeightService _positionWeightService;
+        private IPositionWeightService _positionWeightService;
 
-        public IntellectService(IBoardRepository boardRepository, StepIteratorService stepIteratorService, PositionWeightService positionWeightService)
+        public IntellectService(IBoardRepository boardRepository, IStepIteratorService stepIteratorService, IPositionWeightService positionWeightService)
         {
             _boardRepository = boardRepository;
             _stepIteratorService = stepIteratorService;

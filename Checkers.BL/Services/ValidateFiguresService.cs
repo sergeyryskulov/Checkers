@@ -12,7 +12,7 @@ using Checkers.BL.Models;
 
 namespace Checkers.BL.Services
 {
-    public class ValidateFiguresService
+    public class ValidateFiguresService : IValidateFiguresService
     {
         private readonly IValidateFigureService _validateFigureService;
 

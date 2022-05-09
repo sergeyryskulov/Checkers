@@ -7,12 +7,12 @@ using Checkers.BL.Models;
 
 namespace Checkers.BL.Services
 {
-    public class StepIteratorService
+    public class StepIteratorService : IStepIteratorService
     {
-        private ValidateFiguresService _validateFiguresService;
-        private DirectMoveService _directMoveService;
+        private IValidateFiguresService _validateFiguresService;
+        private IDirectMoveService _directMoveService;
 
-        public StepIteratorService(ValidateFiguresService validateFiguresService, DirectMoveService directMoveService)
+        public StepIteratorService(IValidateFiguresService validateFiguresService, IDirectMoveService directMoveService)
         {
             _validateFiguresService = validateFiguresService;
             _directMoveService = directMoveService;

@@ -5,7 +5,7 @@ using Checkers.BL.Constants;
 
 namespace Checkers.BL.Services
 {
-    public class PositionWeightService
+    public class PositionWeightService : IPositionWeightService
     {
         public int GetWeightForWhite(string boardState)
         {
