@@ -3,17 +3,18 @@ using System.Collections.Generic;
 using System.Text;
 using Checkers.BL.Constants;
 using Checkers.BL.Extensions;
+using Checkers.BL.Interfaces;
 using Checkers.BL.Models;
 
 namespace Checkers.BL.Services
 {
     public class DirectMoveService : IDirectMoveService
     {
-        private readonly ValidateFiguresService _validateFiguresService;
+        private readonly IValidateEatService _validateEatService;
 
-        public DirectMoveService(ValidateFiguresService validateFiguresService)
+        public DirectMoveService(IValidateEatService validateEatService)
         {
-            _validateFiguresService = validateFiguresService;
+            _validateEatService = validateEatService;
         }
 
         public string DirectMove(string boardStateString, int fromCoord, int toCoord)
@@ -61,12 +62,11 @@ namespace Checkers.BL.Services
 
             if (isDie)
             {
-                var possibleNextStepVectors = _validateFiguresService.GetAllowedMoveVectors(toCoord, newFigures);
+                var canEatNextFigure = _validateEatService.CanEatFigure(toCoord, newFigures);
+
+                if (canEatNextFigure)
                 {
-                    if (possibleNextStepVectors.EatFigure)
-                    {
-                        toggleTurn = false;
-                    }
+                    toggleTurn = false;
                 }
             }
 

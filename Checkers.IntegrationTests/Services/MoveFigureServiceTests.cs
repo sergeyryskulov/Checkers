@@ -109,14 +109,16 @@ namespace Checkers.BL.Services.Tests
         {
 
             var validateFiguresService = new ValidateFiguresService(
-                new ValidateFigureService(
+                new ValidateService(
                     new ValidatePawnService(),
                     new ValidateQueenService()));
             
             return new MoveFigureService(
                 boardRepository.Object,
                 new ValidateBoardService(validateFiguresService),
-                new DirectMoveService(validateFiguresService));
+                new DirectMoveService(new ValidateService(
+                    new ValidatePawnService(),
+                    new ValidateQueenService())));
 
         }
 

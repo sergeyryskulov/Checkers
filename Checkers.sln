@@ -17,6 +17,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Checkers.IntegrationTests",
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{0DA0C6BF-F8D7-41F8-BE7C-207C7A0DA93E}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documents", "Documents", "{E306165A-4512-49DA-9120-AD3D77D50F69}"
+	ProjectSection(SolutionItems) = preProject
+		d:\Рабочий стол\UML Diagram.docx = d:\Рабочий стол\UML Diagram.docx
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

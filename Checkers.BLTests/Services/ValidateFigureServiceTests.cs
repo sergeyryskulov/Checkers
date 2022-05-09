@@ -27,9 +27,9 @@ namespace Checkers.BL.Services.Tests
             Assert.IsFalse(actual.EatFigure);
         }
 
-        private ValidateFigureService  CreateValidateFigureService()
+        private ValidateService  CreateValidateFigureService()
         {
-            return new ValidateFigureService(new Mock<IValidatePawnService>().Object, new Mock<IValidateQueenService>().Object);
+            return new ValidateService(new Mock<IValidatePawnService>().Object, new Mock<IValidateQueenService>().Object);
         }
     }
 }

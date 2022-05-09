@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Checkers.BL.Constants;
+using Checkers.BL.Interfaces;
 using Ckeckers.DAL.Repositories;
 using Moq;
 
@@ -115,20 +116,21 @@ namespace Checkers.BL.Services.Tests
 
         private IntellectService GetIntellectService(IBoardRepository boardRepository)
         {
-            var moveService = new DirectMoveService(
-                new ValidateFiguresService(
-                    new ValidateFigureService(
-                    
-                    new ValidatePawnService(),
-                    new ValidateQueenService(                                                                        )
-                    ))
+            var valideteFigureService = new  ValidateService(
+                new ValidatePawnService(),
+                new ValidateQueenService()
             );
 
-            return new IntellectService(new ValidateFiguresService(
-                new ValidateFigureService(
-                    new ValidatePawnService(),
+            var moveService = new DirectMoveService(
+                new ValidateService(
+                    new ValidatePawnService(), 
                     new ValidateQueenService()
-                    )),
+                    ) as IValidateEatService
+            );
+
+            return new IntellectService(
+                new ValidateFiguresService(
+                    valideteFigureService),
                 boardRepository,                
                 moveService                              
             );
