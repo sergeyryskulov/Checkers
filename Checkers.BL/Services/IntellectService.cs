@@ -31,27 +31,27 @@ namespace Checkers.BL.Services
         {
             string boardStateString = _boardRepository.Load(registrationId);
 
-            var firstStep = new Dictionary<string, string>();
-
-            var nextStepVariants = GetNextStepVariants(boardStateString,  out firstStep);
+            var nextStepVariants = GetNextStepVariants(boardStateString);
             
-            var worstForWhiteVariant = nextStepVariants.OrderBy(t => GetBestWeightForWhite(t)).First();
+            var worstForWhiteVariant = nextStepVariants.OrderBy(t => GetBestWeightForWhite(t.ResultState)).First();
 
-
-            var resultStep = worstForWhiteVariant;
-            if (firstStep.ContainsKey(resultStep))
-            {
-                resultStep = firstStep[worstForWhiteVariant];
-            }
+            var resultStep = worstForWhiteVariant.FirstStepOfResultState;
 
             _boardRepository.Save(registrationId, resultStep);
 
             return resultStep;
         }
 
-        private List<string> GetNextStepVariants(string inputState, out Dictionary<string, string> lastStepToFirstStepMap)
+        class NextStepVariant
         {
-            var result = new List<string>();
+            public string ResultState;
+
+            public string FirstStepOfResultState;
+
+        }
+        private List<NextStepVariant> GetNextStepVariants(string inputState)
+        {
+            var result = new List<NextStepVariant>();
             
             var boardState = inputState.ToBoardState();
             string figures = boardState.Figures;
@@ -78,21 +78,26 @@ namespace Checkers.BL.Services
                         }
                         else
                         {
-                            result.Add(newState);
+                            result.Add(new NextStepVariant()
+                            {
+                                ResultState = newState,
+                                FirstStepOfResultState = newState
+                            });
+                            
                         }
                     }
                 }
             }
 
-            lastStepToFirstStepMap = new Dictionary<string, string>();
             foreach (var noChangeCOlorState in stateWithNoChangeTurn)
             {
-                var notNeededMap = new Dictionary<string, string>();
-
-                foreach (var nextStepvariant in GetNextStepVariants(noChangeCOlorState, out notNeededMap))
+                foreach (var nextStepvariant in GetNextStepVariants(noChangeCOlorState))
                 {
-                    lastStepToFirstStepMap[nextStepvariant] = noChangeCOlorState;
-                    result.Add(nextStepvariant);
+                    result.Add(new NextStepVariant()
+                    {
+                        ResultState = nextStepvariant.ResultState,
+                        FirstStepOfResultState = noChangeCOlorState
+                    });
                 }
             }
 
@@ -119,18 +124,16 @@ namespace Checkers.BL.Services
 
         int GetBestWeightForWhite(string state)
         {
-            var notNeededMap = new Dictionary<string, string>();
-
-            var nextWhiteVariants = GetNextStepVariants(state, out notNeededMap);
+            var nextWhiteVariants = GetNextStepVariants(state);
 
             if (nextWhiteVariants.Count == 0)
             {
                 return -100;
             }
 
-            var maximumWhite = nextWhiteVariants.OrderByDescending(t => GetWeightForWhite(t)).First();
+            var maximumWhite = nextWhiteVariants.OrderByDescending(t => GetWeightForWhite(t.ResultState)).First();
 
-            return GetWeightForWhite(maximumWhite);
+            return GetWeightForWhite(maximumWhite.ResultState);
         }
 
         private int GetWeightForWhite(string boardState)
