@@ -19,10 +19,8 @@ namespace Checkers.BL.Services
         }
 
 
-        public List<NextStepVariant> GetNextStepVariants(string inputState)
+        public IEnumerable<NextStepVariant> GetNextStepVariants(string inputState)
         {
-            var result = new List<NextStepVariant>();
-
             var boardState = inputState.ToBoardState();
             string figures = boardState.Figures;
             var boardWidth = figures.Length.SquareRoot();
@@ -48,11 +46,11 @@ namespace Checkers.BL.Services
                         }
                         else
                         {
-                            result.Add(new NextStepVariant()
+                            yield return new NextStepVariant()
                             {
                                 ResultState = newState,
                                 FirstStepOfResultState = newState
-                            });
+                            };
 
                         }
                     }
@@ -63,15 +61,13 @@ namespace Checkers.BL.Services
             {
                 foreach (var nextStepvariant in GetNextStepVariants(noChangeCOlorState))
                 {
-                    result.Add(new NextStepVariant()
+                    yield return new NextStepVariant()
                     {
                         ResultState = nextStepvariant.ResultState,
                         FirstStepOfResultState = noChangeCOlorState
-                    });
+                    };
                 }
             }
-
-            return result;
 
         }
 

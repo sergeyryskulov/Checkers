@@ -40,19 +40,15 @@ namespace Checkers.BL.Services
             return resultStep;
         }
 
-
-     
-
         int GetBestWeightForWhite(string state)
         {
             var nextWhiteVariants = _stepIteratorService.GetNextStepVariants(state);
 
-            if (nextWhiteVariants.Count == 0)
+            var maximumWhite = nextWhiteVariants.OrderByDescending(t => GetWeightForWhite(t.ResultState)).FirstOrDefault();
+            if (maximumWhite == null)
             {
                 return -100;
             }
-
-            var maximumWhite = nextWhiteVariants.OrderByDescending(t => GetWeightForWhite(t.ResultState)).First();
 
             return GetWeightForWhite(maximumWhite.ResultState);
         }
