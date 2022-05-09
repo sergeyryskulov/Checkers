@@ -18,11 +18,13 @@ namespace Checkers.BL.Services
 
         private StepIteratorService _stepIteratorService;
 
+        private PositionWeightService _positionWeightService;
 
-        public IntellectService(IBoardRepository boardRepository, StepIteratorService stepIteratorService)
+        public IntellectService(IBoardRepository boardRepository, StepIteratorService stepIteratorService, PositionWeightService positionWeightService)
         {
             _boardRepository = boardRepository;
             _stepIteratorService = stepIteratorService;
+            _positionWeightService = positionWeightService;
         }
 
         public string IntellectStep(string registrationId)
@@ -44,31 +46,13 @@ namespace Checkers.BL.Services
         {
             var nextWhiteVariants = _stepIteratorService.GetNextStepVariants(state);
 
-            var maximumWhite = nextWhiteVariants.OrderByDescending(t => GetWeightForWhite(t.ResultState)).FirstOrDefault();
+            var maximumWhite  = nextWhiteVariants.OrderByDescending(t => _positionWeightService.GetWeightForWhite(t.ResultState)).FirstOrDefault();
             if (maximumWhite == null)
             {
                 return -100;
             }
 
-            return GetWeightForWhite(maximumWhite.ResultState);
-        }
-
-        private int GetWeightForWhite(string boardState)
-        {
-            int result = 0;
-            foreach (var figure in boardState)
-            {
-                switch (figure)
-                {
-                    case Figures.BlackQueen: result -= 2; break;
-                    case Figures.BlackPawn: result -= 1; break;
-                    case Figures.WhiteQueen: result += 2; break;
-                    case Figures.WhitePawn: result += 1; break;
-                    default: break;
-                }
-            }
-
-            return result;
+            return _positionWeightService.GetWeightForWhite(maximumWhite.ResultState);
         }
     }
 }

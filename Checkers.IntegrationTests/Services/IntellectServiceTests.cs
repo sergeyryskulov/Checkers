@@ -135,7 +135,8 @@ namespace Checkers.BL.Services.Tests
             
             return new IntellectService(
                 boardRepository,
-                stepIteratorService);
+                stepIteratorService,
+                new PositionWeightService());
         }
 
         private void AssertEqual(string from, string to)
