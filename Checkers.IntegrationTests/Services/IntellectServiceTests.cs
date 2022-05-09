@@ -121,19 +121,21 @@ namespace Checkers.BL.Services.Tests
                 new ValidateQueenService()
             );
 
-            var moveService = new DirectMoveService(
+            var directMoveService = new DirectMoveService(
                 new ValidateService(
                     new ValidatePawnService(), 
                     new ValidateQueenService()
                     ) as IValidateEatService
             );
 
+            var stepIteratorService = new StepIteratorService(
+                    new ValidateFiguresService(valideteFigureService),
+                    directMoveService
+                );
+            
             return new IntellectService(
-                new ValidateFiguresService(
-                    valideteFigureService),
-                boardRepository,                
-                moveService                              
-            );
+                boardRepository,
+                stepIteratorService);
         }
 
         private void AssertEqual(string from, string to)

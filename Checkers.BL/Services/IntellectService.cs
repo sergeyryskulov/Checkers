@@ -14,24 +14,22 @@ namespace Checkers.BL.Services
 {
     public class IntellectService : IIntellectService
     {
-        private ValidateFiguresService _validateFiguresService;
-
         private IBoardRepository _boardRepository;
 
-        private DirectMoveService _directMoveService;
+        private StepIteratorService _stepIteratorService;
 
-        public IntellectService(ValidateFiguresService validateFiguresService, IBoardRepository boardRepository, DirectMoveService directMoveService)
+
+        public IntellectService(IBoardRepository boardRepository, StepIteratorService stepIteratorService)
         {
-            _validateFiguresService = validateFiguresService;
             _boardRepository = boardRepository;
-            _directMoveService = directMoveService;
+            _stepIteratorService = stepIteratorService;
         }
 
         public string IntellectStep(string registrationId)
         {
             string boardStateString = _boardRepository.Load(registrationId);
 
-            var nextStepVariants = GetNextStepVariants(boardStateString);
+            var nextStepVariants = _stepIteratorService.GetNextStepVariants(boardStateString);
             
             var worstForWhiteVariant = nextStepVariants.OrderBy(t => GetBestWeightForWhite(t.ResultState)).First();
 
@@ -42,89 +40,12 @@ namespace Checkers.BL.Services
             return resultStep;
         }
 
-        class NextStepVariant
-        {
-            public string ResultState;
 
-            public string FirstStepOfResultState;
-
-        }
-        private List<NextStepVariant> GetNextStepVariants(string inputState)
-        {
-            var result = new List<NextStepVariant>();
-            
-            var boardState = inputState.ToBoardState();
-            string figures = boardState.Figures;
-            var boardWidth = figures.Length.SquareRoot();
-
-            var stateWithNoChangeTurn = new List<string>();
-
-            for (int fromCoord = 0; fromCoord < figures.Length; fromCoord++)
-            {
-                if (boardState.MustCoord != -1 && fromCoord != boardState.MustCoord)
-                {
-                    continue;
-                }
-
-                if ((boardState.Turn == Turn.Black && figures[fromCoord].ToFigureColor() == FigureColor.Black) ||
-                    (boardState.Turn == Turn.White && figures[fromCoord].ToFigureColor() == FigureColor.White
-                    ))
-                {
-                    foreach (var newState  in GetAllowedNextStates(inputState, fromCoord, figures, boardWidth))
-                    {
-                        if (newState.Contains(boardState.Turn))
-                        {
-                            stateWithNoChangeTurn.Add(newState);
-                        }
-                        else
-                        {
-                            result.Add(new NextStepVariant()
-                            {
-                                ResultState = newState,
-                                FirstStepOfResultState = newState
-                            });
-                            
-                        }
-                    }
-                }
-            }
-
-            foreach (var noChangeCOlorState in stateWithNoChangeTurn)
-            {
-                foreach (var nextStepvariant in GetNextStepVariants(noChangeCOlorState))
-                {
-                    result.Add(new NextStepVariant()
-                    {
-                        ResultState = nextStepvariant.ResultState,
-                        FirstStepOfResultState = noChangeCOlorState
-                    });
-                }
-            }
-
-            return result;
-
-        }
-
-        private List<string> GetAllowedNextStates(string inputState, int fromCoord, string figures, int boardWidth)
-        {
-            List<string> result = new List<string>();
-            var allowedVectors = _validateFiguresService.GetAllowedMoveVectors(fromCoord, figures).Vectors;
-            foreach (var allowedVector in allowedVectors)
-            {
-                var toCoord = allowedVector.ToCoord(fromCoord, boardWidth);
-                var newState = _directMoveService.DirectMove(inputState, fromCoord, toCoord);
-                if (inputState != newState)
-                {
-                    result.Add(newState);
-                }
-            }
-
-            return result;
-        }
+     
 
         int GetBestWeightForWhite(string state)
         {
-            var nextWhiteVariants = GetNextStepVariants(state);
+            var nextWhiteVariants = _stepIteratorService.GetNextStepVariants(state);
 
             if (nextWhiteVariants.Count == 0)
             {
