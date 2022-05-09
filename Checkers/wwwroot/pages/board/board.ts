@@ -63,6 +63,7 @@ class Board {
     }
 
     private showFiguresOnBoard(boardState) {
+        console.log(boardState);
         var figuresLength = boardState.length - 1;
         if (boardState[boardState.length - 1] !== 'w' &&
             boardState[boardState.length - 1] !== 'W' &&
@@ -85,7 +86,12 @@ class Board {
             
         } else if (boardState[figuresLength] === 'b'){
             $('.turn').text('Ход черных');
-            this.serverApi.intellectStep((boardState) => this.showFiguresOnBoard(boardState));
+            var timeOut = 0;
+            if (boardState[boardState.length - 1] !== 'b') {
+                timeOut = 500;
+            }
+            this.serverApi.intellectStep((newsBoardState) => setTimeout(
+                () => this.showFiguresOnBoard(newsBoardState), timeOut));
             
         } else if (boardState[figuresLength] === 'B') {
             $('.turn').text('Черные выиграли!');

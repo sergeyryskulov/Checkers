@@ -31,16 +31,25 @@ namespace Checkers.BL.Services
         {
             string boardStateString = _boardRepository.Load(registrationId);
 
-            var nextStepVariants = GetNextStepVariants(boardStateString);
+            var firstStep = new Dictionary<string, string>();
+
+            var nextStepVariants = GetNextStepVariants(boardStateString,  out firstStep);
             
             var worstForWhiteVariant = nextStepVariants.OrderBy(t => GetBestWeightForWhite(t)).First();
-            
-            _boardRepository.Save(registrationId, worstForWhiteVariant);
 
-            return worstForWhiteVariant;
+
+            var resultStep = worstForWhiteVariant;
+            if (firstStep.ContainsKey(resultStep))
+            {
+                resultStep = firstStep[worstForWhiteVariant];
+            }
+
+            _boardRepository.Save(registrationId, resultStep);
+
+            return resultStep;
         }
 
-        private List<string> GetNextStepVariants(string inputState)
+        private List<string> GetNextStepVariants(string inputState, out Dictionary<string, string> lastStepToFirstStepMap)
         {
             var result = new List<string>();
             
@@ -75,9 +84,16 @@ namespace Checkers.BL.Services
                 }
             }
 
+            lastStepToFirstStepMap = new Dictionary<string, string>();
             foreach (var noChangeCOlorState in stateWithNoChangeTurn)
             {
-                result.AddRange(GetNextStepVariants(noChangeCOlorState));
+                var notNeededMap = new Dictionary<string, string>();
+
+                foreach (var nextStepvariant in GetNextStepVariants(noChangeCOlorState, out notNeededMap))
+                {
+                    lastStepToFirstStepMap[nextStepvariant] = noChangeCOlorState;
+                    result.Add(nextStepvariant);
+                }
             }
 
             return result;
@@ -103,7 +119,9 @@ namespace Checkers.BL.Services
 
         int GetBestWeightForWhite(string state)
         {
-            var nextWhiteVariants = GetNextStepVariants(state);
+            var notNeededMap = new Dictionary<string, string>();
+
+            var nextWhiteVariants = GetNextStepVariants(state, out notNeededMap);
 
             if (nextWhiteVariants.Count == 0)
             {
