@@ -16,6 +16,7 @@ var BoardDrawer = /** @class */ (function () {
     };
     BoardDrawer.prototype.drawMoving = function (fromCoord, toCoord, onComplete) {
         $('#f' + fromCoord).css('position', 'relative');
+        $('#f' + fromCoord).css('z-index', 100);
         var leftShift = $('#s' + toCoord).position().left - $('#s' + fromCoord).position().left;
         var topShift = $('#s' + toCoord).position().top - $('#s' + fromCoord).position().top;
         $('#f' + fromCoord).animate({
@@ -39,15 +40,6 @@ var BoardDrawer = /** @class */ (function () {
     };
     BoardDrawer.prototype.isBlackSquareAt = function (coord, width) {
         return ((coord % width + Math.floor(coord / width)) % 2) !== 0;
-    };
-    BoardDrawer.prototype.gettChessSymbol = function (figure) {
-        switch (figure) {
-            case 'Q': return '&#9813;';
-            case 'P': return '&#9817;';
-            case 'p': return '&#9823;';
-            default:
-        }
-        return '';
     };
     return BoardDrawer;
 }());
