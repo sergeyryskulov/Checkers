@@ -28,7 +28,7 @@
         $('#f' + fromCoord).animate({
             left: leftShift,
             top: topShift,
-        }, 300,
+        }, 500,
             onComplete);
         
     }
@@ -38,7 +38,20 @@
         let divFigure = '<div id=f$coord class="figure figure_$figure"></div>';
         $('#s' + coord).html(divFigure.replace('$coord', '' + coord).replace('$figure', figure));
 
-        $('.figure').draggable();
+        if (figure == 'P' || figure == 'Q') {
+            $('#s' + coord +' .figure').mousedown(function() {
+                $(this).css('cursor', 'url(/pages/board/grab.cur), move');
+            }).mouseup(function() {
+                $(this).css('cursor', 'pointer');
+            }).mouseleave(function() {
+                $(this).css('cursor', 'pointer');
+            }).draggable({
+                start: function() {
+                    $(this).css('cursor', 'url(/pages/board/grab.cur), move');
+                }
+            });
+        }
+
     }
 
     public setDropFigureOnSquareHandler(dropCallback) {
