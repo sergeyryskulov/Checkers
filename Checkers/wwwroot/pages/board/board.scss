@@ -1,4 +1,7 @@
-﻿.square {
+﻿body {
+    background-color: #00a000;
+}
+.square {
     width: 12.5%;
     height: 12.5%;
     float: left;
@@ -8,15 +11,18 @@
 }
 
 .black {
-    background-color: #999;
+    background: url(/pages/board/dark.png);
+    background-size: 100%;
 }
 
 .white {
-    background-color: #eee;
+    background: url(/pages/board/light.png);
+    background-size: 100%;
 }
 
-.board {    
-   border: 20px solid #55cdef;
+.board {
+    border: 20px solid #55cdef;
+    border-image: url(/pages/board/dark.png) 20;
 }
 
 .figure {
