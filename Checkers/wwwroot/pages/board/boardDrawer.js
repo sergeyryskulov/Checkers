@@ -7,11 +7,11 @@ var BoardDrawer = /** @class */ (function () {
     BoardDrawer.prototype.setNewGameClickHandler = function (callback) {
         $('.newGame').click(callback);
     };
-    BoardDrawer.prototype.drawSquares = function (isFlipped, width) {
+    BoardDrawer.prototype.drawSquares = function (width) {
         $('.board').html('');
         var divSquare = '<div  id=s$coord class="square $color"></div>';
         for (var coord = 0; coord < width * width; coord++) {
-            $('.board').append(divSquare.replace('$coord', '' + (isFlipped ? width * width - 1 - coord : coord)).replace('$color', this.isBlackSquareAt(coord, width) ? 'black' : 'white'));
+            $('.board').append(divSquare.replace('$coord', '' + coord).replace('$color', this.isBlackSquareAt(coord, width) ? 'black' : 'white'));
         }
     };
     BoardDrawer.prototype.drawMoving = function (fromCoord, toCoord, onComplete) {

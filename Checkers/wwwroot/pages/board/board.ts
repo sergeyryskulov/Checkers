@@ -8,8 +8,6 @@ class Board {
 
     private figuresCache : Array<string>;
 
-    private isFlipped = false;
-
     initBoard() {
         this.serverApi = new ServerApi();
 
@@ -21,7 +19,6 @@ class Board {
         }
 
         this.serverApi.registerOnServer(position, () => {
-            this.boardDrawer.setFlipClickHandler(() => this.flipBoard());
 
             this.boardDrawer.setNewGameClickHandler(
                 () => this.serverApi.clearGameOnServer(
@@ -42,18 +39,13 @@ class Board {
                                    
             $('.board').width(boardWidth);
             $('.board').height(boardWidth);
-            this.boardDrawer.drawSquares(this.isFlipped, lineSquareCount);
+            this.boardDrawer.drawSquares(lineSquareCount);
             this.boardDrawer.setDropFigureOnSquareHandler((fromCoord, toCoord) => {
                 this.moveFigureOnBoard(fromCoord, toCoord);
                 this.serverApi.moveFigureOnServer(fromCoord, toCoord, (data) => this.showFiguresOnBoard(data));
             });
             this.showFiguresOnBoard(data);
         });
-    }
-
-    private flipBoard() {
-        this.isFlipped = !this.isFlipped;
-        this.showBoard();
     }
 
     private moveFigureOnBoard(fromCoord, toCoord) {

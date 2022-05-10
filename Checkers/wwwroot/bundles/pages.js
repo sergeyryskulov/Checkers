@@ -1,7 +1,6 @@
 var $;
 var Board = /** @class */ (function () {
     function Board() {
-        this.isFlipped = false;
     }
     Board.prototype.initBoard = function () {
         var _this = this;
@@ -12,7 +11,6 @@ var Board = /** @class */ (function () {
             position = window.location.href.split('?pos=')[1];
         }
         this.serverApi.registerOnServer(position, function () {
-            _this.boardDrawer.setFlipClickHandler(function () { return _this.flipBoard(); });
             _this.boardDrawer.setNewGameClickHandler(function () { return _this.serverApi.clearGameOnServer(function (clearedFigures) { return _this.showFiguresOnBoard(clearedFigures); }); });
             _this.showBoard();
         });
@@ -26,17 +24,13 @@ var Board = /** @class */ (function () {
             var boardWidth = Math.min(document.documentElement.clientWidth, document.documentElement.clientHeight) - 60;
             $('.board').width(boardWidth);
             $('.board').height(boardWidth);
-            _this.boardDrawer.drawSquares(_this.isFlipped, lineSquareCount);
+            _this.boardDrawer.drawSquares(lineSquareCount);
             _this.boardDrawer.setDropFigureOnSquareHandler(function (fromCoord, toCoord) {
                 _this.moveFigureOnBoard(fromCoord, toCoord);
                 _this.serverApi.moveFigureOnServer(fromCoord, toCoord, function (data) { return _this.showFiguresOnBoard(data); });
             });
             _this.showFiguresOnBoard(data);
         });
-    };
-    Board.prototype.flipBoard = function () {
-        this.isFlipped = !this.isFlipped;
-        this.showBoard();
     };
     Board.prototype.moveFigureOnBoard = function (fromCoord, toCoord) {
         var figure = this.figuresCache[fromCoord];
@@ -139,11 +133,11 @@ var BoardDrawer = /** @class */ (function () {
     BoardDrawer.prototype.setNewGameClickHandler = function (callback) {
         $('.newGame').click(callback);
     };
-    BoardDrawer.prototype.drawSquares = function (isFlipped, width) {
+    BoardDrawer.prototype.drawSquares = function (width) {
         $('.board').html('');
         var divSquare = '<div  id=s$coord class="square $color"></div>';
         for (var coord = 0; coord < width * width; coord++) {
-            $('.board').append(divSquare.replace('$coord', '' + (isFlipped ? width * width - 1 - coord : coord)).replace('$color', this.isBlackSquareAt(coord, width) ? 'black' : 'white'));
+            $('.board').append(divSquare.replace('$coord', '' + coord).replace('$color', this.isBlackSquareAt(coord, width) ? 'black' : 'white'));
         }
     };
     BoardDrawer.prototype.drawMoving = function (fromCoord, toCoord, onComplete) {

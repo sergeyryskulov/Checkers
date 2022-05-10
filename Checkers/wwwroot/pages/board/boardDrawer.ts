@@ -8,15 +8,14 @@
         $('.newGame').click(callback);
     }
 
-    public  drawSquares(isFlipped, width) {
+    public drawSquares(width) {
         $('.board').html('');
         let divSquare = '<div  id=s$coord class="square $color"></div>';
 
         for (let coord = 0; coord < width*width; coord++) {
-            $('.board').append(divSquare.replace('$coord', '' + (isFlipped ? width * width-1 - coord : coord)).replace('$color', this.isBlackSquareAt(coord, width) ? 'black' : 'white'));
+            $('.board').append(divSquare.replace('$coord', '' + coord).replace('$color', this.isBlackSquareAt(coord, width) ? 'black' : 'white'));
         }
     }
-
 
     public drawMoving(fromCoord, toCoord, onComplete) {
 
