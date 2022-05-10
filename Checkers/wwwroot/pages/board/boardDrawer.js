@@ -14,6 +14,15 @@ var BoardDrawer = /** @class */ (function () {
             $('.board').append(divSquare.replace('$coord', '' + (isFlipped ? width * width - 1 - coord : coord)).replace('$color', this.isBlackSquareAt(coord, width) ? 'black' : 'white'));
         }
     };
+    BoardDrawer.prototype.drawMoving = function (fromCoord, toCoord, onComplete) {
+        $('#f' + fromCoord).css('position', 'relative');
+        var leftShift = $('#s' + toCoord).position().left - $('#s' + fromCoord).position().left;
+        var topShift = $('#s' + toCoord).position().top - $('#s' + fromCoord).position().top;
+        $('#f' + fromCoord).animate({
+            left: leftShift,
+            top: topShift,
+        }, 300, onComplete);
+    };
     BoardDrawer.prototype.drawFigure = function (coord, figure) {
         var divFigure = '<div id=f$coord class=figure>$figure</div>';
         $('#s' + coord).html(divFigure.replace('$coord', '' + coord).replace('$figure', this.gettChessSymbol(figure)));

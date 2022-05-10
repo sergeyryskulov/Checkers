@@ -18,6 +18,21 @@
     }
 
 
+    public drawMoving(fromCoord, toCoord, onComplete) {
+
+        $('#f' + fromCoord).css('position', 'relative');
+
+        let leftShift = $('#s' + toCoord).position().left - $('#s' + fromCoord).position().left;
+        let topShift = $('#s' + toCoord).position().top - $('#s' + fromCoord).position().top;
+
+        $('#f' + fromCoord).animate({
+            left: leftShift,
+            top: topShift,
+        }, 300,
+            onComplete);
+        
+    }
+
     public drawFigure(coord, figure) {
 
         let divFigure = '<div id=f$coord class=figure>$figure</div>';

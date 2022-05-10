@@ -43,9 +43,7 @@ var Board = /** @class */ (function () {
         this.showFigureAt(fromCoord, '1');
         this.showFigureAt(toCoord, figure);
     };
-    Board.prototype.showFiguresOnBoard = function (boardState) {
-        var _this = this;
-        console.log(boardState);
+    Board.prototype.getFiguresLength = function (boardState) {
         var figuresLength = boardState.length - 1;
         if (boardState[boardState.length - 1] !== 'w' &&
             boardState[boardState.length - 1] !== 'W' &&
@@ -53,6 +51,12 @@ var Board = /** @class */ (function () {
             boardState[boardState.length - 1] !== 'B') {
             figuresLength = Math.max(boardState.indexOf('w'), boardState.indexOf('W'), boardState.indexOf('b'), boardState.indexOf('B'));
         }
+        return figuresLength;
+    };
+    Board.prototype.showFiguresOnBoard = function (boardState) {
+        var _this = this;
+        console.log(boardState);
+        var figuresLength = this.getFiguresLength(boardState);
         for (var coord = 0; coord < figuresLength; coord++) {
             this.showFigureAt(coord, boardState[coord]);
         }
@@ -65,14 +69,30 @@ var Board = /** @class */ (function () {
         }
         else if (boardState[figuresLength] === 'b') {
             $('.turn').text('Ход черных');
-            var timeOut = 0;
-            if (boardState[boardState.length - 1] !== 'b') {
-                timeOut = 500;
-            }
-            this.serverApi.intellectStep(function (newsBoardState) { return setTimeout(function () { return _this.showFiguresOnBoard(newsBoardState); }, timeOut); });
+            this.serverApi.intellectStep(function (newsBoardState) { return _this.intellectStepCalculated(newsBoardState); });
         }
         else if (boardState[figuresLength] === 'B') {
             $('.turn').text('Черные выиграли!');
+        }
+    };
+    Board.prototype.intellectStepCalculated = function (newBoardState) {
+        var _this = this;
+        var fromFigureCoord = -1;
+        var toFigureCoord = -1;
+        for (var coord = 0; coord < this.getFiguresLength(newBoardState); coord++) {
+            if (newBoardState[coord] == '1' &&
+                (this.figuresCache[coord] == 'p' || this.figuresCache[coord] == 'q')) {
+                fromFigureCoord = coord;
+            }
+            if ((newBoardState[coord] == 'p' || newBoardState[coord] == 'q') && (this.figuresCache[coord] == '1')) {
+                toFigureCoord = coord;
+            }
+        }
+        if (fromFigureCoord !== -1 && toFigureCoord !== -1) {
+            this.boardDrawer.drawMoving(fromFigureCoord, toFigureCoord, function () { return _this.showFiguresOnBoard(newBoardState); });
+        }
+        else {
+            this.showFiguresOnBoard(newBoardState);
         }
     };
     Board.prototype.showFigureAt = function (coord, figure) {
@@ -125,6 +145,15 @@ var BoardDrawer = /** @class */ (function () {
         for (var coord = 0; coord < width * width; coord++) {
             $('.board').append(divSquare.replace('$coord', '' + (isFlipped ? width * width - 1 - coord : coord)).replace('$color', this.isBlackSquareAt(coord, width) ? 'black' : 'white'));
         }
+    };
+    BoardDrawer.prototype.drawMoving = function (fromCoord, toCoord, onComplete) {
+        $('#f' + fromCoord).css('position', 'relative');
+        var leftShift = $('#s' + toCoord).position().left - $('#s' + fromCoord).position().left;
+        var topShift = $('#s' + toCoord).position().top - $('#s' + fromCoord).position().top;
+        $('#f' + fromCoord).animate({
+            left: leftShift,
+            top: topShift,
+        }, 300, onComplete);
     };
     BoardDrawer.prototype.drawFigure = function (coord, figure) {
         var divFigure = '<div id=f$coord class=figure>$figure</div>';

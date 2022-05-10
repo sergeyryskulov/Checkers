@@ -62,8 +62,7 @@ class Board {
         this.showFigureAt(toCoord, figure);
     }
 
-    private showFiguresOnBoard(boardState) {
-        console.log(boardState);
+    private getFiguresLength(boardState: string) {
         var figuresLength = boardState.length - 1;
         if (boardState[boardState.length - 1] !== 'w' &&
             boardState[boardState.length - 1] !== 'W' &&
@@ -72,6 +71,13 @@ class Board {
 
             figuresLength = Math.max(boardState.indexOf('w'), boardState.indexOf('W'), boardState.indexOf('b'), boardState.indexOf('B'));
         }
+        return figuresLength;
+    }
+
+    private showFiguresOnBoard(boardState) {
+        console.log(boardState);
+
+        var figuresLength = this.getFiguresLength(boardState);
 
         for (let coord = 0; coord < figuresLength; coord++) {
             this.showFigureAt(coord, boardState[coord]);
@@ -86,15 +92,36 @@ class Board {
             
         } else if (boardState[figuresLength] === 'b'){
             $('.turn').text('Ход черных');
-            var timeOut = 0;
-            if (boardState[boardState.length - 1] !== 'b') {
-                timeOut = 500;
-            }
-            this.serverApi.intellectStep((newsBoardState) => setTimeout(
-                () => this.showFiguresOnBoard(newsBoardState), timeOut));
+            this.serverApi.intellectStep((newsBoardState) =>  this.intellectStepCalculated(newsBoardState));
             
         } else if (boardState[figuresLength] === 'B') {
             $('.turn').text('Черные выиграли!');
+        }
+
+    }
+
+    private intellectStepCalculated(newBoardState: string) {
+
+        let fromFigureCoord = -1;
+        let toFigureCoord = -1;
+
+        for (let coord = 0; coord < this.getFiguresLength(newBoardState); coord++) {
+            if (
+                newBoardState[coord] == '1' &&
+                    (this.figuresCache[coord] == 'p' || this.figuresCache[coord] == 'q')) {
+                fromFigureCoord = coord;
+            }
+            if (
+                (newBoardState[coord] == 'p' || newBoardState[coord] == 'q') && (this.figuresCache[coord] == '1')) {
+                toFigureCoord = coord;
+            }
+
+        }
+
+        if (fromFigureCoord !== -1 && toFigureCoord !== -1) {
+            this.boardDrawer.drawMoving(fromFigureCoord, toFigureCoord, () => this.showFiguresOnBoard(newBoardState));
+        } else {
+            this.showFiguresOnBoard(newBoardState);
         }
 
     }
