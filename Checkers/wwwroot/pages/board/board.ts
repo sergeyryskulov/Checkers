@@ -35,7 +35,7 @@ class Board {
             this.figuresCache = new Array(data.length - 1);
             let lineSquareCount = Math.sqrt(this.figuresCache.length);
             ;
-            let boardWidth = Math.min(document.documentElement.clientWidth, document.documentElement.clientHeight) - 60;
+            let boardWidth = Math.min(document.documentElement.clientWidth, document.documentElement.clientHeight) - 100;
                                    
             $('.board').width(boardWidth);
             $('.board').height(boardWidth);
