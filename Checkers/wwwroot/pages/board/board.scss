@@ -23,6 +23,9 @@
 .board {
     border: 20px solid #55cdef;
     border-image: url(/pages/board/dark.png) 20;
+    box-shadow: 0px 0px 10px #006400;
+    background-size:20%;
+    border-radius: 10px;
 }
 
 .figure {
