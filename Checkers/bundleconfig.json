@@ -8,9 +8,9 @@
   {
     "outputFileName": "wwwroot/bundles/site.js",
     "inputFiles": [
-      "wwwroot/pages/board/board.js",
-      "wwwroot/pages/board/serverApi.js",
-      "wwwroot/pages/board/boardDrawer.js"
+      "wwwroot/js/board.js",
+      "wwwroot/js/serverApi.js",
+      "wwwroot/js/boardDrawer.js"
     ]
   }
 ]

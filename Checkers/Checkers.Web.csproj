@@ -26,12 +26,13 @@
   <ItemGroup>
     <Folder Include="Models\" />
     <Folder Include="Views\Home\" />
+    <Folder Include="wwwroot\pages\board\" />
   </ItemGroup>
 
   <ItemGroup>
-    <TypeScriptCompile Include="wwwroot\pages\board\board.ts" />
-    <TypeScriptCompile Include="wwwroot\pages\board\boardDrawer.ts" />
-    <TypeScriptCompile Include="wwwroot\pages\board\serverApi.ts" />
+    <TypeScriptCompile Include="wwwroot\js\board.ts" />
+    <TypeScriptCompile Include="wwwroot\js\boardDrawer.ts" />
+    <TypeScriptCompile Include="wwwroot\js\serverApi.ts" />
   </ItemGroup>
 
 </Project>
