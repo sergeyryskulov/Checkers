@@ -8,12 +8,7 @@ var BoardDrawer = /** @class */ (function () {
         var boardWidth = Math.min(document.documentElement.clientWidth, document.documentElement.clientHeight) - 100;
         $('.board__inner').width(boardWidth);
         $('.board__inner').height(boardWidth);
-        $('.board__inner').html('');
-        for (var coord = 0; coord < width * width; coord++) {
-            var currentSquareColor = this.isBlackSquareAt(coord, width) ? 'black' : 'white';
-            var currentSquareHtml = "<div id=s" + coord + " class=\"square square_" + currentSquareColor + "\" ></div>";
-            $('.board__inner').append(currentSquareHtml);
-        }
+        $('.board__inner').html(new Square().getSquaresHtml(width));
     };
     BoardDrawer.prototype.drawMoving = function (fromCoord, toCoord, onComplete) {
         $('#f' + fromCoord).css('position', 'relative');
@@ -50,9 +45,6 @@ var BoardDrawer = /** @class */ (function () {
                 dropCallback(fromCoord, toCoord);
             }
         });
-    };
-    BoardDrawer.prototype.isBlackSquareAt = function (coord, width) {
-        return ((coord % width + Math.floor(coord / width)) % 2) !== 0;
     };
     return BoardDrawer;
 }());

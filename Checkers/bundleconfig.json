@@ -14,7 +14,8 @@
     "inputFiles": [
       "wwwroot/js/board.js",
       "wwwroot/js/serverApi.js",
-      "wwwroot/js/boardDrawer.js"
+      "wwwroot/js/boardDrawer.js",
+      "wwwroot/js/square.js"
     ]
   }
 ]

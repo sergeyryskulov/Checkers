@@ -9,14 +9,8 @@
 
         $('.board__inner').width(boardWidth);
         $('.board__inner').height(boardWidth);
-        $('.board__inner').html('');
+        $('.board__inner').html(new Square().getSquaresHtml(width));
 
-        for (let coord = 0; coord < width * width; coord++) {
-            let currentSquareColor =  this.isBlackSquareAt(coord, width) ? 'black' : 'white';
-            let currentSquareHtml = `<div id=s${coord} class="square square_${currentSquareColor}" ></div>`;
-            
-            $('.board__inner').append(currentSquareHtml);
-        }
     }
 
     public drawMoving(fromCoord, toCoord, onComplete) {
@@ -67,8 +61,5 @@
         });
     }
 
-    private isBlackSquareAt(coord: number, width : number): boolean {
-        return ((coord % width + Math.floor(coord / width)) % 2) !== 0;
-
-    }
+   
 }
