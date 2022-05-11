@@ -20,10 +20,6 @@ var Board = /** @class */ (function () {
         this.serverApi.getFiguresFromServer(function (data) {
             _this.figuresCache = new Array(data.length - 1);
             var lineSquareCount = Math.sqrt(_this.figuresCache.length);
-            ;
-            var boardWidth = Math.min(document.documentElement.clientWidth, document.documentElement.clientHeight) - 100;
-            $('.board').width(boardWidth);
-            $('.board').height(boardWidth);
             _this.boardDrawer.drawSquares(lineSquareCount);
             _this.boardDrawer.setDropFigureOnSquareHandler(function (fromCoord, toCoord) {
                 _this.moveFigureOnBoard(fromCoord, toCoord);
@@ -120,10 +116,13 @@ var BoardDrawer = /** @class */ (function () {
         $('.button__new').click(callback);
     };
     BoardDrawer.prototype.drawSquares = function (width) {
-        $('.board').html('');
+        var boardWidth = Math.min(document.documentElement.clientWidth, document.documentElement.clientHeight) - 100;
+        $('.board__inner').width(boardWidth);
+        $('.board__inner').height(boardWidth);
+        $('.board__inner').html('');
         var divSquare = '<div  id=s$coord class="square $color"></div>';
         for (var coord = 0; coord < width * width; coord++) {
-            $('.board').append(divSquare.replace('$coord', '' + coord).replace('$color', this.isBlackSquareAt(coord, width) ? 'black' : 'white'));
+            $('.board__inner').append(divSquare.replace('$coord', '' + coord).replace('$color', this.isBlackSquareAt(coord, width) ? 'black' : 'white'));
         }
     };
     BoardDrawer.prototype.drawMoving = function (fromCoord, toCoord, onComplete) {

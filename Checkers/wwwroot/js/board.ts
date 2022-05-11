@@ -34,11 +34,7 @@ class Board {
         this.serverApi.getFiguresFromServer((data) => {
             this.figuresCache = new Array(data.length - 1);
             let lineSquareCount = Math.sqrt(this.figuresCache.length);
-            ;
-            let boardWidth = Math.min(document.documentElement.clientWidth, document.documentElement.clientHeight) - 100;
-                                   
-            $('.board').width(boardWidth);
-            $('.board').height(boardWidth);
+
             this.boardDrawer.drawSquares(lineSquareCount);
             this.boardDrawer.setDropFigureOnSquareHandler((fromCoord, toCoord) => {
                 this.moveFigureOnBoard(fromCoord, toCoord);

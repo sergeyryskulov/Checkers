@@ -5,11 +5,16 @@
     }
 
     public drawSquares(width) {
-        $('.board').html('');
+        let boardWidth = Math.min(document.documentElement.clientWidth, document.documentElement.clientHeight) - 100;
+
+        $('.board__inner').width(boardWidth);
+        $('.board__inner').height(boardWidth);
+
+        $('.board__inner').html('');
         let divSquare = '<div  id=s$coord class="square $color"></div>';
 
         for (let coord = 0; coord < width*width; coord++) {
-            $('.board').append(divSquare.replace('$coord', '' + coord).replace('$color', this.isBlackSquareAt(coord, width) ? 'black' : 'white'));
+            $('.board__inner').append(divSquare.replace('$coord', '' + coord).replace('$color', this.isBlackSquareAt(coord, width) ? 'black' : 'white'));
         }
     }
 
