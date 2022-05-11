@@ -1,7 +1,7 @@
-var Square = /** @class */ (function () {
-    function Square() {
+var SquareDrawer = /** @class */ (function () {
+    function SquareDrawer() {
     }
-    Square.prototype.getSquaresHtml = function (width) {
+    SquareDrawer.prototype.getSquaresHtml = function (width) {
         var result = '';
         for (var coord = 0; coord < width * width; coord++) {
             var currentSquareColor = this.isBlackSquareAt(coord, width) ? 'black' : 'white';
@@ -10,7 +10,7 @@ var Square = /** @class */ (function () {
         }
         return result;
     };
-    Square.prototype.setDropFigureOnSquareHandler = function (dropCallback) {
+    SquareDrawer.prototype.setDropFigureOnSquareHandler = function (dropCallback) {
         $('.square').droppable({
             drop: function (event, ui) {
                 var fromCoord = ui.draggable.attr('id').substring(1);
@@ -19,9 +19,9 @@ var Square = /** @class */ (function () {
             }
         });
     };
-    Square.prototype.isBlackSquareAt = function (coord, width) {
+    SquareDrawer.prototype.isBlackSquareAt = function (coord, width) {
         return ((coord % width + Math.floor(coord / width)) % 2) !== 0;
     };
-    return Square;
+    return SquareDrawer;
 }());
-//# sourceMappingURL=square.js.map
+//# sourceMappingURL=squareDrawer.js.map

@@ -1,4 +1,4 @@
-﻿class Square {
+﻿class SquareDrawer {
     public getSquaresHtml(width : number ) {
         let result = '';
         for (let coord = 0; coord < width * width; coord++) {

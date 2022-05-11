@@ -1,4 +1,4 @@
-﻿class Figure {
+﻿class FigureDrawer {
 
     public drawMoving(fromCoord : number, toCoord : number, onComplete) {
 

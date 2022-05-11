@@ -1,7 +1,7 @@
-var Figure = /** @class */ (function () {
-    function Figure() {
+var FigureDrawer = /** @class */ (function () {
+    function FigureDrawer() {
     }
-    Figure.prototype.drawMoving = function (fromCoord, toCoord, onComplete) {
+    FigureDrawer.prototype.drawMoving = function (fromCoord, toCoord, onComplete) {
         $('#f' + fromCoord).css('position', 'relative');
         $('#f' + fromCoord).css('z-index', 100);
         var leftShift = $('#s' + toCoord).position().left - $('#s' + fromCoord).position().left;
@@ -11,10 +11,10 @@ var Figure = /** @class */ (function () {
             top: topShift,
         }, 500, onComplete);
     };
-    Figure.prototype.getHtml = function (coord, figure) {
+    FigureDrawer.prototype.getHtml = function (coord, figure) {
         return "<div id=f" + coord + " class=\"figure figure_" + figure + "\"></div>";
     };
-    Figure.prototype.setHandlers = function (coord, figure) {
+    FigureDrawer.prototype.setHandlers = function (coord, figure) {
         if (figure == 'P' || figure == 'Q') {
             $('#f' + coord).mousedown(function () {
                 $(this).css('cursor', 'url(/pages/board/grab.cur), move');
@@ -29,6 +29,6 @@ var Figure = /** @class */ (function () {
             });
         }
     };
-    return Figure;
+    return FigureDrawer;
 }());
-//# sourceMappingURL=figure.js.map
+//# sourceMappingURL=figureDrawer.js.map
