@@ -5,13 +5,13 @@ var Board = /** @class */ (function () {
     Board.prototype.initBoard = function () {
         var _this = this;
         this.serverApi = new ServerApi();
-        this.boardDrawer = new BoardDrawer();
+        this._gameDrawer = new GameDrawer();
         var position = '';
         if (window.location.href.split('?pos=').length === 2) {
             position = window.location.href.split('?pos=')[1];
         }
         this.serverApi.registerOnServer(position, function () {
-            _this.boardDrawer.setNewGameClickHandler(function () { return _this.serverApi.clearGameOnServer(function (clearedFigures) { return _this.showFiguresOnBoard(clearedFigures); }); });
+            _this._gameDrawer.setNewGameClickHandler(function () { return _this.serverApi.clearGameOnServer(function (clearedFigures) { return _this.showFiguresOnBoard(clearedFigures); }); });
             _this.showBoard();
         });
     };
@@ -20,8 +20,8 @@ var Board = /** @class */ (function () {
         this.serverApi.getFiguresFromServer(function (data) {
             _this.figuresCache = new Array(data.length - 1);
             var lineSquareCount = Math.sqrt(_this.figuresCache.length);
-            _this.boardDrawer.drawSquares(lineSquareCount);
-            _this.boardDrawer.setDropFigureOnSquareHandler(function (fromCoord, toCoord) {
+            _this._gameDrawer.drawSquares(lineSquareCount);
+            _this._gameDrawer.setDropFigureOnSquareHandler(function (fromCoord, toCoord) {
                 _this.moveFigureOnBoard(fromCoord, toCoord);
                 _this.serverApi.moveFigureOnServer(fromCoord, toCoord, function (data) { return _this.showFiguresOnBoard(data); });
             });
@@ -68,7 +68,7 @@ var Board = /** @class */ (function () {
             }
         }
         if (fromFigureCoord !== -1 && toFigureCoord !== -1) {
-            this.boardDrawer.drawMoving(fromFigureCoord, toFigureCoord, function () { return _this.showFiguresOnBoard(newBoardState); });
+            this._gameDrawer.drawMoving(fromFigureCoord, toFigureCoord, function () { return _this.showFiguresOnBoard(newBoardState); });
         }
         else {
             this.showFiguresOnBoard(newBoardState);
@@ -79,7 +79,7 @@ var Board = /** @class */ (function () {
             return;
         }
         this.figuresCache[coord] = figure;
-        this.boardDrawer.drawFigure(coord, figure);
+        this._gameDrawer.drawFigure(coord, figure);
     };
     return Board;
 }());
@@ -111,29 +111,12 @@ var ServerApi = /** @class */ (function () {
 //# sourceMappingURL=serverApi.js.map
 var BoardDrawer = /** @class */ (function () {
     function BoardDrawer() {
-        this._squareDrawer = new SquareDrawer();
-        this._figureDrawer = new FigureDrawer();
     }
-    BoardDrawer.prototype.setNewGameClickHandler = function (callback) {
-        $('.button__new').click(callback);
-    };
-    BoardDrawer.prototype.drawSquares = function (width) {
+    BoardDrawer.prototype.drawBoard = function (squaresHtml) {
         var boardWidth = Math.min(document.documentElement.clientWidth, document.documentElement.clientHeight) - 100;
         $('.board__inner').width(boardWidth);
         $('.board__inner').height(boardWidth);
-        var squaresHtml = this._squareDrawer.getSquaresHtml(width);
         $('.board__inner').html(squaresHtml);
-    };
-    BoardDrawer.prototype.drawMoving = function (fromCoord, toCoord, onComplete) {
-        this._figureDrawer.drawMoving(fromCoord, toCoord, onComplete);
-    };
-    BoardDrawer.prototype.drawFigure = function (coord, figure) {
-        var figuresHtml = this._figureDrawer.getHtml(coord, figure);
-        $('#s' + coord).html(figuresHtml);
-        this._figureDrawer.setHandlers(coord, figure);
-    };
-    BoardDrawer.prototype.setDropFigureOnSquareHandler = function (dropCallback) {
-        this._squareDrawer.setDropFigureOnSquareHandler(dropCallback);
     };
     return BoardDrawer;
 }());
@@ -199,3 +182,30 @@ var FigureDrawer = /** @class */ (function () {
     return FigureDrawer;
 }());
 //# sourceMappingURL=figureDrawer.js.map
+var GameDrawer = /** @class */ (function () {
+    function GameDrawer() {
+        this._squareDrawer = new SquareDrawer();
+        this._figureDrawer = new FigureDrawer();
+        this._boardDrawer = new BoardDrawer();
+    }
+    GameDrawer.prototype.setNewGameClickHandler = function (callback) {
+        $('.button__new').click(callback);
+    };
+    GameDrawer.prototype.drawSquares = function (width) {
+        var squaresHtml = this._squareDrawer.getSquaresHtml(width);
+        this._boardDrawer.drawBoard(squaresHtml);
+    };
+    GameDrawer.prototype.drawMoving = function (fromCoord, toCoord, onComplete) {
+        this._figureDrawer.drawMoving(fromCoord, toCoord, onComplete);
+    };
+    GameDrawer.prototype.drawFigure = function (coord, figure) {
+        var figuresHtml = this._figureDrawer.getHtml(coord, figure);
+        $('#s' + coord).html(figuresHtml);
+        this._figureDrawer.setHandlers(coord, figure);
+    };
+    GameDrawer.prototype.setDropFigureOnSquareHandler = function (dropCallback) {
+        this._squareDrawer.setDropFigureOnSquareHandler(dropCallback);
+    };
+    return GameDrawer;
+}());
+//# sourceMappingURL=gameDrawer.js.map

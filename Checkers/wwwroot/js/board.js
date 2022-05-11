@@ -5,13 +5,13 @@ var Board = /** @class */ (function () {
     Board.prototype.initBoard = function () {
         var _this = this;
         this.serverApi = new ServerApi();
-        this.boardDrawer = new BoardDrawer();
+        this._gameDrawer = new GameDrawer();
         var position = '';
         if (window.location.href.split('?pos=').length === 2) {
             position = window.location.href.split('?pos=')[1];
         }
         this.serverApi.registerOnServer(position, function () {
-            _this.boardDrawer.setNewGameClickHandler(function () { return _this.serverApi.clearGameOnServer(function (clearedFigures) { return _this.showFiguresOnBoard(clearedFigures); }); });
+            _this._gameDrawer.setNewGameClickHandler(function () { return _this.serverApi.clearGameOnServer(function (clearedFigures) { return _this.showFiguresOnBoard(clearedFigures); }); });
             _this.showBoard();
         });
     };
@@ -20,8 +20,8 @@ var Board = /** @class */ (function () {
         this.serverApi.getFiguresFromServer(function (data) {
             _this.figuresCache = new Array(data.length - 1);
             var lineSquareCount = Math.sqrt(_this.figuresCache.length);
-            _this.boardDrawer.drawSquares(lineSquareCount);
-            _this.boardDrawer.setDropFigureOnSquareHandler(function (fromCoord, toCoord) {
+            _this._gameDrawer.drawSquares(lineSquareCount);
+            _this._gameDrawer.setDropFigureOnSquareHandler(function (fromCoord, toCoord) {
                 _this.moveFigureOnBoard(fromCoord, toCoord);
                 _this.serverApi.moveFigureOnServer(fromCoord, toCoord, function (data) { return _this.showFiguresOnBoard(data); });
             });
@@ -68,7 +68,7 @@ var Board = /** @class */ (function () {
             }
         }
         if (fromFigureCoord !== -1 && toFigureCoord !== -1) {
-            this.boardDrawer.drawMoving(fromFigureCoord, toFigureCoord, function () { return _this.showFiguresOnBoard(newBoardState); });
+            this._gameDrawer.drawMoving(fromFigureCoord, toFigureCoord, function () { return _this.showFiguresOnBoard(newBoardState); });
         }
         else {
             this.showFiguresOnBoard(newBoardState);
@@ -79,7 +79,7 @@ var Board = /** @class */ (function () {
             return;
         }
         this.figuresCache[coord] = figure;
-        this.boardDrawer.drawFigure(coord, figure);
+        this._gameDrawer.drawFigure(coord, figure);
     };
     return Board;
 }());

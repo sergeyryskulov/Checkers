@@ -4,14 +4,14 @@ class Board {
 
     private serverApi: ServerApi;
 
-    private boardDrawer: BoardDrawer;
+    private _gameDrawer: GameDrawer;
 
     private figuresCache : Array<string>;
 
     initBoard() {
         this.serverApi = new ServerApi();
 
-        this.boardDrawer = new BoardDrawer();
+        this._gameDrawer = new GameDrawer();
 
         let position = '';
         if (window.location.href.split('?pos=').length === 2) {
@@ -20,7 +20,7 @@ class Board {
 
         this.serverApi.registerOnServer(position, () => {
 
-            this.boardDrawer.setNewGameClickHandler(
+            this._gameDrawer.setNewGameClickHandler(
                 () => this.serverApi.clearGameOnServer(
                     (clearedFigures) => this.showFiguresOnBoard(clearedFigures)));
 
@@ -35,8 +35,8 @@ class Board {
             this.figuresCache = new Array(data.length - 1);
             let lineSquareCount = Math.sqrt(this.figuresCache.length);
 
-            this.boardDrawer.drawSquares(lineSquareCount);
-            this.boardDrawer.setDropFigureOnSquareHandler((fromCoord, toCoord) => {
+            this._gameDrawer.drawSquares(lineSquareCount);
+            this._gameDrawer.setDropFigureOnSquareHandler((fromCoord, toCoord) => {
                 this.moveFigureOnBoard(fromCoord, toCoord);
                 this.serverApi.moveFigureOnServer(fromCoord, toCoord, (data) => this.showFiguresOnBoard(data));
             });
@@ -95,7 +95,7 @@ class Board {
         }
 
         if (fromFigureCoord !== -1 && toFigureCoord !== -1) {
-            this.boardDrawer.drawMoving(fromFigureCoord, toFigureCoord, () => this.showFiguresOnBoard(newBoardState));
+            this._gameDrawer.drawMoving(fromFigureCoord, toFigureCoord, () => this.showFiguresOnBoard(newBoardState));
         } else {
             this.showFiguresOnBoard(newBoardState);
         }
@@ -107,6 +107,6 @@ class Board {
             return;
         }
         this.figuresCache[coord] = figure;
-        this.boardDrawer.drawFigure(coord, figure);
+        this._gameDrawer.drawFigure(coord, figure);
     }
 }
