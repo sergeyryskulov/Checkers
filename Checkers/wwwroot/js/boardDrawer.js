@@ -11,31 +11,11 @@ var BoardDrawer = /** @class */ (function () {
         $('.board__inner').html(new Square().getSquaresHtml(width));
     };
     BoardDrawer.prototype.drawMoving = function (fromCoord, toCoord, onComplete) {
-        $('#f' + fromCoord).css('position', 'relative');
-        $('#f' + fromCoord).css('z-index', 100);
-        var leftShift = $('#s' + toCoord).position().left - $('#s' + fromCoord).position().left;
-        var topShift = $('#s' + toCoord).position().top - $('#s' + fromCoord).position().top;
-        $('#f' + fromCoord).animate({
-            left: leftShift,
-            top: topShift,
-        }, 500, onComplete);
+        new Figure().drawMoving(fromCoord, toCoord, onComplete);
     };
     BoardDrawer.prototype.drawFigure = function (coord, figure) {
-        var divFigure = "<div id=f" + coord + " class=\"figure figure_" + figure + "\"></div>";
-        $('#s' + coord).html(divFigure);
-        if (figure == 'P' || figure == 'Q') {
-            $('#s' + coord + ' .figure').mousedown(function () {
-                $(this).css('cursor', 'url(/pages/board/grab.cur), move');
-            }).mouseup(function () {
-                $(this).css('cursor', 'pointer');
-            }).mouseleave(function () {
-                $(this).css('cursor', 'pointer');
-            }).draggable({
-                start: function () {
-                    $(this).css('cursor', 'url(/pages/board/grab.cur), move');
-                }
-            });
-        }
+        $('#s' + coord).html(new Figure().getHtml(coord, figure));
+        new Figure().setHandlers(coord, figure);
     };
     BoardDrawer.prototype.setDropFigureOnSquareHandler = function (dropCallback) {
         new Square().setDropFigureOnSquareHandler(dropCallback);

@@ -7,6 +7,7 @@
   <ItemGroup>
     <Content Remove="bundleconfig.json" />
     <Content Remove="compilerconfig.json" />
+    <Content Remove="wwwroot\js\figure.ts" />
     <Content Remove="wwwroot\js\square.ts" />
   </ItemGroup>
 
@@ -29,6 +30,7 @@
   <ItemGroup>
     <TypeScriptCompile Include="wwwroot\js\board.ts" />
     <TypeScriptCompile Include="wwwroot\js\boardDrawer.ts" />
+    <TypeScriptCompile Include="wwwroot\js\figure.ts" />
     <TypeScriptCompile Include="wwwroot\js\serverApi.ts" />
     <TypeScriptCompile Include="wwwroot\js\square.ts" />
   </ItemGroup>
