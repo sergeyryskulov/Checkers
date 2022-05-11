@@ -1,4 +1,4 @@
-body {
+.layout__body {
   background-color: #00a000; }
 
 .board__container {
@@ -55,3 +55,47 @@ body {
   .square_white {
     background: url(/images/squareLight.png);
     background-size: 100%; }
+
+.figure:not(.figure_1) {
+  width: 60%;
+  height: 60%;
+  border-radius: 50%;
+  border-width: 3px;
+  border-style: solid;
+  box-shadow: 1px 0px 2px #333; }
+
+.figure_p {
+  background-color: #333;
+  border-color: #000; }
+
+.figure_P {
+  background-color: white;
+  border-color: silver;
+  cursor: pointer; }
+
+.figure_q {
+  background-color: #333;
+  border-color: #000; }
+  .figure_q::after {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 100%;
+    background-image: url("/images/crownBlack.svg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 60%; }
+
+.figure_Q {
+  background-color: white;
+  border-color: silver;
+  cursor: pointer; }
+  .figure_Q::after {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 100%;
+    background-image: url("/images/crownWhite.svg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 60%; }

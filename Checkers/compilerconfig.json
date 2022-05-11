@@ -14,5 +14,9 @@
   {
     "outputFile": "wwwroot/css/figure.css",
     "inputFile": "wwwroot/css/figure.scss"
+  },
+  {
+    "outputFile": "wwwroot/css/layout.css",
+    "inputFile": "wwwroot/css/layout.scss"
   }
 ]

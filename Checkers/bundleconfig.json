@@ -2,9 +2,11 @@
   {
     "outputFileName": "wwwroot/bundles/site.css",
     "inputFiles": [
+      "wwwroot/css/layout.css",
       "wwwroot/css/board.css",
       "wwwroot/css/button.css",
-      "wwwroot/css/square.css"
+      "wwwroot/css/square.css",
+      "wwwroot/css/figure.css"
     ]
   },  
   {
