@@ -1,14 +1,14 @@
 ﻿var $;
 
-class Board {
+class Game {
 
     private _serverRepository: ServerRepository;
 
     private _gameDrawer: GameDrawer;
 
-    private figuresCache : Array<string>;
+    private _figuresCache : Array<string>;
 
-    initBoard() {
+    initGame() {
         this._serverRepository = new ServerRepository();
 
         this._gameDrawer = new GameDrawer();
@@ -32,8 +32,8 @@ class Board {
 
 
         this._serverRepository.getFiguresFromServer((data) => {
-            this.figuresCache = new Array(data.length - 1);
-            let lineSquareCount = Math.sqrt(this.figuresCache.length);
+            this._figuresCache = new Array(data.length - 1);
+            let lineSquareCount = Math.sqrt(this._figuresCache.length);
 
             this._gameDrawer.drawSquares(lineSquareCount);
             this._gameDrawer.setDropFigureOnSquareHandler((fromCoord, toCoord) => {
@@ -45,7 +45,7 @@ class Board {
     }
 
     private moveFigureOnBoard(fromCoord, toCoord) {
-        let figure = this.figuresCache[fromCoord];
+        let figure = this._figuresCache[fromCoord];
         this.showFigureAt(fromCoord, '1');
         this.showFigureAt(toCoord, figure);
     }
@@ -84,11 +84,11 @@ class Board {
         for (let coord = 0; coord < this.getFiguresLength(newBoardState); coord++) {
             if (
                 newBoardState[coord] == '1' &&
-                    (this.figuresCache[coord] == 'p' || this.figuresCache[coord] == 'q')) {
+                (this._figuresCache[coord] == 'p' || this._figuresCache[coord] == 'q')) {
                 fromFigureCoord = coord;
             }
             if (
-                (newBoardState[coord] == 'p' || newBoardState[coord] == 'q') && (this.figuresCache[coord] == '1')) {
+                (newBoardState[coord] == 'p' || newBoardState[coord] == 'q') && (this._figuresCache[coord] == '1')) {
                 toFigureCoord = coord;
             }
 
@@ -103,10 +103,10 @@ class Board {
     }
 
     private showFigureAt(coord: number, figure: string) {
-        if (this.figuresCache[coord] === figure) {
+        if (this._figuresCache[coord] === figure) {
             return;
         }
-        this.figuresCache[coord] = figure;
+        this._figuresCache[coord] = figure;
         this._gameDrawer.drawFigure(coord, figure);
     }
 }

@@ -1,8 +1,8 @@
 var $;
-var Board = /** @class */ (function () {
-    function Board() {
+var Game = /** @class */ (function () {
+    function Game() {
     }
-    Board.prototype.initBoard = function () {
+    Game.prototype.initGame = function () {
         var _this = this;
         this._serverRepository = new ServerRepository();
         this._gameDrawer = new GameDrawer();
@@ -15,11 +15,11 @@ var Board = /** @class */ (function () {
             _this.showBoard();
         });
     };
-    Board.prototype.showBoard = function () {
+    Game.prototype.showBoard = function () {
         var _this = this;
         this._serverRepository.getFiguresFromServer(function (data) {
-            _this.figuresCache = new Array(data.length - 1);
-            var lineSquareCount = Math.sqrt(_this.figuresCache.length);
+            _this._figuresCache = new Array(data.length - 1);
+            var lineSquareCount = Math.sqrt(_this._figuresCache.length);
             _this._gameDrawer.drawSquares(lineSquareCount);
             _this._gameDrawer.setDropFigureOnSquareHandler(function (fromCoord, toCoord) {
                 _this.moveFigureOnBoard(fromCoord, toCoord);
@@ -28,12 +28,12 @@ var Board = /** @class */ (function () {
             _this.showFiguresOnBoard(data);
         });
     };
-    Board.prototype.moveFigureOnBoard = function (fromCoord, toCoord) {
-        var figure = this.figuresCache[fromCoord];
+    Game.prototype.moveFigureOnBoard = function (fromCoord, toCoord) {
+        var figure = this._figuresCache[fromCoord];
         this.showFigureAt(fromCoord, '1');
         this.showFigureAt(toCoord, figure);
     };
-    Board.prototype.getFiguresLength = function (boardState) {
+    Game.prototype.getFiguresLength = function (boardState) {
         var figuresLength = boardState.length - 1;
         if (boardState[boardState.length - 1] !== 'w' &&
             boardState[boardState.length - 1] !== 'W' &&
@@ -43,7 +43,7 @@ var Board = /** @class */ (function () {
         }
         return figuresLength;
     };
-    Board.prototype.showFiguresOnBoard = function (boardState) {
+    Game.prototype.showFiguresOnBoard = function (boardState) {
         var _this = this;
         console.log(boardState);
         var figuresLength = this.getFiguresLength(boardState);
@@ -54,16 +54,16 @@ var Board = /** @class */ (function () {
             this._serverRepository.intellectStep(function (newsBoardState) { return _this.intellectStepCalculated(newsBoardState); });
         }
     };
-    Board.prototype.intellectStepCalculated = function (newBoardState) {
+    Game.prototype.intellectStepCalculated = function (newBoardState) {
         var _this = this;
         var fromFigureCoord = -1;
         var toFigureCoord = -1;
         for (var coord = 0; coord < this.getFiguresLength(newBoardState); coord++) {
             if (newBoardState[coord] == '1' &&
-                (this.figuresCache[coord] == 'p' || this.figuresCache[coord] == 'q')) {
+                (this._figuresCache[coord] == 'p' || this._figuresCache[coord] == 'q')) {
                 fromFigureCoord = coord;
             }
-            if ((newBoardState[coord] == 'p' || newBoardState[coord] == 'q') && (this.figuresCache[coord] == '1')) {
+            if ((newBoardState[coord] == 'p' || newBoardState[coord] == 'q') && (this._figuresCache[coord] == '1')) {
                 toFigureCoord = coord;
             }
         }
@@ -74,16 +74,16 @@ var Board = /** @class */ (function () {
             this.showFiguresOnBoard(newBoardState);
         }
     };
-    Board.prototype.showFigureAt = function (coord, figure) {
-        if (this.figuresCache[coord] === figure) {
+    Game.prototype.showFigureAt = function (coord, figure) {
+        if (this._figuresCache[coord] === figure) {
             return;
         }
-        this.figuresCache[coord] = figure;
+        this._figuresCache[coord] = figure;
         this._gameDrawer.drawFigure(coord, figure);
     };
-    return Board;
+    return Game;
 }());
-//# sourceMappingURL=board.js.map
+//# sourceMappingURL=game.js.map
 var BoardDrawer = /** @class */ (function () {
     function BoardDrawer() {
     }

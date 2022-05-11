@@ -29,7 +29,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <TypeScriptCompile Include="wwwroot\js\board.ts" />
+    <TypeScriptCompile Include="wwwroot\js\game.ts" />
     <TypeScriptCompile Include="wwwroot\js\boardDrawer.ts" />
     <TypeScriptCompile Include="wwwroot\js\figureDrawer.ts" />
     <TypeScriptCompile Include="wwwroot\js\gameDrawer.ts" />

@@ -12,8 +12,7 @@
   {
     "outputFileName": "wwwroot/bundles/site.js",
     "inputFiles": [
-      "wwwroot/js/board.js",
-      "wwwroot/js/serverApi.js",
+      "wwwroot/js/game.js",
       "wwwroot/js/boardDrawer.js",
       "wwwroot/js/squareDrawer.js",
       "wwwroot/js/figureDrawer.js",
