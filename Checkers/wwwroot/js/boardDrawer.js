@@ -1,11 +1,8 @@
 var BoardDrawer = /** @class */ (function () {
     function BoardDrawer() {
     }
-    BoardDrawer.prototype.setFlipClickHandler = function (callback) {
-        $('.flip').click(callback);
-    };
     BoardDrawer.prototype.setNewGameClickHandler = function (callback) {
-        $('.newGame').click(callback);
+        $('.button__new').click(callback);
     };
     BoardDrawer.prototype.drawSquares = function (width) {
         $('.board').html('');

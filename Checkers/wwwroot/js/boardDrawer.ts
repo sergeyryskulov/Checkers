@@ -1,11 +1,7 @@
 ﻿class BoardDrawer {
 
-    public setFlipClickHandler(callback) {
-        $('.flip').click(callback);
-    }
-
     public setNewGameClickHandler(callback) {
-        $('.newGame').click(callback);
+        $('.button__new').click(callback);
     }
 
     public drawSquares(width) {

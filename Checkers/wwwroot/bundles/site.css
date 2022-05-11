@@ -89,11 +89,6 @@ body {
   border-right-color: #6b5238;
   background-size: 20%; }
 
-.buttons-container {
-  text-align: center;
-  margin-bottom: 10px;
-  margin-top: 10px; }
-
 .board-container {
   text-align: center; }
 
@@ -115,3 +110,11 @@ button {
   background: linear-gradient(#fff, #ddd);
   -webkit-touch-callout: none;
   outline: 0; }
+
+.button__container {
+  text-align: center;
+  margin-bottom: 10px;
+  margin-top: 10px; }
+
+.button__new {
+  margin-right: 30px; }

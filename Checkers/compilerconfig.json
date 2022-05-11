@@ -2,5 +2,9 @@
   {
     "outputFile": "wwwroot/css/board.css",
     "inputFile": "wwwroot/css/board.scss"
+  },
+  {
+    "outputFile": "wwwroot/css/button.css",
+    "inputFile": "wwwroot/css/button.scss"
   }
 ]
