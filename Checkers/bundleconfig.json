@@ -17,7 +17,8 @@
       "wwwroot/js/boardDrawer.js",
       "wwwroot/js/squareDrawer.js",
       "wwwroot/js/figureDrawer.js",
-      "wwwroot/js/gameDrawer.js"
+      "wwwroot/js/gameDrawer.js",
+      "wwwroot/js/serverRepository.js"
     ]
   }
 ]

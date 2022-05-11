@@ -4,26 +4,26 @@ var Board = /** @class */ (function () {
     }
     Board.prototype.initBoard = function () {
         var _this = this;
-        this.serverApi = new ServerApi();
+        this._serverRepository = new ServerRepository();
         this._gameDrawer = new GameDrawer();
         var position = '';
         if (window.location.href.split('?pos=').length === 2) {
             position = window.location.href.split('?pos=')[1];
         }
-        this.serverApi.registerOnServer(position, function () {
-            _this._gameDrawer.setNewGameClickHandler(function () { return _this.serverApi.clearGameOnServer(function (clearedFigures) { return _this.showFiguresOnBoard(clearedFigures); }); });
+        this._serverRepository.registerOnServer(position, function () {
+            _this._gameDrawer.setNewGameClickHandler(function () { return _this._serverRepository.clearGameOnServer(function (clearedFigures) { return _this.showFiguresOnBoard(clearedFigures); }); });
             _this.showBoard();
         });
     };
     Board.prototype.showBoard = function () {
         var _this = this;
-        this.serverApi.getFiguresFromServer(function (data) {
+        this._serverRepository.getFiguresFromServer(function (data) {
             _this.figuresCache = new Array(data.length - 1);
             var lineSquareCount = Math.sqrt(_this.figuresCache.length);
             _this._gameDrawer.drawSquares(lineSquareCount);
             _this._gameDrawer.setDropFigureOnSquareHandler(function (fromCoord, toCoord) {
                 _this.moveFigureOnBoard(fromCoord, toCoord);
-                _this.serverApi.moveFigureOnServer(fromCoord, toCoord, function (data) { return _this.showFiguresOnBoard(data); });
+                _this._serverRepository.moveFigureOnServer(fromCoord, toCoord, function (data) { return _this.showFiguresOnBoard(data); });
             });
             _this.showFiguresOnBoard(data);
         });
@@ -51,7 +51,7 @@ var Board = /** @class */ (function () {
             this.showFigureAt(coord, boardState[coord]);
         }
         if (boardState[figuresLength] === 'b') {
-            this.serverApi.intellectStep(function (newsBoardState) { return _this.intellectStepCalculated(newsBoardState); });
+            this._serverRepository.intellectStep(function (newsBoardState) { return _this.intellectStepCalculated(newsBoardState); });
         }
     };
     Board.prototype.intellectStepCalculated = function (newBoardState) {

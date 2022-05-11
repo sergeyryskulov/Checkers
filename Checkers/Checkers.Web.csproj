@@ -33,7 +33,7 @@
     <TypeScriptCompile Include="wwwroot\js\boardDrawer.ts" />
     <TypeScriptCompile Include="wwwroot\js\figureDrawer.ts" />
     <TypeScriptCompile Include="wwwroot\js\gameDrawer.ts" />
-    <TypeScriptCompile Include="wwwroot\js\serverApi.ts" />
+    <TypeScriptCompile Include="wwwroot\js\serverRepository.ts" />
     <TypeScriptCompile Include="wwwroot\js\squareDrawer.ts" />
   </ItemGroup>
 

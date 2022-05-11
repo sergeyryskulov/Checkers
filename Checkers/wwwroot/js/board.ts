@@ -2,14 +2,14 @@
 
 class Board {
 
-    private serverApi: ServerApi;
+    private _serverRepository: ServerRepository;
 
     private _gameDrawer: GameDrawer;
 
     private figuresCache : Array<string>;
 
     initBoard() {
-        this.serverApi = new ServerApi();
+        this._serverRepository = new ServerRepository();
 
         this._gameDrawer = new GameDrawer();
 
@@ -18,10 +18,10 @@ class Board {
             position = window.location.href.split('?pos=')[1];
         }
 
-        this.serverApi.registerOnServer(position, () => {
+        this._serverRepository.registerOnServer(position, () => {
 
             this._gameDrawer.setNewGameClickHandler(
-                () => this.serverApi.clearGameOnServer(
+                () => this._serverRepository.clearGameOnServer(
                     (clearedFigures) => this.showFiguresOnBoard(clearedFigures)));
 
             this.showBoard();
@@ -31,14 +31,14 @@ class Board {
     private showBoard() {
 
 
-        this.serverApi.getFiguresFromServer((data) => {
+        this._serverRepository.getFiguresFromServer((data) => {
             this.figuresCache = new Array(data.length - 1);
             let lineSquareCount = Math.sqrt(this.figuresCache.length);
 
             this._gameDrawer.drawSquares(lineSquareCount);
             this._gameDrawer.setDropFigureOnSquareHandler((fromCoord, toCoord) => {
                 this.moveFigureOnBoard(fromCoord, toCoord);
-                this.serverApi.moveFigureOnServer(fromCoord, toCoord, (data) => this.showFiguresOnBoard(data));
+                this._serverRepository.moveFigureOnServer(fromCoord, toCoord, (data) => this.showFiguresOnBoard(data));
             });
             this.showFiguresOnBoard(data);
         });
@@ -72,7 +72,7 @@ class Board {
         }
 
         if (boardState[figuresLength] === 'b') {
-            this.serverApi.intellectStep((newsBoardState) => this.intellectStepCalculated(newsBoardState));
+            this._serverRepository.intellectStep((newsBoardState) => this.intellectStepCalculated(newsBoardState));
         }
     }
 

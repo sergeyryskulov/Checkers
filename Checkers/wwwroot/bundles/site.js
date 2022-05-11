@@ -4,26 +4,26 @@ var Board = /** @class */ (function () {
     }
     Board.prototype.initBoard = function () {
         var _this = this;
-        this.serverApi = new ServerApi();
+        this._serverRepository = new ServerRepository();
         this._gameDrawer = new GameDrawer();
         var position = '';
         if (window.location.href.split('?pos=').length === 2) {
             position = window.location.href.split('?pos=')[1];
         }
-        this.serverApi.registerOnServer(position, function () {
-            _this._gameDrawer.setNewGameClickHandler(function () { return _this.serverApi.clearGameOnServer(function (clearedFigures) { return _this.showFiguresOnBoard(clearedFigures); }); });
+        this._serverRepository.registerOnServer(position, function () {
+            _this._gameDrawer.setNewGameClickHandler(function () { return _this._serverRepository.clearGameOnServer(function (clearedFigures) { return _this.showFiguresOnBoard(clearedFigures); }); });
             _this.showBoard();
         });
     };
     Board.prototype.showBoard = function () {
         var _this = this;
-        this.serverApi.getFiguresFromServer(function (data) {
+        this._serverRepository.getFiguresFromServer(function (data) {
             _this.figuresCache = new Array(data.length - 1);
             var lineSquareCount = Math.sqrt(_this.figuresCache.length);
             _this._gameDrawer.drawSquares(lineSquareCount);
             _this._gameDrawer.setDropFigureOnSquareHandler(function (fromCoord, toCoord) {
                 _this.moveFigureOnBoard(fromCoord, toCoord);
-                _this.serverApi.moveFigureOnServer(fromCoord, toCoord, function (data) { return _this.showFiguresOnBoard(data); });
+                _this._serverRepository.moveFigureOnServer(fromCoord, toCoord, function (data) { return _this.showFiguresOnBoard(data); });
             });
             _this.showFiguresOnBoard(data);
         });
@@ -51,7 +51,7 @@ var Board = /** @class */ (function () {
             this.showFigureAt(coord, boardState[coord]);
         }
         if (boardState[figuresLength] === 'b') {
-            this.serverApi.intellectStep(function (newsBoardState) { return _this.intellectStepCalculated(newsBoardState); });
+            this._serverRepository.intellectStep(function (newsBoardState) { return _this.intellectStepCalculated(newsBoardState); });
         }
     };
     Board.prototype.intellectStepCalculated = function (newBoardState) {
@@ -84,31 +84,6 @@ var Board = /** @class */ (function () {
     return Board;
 }());
 //# sourceMappingURL=board.js.map
-var ServerApi = /** @class */ (function () {
-    function ServerApi() {
-    }
-    ServerApi.prototype.registerOnServer = function (position, callback) {
-        var _this = this;
-        $.post('/api/register?position=' + position, function (data) {
-            _this.registrationId = data;
-            callback(data);
-        });
-    };
-    ServerApi.prototype.clearGameOnServer = function (callback) {
-        $.post('/api/newgame?registrationId=' + this.registrationId, callback);
-    };
-    ServerApi.prototype.getFiguresFromServer = function (callback) {
-        $.post('/api/getfigures?registrationId=' + this.registrationId, callback);
-    };
-    ServerApi.prototype.moveFigureOnServer = function (fromCoord, toCoord, callback) {
-        $.post('/api/movefigure?fromCoord=' + fromCoord + '&toCoord=' + toCoord + '&registrationId=' + this.registrationId, callback);
-    };
-    ServerApi.prototype.intellectStep = function (callback) {
-        $.post('/api/intellectStep?registrationId=' + this.registrationId, callback);
-    };
-    return ServerApi;
-}());
-//# sourceMappingURL=serverApi.js.map
 var BoardDrawer = /** @class */ (function () {
     function BoardDrawer() {
     }
@@ -209,3 +184,28 @@ var GameDrawer = /** @class */ (function () {
     return GameDrawer;
 }());
 //# sourceMappingURL=gameDrawer.js.map
+var ServerRepository = /** @class */ (function () {
+    function ServerRepository() {
+    }
+    ServerRepository.prototype.registerOnServer = function (position, callback) {
+        var _this = this;
+        $.post('/api/register?position=' + position, function (data) {
+            _this._registrationId = data;
+            callback(data);
+        });
+    };
+    ServerRepository.prototype.clearGameOnServer = function (callback) {
+        $.post('/api/newgame?registrationId=' + this._registrationId, callback);
+    };
+    ServerRepository.prototype.getFiguresFromServer = function (callback) {
+        $.post('/api/getfigures?registrationId=' + this._registrationId, callback);
+    };
+    ServerRepository.prototype.moveFigureOnServer = function (fromCoord, toCoord, callback) {
+        $.post('/api/movefigure?fromCoord=' + fromCoord + '&toCoord=' + toCoord + '&registrationId=' + this._registrationId, callback);
+    };
+    ServerRepository.prototype.intellectStep = function (callback) {
+        $.post('/api/intellectStep?registrationId=' + this._registrationId, callback);
+    };
+    return ServerRepository;
+}());
+//# sourceMappingURL=serverRepository.js.map
