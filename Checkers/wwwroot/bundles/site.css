@@ -1,9 +1,6 @@
 body {
   background-color: #00a000; }
 
-.board__inner {
-  border: solid 2px #533b30; }
-
 .board__container {
   text-align: center; }
 
@@ -19,62 +16,6 @@ body {
   border-bottom-color: #6b5238;
   border-right-color: #6b5238;
   background-size: 20%; }
-
-.figure_p {
-  width: 60%;
-  height: 60%;
-  border-radius: 50%;
-  border: 3px solid;
-  box-shadow: 1px 0px 2px #333;
-  background-color: #333;
-  border-color: #000; }
-
-.figure_P {
-  width: 60%;
-  height: 60%;
-  border-radius: 50%;
-  border: 3px solid;
-  box-shadow: 1px 0px 2px #333;
-  background-color: white;
-  border-color: silver;
-  cursor: pointer; }
-
-.figure_q {
-  width: 60%;
-  height: 60%;
-  border-radius: 50%;
-  border: 3px solid;
-  box-shadow: 1px 0px 2px #333;
-  background-color: #333;
-  border-color: #000; }
-  .figure_q::after {
-    content: "";
-    display: block;
-    width: 100%;
-    height: 100%;
-    background-image: url("/images/crownBlack.svg");
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: 60%; }
-
-.figure_Q {
-  width: 60%;
-  height: 60%;
-  border-radius: 50%;
-  border: 3px solid;
-  box-shadow: 1px 0px 2px #333;
-  background-color: white;
-  border-color: silver;
-  cursor: pointer; }
-  .figure_Q::after {
-    content: "";
-    display: block;
-    width: 100%;
-    height: 100%;
-    background-image: url("/images/crownWhite.svg");
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: 60%; }
 
 .button__container {
   text-align: center;
