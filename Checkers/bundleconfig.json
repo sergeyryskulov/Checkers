@@ -1,13 +1,12 @@
 [
   {
-    "outputFileName": "wwwroot/bundles/pages.css",
+    "outputFileName": "wwwroot/bundles/site.css",
     "inputFiles": [
-      "wwwroot/pages/test/test.css",
-      "wwwroot/pages/board/board.css"
+      "wwwroot/css/board.css"
     ]
   },  
   {
-    "outputFileName": "wwwroot/bundles/pages.js",
+    "outputFileName": "wwwroot/bundles/site.js",
     "inputFiles": [
       "wwwroot/pages/board/board.js",
       "wwwroot/pages/board/serverApi.js",

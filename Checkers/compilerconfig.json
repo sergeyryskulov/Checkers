@@ -1,18 +1,6 @@
 ﻿[
   {
-    "outputFile": "wwwroot/pages/board/board.css",
-    "inputFile": "wwwroot/pages/board/board.less"
-  },
-  {
-    "outputFile": "wwwroot/pages/test/StyleSheet.css",
-    "inputFile": "wwwroot/pages/test/StyleSheet.scss"
-  },
-  {
-    "outputFile": "wwwroot/pages/test/test.css",
-    "inputFile": "wwwroot/pages/test/test.scss"
-  },
-  {
-    "outputFile": "wwwroot/pages/board/board.css",
-    "inputFile": "wwwroot/pages/board/board.scss"
+    "outputFile": "wwwroot/css/board.css",
+    "inputFile": "wwwroot/css/board.scss"
   }
 ]
