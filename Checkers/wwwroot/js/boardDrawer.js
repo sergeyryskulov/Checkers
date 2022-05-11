@@ -26,8 +26,8 @@ var BoardDrawer = /** @class */ (function () {
         }, 500, onComplete);
     };
     BoardDrawer.prototype.drawFigure = function (coord, figure) {
-        var divFigure = '<div id=f$coord class="figure figure_$figure"></div>';
-        $('#s' + coord).html(divFigure.replace('$coord', '' + coord).replace('$figure', figure));
+        var divFigure = "<div id=f" + coord + " class=\"figure figure_" + figure + "\"></div>";
+        $('#s' + coord).html(divFigure);
         if (figure == 'P' || figure == 'Q') {
             $('#s' + coord + ' .figure').mousedown(function () {
                 $(this).css('cursor', 'url(/pages/board/grab.cur), move');

@@ -37,8 +37,9 @@
 
     public drawFigure(coord, figure) {
 
-        let divFigure = '<div id=f$coord class="figure figure_$figure"></div>';
-        $('#s' + coord).html(divFigure.replace('$coord', '' + coord).replace('$figure', figure));
+        let divFigure = `<div id=f${coord} class="figure figure_${figure}"></div>`;
+
+        $('#s' + coord).html(divFigure);
 
         if (figure == 'P' || figure == 'Q') {
             $('#s' + coord +' .figure').mousedown(function() {
