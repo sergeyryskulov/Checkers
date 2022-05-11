@@ -75,21 +75,9 @@ class Board {
             this.showFigureAt(coord, boardState[coord]);
         }
 
-        $('.state').text(boardState);
-
-        if (boardState[figuresLength]=== 'w') {
-            $('.turn').text('Ход белых');
-        } if (boardState[figuresLength] === 'W') {
-            $('.turn').text('Белые выиграли!');
-            
-        } else if (boardState[figuresLength] === 'b'){
-            $('.turn').text('Ход черных');
-            this.serverApi.intellectStep((newsBoardState) =>  this.intellectStepCalculated(newsBoardState));
-            
-        } else if (boardState[figuresLength] === 'B') {
-            $('.turn').text('Черные выиграли!');
+        if (boardState[figuresLength] === 'b') {
+            this.serverApi.intellectStep((newsBoardState) => this.intellectStepCalculated(newsBoardState));
         }
-
     }
 
     private intellectStepCalculated(newBoardState: string) {

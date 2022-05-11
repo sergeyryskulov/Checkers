@@ -54,19 +54,8 @@ var Board = /** @class */ (function () {
         for (var coord = 0; coord < figuresLength; coord++) {
             this.showFigureAt(coord, boardState[coord]);
         }
-        $('.state').text(boardState);
-        if (boardState[figuresLength] === 'w') {
-            $('.turn').text('Ход белых');
-        }
-        if (boardState[figuresLength] === 'W') {
-            $('.turn').text('Белые выиграли!');
-        }
-        else if (boardState[figuresLength] === 'b') {
-            $('.turn').text('Ход черных');
+        if (boardState[figuresLength] === 'b') {
             this.serverApi.intellectStep(function (newsBoardState) { return _this.intellectStepCalculated(newsBoardState); });
-        }
-        else if (boardState[figuresLength] === 'B') {
-            $('.turn').text('Черные выиграли!');
         }
     };
     Board.prototype.intellectStepCalculated = function (newBoardState) {
