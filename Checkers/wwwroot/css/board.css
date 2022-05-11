@@ -1,20 +1,6 @@
 ﻿body {
   background-color: #00a000; }
 
-.square {
-  width: 12.5%;
-  height: 12.5%;
-  float: left;
-  display: flex;
-  align-items: center;
-  justify-content: center; }
-  .square_black {
-    background: url(/images/squareDark.png);
-    background-size: 100%; }
-  .square_white {
-    background: url(/images/squareLight.png);
-    background-size: 100%; }
-
 .board__inner {
   border: solid 2px #533b30; }
 
