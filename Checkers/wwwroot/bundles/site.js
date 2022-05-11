@@ -149,13 +149,7 @@ var BoardDrawer = /** @class */ (function () {
         }
     };
     BoardDrawer.prototype.setDropFigureOnSquareHandler = function (dropCallback) {
-        $('.square').droppable({
-            drop: function (event, ui) {
-                var fromCoord = ui.draggable.attr('id').substring(1);
-                var toCoord = this.id.substring(1);
-                dropCallback(fromCoord, toCoord);
-            }
-        });
+        new Square().setDropFigureOnSquareHandler(dropCallback);
     };
     return BoardDrawer;
 }());
@@ -171,6 +165,15 @@ var Square = /** @class */ (function () {
             result += currentSquareHtml;
         }
         return result;
+    };
+    Square.prototype.setDropFigureOnSquareHandler = function (dropCallback) {
+        $('.square').droppable({
+            drop: function (event, ui) {
+                var fromCoord = ui.draggable.attr('id').substring(1);
+                var toCoord = this.id.substring(1);
+                dropCallback(fromCoord, toCoord);
+            }
+        });
     };
     Square.prototype.isBlackSquareAt = function (coord, width) {
         return ((coord % width + Math.floor(coord / width)) % 2) !== 0;

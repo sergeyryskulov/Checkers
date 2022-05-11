@@ -38,13 +38,7 @@ var BoardDrawer = /** @class */ (function () {
         }
     };
     BoardDrawer.prototype.setDropFigureOnSquareHandler = function (dropCallback) {
-        $('.square').droppable({
-            drop: function (event, ui) {
-                var fromCoord = ui.draggable.attr('id').substring(1);
-                var toCoord = this.id.substring(1);
-                dropCallback(fromCoord, toCoord);
-            }
-        });
+        new Square().setDropFigureOnSquareHandler(dropCallback);
     };
     return BoardDrawer;
 }());

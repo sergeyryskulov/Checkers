@@ -52,13 +52,7 @@
     }
 
     public setDropFigureOnSquareHandler(dropCallback) {
-        $('.square').droppable({
-            drop: function (event, ui) {
-                let fromCoord = ui.draggable.attr('id').substring(1);
-                let toCoord = this.id.substring(1);
-                dropCallback(fromCoord, toCoord);
-            }
-        });
+       new Square().setDropFigureOnSquareHandler(dropCallback);
     }
 
    
