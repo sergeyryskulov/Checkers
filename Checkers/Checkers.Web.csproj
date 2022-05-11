@@ -7,9 +7,6 @@
   <ItemGroup>
     <Content Remove="bundleconfig.json" />
     <Content Remove="compilerconfig.json" />
-    <Content Remove="wwwroot\pages\board\board.ts" />
-    <Content Remove="wwwroot\pages\board\boardDrawer.ts" />
-    <Content Remove="wwwroot\pages\board\serverApi.ts" />
   </ItemGroup>
 
   <ItemGroup>
@@ -26,7 +23,6 @@
   <ItemGroup>
     <Folder Include="Models\" />
     <Folder Include="Views\Home\" />
-    <Folder Include="wwwroot\pages\board\" />
   </ItemGroup>
 
   <ItemGroup>
