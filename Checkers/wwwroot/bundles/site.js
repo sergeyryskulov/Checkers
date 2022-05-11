@@ -142,14 +142,14 @@ var FigureDrawer = /** @class */ (function () {
     FigureDrawer.prototype.setHandlers = function (coord, figure) {
         if (figure == 'P' || figure == 'Q') {
             $('#f' + coord).mousedown(function () {
-                $(this).css('cursor', 'url(/pages/board/grab.cur), move');
+                $(this).css('cursor', 'url(/images/cursorGrab.cur), move');
             }).mouseup(function () {
                 $(this).css('cursor', 'pointer');
             }).mouseleave(function () {
                 $(this).css('cursor', 'pointer');
             }).draggable({
                 start: function () {
-                    $(this).css('cursor', 'url(/pages/board/grab.cur), move');
+                    $(this).css('cursor', 'url(/images/cursorGrab.cur), move');
                 }
             });
         }
