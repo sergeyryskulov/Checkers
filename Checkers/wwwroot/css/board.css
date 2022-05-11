@@ -8,14 +8,12 @@
   display: flex;
   align-items: center;
   justify-content: center; }
-
-.black {
-  background: url(/images/squareDark.png);
-  background-size: 100%; }
-
-.white {
-  background: url(/images/squareLight.png);
-  background-size: 100%; }
+  .square_black {
+    background: url(/images/squareDark.png);
+    background-size: 100%; }
+  .square_white {
+    background: url(/images/squareLight.png);
+    background-size: 100%; }
 
 .board__inner {
   border: solid 2px #533b30; }

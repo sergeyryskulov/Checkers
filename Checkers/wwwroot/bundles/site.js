@@ -120,9 +120,10 @@ var BoardDrawer = /** @class */ (function () {
         $('.board__inner').width(boardWidth);
         $('.board__inner').height(boardWidth);
         $('.board__inner').html('');
-        var divSquare = '<div  id=s$coord class="square $color"></div>';
         for (var coord = 0; coord < width * width; coord++) {
-            $('.board__inner').append(divSquare.replace('$coord', '' + coord).replace('$color', this.isBlackSquareAt(coord, width) ? 'black' : 'white'));
+            var currentSquareColor = this.isBlackSquareAt(coord, width) ? 'black' : 'white';
+            var currentSquareHtml = "<div id=s" + coord + " class=\"square square_" + currentSquareColor + "\" ></div>";
+            $('.board__inner').append(currentSquareHtml);
         }
     };
     BoardDrawer.prototype.drawMoving = function (fromCoord, toCoord, onComplete) {

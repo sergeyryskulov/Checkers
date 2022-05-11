@@ -8,17 +8,18 @@
     display: flex;
     align-items: center;
     justify-content: center;
+
+    &_black {
+        background: url(/images/squareDark.png);
+        background-size: 100%;
+    }
+
+    &_white {
+        background: url(/images/squareLight.png);
+        background-size: 100%;
+    }
 }
 
-.black {
-    background: url(/images/squareDark.png);
-    background-size: 100%;
-}
-
-.white {
-    background: url(/images/squareLight.png);
-    background-size: 100%;
-}
 
 .board {
     &__inner {

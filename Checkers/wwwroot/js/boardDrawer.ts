@@ -9,12 +9,13 @@
 
         $('.board__inner').width(boardWidth);
         $('.board__inner').height(boardWidth);
-
         $('.board__inner').html('');
-        let divSquare = '<div  id=s$coord class="square $color"></div>';
 
-        for (let coord = 0; coord < width*width; coord++) {
-            $('.board__inner').append(divSquare.replace('$coord', '' + coord).replace('$color', this.isBlackSquareAt(coord, width) ? 'black' : 'white'));
+        for (let coord = 0; coord < width * width; coord++) {
+            let currentSquareColor =  this.isBlackSquareAt(coord, width) ? 'black' : 'white';
+            let currentSquareHtml = `<div id=s${coord} class="square square_${currentSquareColor}" ></div>`;
+            
+            $('.board__inner').append(currentSquareHtml);
         }
     }
 
