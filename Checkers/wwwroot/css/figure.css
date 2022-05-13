@@ -23,7 +23,7 @@
     display: block;
     width: 100%;
     height: 100%;
-    background-image: url("/images/crownBlack.svg");
+    background-image: url("/images/blackQueenCrown.svg");
     background-position: center;
     background-repeat: no-repeat;
     background-size: 60%; }
@@ -37,7 +37,7 @@
     display: block;
     width: 100%;
     height: 100%;
-    background-image: url("/images/crownWhite.svg");
+    background-image: url("/images/whiteQueenCrown.svg");
     background-position: center;
     background-repeat: no-repeat;
     background-size: 60%; }

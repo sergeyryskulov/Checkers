@@ -6,8 +6,8 @@
   align-items: center;
   justify-content: center; }
   .square_black {
-    background: url(/images/squareDark.png);
+    background: url(/images/squareBlack.png);
     background-size: 100%; }
   .square_white {
-    background: url(/images/squareLight.png);
+    background: url(/images/squareWhite.png);
     background-size: 100%; }
