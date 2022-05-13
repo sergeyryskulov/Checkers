@@ -19,7 +19,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{0DA0C6BF
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documents", "Documents", "{E306165A-4512-49DA-9120-AD3D77D50F69}"
 	ProjectSection(SolutionItems) = preProject
-		d:\Рабочий стол\UML Diagram.docx = d:\Рабочий стол\UML Diagram.docx
+		Documents\UML Diagram.docx = Documents\UML Diagram.docx
 	EndProjectSection
 EndProject
 Global
