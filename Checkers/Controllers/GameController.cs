@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace Checkers.Controllers
 {
-    public class BoardController : Controller 
+    public class GameController : Controller 
     {
         public IActionResult Index()
         {
-            return View("Board");
+            return View("Game");
         }
     }
 }

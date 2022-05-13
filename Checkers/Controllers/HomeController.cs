@@ -13,7 +13,7 @@ namespace Checkers.Controllers
     {
         public IActionResult Index()
         {
-            return Redirect("/Board");
+            return Redirect("/Game");
         }
     }
 }

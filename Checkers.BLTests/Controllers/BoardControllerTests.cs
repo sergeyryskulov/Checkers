@@ -19,7 +19,7 @@ namespace Checkers.Controllers.Tests
         [TestMethod()]
         public void IndexTest()
         {
-            var boardController = new BoardController();
+            var boardController = new GameController();
             var actual = boardController.Index() as ViewResult;
 
           // actual.ExecuteResult(new ActionContext(new DefaultHttpContext(), ));
