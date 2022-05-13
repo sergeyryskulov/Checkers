@@ -27,14 +27,14 @@
 
         if (figure == 'P' || figure == 'Q') {
             $('#f' + coord).mousedown(function () {
-                $(this).css('cursor', 'url(/images/cursorGrab.cur), move');
+                $(this).css('cursor', 'url(/images/movingCursor.cur), move');
             }).mouseup(function () {
                 $(this).css('cursor', 'pointer');
             }).mouseleave(function () {
                 $(this).css('cursor', 'pointer');
             }).draggable({
                 start: function () {
-                    $(this).css('cursor', 'url(/images/cursorGrab.cur), move');
+                    $(this).css('cursor', 'url(/images/movingCursor.cur), move');
                 }
             });
         }
