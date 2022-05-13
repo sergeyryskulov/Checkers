@@ -23,7 +23,7 @@ class Game {
             this._gameDrawer.setNewGameClickHandler(
                 () => this._serverRepository.clearGameOnServer(
                     (clearedFigures) => this.showFiguresOnBoard(clearedFigures)));
-
+            
             this.showBoard();
         });
     }

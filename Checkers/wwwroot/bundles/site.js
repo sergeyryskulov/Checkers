@@ -157,14 +157,29 @@ var FigureDrawer = /** @class */ (function () {
     return FigureDrawer;
 }());
 //# sourceMappingURL=figureDrawer.js.map
+var RulesDrawer = /** @class */ (function () {
+    function RulesDrawer() {
+    }
+    RulesDrawer.prototype.drawRules = function () {
+        $('.rules__dialog').show();
+        $('.rules__close').click(function () {
+            $('.rules__dialog').hide();
+        });
+    };
+    return RulesDrawer;
+}());
+//# sourceMappingURL=rulesDrawer.js.map
 var GameDrawer = /** @class */ (function () {
     function GameDrawer() {
         this._squareDrawer = new SquareDrawer();
         this._figureDrawer = new FigureDrawer();
         this._boardDrawer = new BoardDrawer();
+        this._rulesDrawer = new RulesDrawer();
     }
     GameDrawer.prototype.setNewGameClickHandler = function (callback) {
+        var _this = this;
         $('.button__new').click(callback);
+        $('.button__rules').click(function () { return _this._rulesDrawer.drawRules(); });
     };
     GameDrawer.prototype.drawSquares = function (width) {
         var squaresHtml = this._squareDrawer.getSquaresHtml(width);

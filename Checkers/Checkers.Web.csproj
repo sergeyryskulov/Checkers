@@ -9,6 +9,7 @@
     <Content Remove="compilerconfig.json" />
     <Content Remove="wwwroot\js\figureDrawer.ts" />
     <Content Remove="wwwroot\js\gameDrawer.ts" />
+    <Content Remove="wwwroot\js\rulesDrawer.ts" />
     <Content Remove="wwwroot\js\squareDrawer.ts" />
   </ItemGroup>
 
@@ -33,6 +34,7 @@
     <TypeScriptCompile Include="wwwroot\js\boardDrawer.ts" />
     <TypeScriptCompile Include="wwwroot\js\figureDrawer.ts" />
     <TypeScriptCompile Include="wwwroot\js\gameDrawer.ts" />
+    <TypeScriptCompile Include="wwwroot\js\rulesDrawer.ts" />
     <TypeScriptCompile Include="wwwroot\js\serverRepository.ts" />
     <TypeScriptCompile Include="wwwroot\js\squareDrawer.ts" />
   </ItemGroup>

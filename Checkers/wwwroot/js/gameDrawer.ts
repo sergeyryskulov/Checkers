@@ -4,17 +4,23 @@
     _squareDrawer: SquareDrawer;
     _figureDrawer: FigureDrawer;
     _boardDrawer: BoardDrawer;
+    _rulesDrawer: RulesDrawer;
 
     constructor() {
         this._squareDrawer = new SquareDrawer();
         this._figureDrawer = new FigureDrawer();
         this._boardDrawer = new BoardDrawer();
+        this._rulesDrawer = new RulesDrawer();
     }
 
     public setNewGameClickHandler(callback) {
         $('.button__new').click(callback);
+
+        $('.button__rules').click(()=>this._rulesDrawer.drawRules());
+
     }
 
+   
     public drawSquares(width) {
         let squaresHtml = this._squareDrawer.getSquaresHtml(width);
 
