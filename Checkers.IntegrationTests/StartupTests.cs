@@ -55,7 +55,7 @@ namespace Checkers.Tests
         public void FunctionalStartupTest()
         {
             var client = new WebApplicationFactory<Startup>().CreateClient();
-            var callResult = client.GetAsync("/Board").Result;
+            var callResult = client.GetAsync("/Game").Result;
             var callResultString = callResult.Content.ReadAsStringAsync().Result;
             Assert.IsTrue(callResultString.Contains("Игра"));
         }

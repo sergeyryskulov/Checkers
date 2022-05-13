@@ -26,7 +26,7 @@ namespace Checkers.Controllers.Tests
 
             Assert.IsNull(actual.Model);
 
-            Assert.AreEqual("Board", actual.ViewName);
+            Assert.AreEqual("Game", actual.ViewName);
         }
     }
 }

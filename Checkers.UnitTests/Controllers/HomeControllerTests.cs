@@ -17,7 +17,7 @@ namespace Checkers.Controllers.Tests
 
             var actual = homeController.Index() as RedirectResult;
 
-            Assert.AreEqual("/Board", actual.Url);
+            Assert.AreEqual("/Game", actual.Url);
         }
     }
 }
