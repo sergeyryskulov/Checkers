@@ -4,8 +4,4 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Checkers.IDAL\Checkers.IDAL.csproj" />
-  </ItemGroup>
-
 </Project>

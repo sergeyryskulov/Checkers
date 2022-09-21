@@ -6,7 +6,6 @@ using System.Linq;
 using System.Text;
 using Checkers.BL.Services;
 using Checkers.Controllers;
-using Ckeckers.DAL.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Hosting;

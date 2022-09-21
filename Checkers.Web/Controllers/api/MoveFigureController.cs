@@ -6,7 +6,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Checkers.BL.Services;
-using Ckeckers.DAL.Repositories;
 
 namespace Checkers.Controllers
 {

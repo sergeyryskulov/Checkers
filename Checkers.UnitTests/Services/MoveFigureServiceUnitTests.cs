@@ -3,7 +3,6 @@ using Checkers.BL.Services;
 using System;
 using System.Collections.Generic;
 using System.Text;
-using Ckeckers.DAL.Repositories;
 using Moq;
 
 namespace Checkers.BL.Services.Tests

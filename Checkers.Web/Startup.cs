@@ -10,7 +10,6 @@ using System.Linq;
 using System.Threading.Tasks;
 
 using Checkers.BL.Services;
-using Ckeckers.DAL.Repositories;
 
 namespace Checkers
 {
@@ -28,7 +27,7 @@ namespace Checkers
         {
             services.AddControllersWithViews();
 
-            foreach (var type in typeof(GetFiguresService).Assembly.GetTypes().Where(t=>t.Name.EndsWith("Service") && !t.IsInterface))
+            foreach (var type in typeof(MoveFigureService).Assembly.GetTypes().Where(t=>t.Name.EndsWith("Service") && !t.IsInterface))
             {
                 services.AddTransient(type);
 
@@ -36,13 +35,7 @@ namespace Checkers
                 {
                     services.AddTransient(typeInterface, type);
                 }
-            }
-       
-         
-            services.AddSingleton<IBoardRepository, BoardRepository>();
-
-            services.AddTransient<IRegistrationIdGeneratorRepository, RegistrationIdGeneratorRepository>();
-
+            }                        
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

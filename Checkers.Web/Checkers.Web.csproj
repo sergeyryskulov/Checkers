@@ -20,8 +20,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Checkers.BL\Checkers.BL.csproj" />
-    <ProjectReference Include="..\Checkers.IDAL\Checkers.IDAL.csproj" />
-    <ProjectReference Include="..\Ckeckers.DAL\Checkers.DAL.csproj" />
   </ItemGroup>
 
   <ItemGroup>

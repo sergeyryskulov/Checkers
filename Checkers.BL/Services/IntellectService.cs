@@ -8,7 +8,6 @@ using System.Threading.Tasks;
 using Checkers.BL.Constants;
 using Checkers.BL.Extensions;
 using Checkers.BL.Models;
-using Ckeckers.DAL.Repositories;
 
 namespace Checkers.BL.Services
 {

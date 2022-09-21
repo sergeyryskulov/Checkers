@@ -7,7 +7,6 @@ using System.Text;
 using System.Threading.Tasks;
 using Checkers.BL.Constants;
 using Checkers.BL.Interfaces;
-using Ckeckers.DAL.Repositories;
 using Moq;
 
 namespace Checkers.BL.Services.Tests
@@ -114,7 +113,7 @@ namespace Checkers.BL.Services.Tests
 
         }
 
-        private IntellectService GetIntellectService(IBoardRepository boardRepository)
+        private IntellectService GetIntellectService()
         {
             var valideteFigureService = new  ValidateService(
                 new ValidatePawnService(),
@@ -139,11 +138,8 @@ namespace Checkers.BL.Services.Tests
         }
 
         private void AssertEqual(string from, string to)
-        {
-            var boardRepository = new Mock<IBoardRepository>();
-            boardRepository.Setup(m => m.Load("")).Returns(from);
-
-            var service = GetIntellectService(boardRepository.Object);
+        {            
+            var service = GetIntellectService();
 
             string actual = service.IntellectStep(from);
 
@@ -153,11 +149,8 @@ namespace Checkers.BL.Services.Tests
         }
 
         private void AssertNotEqual(string from, string to)
-        {
-            var boardRepository = new Mock<IBoardRepository>();
-            boardRepository.Setup(m => m.Load("")).Returns(from);
-
-            var service = GetIntellectService(boardRepository.Object);
+        {                        
+            var service = GetIntellectService();
 
             string actual = service.IntellectStep(from);
 
