@@ -6,27 +6,23 @@ var Game = /** @class */ (function () {
         var _this = this;
         this._serverRepository = new ServerRepository();
         this._gameDrawer = new GameDrawer();
-        var position = '';
+        var defaultBoardState = "1p1p1p1pp1p1p1p11p1p1p1p1111111111111111P1P1P1P11P1P1P1PP1P1P1P1w";
         if (window.location.href.split('?pos=').length === 2) {
-            position = window.location.href.split('?pos=')[1];
+            defaultBoardState = window.location.href.split('?pos=')[1];
         }
-        this._serverRepository.registerOnServer(position, function () {
-            _this._gameDrawer.setNewGameClickHandler(function () { return _this._serverRepository.clearGameOnServer(function (clearedFigures) { return _this.showFiguresOnBoard(clearedFigures); }); });
-            _this.showBoard();
-        });
+        this._gameDrawer.setNewGameClickHandler(function () { return _this.showFiguresOnBoard(defaultBoardState); });
+        this.initBoard(defaultBoardState);
     };
-    Game.prototype.showBoard = function () {
+    Game.prototype.initBoard = function (defaultBoardState) {
         var _this = this;
-        this._serverRepository.getFiguresFromServer(function (defaultBoardState) {
-            _this._figuresCache = new Array(defaultBoardState.length - 1);
-            var lineSquareCount = Math.sqrt(_this._figuresCache.length);
-            _this._gameDrawer.drawSquares(lineSquareCount);
-            _this._gameDrawer.setDropFigureOnSquareHandler(function (fromCoord, toCoord) {
-                _this.moveFigureOnBoard(fromCoord, toCoord);
-                _this._serverRepository.moveFigureOnServer(_this._oldBoardState, fromCoord, toCoord, function (newBoardState) { return _this.showFiguresOnBoard(newBoardState); });
-            });
-            _this.showFiguresOnBoard(defaultBoardState);
+        this._figuresCache = new Array(defaultBoardState.length - 1);
+        var lineSquareCount = Math.sqrt(this._figuresCache.length);
+        this._gameDrawer.drawSquares(lineSquareCount);
+        this._gameDrawer.setDropFigureOnSquareHandler(function (fromCoord, toCoord) {
+            _this.moveFigureOnBoard(fromCoord, toCoord);
+            _this._serverRepository.moveFigureOnServer(_this._oldBoardState, fromCoord, toCoord, function (newBoardState) { return _this.showFiguresOnBoard(newBoardState); });
         });
+        this.showFiguresOnBoard(defaultBoardState);
     };
     Game.prototype.moveFigureOnBoard = function (fromCoord, toCoord) {
         var figure = this._figuresCache[fromCoord];

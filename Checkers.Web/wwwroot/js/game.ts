@@ -15,35 +15,29 @@ class Game {
 
         this._gameDrawer = new GameDrawer();
 
-        let position = '';
+        let defaultBoardState = "1p1p1p1pp1p1p1p11p1p1p1p1111111111111111P1P1P1P11P1P1P1PP1P1P1P1w";
+
         if (window.location.href.split('?pos=').length === 2) {
-            position = window.location.href.split('?pos=')[1];
+            defaultBoardState = window.location.href.split('?pos=')[1];
         }
 
-        this._serverRepository.registerOnServer(position, () => {
+        this._gameDrawer.setNewGameClickHandler(() => this.showFiguresOnBoard(defaultBoardState));
 
-            this._gameDrawer.setNewGameClickHandler(
-                () => this._serverRepository.clearGameOnServer(
-                    (clearedFigures) => this.showFiguresOnBoard(clearedFigures)));
-            
-            this.showBoard();
-        });
+        this.initBoard(defaultBoardState);       
     }
 
-    private showBoard() {
+    private initBoard(defaultBoardState : string) {
+        
+        this._figuresCache = new Array(defaultBoardState.length - 1);
+        let lineSquareCount = Math.sqrt(this._figuresCache.length);
 
-
-        this._serverRepository.getFiguresFromServer((defaultBoardState) => {
-            this._figuresCache = new Array(defaultBoardState.length - 1);
-            let lineSquareCount = Math.sqrt(this._figuresCache.length);
-           
-            this._gameDrawer.drawSquares(lineSquareCount);
-            this._gameDrawer.setDropFigureOnSquareHandler((fromCoord, toCoord) => {
-                this.moveFigureOnBoard(fromCoord, toCoord);
-                this._serverRepository.moveFigureOnServer(this._oldBoardState, fromCoord, toCoord, (newBoardState) => this.showFiguresOnBoard(newBoardState));
-            });
-            this.showFiguresOnBoard(defaultBoardState);
+        this._gameDrawer.drawSquares(lineSquareCount);
+        this._gameDrawer.setDropFigureOnSquareHandler((fromCoord, toCoord) => {
+            this.moveFigureOnBoard(fromCoord, toCoord);
+            this._serverRepository.moveFigureOnServer(this._oldBoardState, fromCoord, toCoord, (newBoardState) => this.showFiguresOnBoard(newBoardState));
         });
+        this.showFiguresOnBoard(defaultBoardState);
+        
     }
 
     private moveFigureOnBoard(fromCoord, toCoord) {
