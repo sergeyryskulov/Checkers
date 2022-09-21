@@ -105,7 +105,7 @@ namespace Checkers.BL.Services.Tests
             );
         }
 
-        private MoveFigureService CreateMoveFigureService(Mock<IBoardRepository> boardRepository)
+        private MoveFigureService CreateMoveFigureService()
         {
 
             var validateFiguresService = new ValidateFiguresService(
@@ -113,8 +113,7 @@ namespace Checkers.BL.Services.Tests
                     new ValidatePawnService(),
                     new ValidateQueenService()));
             
-            return new MoveFigureService(
-                boardRepository.Object,
+            return new MoveFigureService(                
                 new ValidateBoardService(validateFiguresService),
                 new DirectMoveService(new ValidateService(
                     new ValidatePawnService(),
@@ -123,13 +122,10 @@ namespace Checkers.BL.Services.Tests
         }
 
         private void AssertMove(string from, int fromCoord, int toCoord, string expected)
-        {
-            var boardRepository = new Mock<IBoardRepository>();
-            boardRepository.Setup(m => m.Load("registrationId")).Returns(from);
+        {            
+            var moveService = CreateMoveFigureService();
 
-            var moveService = CreateMoveFigureService(boardRepository);
-
-            string actual = moveService.Move(fromCoord, toCoord, "registrationId", from);
+            string actual = moveService.Move(fromCoord, toCoord, from);
 
             Assert.AreEqual(expected, actual);
         }

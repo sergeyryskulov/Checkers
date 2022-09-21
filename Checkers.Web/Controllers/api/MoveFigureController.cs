@@ -22,9 +22,9 @@ namespace Checkers.Controllers
         }
 
 
-        public string Post(int fromCoord, int toCoord, string registrationId, string boardState)
+        public string Post(int fromCoord, int toCoord, string boardState)
         {
-            return _moveFigureService.Move(fromCoord, toCoord, registrationId, boardState);
+            return _moveFigureService.Move(fromCoord, toCoord, boardState);
         }
     }
 }

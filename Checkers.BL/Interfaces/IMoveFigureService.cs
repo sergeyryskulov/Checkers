@@ -2,6 +2,6 @@
 {
     public interface IMoveFigureService
     {
-        string Move(int fromCoord, int toCoord, string registrationId, string boardState);
+        string Move(int fromCoord, int toCoord, string boardState);
     }
 }

@@ -13,12 +13,7 @@ namespace Checkers.BL.Services.Tests
     {
         [TestMethod()]
         public void MoveFigureTest()
-        {
-            var boardRepository = new Mock<IBoardRepository>();
-            boardRepository.Setup(m => m.Load("registrationid")).Returns(
-                "11" +
-                "P1w");
-
+        {          
             var validateBoardService = new Mock<IValidateBoardService>();
             validateBoardService.Setup(m => m.CanMove("11P1w", 3, 0)).Returns(true);
 
@@ -31,16 +26,12 @@ namespace Checkers.BL.Services.Tests
                 "11W");
 
 
-            var moveFigureService = new MoveFigureService(
-                boardRepository.Object,
+            var moveFigureService = new MoveFigureService(                
                 validateBoardService.Object,
                 directMoveService.Object
             );
 
-            var actual = moveFigureService.Move(3, 0, "registrationid", "11P1w");
-
-            boardRepository.Verify(m => m.Save("registrationid", "1Q" +
-                                                                 "11W"));
+            var actual = moveFigureService.Move(3, 0,  "11P1w");          
             
             Assert.AreEqual("1Q11W", actual);
         }

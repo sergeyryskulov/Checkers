@@ -25,10 +25,8 @@ namespace Checkers.BL.Services
         }
 
         public string IntellectStep(string boardState)
-        {
-            string boardStateString = boardState; //_boardRepository.Load(registrationId);
-
-            var nextStepVariants = _stepIteratorService.GetNextStepVariants(boardStateString);
+        {            
+            var nextStepVariants = _stepIteratorService.GetNextStepVariants(boardState);
             
             var worstForWhiteVariant = nextStepVariants.OrderBy(t => GetBestWeightForWhite(t.ResultState)).First();
 
