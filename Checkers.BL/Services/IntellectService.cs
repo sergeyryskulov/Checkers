@@ -27,9 +27,9 @@ namespace Checkers.BL.Services
             _positionWeightService = positionWeightService;
         }
 
-        public string IntellectStep(string registrationId)
+        public string IntellectStep(string registrationId, string boardState)
         {
-            string boardStateString = _boardRepository.Load(registrationId);
+            string boardStateString = boardState; //_boardRepository.Load(registrationId);
 
             var nextStepVariants = _stepIteratorService.GetNextStepVariants(boardStateString);
             

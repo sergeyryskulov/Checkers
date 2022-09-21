@@ -18,9 +18,9 @@ namespace Checkers.BL.Services
             _directMoveService = directMoveService;
         }
 
-        public string Move(int fromCoord, int toCoord, string registrationId)
+        public string Move(int fromCoord, int toCoord, string registrationId, string boardState)
         {
-            var oldState = _boardRepository.Load(registrationId);
+            var oldState = boardState;
 
             if (!_validateBoardService.CanMove(oldState, fromCoord, toCoord))
             {

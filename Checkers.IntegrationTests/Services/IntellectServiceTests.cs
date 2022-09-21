@@ -146,7 +146,7 @@ namespace Checkers.BL.Services.Tests
 
             var service = GetIntellectService(boardRepository.Object);
 
-            string actual = service.IntellectStep("");
+            string actual = service.IntellectStep("", from);
 
             string expected = to;
 
@@ -160,7 +160,7 @@ namespace Checkers.BL.Services.Tests
 
             var service = GetIntellectService(boardRepository.Object);
 
-            string actual = service.IntellectStep("");
+            string actual = service.IntellectStep("", from);
 
             string expected = to;
 

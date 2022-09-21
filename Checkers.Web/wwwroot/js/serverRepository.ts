@@ -17,13 +17,13 @@
         $.post('/api/getfigures?registrationId=' + this._registrationId, callback);
     }
 
-    public moveFigureOnServer(fromCoord, toCoord, callback) {
+    public moveFigureOnServer(boardState, fromCoord, toCoord, callback) {
 
-        $.post('/api/movefigure?fromCoord=' + fromCoord + '&toCoord=' + toCoord + '&registrationId=' + this._registrationId, callback);
+        $.post('/api/movefigure?fromCoord=' + fromCoord + '&toCoord=' + toCoord + '&registrationId=' + this._registrationId +'&boardState=' + boardState, callback);
     }
 
-    public intellectStep(callback) {
+    public intellectStep(boardState, callback) {
 
-        $.post('/api/intellectStep?registrationId=' + this._registrationId, callback);
+        $.post('/api/intellectStep?registrationId=' + this._registrationId + '&boardState=' + boardState, callback);
     }
 }

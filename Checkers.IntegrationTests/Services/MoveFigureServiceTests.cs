@@ -129,7 +129,7 @@ namespace Checkers.BL.Services.Tests
 
             var moveService = CreateMoveFigureService(boardRepository);
 
-            string actual = moveService.Move(fromCoord, toCoord, "registrationId");
+            string actual = moveService.Move(fromCoord, toCoord, "registrationId", from);
 
             Assert.AreEqual(expected, actual);
         }

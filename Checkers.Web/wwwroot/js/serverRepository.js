@@ -14,11 +14,11 @@ var ServerRepository = /** @class */ (function () {
     ServerRepository.prototype.getFiguresFromServer = function (callback) {
         $.post('/api/getfigures?registrationId=' + this._registrationId, callback);
     };
-    ServerRepository.prototype.moveFigureOnServer = function (fromCoord, toCoord, callback) {
-        $.post('/api/movefigure?fromCoord=' + fromCoord + '&toCoord=' + toCoord + '&registrationId=' + this._registrationId, callback);
+    ServerRepository.prototype.moveFigureOnServer = function (boardState, fromCoord, toCoord, callback) {
+        $.post('/api/movefigure?fromCoord=' + fromCoord + '&toCoord=' + toCoord + '&registrationId=' + this._registrationId + '&boardState=' + boardState, callback);
     };
-    ServerRepository.prototype.intellectStep = function (callback) {
-        $.post('/api/intellectStep?registrationId=' + this._registrationId, callback);
+    ServerRepository.prototype.intellectStep = function (boardState, callback) {
+        $.post('/api/intellectStep?registrationId=' + this._registrationId + '&boardState=' + boardState, callback);
     };
     return ServerRepository;
 }());

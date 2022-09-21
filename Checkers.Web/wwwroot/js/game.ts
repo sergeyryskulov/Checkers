@@ -8,6 +8,8 @@ class Game {
 
     private _figuresCache : Array<string>;
 
+    private _oldBoardState: string;
+
     initGame() {
         this._serverRepository = new ServerRepository();
 
@@ -31,16 +33,16 @@ class Game {
     private showBoard() {
 
 
-        this._serverRepository.getFiguresFromServer((data) => {
-            this._figuresCache = new Array(data.length - 1);
+        this._serverRepository.getFiguresFromServer((defaultBoardState) => {
+            this._figuresCache = new Array(defaultBoardState.length - 1);
             let lineSquareCount = Math.sqrt(this._figuresCache.length);
-
+           
             this._gameDrawer.drawSquares(lineSquareCount);
             this._gameDrawer.setDropFigureOnSquareHandler((fromCoord, toCoord) => {
                 this.moveFigureOnBoard(fromCoord, toCoord);
-                this._serverRepository.moveFigureOnServer(fromCoord, toCoord, (data) => this.showFiguresOnBoard(data));
+                this._serverRepository.moveFigureOnServer(this._oldBoardState, fromCoord, toCoord, (newBoardState) => this.showFiguresOnBoard(newBoardState));
             });
-            this.showFiguresOnBoard(data);
+            this.showFiguresOnBoard(defaultBoardState);
         });
     }
 
@@ -63,6 +65,9 @@ class Game {
     }
 
     private showFiguresOnBoard(boardState) {
+
+        this._oldBoardState = boardState;
+
         console.log(boardState);
 
         var figuresLength = this.getFiguresLength(boardState);
@@ -72,7 +77,7 @@ class Game {
         }
 
         if (boardState[figuresLength] === 'b') {
-            this._serverRepository.intellectStep((newsBoardState) => this.intellectStepCalculated(newsBoardState));
+            this._serverRepository.intellectStep(this._oldBoardState, (newsBoardState) => this.intellectStepCalculated(newsBoardState));
         }
     }
 

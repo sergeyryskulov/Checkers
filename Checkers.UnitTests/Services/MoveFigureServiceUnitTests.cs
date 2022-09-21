@@ -37,7 +37,7 @@ namespace Checkers.BL.Services.Tests
                 directMoveService.Object
             );
 
-            var actual = moveFigureService.Move(3, 0, "registrationid");
+            var actual = moveFigureService.Move(3, 0, "registrationid", "11P1w");
 
             boardRepository.Verify(m => m.Save("registrationid", "1Q" +
                                                                  "11W"));

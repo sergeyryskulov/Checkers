@@ -2,6 +2,6 @@
 {
     public interface IIntellectService
     {
-        string IntellectStep(string registrationId);
+        string IntellectStep(string registrationId, string boardState);
     }
 }

@@ -16,15 +16,14 @@ namespace Checkers.Controllers.Tests
         {
             var moveAndSaveFigureService = new Mock<IMoveFigureService>();
 
-            moveAndSaveFigureService.Setup(m => m.Move(3, 0, "registrationId")).Returns(
-                "1Q" +
-                "11W");
+            moveAndSaveFigureService.Setup(m => m.Move(3, 0, "registrationId", "oldBoardState")).Returns(
+                "newBoardState");
 
             var moveFigureController = new MoveFigureController(moveAndSaveFigureService.Object);
 
-            var actual = moveFigureController.Post(3, 0, "registrationId");
+            var actual = moveFigureController.Post(3, 0, "registrationId", "oldBoardState");
 
-            Assert.AreEqual("1Q11W", actual);
+            Assert.AreEqual("newBoardState", actual);
         }
     }
 }
