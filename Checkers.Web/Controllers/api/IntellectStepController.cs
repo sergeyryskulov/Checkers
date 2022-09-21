@@ -18,9 +18,9 @@ namespace Checkers.Web.Controllers.api
             _intellectService = intellectService;
         }
 
-        public string Post(string registrationId, string boardState)
+        public string Post(string boardState)
         {
-            return _intellectService.IntellectStep(registrationId, boardState);
+            return _intellectService.IntellectStep(boardState);
         }
     }
 }

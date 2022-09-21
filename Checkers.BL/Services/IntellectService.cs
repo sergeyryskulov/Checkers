@@ -13,21 +13,18 @@ using Ckeckers.DAL.Repositories;
 namespace Checkers.BL.Services
 {
     public class IntellectService : IIntellectService
-    {
-        private IBoardRepository _boardRepository;
-
+    {        
         private IStepIteratorService _stepIteratorService;
 
         private IPositionWeightService _positionWeightService;
 
-        public IntellectService(IBoardRepository boardRepository, IStepIteratorService stepIteratorService, IPositionWeightService positionWeightService)
-        {
-            _boardRepository = boardRepository;
+        public IntellectService(IStepIteratorService stepIteratorService, IPositionWeightService positionWeightService)
+        {            
             _stepIteratorService = stepIteratorService;
             _positionWeightService = positionWeightService;
         }
 
-        public string IntellectStep(string registrationId, string boardState)
+        public string IntellectStep(string boardState)
         {
             string boardStateString = boardState; //_boardRepository.Load(registrationId);
 
@@ -35,9 +32,7 @@ namespace Checkers.BL.Services
             
             var worstForWhiteVariant = nextStepVariants.OrderBy(t => GetBestWeightForWhite(t.ResultState)).First();
 
-            var resultStep = worstForWhiteVariant.FirstStepOfResultState;
-
-            _boardRepository.Save(registrationId, resultStep);
+            var resultStep = worstForWhiteVariant.FirstStepOfResultState;           
 
             return resultStep;
         }

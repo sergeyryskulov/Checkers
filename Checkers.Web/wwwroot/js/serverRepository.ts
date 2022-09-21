@@ -23,7 +23,6 @@
     }
 
     public intellectStep(boardState, callback) {
-
-        $.post('/api/intellectStep?registrationId=' + this._registrationId + '&boardState=' + boardState, callback);
+        $.post('/api/intellectStep?boardState=' + boardState, callback);
     }
 }

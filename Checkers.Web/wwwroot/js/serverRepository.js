@@ -18,7 +18,7 @@ var ServerRepository = /** @class */ (function () {
         $.post('/api/movefigure?fromCoord=' + fromCoord + '&toCoord=' + toCoord + '&registrationId=' + this._registrationId + '&boardState=' + boardState, callback);
     };
     ServerRepository.prototype.intellectStep = function (boardState, callback) {
-        $.post('/api/intellectStep?registrationId=' + this._registrationId + '&boardState=' + boardState, callback);
+        $.post('/api/intellectStep?boardState=' + boardState, callback);
     };
     return ServerRepository;
 }());
