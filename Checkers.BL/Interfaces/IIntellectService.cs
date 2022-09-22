@@ -2,6 +2,6 @@
 {
     public interface IIntellectService
     {
-        string IntellectStep(string boardState);
+        string CalculateStep(string boardState);
     }
 }

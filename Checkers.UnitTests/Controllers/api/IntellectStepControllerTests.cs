@@ -15,11 +15,11 @@ namespace Checkers.Web.Controllers.api.Tests
         public void PostTest()
         {
             var intellectService = new Mock<IIntellectService>();
-            intellectService.Setup(m => m.IntellectStep("oldBoardState")).Returns("newBoardState");
+            intellectService.Setup(m => m.CalculateStep("oldBoardState")).Returns("newBoardState");
 
-            var intellectStepController = new IntellectStepController(intellectService.Object);
+            var intellectController = new IntellectController(intellectService.Object);
 
-            var actual = intellectStepController.Post("oldBoardState");
+            var actual = intellectController.CalculateStep("oldBoardState");
 
             Assert.AreEqual("newBoardState", actual);
 

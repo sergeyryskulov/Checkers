@@ -4,10 +4,10 @@
 
     public moveFigureOnServer(boardState, fromCoord, toCoord, callback) {
 
-        $.post('/api/movefigure?fromCoord=' + fromCoord + '&toCoord=' + toCoord + '&registrationId=' + this._registrationId +'&boardState=' + boardState, callback);
+        $.post('/api/board/movefigure?fromCoord=' + fromCoord + '&toCoord=' + toCoord + '&registrationId=' + this._registrationId +'&boardState=' + boardState, callback);
     }
 
     public intellectStep(boardState, callback) {
-        $.post('/api/intellectStep?boardState=' + boardState, callback);
+        $.post('/api/intellect/calculatestep?boardState=' + boardState, callback);
     }
 }

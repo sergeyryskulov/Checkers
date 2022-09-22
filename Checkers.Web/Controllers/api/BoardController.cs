@@ -6,22 +6,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Checkers.BL.Services;
+using Checkers.Web.Controllers.api;
 
 namespace Checkers.Controllers
-{
-    [Route("api/[controller]")]
-    [ApiController]
-    public class MoveFigureController : ControllerBase
+{    
+    public class BoardController : BaseApiController
     {
         private IMoveFigureService _moveFigureService;
         
-        public MoveFigureController(IMoveFigureService moveFigureService)
+        public BoardController(IMoveFigureService moveFigureService)
         {
             _moveFigureService = moveFigureService;
-        }
+        }        
 
-
-        public string Post(int fromCoord, int toCoord, string boardState)
+        [HttpPost]
+        public string MoveFigure(string boardState, int fromCoord, int toCoord)
         {
             return _moveFigureService.Move(fromCoord, toCoord, boardState);
         }

@@ -6,21 +6,20 @@ using System.Threading.Tasks;
 using Checkers.BL.Services;
 
 namespace Checkers.Web.Controllers.api
-{
-    [Route("api/[controller]")]
-    [ApiController]
-    public class IntellectStepController : ControllerBase
+{    
+    public class IntellectController : BaseApiController
     {
         private IIntellectService _intellectService;
 
-        public IntellectStepController(IIntellectService intellectService)
+        public IntellectController(IIntellectService intellectService)
         {
             _intellectService = intellectService;
         }
 
-        public string Post(string boardState)
+        [HttpPost]
+        public string CalculateStep(string boardState)
         {
-            return _intellectService.IntellectStep(boardState);
+            return _intellectService.CalculateStep(boardState);
         }
     }
 }

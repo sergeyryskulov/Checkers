@@ -19,9 +19,9 @@ namespace Checkers.Controllers.Tests
             moveAndSaveFigureService.Setup(m => m.Move(3, 0,  "oldBoardState")).Returns(
                 "newBoardState");
 
-            var moveFigureController = new MoveFigureController(moveAndSaveFigureService.Object);
+            var moveFigureController = new BoardController(moveAndSaveFigureService.Object);
 
-            var actual = moveFigureController.Post(3, 0, "oldBoardState");
+            var actual = moveFigureController.MoveFigure("oldBoardState", 3, 0);
 
             Assert.AreEqual("newBoardState", actual);
         }
