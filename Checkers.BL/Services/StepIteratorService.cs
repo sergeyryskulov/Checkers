@@ -19,13 +19,12 @@ namespace Checkers.BL.Services
         }
 
 
-        public IEnumerable<NextStepVariant> GetNextStepVariants(string inputState)
-        {
-            var boardState = inputState.ToBoardState();
+        public IEnumerable<NextStepVariant> GetNextStepVariants(BoardState boardState)
+        {            
             string figures = boardState.Cells;
             var boardWidth = figures.Length.SquareRoot();
 
-            var stateWithNoChangeTurn = new List<string>();
+            var stateWithNoChangeTurn = new List<BoardState>();
 
             for (int fromCoord = 0; fromCoord < figures.Length; fromCoord++)
             {
@@ -38,9 +37,9 @@ namespace Checkers.BL.Services
                     (boardState.Turn == Turn.White && figures[fromCoord].ToFigureColor() == FigureColor.White
                     ))
                 {
-                    foreach (var newState in GetAllowedNextStates(inputState, fromCoord, figures, boardWidth))
+                    foreach (var newState in GetAllowedNextStates(boardState, fromCoord, figures, boardWidth))
                     {
-                        if (newState.Contains(boardState.Turn))
+                        if (newState.Turn==boardState.Turn)
                         {
                             stateWithNoChangeTurn.Add(newState);
                         }
@@ -71,15 +70,15 @@ namespace Checkers.BL.Services
 
         }
 
-        private List<string> GetAllowedNextStates(string inputState, int fromCoord, string figures, int boardWidth)
+        private List<BoardState> GetAllowedNextStates(BoardState inputState, int fromCoord, string figures, int boardWidth)
         {
-            List<string> result = new List<string>();
+            List<BoardState> result = new List<BoardState>();
             var allowedVectors = _validateFiguresService.GetAllowedMoveVectors(fromCoord, figures).Vectors;
             foreach (var allowedVector in allowedVectors)
             {
                 var toCoord = allowedVector.ToCoord(fromCoord, boardWidth);
-                var newState = _directMoveService.DirectMove(inputState.ToBoardState(), fromCoord, toCoord).ToBoardStateString();
-                if (inputState != newState)
+                var newState = _directMoveService.DirectMove(inputState, fromCoord, toCoord);
+                if (!inputState.Equals(newState))
                 {
                     result.Add(newState);
                 }

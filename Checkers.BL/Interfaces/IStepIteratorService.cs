@@ -5,6 +5,6 @@ namespace Checkers.BL.Services
 {
     public interface IStepIteratorService
     {
-        IEnumerable<NextStepVariant> GetNextStepVariants(string inputState);
+        IEnumerable<NextStepVariant> GetNextStepVariants(BoardState inputState);
     }
 }

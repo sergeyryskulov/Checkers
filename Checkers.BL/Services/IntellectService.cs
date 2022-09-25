@@ -25,26 +25,26 @@ namespace Checkers.BL.Services
 
         public string CalculateStep(string boardState)
         {            
-            var nextStepVariants = _stepIteratorService.GetNextStepVariants(boardState);
+            var nextStepVariants = _stepIteratorService.GetNextStepVariants(boardState.ToBoardState());
             
             var worstForWhiteVariant = nextStepVariants.OrderBy(t => GetBestWeightForWhite(t.ResultState)).First();
 
             var resultStep = worstForWhiteVariant.FirstStepOfResultState;           
 
-            return resultStep;
+            return resultStep.ToBoardStateString();
         }
 
-        int GetBestWeightForWhite(string state)
+        int GetBestWeightForWhite(BoardState state)
         {
             var nextWhiteVariants = _stepIteratorService.GetNextStepVariants(state);
 
-            var maximumWhite  = nextWhiteVariants.OrderByDescending(t => _positionWeightService.GetWeightForWhite(t.ResultState)).FirstOrDefault();
+            var maximumWhite  = nextWhiteVariants.OrderByDescending(t => _positionWeightService.GetWeightForWhite(t.ResultState.Cells)).FirstOrDefault();
             if (maximumWhite == null)
             {
                 return -100;
             }
 
-            return _positionWeightService.GetWeightForWhite(maximumWhite.ResultState);
+            return _positionWeightService.GetWeightForWhite(maximumWhite.ResultState.Cells);
         }
     }
 }

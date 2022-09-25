@@ -6,8 +6,8 @@ namespace Checkers.BL.Models
 {
     public class NextStepVariant
     {
-        public string ResultState;
+        public BoardState ResultState;
 
-        public string FirstStepOfResultState;
+        public BoardState FirstStepOfResultState;
     }
 }
