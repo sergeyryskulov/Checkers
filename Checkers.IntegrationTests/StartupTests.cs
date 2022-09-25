@@ -35,7 +35,7 @@ namespace Checkers.Tests
             //  Mimic internal asp.net core logic.
             //services.AddTransient<HomeController>();
 
-         
+
             foreach (var type in typeof(HomeController).Assembly.GetTypes().Where(t => t.Name.EndsWith("Controller") && !t.IsInterface))
             {
                 services.AddTransient(type);
@@ -45,8 +45,8 @@ namespace Checkers.Tests
 
             foreach (var type in typeof(HomeController).Assembly.GetTypes().Where(t => t.Name.EndsWith("Controller") && !t.IsInterface))
             {
-                 var controller = serviceProvider.GetService(type);
-                 Assert.IsNotNull(controller);
+                var controller = serviceProvider.GetService(type);
+                Assert.IsNotNull(controller);
             }
         }
 
@@ -57,6 +57,21 @@ namespace Checkers.Tests
             var callResult = client.GetAsync("/Game").Result;
             var callResultString = callResult.Content.ReadAsStringAsync().Result;
             Assert.IsTrue(callResultString.Contains("Игра"));
+        }
+
+        [TestMethod()]
+        public void SwaggerConfigTest()
+        {
+            Mock<IConfiguration> configurationStub = new Mock<IConfiguration>();
+
+            var options = new Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenOptions();
+
+            var target = new Startup(configurationStub.Object);
+            
+            target.SwaggerConfig(options);
+
+            Assert.IsNotNull(options);
+            
         }
     }
 }

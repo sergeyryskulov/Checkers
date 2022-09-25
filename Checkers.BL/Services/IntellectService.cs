@@ -23,15 +23,15 @@ namespace Checkers.BL.Services
             _positionWeightService = positionWeightService;
         }
 
-        public string CalculateStep(string boardState)
+        public BoardState CalculateStep(BoardState boardState)
         {            
-            var nextStepVariants = _stepIteratorService.GetNextStepVariants(boardState.ToBoardState());
+            var nextStepVariants = _stepIteratorService.GetNextStepVariants(boardState);
             
             var worstForWhiteVariant = nextStepVariants.OrderBy(t => GetBestWeightForWhite(t.ResultState)).First();
 
             var resultStep = worstForWhiteVariant.FirstStepOfResultState;           
 
-            return resultStep.ToBoardStateString();
+            return resultStep;
         }
 
         int GetBestWeightForWhite(BoardState state)

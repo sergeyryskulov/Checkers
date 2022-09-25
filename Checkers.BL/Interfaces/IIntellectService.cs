@@ -1,7 +1,9 @@
-﻿namespace Checkers.BL.Services
+﻿using Checkers.BL.Models;
+
+namespace Checkers.BL.Services
 {
     public interface IIntellectService
     {
-        string CalculateStep(string boardState);
+        BoardState CalculateStep(BoardState boardState);
     }
 }

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Checkers.BL.Services;
+using Checkers.BL.Extensions;
 
 namespace Checkers.Web.Controllers.api
 {    
@@ -19,7 +20,7 @@ namespace Checkers.Web.Controllers.api
         [HttpPost]
         public string CalculateStep(string boardState)
         {
-            return _intellectService.CalculateStep(boardState);
+            return _intellectService.CalculateStep(boardState.ToBoardState()).ToBoardStateString();
         }
     }
 }

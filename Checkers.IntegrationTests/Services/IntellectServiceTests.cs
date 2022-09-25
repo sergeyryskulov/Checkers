@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Checkers.BL.Constants;
 using Checkers.BL.Interfaces;
 using Moq;
+using Checkers.BL.Models;
 
 namespace Checkers.BL.Services.Tests
 {
@@ -19,12 +20,17 @@ namespace Checkers.BL.Services.Tests
         public void PawnToQueen()
         {
             AssertEqual(
-                "p1" +
-                "11b",
+                new BoardState(
+                    "p1" +
+                    "11",
+                    Turn.Black
+                ),
+                new BoardState(
 
-                "11" +
-                "1qB");
-
+                    "11" +
+                    "1q",
+                    Turn.BlackWin
+                ));
         }
 
 
@@ -32,6 +38,18 @@ namespace Checkers.BL.Services.Tests
         public void IntellectStep_NoWhiteMove()
         {
             AssertNotEqual(
+                new BoardState(
+                                    
+                    "1111111p" +
+                    "111111p1" +
+                    "1p111p1p" +
+                    "p11111p1" +
+                    "1p11111P" +
+                    "11111111" +
+                    "111P1111" +
+                    "11q11111",
+                     Turn.Black),                                
+                new BoardState(
                 "1111111p" +
                 "111111p1" +
                 "1p111p1p" +
@@ -39,16 +57,8 @@ namespace Checkers.BL.Services.Tests
                 "1p11111P" +
                 "11111111" +
                 "111P1111" +
-                "11q11111b",
-
-                "1111111p" +
-                "111111p1" +
-                "1p111p1p" +
-                "p11111p1" +
-                "1p11111P" +
-                "11111111" +
-                "111P1111" +
-                "11q11111b");
+                "11q11111",
+                Turn.Black));
         }
 
         [TestMethod()]
@@ -56,19 +66,23 @@ namespace Checkers.BL.Services.Tests
         {
 
             AssertEqual(
+                new BoardState(
                 "111111" +
                 "111111" +
                 "111111" +
                 "111111" +
                 "1p1p11" +
-                "P1P111w",
-
+                "P1P111",
+                Turn.White),
+                new BoardState(
                 "111111" +
                 "111111" +
                 "111111" +
                 "11P111" +
                 "111p11" +
-                "11P111w20");
+                "11P111",
+                Turn.White,
+                20));
 
         }
 
@@ -76,13 +90,16 @@ namespace Checkers.BL.Services.Tests
         public void IntellectStep_QueenWeightTest()
         {
             AssertEqual(
+                new BoardState(
                 "11Q" + 
                 "111" + 
-                "q11b",
-
+                "q11",
+                Turn.Black),
+                new BoardState(
                 "11Q" +
                 "1q1" +
-                "111w"
+                "111",
+                Turn.White)
             );
 
         }
@@ -93,6 +110,7 @@ namespace Checkers.BL.Services.Tests
         {
             
             AssertNotEqual(
+                new BoardState(
                 "1p1p1p1p" +
                 "p111p111" +
                 "1111111p" +
@@ -100,7 +118,10 @@ namespace Checkers.BL.Services.Tests
                 "11111111" +
                 "P11111P1" +
                 "1P1P1p11" +
-                "P1P1P1P1b53", 
+                "P1P1P1P1",
+                Turn.Black,
+                53),
+                new BoardState(
 
                 "1p1p1p1p" +
                 "p111p111" +
@@ -109,7 +130,9 @@ namespace Checkers.BL.Services.Tests
                 "11111111" +
                 "P11111P1" +
                 "1P1P1p11" +
-                "P1P1P1P1b53");
+                "P1P1P1P1",
+                Turn.Black,
+                53));
 
         }
 
@@ -137,24 +160,24 @@ namespace Checkers.BL.Services.Tests
                 new PositionWeightService());
         }
 
-        private void AssertEqual(string from, string to)
+        private void AssertEqual(BoardState from, BoardState to)
         {            
             var service = GetIntellectService();
 
-            string actual = service.CalculateStep(from);
+            var actual = service.CalculateStep(from);
 
-            string expected = to;
+            var expected = to;
 
             Assert.AreEqual(expected, actual);
         }
 
-        private void AssertNotEqual(string from, string to)
+        private void AssertNotEqual(BoardState from, BoardState to)
         {                        
             var service = GetIntellectService();
 
-            string actual = service.CalculateStep(from);
+            var actual = service.CalculateStep(from);
 
-            string expected = to;
+            var expected = to;
 
             Assert.AreNotEqual(expected, actual);
         }

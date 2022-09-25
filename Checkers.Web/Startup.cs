@@ -13,6 +13,7 @@ using Checkers.BL.Services;
 using Microsoft.OpenApi.Models;
 using System.IO;
 using System.Reflection;
+using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace Checkers
 {
@@ -40,17 +41,19 @@ namespace Checkers
                 }
             }
 
-            services.AddSwaggerGen(options =>
-            {
-                options.SwaggerDoc("v1", new OpenApiInfo
-                {
-                    Version = "v1",
-                });
+            services.AddSwaggerGen(SwaggerConfig);
+        }
 
-                // using System.Reflection;
-                var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
-                options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));
+        public void SwaggerConfig(SwaggerGenOptions options)
+        {
+            options.SwaggerDoc("v1", new OpenApiInfo
+            {
+                Version = "v1",
             });
+
+            // using System.Reflection;
+            var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+            options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
