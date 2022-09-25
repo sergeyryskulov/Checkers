@@ -42,11 +42,7 @@ namespace Checkers.Controllers
         /// </param>
         /// <param name="mustGoFrom">Необязательный параметр, используется для повторного хода. Если на предыдущем шаге была срублена шашка, и есть возможность срубить еще одну шашку, то это поле указывает номер клетки, на которую передвинулась рубящая шашка перед повторным ходом. Нумерация клеток идет с нуля, слева направо сверху вниз.</param>
         /// <param name="fromCoord">Номер клетки, на которой стоит фигура, которую нужно передвинуть. Нумерация клеток идет с нуля, слева направо сверху вниз.</param>
-        /// <param name="toCoord">Номер клетки, куда нужно передвинуть фигуры.</param>
-        /// 
-        /// 
-        /// <returns>A newly created TodoItem</returns>            
-        [ProducesResponseType(StatusCodes.Status200OK)]        
+        /// <param name="toCoord">Номер клетки, куда нужно передвинуть фигуры.</param>                                        
         [HttpPost]
         public BoardState MoveFigure(string cells, char turn, int? mustGoFrom, int fromCoord, int toCoord)
         {
