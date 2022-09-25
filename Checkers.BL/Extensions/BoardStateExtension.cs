@@ -12,7 +12,7 @@ namespace Checkers.BL.Extensions
         {
             char turn = boardState[boardState.Length - 1];
             string figures = boardState.Substring(0, boardState.Length - 1);
-            int mustCoord = -1;
+            int? mustCoord = null;
             if (turn != Turn.White && turn != Turn.Black && turn != Turn.WhiteWin && turn != Turn.BlackWin)
             {
                 figures = boardState.Split(new char[]
@@ -31,7 +31,7 @@ namespace Checkers.BL.Extensions
 
             return new BoardState()
             {
-                Figures = figures,
+                Cells = figures,
                 MustGoFrom = mustCoord,
                 Turn = turn
             };

@@ -4,6 +4,8 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Moq;
+using Checkers.BL.Models;
+using Checkers.BL.Constants;
 
 namespace Checkers.BL.Services.Tests
 {
@@ -19,8 +21,7 @@ namespace Checkers.BL.Services.Tests
             
             var directMoveService = new Mock<IDirectMoveService>();
             directMoveService.Setup(m => m.DirectMove(
-                "11" +
-                "P1w", 3, 0)).Returns(
+                It.Is<BoardState>(t=>t.Cells=="11P1" && t.Turn==Turn.White && t.MustGoFrom==null), 3, 0)).Returns(
                 "1Q" +
                 "11W");
 

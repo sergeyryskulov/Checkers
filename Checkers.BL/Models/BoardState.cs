@@ -6,10 +6,10 @@ namespace Checkers.BL.Models
 {
     public class BoardState
     {
-        public string Figures { get; set; }
+        public string Cells { get; set; }
 
-        public char Turn { get; set; }        
+        public char Turn { get; set; }
 
-        public int MustGoFrom { get; set; }
+        public int? MustGoFrom { get; set; }
     }
 }

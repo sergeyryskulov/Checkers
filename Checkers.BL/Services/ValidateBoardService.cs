@@ -22,13 +22,13 @@ namespace Checkers.BL.Services
 
             var boardState = boardStateString.ToBoardState();
 
-            string figures = boardState.Figures;
+            string figures = boardState.Cells;
 
             var boardWidth = figures.Length.SquareRoot();
 
             var vector = fromCoord.ToVector(toCoord, boardWidth);
 
-            var needStartFromOtherCoord = (boardState.MustGoFrom != -1 && boardState.MustGoFrom != fromCoord);
+            var needStartFromOtherCoord = (boardState.MustGoFrom != null && boardState.MustGoFrom != fromCoord);
             if (needStartFromOtherCoord)
             {
                 return false;

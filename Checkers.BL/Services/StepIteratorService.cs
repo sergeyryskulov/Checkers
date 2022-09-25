@@ -22,14 +22,14 @@ namespace Checkers.BL.Services
         public IEnumerable<NextStepVariant> GetNextStepVariants(string inputState)
         {
             var boardState = inputState.ToBoardState();
-            string figures = boardState.Figures;
+            string figures = boardState.Cells;
             var boardWidth = figures.Length.SquareRoot();
 
             var stateWithNoChangeTurn = new List<string>();
 
             for (int fromCoord = 0; fromCoord < figures.Length; fromCoord++)
             {
-                if (boardState.MustGoFrom != -1 && fromCoord != boardState.MustGoFrom)
+                if (boardState.MustGoFrom != null && fromCoord != boardState.MustGoFrom)
                 {
                     continue;
                 }
@@ -78,7 +78,7 @@ namespace Checkers.BL.Services
             foreach (var allowedVector in allowedVectors)
             {
                 var toCoord = allowedVector.ToCoord(fromCoord, boardWidth);
-                var newState = _directMoveService.DirectMove(inputState, fromCoord, toCoord);
+                var newState = _directMoveService.DirectMove(inputState.ToBoardState(), fromCoord, toCoord);
                 if (inputState != newState)
                 {
                     result.Add(newState);

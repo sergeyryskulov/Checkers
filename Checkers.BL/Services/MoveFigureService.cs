@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Checkers.BL.Extensions;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -22,7 +23,7 @@ namespace Checkers.BL.Services
                 return boardState;
             }
 
-            var newState = _directMoveService.DirectMove(boardState, fromCoord, toCoord);                        
+            var newState = _directMoveService.DirectMove(boardState.ToBoardState(), fromCoord, toCoord);                        
             
             return newState;
         }

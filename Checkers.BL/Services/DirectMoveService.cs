@@ -17,11 +17,9 @@ namespace Checkers.BL.Services
             _validateEatService = validateEatService;
         }
 
-        public string DirectMove(string boardStateString, int fromCoord, int toCoord)
-        {
-            var boardState = boardStateString.ToBoardState();
-
-            string figures = boardState.Figures;
+        public string DirectMove(BoardState boardState, int fromCoord, int toCoord)
+        {            
+            string figures = boardState.Cells;
 
             var boardWidth = figures.Length.SquareRoot();
 
