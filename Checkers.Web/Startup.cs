@@ -10,6 +10,9 @@ using System.Linq;
 using System.Threading.Tasks;
 
 using Checkers.BL.Services;
+using Microsoft.OpenApi.Models;
+using System.IO;
+using System.Reflection;
 
 namespace Checkers
 {
@@ -35,7 +38,19 @@ namespace Checkers
                 {
                     services.AddTransient(typeInterface, type);
                 }
-            }                        
+            }
+
+            services.AddSwaggerGen(options =>
+            {
+                options.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Version = "v1",
+                });
+
+                // using System.Reflection;
+                var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -56,6 +71,12 @@ namespace Checkers
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+            });
+
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("v1/swagger.json", "My API V1");
             });
         }
     }
