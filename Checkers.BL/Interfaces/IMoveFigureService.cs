@@ -1,7 +1,9 @@
-﻿namespace Checkers.BL.Services
+﻿using Checkers.BL.Models;
+
+namespace Checkers.BL.Services
 {
     public interface IMoveFigureService
     {
-        string Move(int fromCoord, int toCoord, string boardState);
+        BoardState Move(int fromCoord, int toCoord, BoardState boardState);
     }
 }

@@ -35,9 +35,10 @@ namespace Checkers.BL.Services.Tests
                 directMoveService.Object
             );
 
-            var actual = moveFigureService.Move(3, 0,  "11P1w");          
+            var actual = moveFigureService.Move(3, 0,  
+                new BoardState("11P1",Turn.White));          
             
-            Assert.AreEqual("1Q11W", actual);
+            Assert.AreEqual(new BoardState("1Q11", Turn.WhiteWin), actual);
         }
     }
 }

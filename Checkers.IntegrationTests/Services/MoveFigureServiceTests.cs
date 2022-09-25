@@ -6,6 +6,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Moq;
+using Checkers.BL.Models;
+using Checkers.BL.Constants;
 
 namespace Checkers.BL.Services.Tests
 {
@@ -17,34 +19,45 @@ namespace Checkers.BL.Services.Tests
         public void PawnToQueen()
         {
             AssertMove(
+                new BoardState(
                 "p1" +
-                "11b",
+                "11",
+                Turn.Black),
                 0, 3,
+                new BoardState(
                 "11" +
-                "1qB");
+                "1q",
+                Turn.BlackWin));
         }
 
         [TestMethod()]
         public void PawnCannotMoveToSelf()
         {
             AssertMove(
+                new BoardState(
                 "p1" +
-                "11b",
+                "11",
+                Turn.Black),
                 0, 0,
+                new BoardState(
                 "p1" +
-                "11b");
+                "11",
+                Turn.Black));
         }
 
         [TestMethod()]
         public void QueenCannotMoveToSelf()
         {
             AssertMove(
+                new BoardState(
                 "q1" +
-                "11b",
+                "11",
+                Turn.Black),
                 0, 0,
+                new BoardState(
                 "q1" +
-                "11b"
-                );
+                "11",
+                Turn.Black));
         }
 
 
@@ -52,13 +65,17 @@ namespace Checkers.BL.Services.Tests
         public void PawnEatPawn()
         {
             AssertMove(
+                new BoardState(
                 "111" + 
                 "1p1" + 
-                "P11w",
+                "P11",
+                Turn.White),
                 6, 2,
+                new BoardState(
                 "11Q" +
                 "111" +
-                "111W"
+                "111",
+                Turn.WhiteWin)
             );
         }
 
@@ -67,39 +84,49 @@ namespace Checkers.BL.Services.Tests
         public void TurnNotToggledAfterPawnMove()
         {
             AssertMove(
+                new BoardState(
                 "111111" +
                 "111111" +
                 "P11p11" +
                 "111111" +
                 "1p1111" +
-                "P11111w",
+                "P11111",
+                Turn.White),
                 30, 20,
+                new BoardState(
                 "" +
                 "111111" +
                 "111111" +
                 "P11p11" +
                 "11P111" +
                 "111111" +
-                "111111w20");
+                "111111",
+                Turn.White,
+                20));
         }
 
         [TestMethod()]
         public void TurnNotToggleAfterQueenMove()
         {
             AssertMove(
+                new BoardState(
                 "111Q11" +
                 "111111" +
                 "1p1111" +
                 "111111" +
                 "1p1111" +
-                "111111w",
+                "111111",
+                Turn.White),
                 3, 18,
+                new BoardState(
                 "111111" +
                 "111111" +
                 "111111" +
                 "Q11111" +
                 "1p1111" +
-                "111111w18"
+                "111111",
+                Turn.White,
+                18)
 
             );
         }
@@ -120,11 +147,11 @@ namespace Checkers.BL.Services.Tests
 
         }
 
-        private void AssertMove(string from, int fromCoord, int toCoord, string expected)
+        private void AssertMove(BoardState from, int fromCoord, int toCoord, BoardState expected)
         {            
             var moveService = CreateMoveFigureService();
 
-            string actual = moveService.Move(fromCoord, toCoord, from);
+            var actual = moveService.Move(fromCoord, toCoord, from);
 
             Assert.AreEqual(expected, actual);
         }
@@ -133,19 +160,26 @@ namespace Checkers.BL.Services.Tests
         public void BlockedByOtherFigureThatMustMove()
         {
             AssertMove(
+
+                new BoardState(
                 "111111" +
                 "1p1111" +
                 "P11111" +
                 "11P111" +
                 "111111" +
-                "111111w20",
+                "111111",
+                Turn.White,
+                20),
                 12, 2,
+                new BoardState(
                 "111111" +
                 "1p1111" +
                 "P11111" +
                 "11P111" +
                 "111111" +
-                "111111w20");
+                "111111",
+                Turn.White,
+                20));
         }
 
 
@@ -153,14 +187,18 @@ namespace Checkers.BL.Services.Tests
         public void CannotMoveOnOtherColorTurn()
         {
             AssertMove(
+                new BoardState(
                 "111" +
                 "1p1" +
-                "P11b",
+                "P11",
+                Turn.Black),
                 6, 2,
+                new BoardState(
                 "111" +
                 "1p1" +
-                "P11b"
-                );
+                "P11",
+                Turn.Black
+                ));
         }
 
         [TestMethod()]
@@ -168,13 +206,17 @@ namespace Checkers.BL.Services.Tests
         {
 
             AssertMove(
+                new BoardState(
                 "111" +
                 "1p1" +
-                "P11w",
+                "P11",
+                Turn.White),
                 6, 4,
+                new BoardState(
                 "111" +
                 "1p1" +
-                "P11w");
+                "P11",
+                Turn.White));
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Checkers.BL.Extensions;
+using Checkers.BL.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -16,17 +17,17 @@ namespace Checkers.BL.Services
             _directMoveService = directMoveService;
         }
 
-        public string Move(int fromCoord, int toCoord, string boardState)
+        public BoardState Move(int fromCoord, int toCoord, BoardState boardState)
         {            
 
-            if (!_validateBoardService.CanMove(boardState.ToBoardState(), fromCoord, toCoord))
+            if (!_validateBoardService.CanMove(boardState, fromCoord, toCoord))
             {
                 return boardState;
             }
 
-            var newState = _directMoveService.DirectMove(boardState.ToBoardState(), fromCoord, toCoord);                        
+            var newState = _directMoveService.DirectMove(boardState, fromCoord, toCoord);                        
             
-            return newState.ToBoardStateString();
+            return newState;
         }
     }
 }

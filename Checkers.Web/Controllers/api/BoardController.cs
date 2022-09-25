@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Checkers.BL.Services;
 using Checkers.Web.Controllers.api;
 using Swashbuckle.Swagger.Annotations;
+using Checkers.BL.Extensions;
 
 namespace Checkers.Controllers
 {   
@@ -43,7 +44,7 @@ namespace Checkers.Controllers
         [HttpPost]
         public string MoveFigure(string boardState, int fromCoord, int toCoord)
         {
-            return _moveFigureService.Move(fromCoord, toCoord, boardState);
+            return _moveFigureService.Move(fromCoord, toCoord, boardState.ToBoardState()).ToBoardStateString();
         }
     }
 }
