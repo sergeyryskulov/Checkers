@@ -17,7 +17,7 @@ namespace Checkers.BL.Services
             _validateEatService = validateEatService;
         }
 
-        public string DirectMove(BoardState boardState, int fromCoord, int toCoord)
+        public BoardState DirectMove(BoardState boardState, int fromCoord, int toCoord)
         {            
             string figures = boardState.Cells;
 
@@ -90,7 +90,13 @@ namespace Checkers.BL.Services
             var resultState =
                 toggleTurn ? newFigures + nextTurn : newFigures + nextTurn + toCoord;
 
-            return resultState;
+            return new BoardState()
+            {
+                Cells = newFigures,
+                Turn = nextTurn,
+                MustGoFrom = toggleTurn ? null : (int?)toCoord
+            };
+            
         }
     }
 }

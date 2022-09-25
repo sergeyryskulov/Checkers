@@ -12,7 +12,7 @@ namespace Checkers.BL.Models
         public Direction Direction;
 
         public int Length;
-
+      
         public override bool Equals(object obj)
         {
             if (obj==null || !(obj is Vector))

@@ -23,8 +23,11 @@ namespace Checkers.BL.Services.Tests
             var directMoveService = new Mock<IDirectMoveService>();
             directMoveService.Setup(m => m.DirectMove(
                 It.Is<BoardState>(t=>t.Cells=="11P1" && t.Turn==Turn.White && t.MustGoFrom==null), 3, 0)).Returns(
-                "1Q" +
-                "11W");
+                new BoardState()
+                {
+                    Cells="1Q11",
+                    Turn=Turn.WhiteWin
+                });
 
 
             var moveFigureService = new MoveFigureService(                

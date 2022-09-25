@@ -26,7 +26,7 @@ namespace Checkers.BL.Services
 
             var newState = _directMoveService.DirectMove(boardState.ToBoardState(), fromCoord, toCoord);                        
             
-            return newState;
+            return newState.ToBoardStateString();
         }
     }
 }

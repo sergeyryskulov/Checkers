@@ -4,6 +4,6 @@ namespace Checkers.BL.Services
 {
     public interface IDirectMoveService
     {
-        string DirectMove(BoardState boardState, int fromCoord, int toCoord);
+        BoardState DirectMove(BoardState boardState, int fromCoord, int toCoord);
     }
 }

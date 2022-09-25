@@ -36,5 +36,10 @@ namespace Checkers.BL.Extensions
                 Turn = turn
             };
         }
+
+        public static string ToBoardStateString(this BoardState boardState)
+        {
+            return boardState.Cells + boardState.Turn + boardState.MustGoFrom;
+        }
     }
 }

@@ -78,7 +78,7 @@ namespace Checkers.BL.Services
             foreach (var allowedVector in allowedVectors)
             {
                 var toCoord = allowedVector.ToCoord(fromCoord, boardWidth);
-                var newState = _directMoveService.DirectMove(inputState.ToBoardState(), fromCoord, toCoord);
+                var newState = _directMoveService.DirectMove(inputState.ToBoardState(), fromCoord, toCoord).ToBoardStateString();
                 if (inputState != newState)
                 {
                     result.Add(newState);
