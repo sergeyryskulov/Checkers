@@ -23,9 +23,10 @@ namespace Checkers.Controllers.Tests
 
             var moveFigureController = new BoardController(moveAndSaveFigureService.Object);
 
-            var actual = moveFigureController.MoveFigure("p111b0", 3, 0);
+            var actual = moveFigureController.MoveFigure("p111", Turn.Black, null, 3, 0);
 
-            Assert.AreEqual("111qb", actual);
+            Assert.AreEqual("111q", actual.Cells);
+            Assert.AreEqual(Turn.Black, actual.Turn);
         }
     }
 }

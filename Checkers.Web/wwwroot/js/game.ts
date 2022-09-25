@@ -8,33 +8,33 @@ class Game {
 
     private _figuresCache : Array<string>;
 
-    private _oldBoardState: string;
+    private _oldBoardState: BoardState;
 
     initGame() {
         this._serverRepository = new ServerRepository();
 
         this._gameDrawer = new GameDrawer();
 
-        let defaultBoardState = "1p1p1p1pp1p1p1p11p1p1p1p1111111111111111P1P1P1P11P1P1P1PP1P1P1P1w";
-
-        if (window.location.href.split('?pos=').length === 2) {
-            defaultBoardState = window.location.href.split('?pos=')[1];
-        }
+        let defaultBoardState = new BoardState();
+        defaultBoardState.cells = "1p1p1p1pp1p1p1p11p1p1p1p1111111111111111P1P1P1P11P1P1P1PP1P1P1P1";
+        defaultBoardState.turn = 'w';
+        defaultBoardState.mustGoFrom = null;
+       
 
         this._gameDrawer.setNewGameClickHandler(() => this.showFiguresOnBoard(defaultBoardState));
 
         this.initBoard(defaultBoardState);       
     }
 
-    private initBoard(defaultBoardState : string) {
-        
-        this._figuresCache = new Array(defaultBoardState.length - 1);
+    private initBoard(defaultBoardState : BoardState) {
+
+        this._figuresCache = new Array(defaultBoardState.cells.length);
         let lineSquareCount = Math.sqrt(this._figuresCache.length);
 
         this._gameDrawer.drawSquares(lineSquareCount);
         this._gameDrawer.setDropFigureOnSquareHandler((fromCoord, toCoord) => {
             this.moveFigureOnBoard(fromCoord, toCoord);
-            this._serverRepository.moveFigureOnServer(this._oldBoardState, fromCoord, toCoord, (newBoardState) => this.showFiguresOnBoard(newBoardState));
+            this._serverRepository.moveFigureOnServer(this._oldBoardState, fromCoord, toCoord, (newBoardState : BoardState) => this.showFiguresOnBoard(newBoardState));
         });
         this.showFiguresOnBoard(defaultBoardState);
         
@@ -45,49 +45,35 @@ class Game {
         this.showFigureAt(fromCoord, '1');
         this.showFigureAt(toCoord, figure);
     }
-
-    private getFiguresLength(boardState: string) {
-        var figuresLength = boardState.length - 1;
-        if (boardState[boardState.length - 1] !== 'w' &&
-            boardState[boardState.length - 1] !== 'W' &&
-            boardState[boardState.length - 1] !== 'b' &&
-            boardState[boardState.length - 1] !== 'B') {
-
-            figuresLength = Math.max(boardState.indexOf('w'), boardState.indexOf('W'), boardState.indexOf('b'), boardState.indexOf('B'));
-        }
-        return figuresLength;
-    }
-
-    private showFiguresOnBoard(boardState) {
+   
+    private showFiguresOnBoard(boardState : BoardState) {
 
         this._oldBoardState = boardState;
 
         console.log(boardState);
-
-        var figuresLength = this.getFiguresLength(boardState);
-
-        for (let coord = 0; coord < figuresLength; coord++) {
-            this.showFigureAt(coord, boardState[coord]);
+        
+        for (let coord = 0; coord < boardState.cells.length; coord++) {
+            this.showFigureAt(coord, boardState.cells[coord]);
         }
 
-        if (boardState[figuresLength] === 'b') {
+        if (boardState.turn === 'b') {
             this._serverRepository.intellectStep(this._oldBoardState, (newsBoardState) => this.intellectStepCalculated(newsBoardState));
         }
     }
 
-    private intellectStepCalculated(newBoardState: string) {
+    private intellectStepCalculated(newBoardState: BoardState) {
 
         let fromFigureCoord = -1;
         let toFigureCoord = -1;
 
-        for (let coord = 0; coord < this.getFiguresLength(newBoardState); coord++) {
+        for (let coord = 0; coord < newBoardState.cells.length; coord++) {
             if (
-                newBoardState[coord] == '1' &&
+                newBoardState.cells[coord] == '1' &&
                 (this._figuresCache[coord] == 'p' || this._figuresCache[coord] == 'q')) {
                 fromFigureCoord = coord;
             }
             if (
-                (newBoardState[coord] == 'p' || newBoardState[coord] == 'q') && (this._figuresCache[coord] == '1')) {
+                (newBoardState.cells[coord] == 'p' || newBoardState.cells[coord] == 'q') && (this._figuresCache[coord] == '1')) {
                 toFigureCoord = coord;
             }
 

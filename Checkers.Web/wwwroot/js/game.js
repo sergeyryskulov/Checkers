@@ -6,16 +6,16 @@ var Game = /** @class */ (function () {
         var _this = this;
         this._serverRepository = new ServerRepository();
         this._gameDrawer = new GameDrawer();
-        var defaultBoardState = "1p1p1p1pp1p1p1p11p1p1p1p1111111111111111P1P1P1P11P1P1P1PP1P1P1P1w";
-        if (window.location.href.split('?pos=').length === 2) {
-            defaultBoardState = window.location.href.split('?pos=')[1];
-        }
+        var defaultBoardState = new BoardState();
+        defaultBoardState.cells = "1p1p1p1pp1p1p1p11p1p1p1p1111111111111111P1P1P1P11P1P1P1PP1P1P1P1";
+        defaultBoardState.turn = 'w';
+        defaultBoardState.mustGoFrom = null;
         this._gameDrawer.setNewGameClickHandler(function () { return _this.showFiguresOnBoard(defaultBoardState); });
         this.initBoard(defaultBoardState);
     };
     Game.prototype.initBoard = function (defaultBoardState) {
         var _this = this;
-        this._figuresCache = new Array(defaultBoardState.length - 1);
+        this._figuresCache = new Array(defaultBoardState.cells.length);
         var lineSquareCount = Math.sqrt(this._figuresCache.length);
         this._gameDrawer.drawSquares(lineSquareCount);
         this._gameDrawer.setDropFigureOnSquareHandler(function (fromCoord, toCoord) {
@@ -29,25 +29,14 @@ var Game = /** @class */ (function () {
         this.showFigureAt(fromCoord, '1');
         this.showFigureAt(toCoord, figure);
     };
-    Game.prototype.getFiguresLength = function (boardState) {
-        var figuresLength = boardState.length - 1;
-        if (boardState[boardState.length - 1] !== 'w' &&
-            boardState[boardState.length - 1] !== 'W' &&
-            boardState[boardState.length - 1] !== 'b' &&
-            boardState[boardState.length - 1] !== 'B') {
-            figuresLength = Math.max(boardState.indexOf('w'), boardState.indexOf('W'), boardState.indexOf('b'), boardState.indexOf('B'));
-        }
-        return figuresLength;
-    };
     Game.prototype.showFiguresOnBoard = function (boardState) {
         var _this = this;
         this._oldBoardState = boardState;
         console.log(boardState);
-        var figuresLength = this.getFiguresLength(boardState);
-        for (var coord = 0; coord < figuresLength; coord++) {
-            this.showFigureAt(coord, boardState[coord]);
+        for (var coord = 0; coord < boardState.cells.length; coord++) {
+            this.showFigureAt(coord, boardState.cells[coord]);
         }
-        if (boardState[figuresLength] === 'b') {
+        if (boardState.turn === 'b') {
             this._serverRepository.intellectStep(this._oldBoardState, function (newsBoardState) { return _this.intellectStepCalculated(newsBoardState); });
         }
     };
@@ -55,12 +44,12 @@ var Game = /** @class */ (function () {
         var _this = this;
         var fromFigureCoord = -1;
         var toFigureCoord = -1;
-        for (var coord = 0; coord < this.getFiguresLength(newBoardState); coord++) {
-            if (newBoardState[coord] == '1' &&
+        for (var coord = 0; coord < newBoardState.cells.length; coord++) {
+            if (newBoardState.cells[coord] == '1' &&
                 (this._figuresCache[coord] == 'p' || this._figuresCache[coord] == 'q')) {
                 fromFigureCoord = coord;
             }
-            if ((newBoardState[coord] == 'p' || newBoardState[coord] == 'q') && (this._figuresCache[coord] == '1')) {
+            if ((newBoardState.cells[coord] == 'p' || newBoardState.cells[coord] == 'q') && (this._figuresCache[coord] == '1')) {
                 toFigureCoord = coord;
             }
         }

@@ -27,9 +27,11 @@ namespace Checkers.Web.Controllers.api.Tests
 
             var intellectController = new IntellectController(intellectService.Object);
 
-            var actual = intellectController.CalculateStep("p111b");
+            var actual = intellectController.CalculateStep("p111", Turn.Black, null);
 
-            Assert.AreEqual("111QB", actual);
+            Assert.AreEqual("111Q", actual.Cells);
+            Assert.AreEqual(Turn.BlackWin, actual.Turn);
+            Assert.IsNull(actual.MustGoFrom);
 
         }
     }
