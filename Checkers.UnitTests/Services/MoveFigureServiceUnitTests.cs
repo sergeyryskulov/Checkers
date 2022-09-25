@@ -16,7 +16,8 @@ namespace Checkers.BL.Services.Tests
         public void MoveFigureTest()
         {          
             var validateBoardService = new Mock<IValidateBoardService>();
-            validateBoardService.Setup(m => m.CanMove("11P1w", 3, 0)).Returns(true);
+            validateBoardService.Setup(m => m.CanMove(
+                It.Is<BoardState>(t=>t.Cells=="11P1" && t.Turn==Turn.White && t.MustGoFrom==null), 3, 0)).Returns(true);
 
             
             var directMoveService = new Mock<IDirectMoveService>();

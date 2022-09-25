@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Checkers.BL.Constants;
 using Checkers.BL.Extensions;
+using Checkers.BL.Models;
 
 namespace Checkers.BL.Services
 {
@@ -17,11 +18,8 @@ namespace Checkers.BL.Services
         }
 
 
-        public bool CanMove(string boardStateString, int fromCoord, int toCoord)
-        {
-
-            var boardState = boardStateString.ToBoardState();
-
+        public bool CanMove(BoardState boardState, int fromCoord, int toCoord)
+        {            
             string figures = boardState.Cells;
 
             var boardWidth = figures.Length.SquareRoot();

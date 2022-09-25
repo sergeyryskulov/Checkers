@@ -1,7 +1,9 @@
-﻿namespace Checkers.BL.Services
+﻿using Checkers.BL.Models;
+
+namespace Checkers.BL.Services
 {
     public interface IValidateBoardService
     {
-        bool CanMove(string boardStateString, int fromCoord, int toCoord);
+        bool CanMove(BoardState boardState, int fromCoord, int toCoord);
     }
 }

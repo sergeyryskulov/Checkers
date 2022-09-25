@@ -18,7 +18,8 @@ namespace Checkers.BL.Services
 
         public string Move(int fromCoord, int toCoord, string boardState)
         {            
-            if (!_validateBoardService.CanMove(boardState, fromCoord, toCoord))
+
+            if (!_validateBoardService.CanMove(boardState.ToBoardState(), fromCoord, toCoord))
             {
                 return boardState;
             }
