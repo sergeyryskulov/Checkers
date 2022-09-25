@@ -29,7 +29,7 @@ namespace Checkers.BL.Services
 
             for (int fromCoord = 0; fromCoord < figures.Length; fromCoord++)
             {
-                if (boardState.MustCoord != -1 && fromCoord != boardState.MustCoord)
+                if (boardState.MustGoFrom != -1 && fromCoord != boardState.MustGoFrom)
                 {
                     continue;
                 }

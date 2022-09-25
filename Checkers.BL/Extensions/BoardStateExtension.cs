@@ -32,7 +32,7 @@ namespace Checkers.BL.Extensions
             return new BoardState()
             {
                 Figures = figures,
-                MustCoord = mustCoord,
+                MustGoFrom = mustCoord,
                 Turn = turn
             };
         }

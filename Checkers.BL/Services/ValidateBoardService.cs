@@ -28,7 +28,7 @@ namespace Checkers.BL.Services
 
             var vector = fromCoord.ToVector(toCoord, boardWidth);
 
-            var needStartFromOtherCoord = (boardState.MustCoord != -1 && boardState.MustCoord != fromCoord);
+            var needStartFromOtherCoord = (boardState.MustGoFrom != -1 && boardState.MustGoFrom != fromCoord);
             if (needStartFromOtherCoord)
             {
                 return false;
