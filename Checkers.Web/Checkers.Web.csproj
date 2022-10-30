@@ -29,10 +29,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Checkers.Intellect\Checkers.Intellect.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Folder Include="Models\" />
     <Folder Include="Views\Home\" />
   </ItemGroup>
@@ -40,6 +36,11 @@
   <ItemGroup>
     <PackageReference Include="Swashbuckle" Version="5.6.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Checkers.Core\Checkers.Core.csproj" />
+    <ProjectReference Include="..\Infrastructure\Checkers.Intellect\Checkers.Intellect.csproj" />
   </ItemGroup>
 
   <ItemGroup>

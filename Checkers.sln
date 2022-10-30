@@ -12,8 +12,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documents", "Documents", "{
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Checkers.Web", "Checkers.Web\Checkers.Web.csproj", "{857CD534-1481-44CF-9744-70C0232DA459}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Checkers.Intellect", "Checkers.Intellect\Checkers.Intellect.csproj", "{1BD50D47-C003-4FFB-8D0E-A2E59C6291F7}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Checkers.Core", "Checkers.Core\Checkers.Core.csproj", "{E984A629-DD2A-45A7-9BBC-F0583F69FC11}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{ADE67125-5CA6-47C9-890F-324452377239}"
@@ -21,6 +19,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Checkers.UnitTests", "Tests\Checkers.UnitTests\Checkers.UnitTests.csproj", "{BF55C9D6-2C90-4D68-A709-59387431CE75}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Checkers.IntegrationTests", "Tests\Checkers.IntegrationTests\Checkers.IntegrationTests.csproj", "{87DFE2F6-A386-49DB-98FB-A665951E9557}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Checkers.Intellect", "Infrastructure\Checkers.Intellect\Checkers.Intellect.csproj", "{134E704D-E4CF-4771-88E1-C5A5C78AB7D8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -32,10 +32,6 @@ Global
 		{857CD534-1481-44CF-9744-70C0232DA459}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{857CD534-1481-44CF-9744-70C0232DA459}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{857CD534-1481-44CF-9744-70C0232DA459}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1BD50D47-C003-4FFB-8D0E-A2E59C6291F7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1BD50D47-C003-4FFB-8D0E-A2E59C6291F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1BD50D47-C003-4FFB-8D0E-A2E59C6291F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1BD50D47-C003-4FFB-8D0E-A2E59C6291F7}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E984A629-DD2A-45A7-9BBC-F0583F69FC11}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{E984A629-DD2A-45A7-9BBC-F0583F69FC11}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E984A629-DD2A-45A7-9BBC-F0583F69FC11}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -48,14 +44,18 @@ Global
 		{87DFE2F6-A386-49DB-98FB-A665951E9557}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{87DFE2F6-A386-49DB-98FB-A665951E9557}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{87DFE2F6-A386-49DB-98FB-A665951E9557}.Release|Any CPU.Build.0 = Release|Any CPU
+		{134E704D-E4CF-4771-88E1-C5A5C78AB7D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{134E704D-E4CF-4771-88E1-C5A5C78AB7D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{134E704D-E4CF-4771-88E1-C5A5C78AB7D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{134E704D-E4CF-4771-88E1-C5A5C78AB7D8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{1BD50D47-C003-4FFB-8D0E-A2E59C6291F7} = {ADE67125-5CA6-47C9-890F-324452377239}
 		{BF55C9D6-2C90-4D68-A709-59387431CE75} = {0DA0C6BF-F8D7-41F8-BE7C-207C7A0DA93E}
 		{87DFE2F6-A386-49DB-98FB-A665951E9557} = {0DA0C6BF-F8D7-41F8-BE7C-207C7A0DA93E}
+		{134E704D-E4CF-4771-88E1-C5A5C78AB7D8} = {ADE67125-5CA6-47C9-890F-324452377239}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DDDFEF2B-F556-403F-BB39-51579937443B}
