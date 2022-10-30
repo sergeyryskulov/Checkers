@@ -18,6 +18,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Checkers.UnitTests", "Check
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Checkers.Web", "Checkers.Web\Checkers.Web.csproj", "{857CD534-1481-44CF-9744-70C0232DA459}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Checkers.Intellect", "Checkers.Intellect\Checkers.Intellect.csproj", "{1BD50D47-C003-4FFB-8D0E-A2E59C6291F7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -40,6 +42,10 @@ Global
 		{857CD534-1481-44CF-9744-70C0232DA459}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{857CD534-1481-44CF-9744-70C0232DA459}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{857CD534-1481-44CF-9744-70C0232DA459}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1BD50D47-C003-4FFB-8D0E-A2E59C6291F7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1BD50D47-C003-4FFB-8D0E-A2E59C6291F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1BD50D47-C003-4FFB-8D0E-A2E59C6291F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1BD50D47-C003-4FFB-8D0E-A2E59C6291F7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
