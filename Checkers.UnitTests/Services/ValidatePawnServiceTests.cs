@@ -20,11 +20,7 @@ namespace Checkers.BL.Services.Tests
                                                                           "1P1" +
                                                                           "p11" +
                                                                           "111");
-            var expected = new AllowedVectors()
-            {
-                EatFigure = false,
-                Vectors = new List<Vector>()
-            };
+            var expected = new AllowedVectors();
             AllowedVectorsAssert.AreEquivalent(expected, actual);
         }
 
@@ -33,14 +29,12 @@ namespace Checkers.BL.Services.Tests
         {
             var actual = CreateValidateService().GetAllowedMoveVectors(2, "11P1"); ;
 
-            var expected = new AllowedVectors()
-            {
-                EatFigure = false,
-                Vectors = new List<Vector>()
+            var expected = new AllowedVectors(
+                new List<Vector>()
                 {
                     new Vector(Direction.RightTop, 1)
-                }
-            };
+                },
+                false);
 
             AllowedVectorsAssert.AreEquivalent(expected, actual);
         }
@@ -54,14 +48,12 @@ namespace Checkers.BL.Services.Tests
                                                                           "1p1" +
                                                                           "11P");
 
-            var expected = new AllowedVectors()
-            {
-                EatFigure = true,
-                Vectors = new List<Vector>()
+            var expected = new AllowedVectors(
+                new List<Vector>()
                 {
                     new Vector(Direction.LeftTop, 2)
-                }
-            };
+                },
+                true);
 
             AllowedVectorsAssert.AreEquivalent(expected, actual);
         }
@@ -75,14 +67,13 @@ namespace Checkers.BL.Services.Tests
                                                                       "1p1" +
                                                                       "111");
 
-            var expected = new AllowedVectors()
-            {
-                EatFigure = true,
-                Vectors = new List<Vector>()
+            var expected = new AllowedVectors(
+                new List<Vector>()
                 {
                     new Vector(Direction.RightBottom, 2)
-                }
-            };
+                },
+                true);
+
             AllowedVectorsAssert.AreEquivalent(expected, actual);
             
         }
@@ -97,11 +88,7 @@ namespace Checkers.BL.Services.Tests
                                                                       "1111" +
                                                                       "1111");
 
-            var expected = new AllowedVectors()
-            {
-                EatFigure = false,
-                Vectors = new List<Vector>()
-            };
+            var expected = new AllowedVectors();
 
             AllowedVectorsAssert.AreEquivalent(expected, actual);
         }

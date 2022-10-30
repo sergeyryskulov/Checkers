@@ -44,7 +44,7 @@ namespace Checkers.BL.Services
                 return false;
             }
 
-            var notInAllowedVectors = !_validateFiguresService.GetAllowedMoveVectors(fromCoord, figures).Vectors.Contains(vector);
+            var notInAllowedVectors = !_validateFiguresService.GetAllowedMoveVectors(fromCoord, figures).Contains(vector);
             if (notInAllowedVectors)
             {
                 return false;

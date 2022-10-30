@@ -23,15 +23,14 @@ namespace Checkers.BL.Services.Tests
                                                                       "1111" +
                                                                       "1111");
 
-            var expected = new AllowedVectors()
-            {
-                EatFigure = true,
-                Vectors = new List<Vector>()
+            var expected = new AllowedVectors(
+                 new List<Vector>()
                 {
                     new Vector(Direction.RightBottom, 2),
                     new Vector(Direction.RightBottom, 3),
                 },
-            };
+                true
+            );
 
             AllowedVectorsAssert.AreEquivalent(expected, actual);
             
@@ -46,17 +45,14 @@ namespace Checkers.BL.Services.Tests
                                                                       "1111" +
                                                                       "1111");
 
-            var expected = new AllowedVectors()
-            {
-                EatFigure = false,
-                Vectors = new List<Vector>(){
+            var expected = new AllowedVectors(
+                new List<Vector>(){
                     new Vector(Direction.RightBottom, 1),
                     new Vector(Direction.RightBottom, 2),
                     new Vector(Direction.RightTop, 1),
                     new Vector(Direction.LeftBottom, 1)
                 },
-
-            };
+                false);
 
             AllowedVectorsAssert.AreEquivalent(expected, actual);
         }
@@ -71,14 +67,13 @@ namespace Checkers.BL.Services.Tests
                                                        "1p1111" +
                                                        "111111");
 
-            var expected = new AllowedVectors()
-            {
-                EatFigure = true,
-                Vectors = new List<Vector>(){
+            var expected = new AllowedVectors(
+                new List<Vector>(){
                     new Vector(Direction.LeftBottom, 3)
                 },
+                true
+            );
 
-            };
             AllowedVectorsAssert.AreEquivalent(expected, actual);
         }
 
@@ -99,13 +94,12 @@ namespace Checkers.BL.Services.Tests
                                                                           "111111");
 
 
-            var expected = new AllowedVectors()
-            {
-                EatFigure = true,
-                Vectors = new List<Vector>(){
+            var expected = new AllowedVectors(
+                new List<Vector>(){
                     new Vector(Direction.LeftBottom, 2)
-                }
-            };
+                },
+                true
+            );
 
             AllowedVectorsAssert.AreEquivalent(expected, actual);
         }
@@ -122,11 +116,7 @@ namespace Checkers.BL.Services.Tests
                                                                           "111111");
 
 
-            var expected = new AllowedVectors()
-            {
-                EatFigure = false,
-                Vectors = new List<Vector>()
-            };
+            var expected = new AllowedVectors();
 
             AllowedVectorsAssert.AreEquivalent(expected, actual);
         }

@@ -22,7 +22,7 @@ namespace Checkers.BL.Services.Tests
         {
             var actual = CreateValidateFigureService().GetAllowedMoveVectors(0, "G111");
 
-            Assert.AreEqual(actual.Vectors.Count, 0);
+            Assert.AreEqual(false, actual.AnyVectorExists());
 
             Assert.IsFalse(actual.EatFigure);
         }

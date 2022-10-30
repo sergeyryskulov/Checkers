@@ -26,13 +26,9 @@ namespace Checkers.BL.Services
             
             var result = _validateFigureService.GetAllowedMoveVectors(coord, figures);
 
-            if (result.EatFigure==false && result.Vectors.Count > 0 && IsBlockedByAnotherFigure(coord, figures))
+            if (result.EatFigure==false && result.AnyVectorExists() && IsBlockedByAnotherFigure(coord, figures))
             {
-                return new AllowedVectors()
-                {
-                    Vectors = new List<Vector>(),
-                    EatFigure = false
-                };
+                return new AllowedVectors();
             }
 
             return result;

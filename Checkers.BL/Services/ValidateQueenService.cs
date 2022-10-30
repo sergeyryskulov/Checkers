@@ -37,17 +37,9 @@ namespace Checkers.BL.Services
 
             if (eatingVectors.Count > 0)
             {
-                return new AllowedVectors()
-                {
-                    EatFigure = true,
-                    Vectors = eatingVectors
-                };
+                return new AllowedVectors(eatingVectors, true);
             }
-            return new AllowedVectors()
-            {
-                EatFigure = false,
-                Vectors = notEatingVectors
-            };
+            return new AllowedVectors(notEatingVectors, false);
         }
 
         private AllowedVectors GetAllowedVectorsQueenDirection(int coord, string figures, Direction direction)
@@ -105,18 +97,10 @@ namespace Checkers.BL.Services
 
             if (eatVectors.Count > 0)
             {
-                return new AllowedVectors()
-                {
-                    EatFigure = true,
-                    Vectors = eatVectors
-                };
+                return new AllowedVectors(eatVectors, true);
             }
 
-            return new AllowedVectors()
-            {
-                EatFigure = false,
-                Vectors = notEatVectors
-            };
+            return new AllowedVectors(notEatVectors, false);
         }
      
 

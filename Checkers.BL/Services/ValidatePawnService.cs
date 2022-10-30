@@ -34,18 +34,10 @@ namespace Checkers.BL.Services
 
             if (eatingVectors.Count > 0)
             {
-                return new AllowedVectors()
-                {
-                    EatFigure = true,
-                    Vectors = eatingVectors
-                };
+                return new AllowedVectors(eatingVectors, true);
             }
 
-            return new AllowedVectors()
-            {
-                EatFigure = false,
-                Vectors = allowedVectors
-            };
+            return new AllowedVectors(allowedVectors, false);
         }
 
         private List<Vector> GetAllowedVectorsForForwardDirection(int coord, string figures, Direction forwardDirection)

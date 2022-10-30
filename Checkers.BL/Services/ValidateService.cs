@@ -28,11 +28,7 @@ namespace Checkers.BL.Services
         {
             var figure = figures[coord];
 
-            var result = new AllowedVectors()
-            {
-                Vectors = new List<Vector>(),
-                EatFigure = false
-            };
+            var result = new AllowedVectors();
 
             if (figure == Figures.WhitePawn || figure == Figures.BlackPawn)
             {
