@@ -8,12 +8,12 @@ namespace Checkers.BL.Constants
 {
     public class Turn
     {
-        public static char White = 'w';
+        public const char White = 'w';
 
-        public static char Black = 'b';
+        public const char Black = 'b';
 
-        public static char WhiteWin = 'W';
+        public const char WhiteWin = 'W';
 
-        public static char BlackWin = 'B';
+        public const char BlackWin = 'B';
     }
 }
