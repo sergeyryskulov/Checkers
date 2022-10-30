@@ -18,12 +18,8 @@ namespace Checkers.Web.Controllers.api.Tests
         {
             var intellectService = new Mock<IIntellectService>();
             intellectService.Setup(m => m.CalculateStep(
-                It.Is<BoardState>(t => t.Cells == "p111")))            
-            .Returns(new BoardState()
-            {
-                Cells = "111Q",
-                Turn = Turn.BlackWin
-            });
+                    It.Is<BoardState>(t => t.Cells == "p111")))
+                .Returns(new BoardState("111Q", Turn.BlackWin));
 
             var intellectController = new IntellectController(intellectService.Object);
 

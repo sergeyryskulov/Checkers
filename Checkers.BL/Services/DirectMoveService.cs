@@ -90,13 +90,8 @@ namespace Checkers.BL.Services
             var resultState =
                 toggleTurn ? newFigures + nextTurn : newFigures + nextTurn + toCoord;
 
-            return new BoardState()
-            {
-                Cells = newFigures,
-                Turn = nextTurn,
-                MustGoFrom = toggleTurn ? null : (int?)toCoord
-            };
-            
+            return new BoardState(newFigures, nextTurn, toggleTurn ? null : (int?) toCoord);
+
         }
     }
 }
