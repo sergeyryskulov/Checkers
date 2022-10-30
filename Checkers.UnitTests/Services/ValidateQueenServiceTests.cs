@@ -28,16 +28,8 @@ namespace Checkers.BL.Services.Tests
                 EatFigure = true,
                 Vectors = new List<Vector>()
                 {
-                    new Vector()
-                    {
-                        Direction = Direction.RightBottom,
-                        Length = 2,
-                    },
-                    new Vector()
-                    {
-                        Direction = Direction.RightBottom,
-                        Length = 3,
-                    },
+                    new Vector(Direction.RightBottom, 2),
+                    new Vector(Direction.RightBottom, 3),
                 },
             };
 
@@ -58,26 +50,10 @@ namespace Checkers.BL.Services.Tests
             {
                 EatFigure = false,
                 Vectors = new List<Vector>(){
-                    new Vector()
-                    {
-                        Direction = Direction.RightBottom,
-                        Length = 1,
-                    },
-                    new Vector()
-                    {
-                        Direction = Direction.RightBottom,
-                        Length = 2,
-                    },
-                    new Vector()
-                    {
-                        Direction = Direction.RightTop,
-                        Length = 1,
-                    },
-                    new Vector()
-                    {
-                        Direction = Direction.LeftBottom,
-                        Length = 1,
-                    },
+                    new Vector(Direction.RightBottom, 1),
+                    new Vector(Direction.RightBottom, 2),
+                    new Vector(Direction.RightTop, 1),
+                    new Vector(Direction.LeftBottom, 1)
                 },
 
             };
@@ -99,12 +75,7 @@ namespace Checkers.BL.Services.Tests
             {
                 EatFigure = true,
                 Vectors = new List<Vector>(){
-                    new Vector()
-                    {
-                        Direction = Direction.LeftBottom,
-                        Length = 3,
-                    },
-                  
+                    new Vector(Direction.LeftBottom, 3)
                 },
 
             };
@@ -132,11 +103,7 @@ namespace Checkers.BL.Services.Tests
             {
                 EatFigure = true,
                 Vectors = new List<Vector>(){
-                    new Vector()
-                    {
-                        Direction = Direction.LeftBottom,
-                        Length = 2,
-                    }
+                    new Vector(Direction.LeftBottom, 2)
                 }
             };
 

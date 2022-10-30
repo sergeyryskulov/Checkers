@@ -38,11 +38,7 @@ namespace Checkers.BL.Services.Tests
                 EatFigure = false,
                 Vectors = new List<Vector>()
                 {
-                    new Vector()
-                    {
-                        Direction = Direction.RightTop,
-                        Length = 1
-                    }
+                    new Vector(Direction.RightTop, 1)
                 }
             };
 
@@ -63,11 +59,7 @@ namespace Checkers.BL.Services.Tests
                 EatFigure = true,
                 Vectors = new List<Vector>()
                 {
-                    new Vector()
-                    {
-                        Direction = Direction.LeftTop,
-                        Length = 2
-                    }
+                    new Vector(Direction.LeftTop, 2)
                 }
             };
 
@@ -88,11 +80,7 @@ namespace Checkers.BL.Services.Tests
                 EatFigure = true,
                 Vectors = new List<Vector>()
                 {
-                    new Vector()
-                    {
-                        Direction = Direction.RightBottom,
-                        Length = 2
-                    }
+                    new Vector(Direction.RightBottom, 2)
                 }
             };
             AllowedVectorsAssert.AreEquivalent(expected, actual);

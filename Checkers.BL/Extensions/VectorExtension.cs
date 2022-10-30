@@ -35,11 +35,7 @@ namespace Checkers.BL.Extensions
                 direction = bottom ? Direction.LeftBottom : Direction.LeftTop;
             }
 
-            var resultVector = new Vector()
-            {
-                Direction = direction,
-                Length = length
-            };
+            var resultVector = new Vector(direction, length);
 
             if (resultVector.ToCoord(fromCoord, boardWidth) == toCoord)
             {

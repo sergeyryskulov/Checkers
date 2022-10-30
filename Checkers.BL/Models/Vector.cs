@@ -9,10 +9,17 @@ namespace Checkers.BL.Models
 {
     public class Vector
     {
-        public Direction Direction;
+        public Direction Direction { get;  }
 
-        public int Length;
-      
+        public int Length { get;  }
+
+
+        public Vector(Direction direction, int length)
+        {
+            Direction = direction;
+            Length = length;
+        }
+
         public override bool Equals(object obj)
         {
             if (obj==null || !(obj is Vector))

@@ -61,31 +61,30 @@ namespace Checkers.BL.Services
             var notEatVectors = new List<Vector>();
             var eatFigure = false;
 
-            for (int i = 1; i < boardWidth; i++)
+            for (int iteratedVectorLength = 1; iteratedVectorLength < boardWidth; iteratedVectorLength++)
             {
-                var vector = new Vector()
-                {
-                    Length = i,
-                    Direction = direction
-                };
+                var iteratedVector = new Vector(
+                    direction,
+                    iteratedVectorLength
+                );
 
-                var stepCoord = vector.ToCoord(coord, boardWidth);
-                if (stepCoord == -1)
+                var iteratedCoord = iteratedVector.ToCoord(coord, boardWidth);
+                if (iteratedCoord == -1)
                 {
                     break;
                 }
 
-                var figure = figures[stepCoord];
+                var figure = figures[iteratedCoord];
 
                 if (figure.ToFigureColor() == FigureColor.Empty)
                 {
                     if (eatFigure)
                     {
-                        eatVectors.Add(vector);
+                        eatVectors.Add(iteratedVector);
                     }
                     else
                     {
-                        notEatVectors.Add(vector);
+                        notEatVectors.Add(iteratedVector);
                     }
                 }
                 else if (figure.ToFigureColor() == oppositeColor)

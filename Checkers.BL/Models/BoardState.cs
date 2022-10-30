@@ -28,18 +28,9 @@ namespace Checkers.BL.Models
 
         public override bool Equals(object obj)
         {
-          //  if (obj == null || !(obj is BoardState))
-            //    return false;
-
             var other = (BoardState)obj;
 
             return Cells == other.Cells && Turn == other.Turn && MustGoFrom == other.MustGoFrom;
         }
-
-        //public override int GetHashCode()
-        //{
-          //  return (Cells + Turn + MustGoFrom).GetHashCode();
-        //}
-
     }
 }

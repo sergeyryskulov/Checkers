@@ -20,11 +20,7 @@ namespace Checkers.BL.Helper.Tests
         public void MoveTest_Correct()
         {
 
-            var actual = (new Vector()
-            {
-                Direction = Direction.RightBottom,
-                Length = 1
-            }).ToCoord(0, 2);
+            var actual = (new Vector(Direction.RightBottom, 1)).ToCoord(0, 2);
 
             var expected = 3;
 
@@ -35,11 +31,7 @@ namespace Checkers.BL.Helper.Tests
         public void MoveTest_Incorrect()
         {
 
-            var actual =  (new Vector()
-            {
-                Direction = Direction.LeftBottom,
-                Length = 1
-            }).ToCoord(0, 2);
+            var actual =  (new Vector(Direction.LeftBottom, 1)).ToCoord(0, 2);
 
             var expected = -1;
 
@@ -51,11 +43,7 @@ namespace Checkers.BL.Helper.Tests
         {
             var actual = 0.ToVector(3, 2);
 
-            var expected = new Vector()
-            {
-                Length = 1,
-                Direction = Direction.RightBottom
-            };
+            var expected = new Vector(Direction.RightBottom, 1);
 
             Assert.AreEqual(expected, actual);
         }

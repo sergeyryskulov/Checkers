@@ -54,11 +54,8 @@ namespace Checkers.BL.Services
             var color = figures[coord].ToFigureColor();
             var oppositeColor = color == FigureColor.White ? FigureColor.Black : FigureColor.White;
 
-            var vectorOneStepForward = new Vector()
-            {
-                Direction = forwardDirection,
-                Length = 1
-            };
+            var vectorOneStepForward = new Vector(forwardDirection, 1);
+                
             var coordinateOneStepForward = vectorOneStepForward.ToCoord(coord, boardWidth);
             if (coordinateOneStepForward == -1)
             {
@@ -80,11 +77,7 @@ namespace Checkers.BL.Services
 
                 if (figures[coordTwoStepForward] == Figures.Empty)
                 {
-                    result.Add(new Vector()
-                    {
-                        Length = 2,
-                        Direction = vectorOneStepForward.Direction,
-                    });
+                    result.Add(new Vector(vectorOneStepForward.Direction, 2));
                 }
             }
 
@@ -97,11 +90,9 @@ namespace Checkers.BL.Services
             var color = figures[coord].ToFigureColor();
             var oppositeColor = color == FigureColor.White ? FigureColor.Black : FigureColor.White;
 
-            var vectorOneStepBackward = new Vector()
-            {
-                Direction = backwardDirection,
-                Length = 1
-            };
+            var vectorOneStepBackward = new Vector(backwardDirection, 1);
+                
+            
             var result = new List<Vector>();
 
             var coordinateOneStepBackward = vectorOneStepBackward.ToCoord(coord,  boardWidth);
@@ -120,11 +111,7 @@ namespace Checkers.BL.Services
 
                 if (figures[coordTwoStepBackward] == Figures.Empty)
                 {
-                    result.Add(new Vector()
-                    {
-                        Length = 2,
-                        Direction = backwardDirection,
-                    });
+                    result.Add(new Vector(backwardDirection, 2));
                 }
             }
 

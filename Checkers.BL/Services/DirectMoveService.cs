@@ -39,18 +39,17 @@ namespace Checkers.BL.Services
 
             newFiguresBuilder[fromCoord] = Figures.Empty;
             bool isDie = false;
-            for (int i = 1; i < vector.Length; i++)
+            for (int iteratedLength = 1; iteratedLength < vector.Length; iteratedLength++)
             {
-                var cleanCoord = (new Vector()
-                {
-                    Length = i,
-                    Direction = vector.Direction
-                }).ToCoord(fromCoord, boardWidth);
+                var iteratedCoord = (new Vector(
+                    vector.Direction,
+                    iteratedLength
+                )).ToCoord(fromCoord, boardWidth);
 
-                if (newFiguresBuilder[cleanCoord] != Figures.Empty)
+                if (newFiguresBuilder[iteratedCoord] != Figures.Empty)
                 {
                     isDie = true;
-                    newFiguresBuilder[cleanCoord] = Figures.Empty;
+                    newFiguresBuilder[iteratedCoord] = Figures.Empty;
                 }
             }
 
