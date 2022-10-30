@@ -7,35 +7,31 @@ namespace Checkers.BL.Models
     public class AllowedVectors
     {
 
-        private List<Vector> _vectors;
-
-        public IEnumerable<Vector> Vectors
-        {
-            get { return _vectors; }
-        }
+        private List<Vector> _vectorList;
+        public IEnumerable<Vector> Vectors => _vectorList;
 
         public bool EatFigure { get; }
 
         public AllowedVectors()
         {
-            _vectors = new List<Vector>();
+            _vectorList = new List<Vector>();
             EatFigure = false;
         }
 
         public AllowedVectors(List<Vector> vectors, bool eatFigure)
         {
-            _vectors = vectors;
+            _vectorList = vectors;
             EatFigure = eatFigure;
         }
 
         public bool AnyVectorExists()
         {
-            return _vectors.Count > 0;
+            return _vectorList.Count > 0;
         }
 
         public bool Contains(Vector vector)
         {
-            return _vectors.Contains(vector);
+            return _vectorList.Contains(vector);
         }
     }
 }

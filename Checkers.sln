@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31624.102
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Checkers.BL", "Checkers.BL\Checkers.BL.csproj", "{9394D9B3-D5FB-478B-83C4-5809DF76E9F5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Checkers.Core", "Checkers.BL\Checkers.Core.csproj", "{9394D9B3-D5FB-478B-83C4-5809DF76E9F5}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Checkers.IntegrationTests", "Checkers.IntegrationTests\Checkers.IntegrationTests.csproj", "{A83E535F-E594-407B-82F1-D6A3E02473AB}"
 EndProject
