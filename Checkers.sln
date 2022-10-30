@@ -16,9 +16,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Checkers.UnitTests", "Check
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Checkers.Web", "Checkers.Web\Checkers.Web.csproj", "{857CD534-1481-44CF-9744-70C0232DA459}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Checkers.Intellect", "Checkers.Intellect\Checkers.Intellect.csproj", "{1BD50D47-C003-4FFB-8D0E-A2E59C6291F7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Checkers.Intellect", "Checkers.Intellect\Checkers.Intellect.csproj", "{1BD50D47-C003-4FFB-8D0E-A2E59C6291F7}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Checkers.Core", "Checkers.Core\Checkers.Core.csproj", "{E984A629-DD2A-45A7-9BBC-F0583F69FC11}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{ADE67125-5CA6-47C9-890F-324452377239}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -53,6 +55,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{A83E535F-E594-407B-82F1-D6A3E02473AB} = {0DA0C6BF-F8D7-41F8-BE7C-207C7A0DA93E}
 		{D4D3780F-3124-4B68-8FC0-DA52D5B0758D} = {0DA0C6BF-F8D7-41F8-BE7C-207C7A0DA93E}
+		{1BD50D47-C003-4FFB-8D0E-A2E59C6291F7} = {ADE67125-5CA6-47C9-890F-324452377239}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DDDFEF2B-F556-403F-BB39-51579937443B}
