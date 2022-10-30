@@ -45,11 +45,11 @@ namespace Checkers.BL.Services
                         }
                         else
                         {
-                            yield return new NextStepVariant()
-                            {
-                                ResultState = newState,
-                                FirstStepOfResultState = newState
-                            };
+                            yield return new NextStepVariant(
+                                resultState: newState,
+                                firstStepOfResultState : newState
+                            );
+
 
                         }
                     }
@@ -60,11 +60,10 @@ namespace Checkers.BL.Services
             {
                 foreach (var nextStepvariant in GetNextStepVariants(noChangeCOlorState))
                 {
-                    yield return new NextStepVariant()
-                    {
-                        ResultState = nextStepvariant.ResultState,
-                        FirstStepOfResultState = noChangeCOlorState
-                    };
+                    yield return new NextStepVariant(
+                        resultState : nextStepvariant.ResultState,
+                        firstStepOfResultState : noChangeCOlorState
+                    );
                 }
             }
 
