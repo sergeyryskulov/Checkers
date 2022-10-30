@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Checkers.BL\Checkers.Core.csproj" />
+    <ProjectReference Include="..\Checkers.Core\Checkers.Core.csproj" />
   </ItemGroup>
 
 </Project>

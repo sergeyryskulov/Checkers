@@ -17,7 +17,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Checkers.BL\Checkers.Core.csproj" />
     <ProjectReference Include="..\Checkers.Intellect\Checkers.Intellect.csproj" />
     <ProjectReference Include="..\Checkers.Web\Checkers.Web.csproj" />
   </ItemGroup>

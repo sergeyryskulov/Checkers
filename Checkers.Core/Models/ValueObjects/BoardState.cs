@@ -32,5 +32,10 @@ namespace Checkers.BL.Models
 
             return Cells == other.Cells && Turn == other.Turn && MustGoFrom == other.MustGoFrom;
         }
+
+        public override int GetHashCode()
+        {
+            return Cells.GetHashCode() + (int)Turn + (MustGoFrom??0);
+        }
     }
 }
