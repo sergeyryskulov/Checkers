@@ -31,26 +31,25 @@ namespace Checkers
         {
             services.AddControllersWithViews();
 
-
-            foreach (var type in typeof(MoveFigureService).Assembly.GetTypes().Where(t=>t.Name.EndsWith("Service") && !t.IsInterface))
+            var assemblies = new[]
             {
-                services.AddTransient(type);
+                typeof(MoveFigureService).Assembly,
+                typeof(IntellectService).Assembly
+            };
 
-                foreach (var typeInterface in type.GetInterfaces().Where(t=>t.Name.StartsWith("I") && t.Name.EndsWith("Service")))
+            foreach (var assembly in assemblies)
+            {
+                foreach (var type in assembly.GetTypes().Where(t => t.Name.EndsWith("Service") && !t.IsInterface))
                 {
-                    services.AddTransient(typeInterface, type);
+                    services.AddTransient(type);
+
+                    foreach (var typeInterface in type.GetInterfaces().Where(t => t.Name.StartsWith("I") && t.Name.EndsWith("Service")))
+                    {
+                        services.AddTransient(typeInterface, type);
+                    }
                 }
             }
-
-            foreach (var type in typeof(IntellectService).Assembly.GetTypes().Where(t => t.Name.EndsWith("Service") && !t.IsInterface))
-            {
-                services.AddTransient(type);
-
-                foreach (var typeInterface in type.GetInterfaces().Where(t => t.Name.StartsWith("I") && t.Name.EndsWith("Service")))
-                {
-                    services.AddTransient(typeInterface, type);
-                }
-            }
+            
 
             services.AddSwaggerGen(SwaggerConfig);
         }
