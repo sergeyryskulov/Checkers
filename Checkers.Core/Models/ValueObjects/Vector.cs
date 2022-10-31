@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Checkers.BL.Constants.Enums;
+﻿using Checkers.Core.Constants.Enums;
 
-namespace Checkers.BL.Models
+namespace Checkers.Core.Models.ValueObjects
 {
     public class Vector
     {

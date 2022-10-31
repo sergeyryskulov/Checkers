@@ -1,15 +1,12 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Checkers.BL.Services;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using Castle.DynamicProxy;
-using Checkers.BL.Constants.Enums;
-using Checkers.BL.Helper;
-using Checkers.BL.Models;
-using Checkers.UnitTests.Extensions;
+﻿using System.Collections.Generic;
+using Checkers.Core.Constants.Enums;
+using Checkers.Core.Models.Aggregates;
+using Checkers.Core.Models.ValueObjects;
+using Checkers.Core.Services;
+using Checkers.UnitTests.Helpers;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Checkers.BL.Services.Tests
+namespace Checkers.UnitTests.Services
 {
     [TestClass()]
     public class ValidateQueenServiceTests

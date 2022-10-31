@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Checkers.BL.Constants;
-using Checkers.BL.Extensions;
-using Checkers.BL.Interfaces;
-using Checkers.BL.Models;
+﻿using System.Text;
+using Checkers.Core.Constants;
+using Checkers.Core.Extensions;
+using Checkers.Core.Interfaces;
+using Checkers.Core.Models.ValueObjects;
 
-namespace Checkers.BL.Services
+namespace Checkers.Core.Services
 {
     public class DirectMoveService : IDirectMoveService
     {

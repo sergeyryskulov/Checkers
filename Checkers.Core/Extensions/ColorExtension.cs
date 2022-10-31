@@ -1,9 +1,7 @@
-﻿using Checkers.BL.Constants;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Checkers.Core.Constants;
+using Checkers.Core.Constants.Enums;
 
-namespace Checkers.BL.Extensions
+namespace Checkers.Core.Extensions
 {
     public static class ColorExtension
     {

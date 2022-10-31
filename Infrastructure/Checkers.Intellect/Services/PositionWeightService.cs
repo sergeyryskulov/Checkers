@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Checkers.BL.Constants;
+﻿using Checkers.Core.Constants;
+using Checkers.Intellect.Interfaces;
 
-namespace Checkers.BL.Services
+namespace Checkers.Intellect.Services
 {
     public class PositionWeightService : IPositionWeightService
     {

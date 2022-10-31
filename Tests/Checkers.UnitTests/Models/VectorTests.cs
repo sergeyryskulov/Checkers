@@ -1,10 +1,8 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Checkers.BL.Models;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Checkers.Core.Constants.Enums;
+using Checkers.Core.Models.ValueObjects;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Checkers.BL.Models.Tests
+namespace Checkers.UnitTests.Models
 {
     [TestClass()]
     public class VectorTests
@@ -12,7 +10,7 @@ namespace Checkers.BL.Models.Tests
         [TestMethod()]
         public void NotEqualsToNullTest()
         {
-            var vector = new Vector(Constants.Enums.Direction.LeftTop, 2);
+            var vector = new Vector(Direction.LeftTop, 2);
 
             var isEqualsToNull = vector.Equals(null);
 
@@ -23,7 +21,7 @@ namespace Checkers.BL.Models.Tests
         [TestMethod()]
         public void ToStringTest()
         {
-            var vector = new Vector(Constants.Enums.Direction.LeftTop, 2);
+            var vector = new Vector(Direction.LeftTop, 2);
 
             var actualString = vector.ToString();
 
@@ -34,10 +32,10 @@ namespace Checkers.BL.Models.Tests
         [TestMethod()]
         public void EqualsTest()
         {
-            var vector1 = new Vector(Constants.Enums.Direction.LeftTop, 2);
+            var vector1 = new Vector(Direction.LeftTop, 2);
             
 
-            var vector2 = new Vector(Constants.Enums.Direction.LeftTop, 2);
+            var vector2 = new Vector(Direction.LeftTop, 2);
 
             var actual = vector1.Equals(vector2);
             
@@ -47,9 +45,9 @@ namespace Checkers.BL.Models.Tests
         [TestMethod()]
         public void NotEqualsTest()
         {
-            var vector1 = new Vector(Constants.Enums.Direction.LeftTop, 2);
+            var vector1 = new Vector(Direction.LeftTop, 2);
 
-            var vector2 = new Vector(Constants.Enums.Direction.RightBottom, 2);
+            var vector2 = new Vector(Direction.RightBottom, 2);
 
             var actual = vector1.Equals(vector2);
 

@@ -1,14 +1,11 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Checkers.Core.Constants;
+using Checkers.Core.Interfaces;
+using Checkers.Core.Models.ValueObjects;
 using Checkers.Web.Controllers.api;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using Checkers.BL.Services;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using Checkers.BL.Models;
-using Checkers.BL.Constants;
 
-namespace Checkers.Web.Controllers.api.Tests
+namespace Checkers.UnitTests.Controllers.api
 {
     [TestClass()]
     public class IntellectStepControllerTests

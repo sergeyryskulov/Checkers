@@ -1,15 +1,9 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Checkers.BL.Helper;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Checkers.BL.Constants.Enums;
-using Checkers.BL.Models;
-using Checkers.BL.Extensions;
+﻿using Checkers.Core.Constants.Enums;
+using Checkers.Core.Extensions;
+using Checkers.Core.Models.ValueObjects;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Checkers.BL.Helper.Tests
+namespace Checkers.UnitTests.Extensions
 {
     [TestClass()]
     public class VectorExtensionTests

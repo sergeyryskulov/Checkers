@@ -1,16 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
-using Checkers.BL.Constants;
-using Checkers.BL.Constants.Enums;
-using Checkers.BL.Extensions;
-using Checkers.BL.Interfaces;
-using Checkers.BL.Models;
+﻿using Checkers.Core.Extensions;
+using Checkers.Core.Interfaces;
+using Checkers.Core.Models.Aggregates;
 
-namespace Checkers.BL.Services
+namespace Checkers.Core.Services
 {
     public class ValidateFiguresService : IValidateFiguresService
     {

@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices.ComTypes;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using Checkers.BL.Constants;
-using Checkers.BL.Extensions;
-using Checkers.BL.Models;
+﻿using System.Linq;
+using Checkers.Core.Interfaces;
+using Checkers.Core.Models.ValueObjects;
+using Checkers.Intellect.Interfaces;
 
-namespace Checkers.BL.Services
+namespace Checkers.Intellect.Services
 {
     public class IntellectService : IIntellectService
     {        

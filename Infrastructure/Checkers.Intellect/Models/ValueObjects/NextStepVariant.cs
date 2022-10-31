@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Checkers.Core.Models.ValueObjects;
 
-namespace Checkers.BL.Models
+namespace Checkers.Intellect.Models.ValueObjects
 {
     public class NextStepVariant
     {

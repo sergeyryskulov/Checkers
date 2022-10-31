@@ -1,16 +1,11 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Checkers.BL.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Checkers.BL.Constants;
-using Checkers.BL.Interfaces;
-using Moq;
-using Checkers.BL.Models;
+﻿using Checkers.Core.Constants;
+using Checkers.Core.Interfaces;
+using Checkers.Core.Models.ValueObjects;
+using Checkers.Core.Services;
+using Checkers.Intellect.Services;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Checkers.BL.Services.Tests
+namespace Checkers.IntegrationTests.Services
 {
     [TestClass()]
     public class IntellectServiceTests

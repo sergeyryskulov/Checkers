@@ -1,11 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Checkers.BL.Constants;
-using Checkers.BL.Extensions;
-using Checkers.BL.Models;
+﻿using System.Collections.Generic;
+using Checkers.Core.Constants;
+using Checkers.Core.Constants.Enums;
+using Checkers.Core.Extensions;
+using Checkers.Core.Interfaces;
+using Checkers.Core.Models.ValueObjects;
+using Checkers.Intellect.Interfaces;
+using Checkers.Intellect.Models.ValueObjects;
 
-namespace Checkers.BL.Services
+namespace Checkers.Intellect.Services
 {
     public class StepIteratorService : IStepIteratorService
     {

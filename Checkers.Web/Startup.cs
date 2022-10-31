@@ -8,11 +8,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
-using Checkers.BL.Services;
 using Microsoft.OpenApi.Models;
 using System.IO;
 using System.Reflection;
+using Checkers.Core.Services;
+using Checkers.Intellect.Services;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace Checkers

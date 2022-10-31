@@ -1,6 +1,6 @@
-﻿using Checkers.BL.Models;
+﻿using Checkers.Core.Models.Aggregates;
 
-namespace Checkers.BL.Interfaces
+namespace Checkers.Core.Interfaces
 {
     public interface IValidateQueenService
     {

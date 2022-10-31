@@ -1,10 +1,7 @@
-﻿using Checkers.BL.Extensions;
-using Checkers.BL.Models;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Checkers.Core.Interfaces;
+using Checkers.Core.Models.ValueObjects;
 
-namespace Checkers.BL.Services
+namespace Checkers.Core.Services
 {
     public class MoveFigureService : IMoveFigureService
     {        

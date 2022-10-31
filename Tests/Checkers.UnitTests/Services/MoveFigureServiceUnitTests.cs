@@ -1,13 +1,11 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Checkers.BL.Services;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Checkers.Core.Constants;
+using Checkers.Core.Interfaces;
+using Checkers.Core.Models.ValueObjects;
+using Checkers.Core.Services;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using Checkers.BL.Models;
-using Checkers.BL.Constants;
 
-namespace Checkers.BL.Services.Tests
+namespace Checkers.UnitTests.Services
 {
     [TestClass()]
     public class MoveFigureServiceUnitTests

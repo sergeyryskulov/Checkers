@@ -1,4 +1,4 @@
-﻿namespace Checkers.BL.Services
+﻿namespace Checkers.Intellect.Interfaces
 {
     public interface IPositionWeightService
     {

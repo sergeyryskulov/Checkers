@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Checkers.BL.Models;
+﻿using System.Linq;
+using Checkers.Core.Models.Aggregates;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Checkers.UnitTests.Extensions
+namespace Checkers.UnitTests.Helpers
 {
     public static class AllowedVectorsAssert
     {

@@ -1,16 +1,8 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Checkers.Controllers;
-using System;
-using System.Collections.Generic;
-using System.Security.AccessControl;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+﻿using Checkers.Controllers;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Filters;
-using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Checkers.Controllers.Tests
+namespace Checkers.UnitTests.Controllers
 {
 
     [TestClass()]

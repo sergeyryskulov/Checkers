@@ -1,15 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Resources;
-using System.Runtime.InteropServices.ComTypes;
-using System.Text;
-using Checkers.BL.Constants;
-using Checkers.BL.Constants.Enums;
-using Checkers.BL.Extensions;
-using Checkers.BL.Models;
+using Checkers.Core.Constants;
+using Checkers.Core.Constants.Enums;
+using Checkers.Core.Extensions;
+using Checkers.Core.Interfaces;
+using Checkers.Core.Models.Aggregates;
+using Checkers.Core.Models.ValueObjects;
 
-namespace Checkers.BL.Services
+namespace Checkers.Core.Services
 {
 
     public class ValidatePawnService : IValidatePawnService

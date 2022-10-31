@@ -1,6 +1,6 @@
-﻿using Checkers.BL.Models;
+﻿using Checkers.Core.Models.ValueObjects;
 
-namespace Checkers.BL.Services
+namespace Checkers.Core.Interfaces
 {
     public interface IDirectMoveService
     {

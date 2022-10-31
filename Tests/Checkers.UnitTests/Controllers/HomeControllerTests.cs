@@ -1,11 +1,8 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Checkers.Controllers;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Checkers.Controllers;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Checkers.Controllers.Tests
+namespace Checkers.UnitTests.Controllers
 {
     [TestClass()]
     public class HomeControllerTests

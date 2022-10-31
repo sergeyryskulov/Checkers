@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Checkers.BL.Models
+﻿namespace Checkers.Core.Models.ValueObjects
 {
     public class BoardState
     {        

@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace Checkers.BL.Extensions
+namespace Checkers.Core.Extensions
 {
     public static class MathExtension
     {

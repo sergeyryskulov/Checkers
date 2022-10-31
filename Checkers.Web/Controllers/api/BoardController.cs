@@ -5,11 +5,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Checkers.BL.Services;
 using Checkers.Web.Controllers.api;
 using Swashbuckle.Swagger.Annotations;
-using Checkers.BL.Extensions;
-using Checkers.BL.Models;
+using Checkers.Core.Interfaces;
+using Checkers.Core.Models.ValueObjects;
 
 namespace Checkers.Controllers
 {   

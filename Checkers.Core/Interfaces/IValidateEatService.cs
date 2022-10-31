@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Checkers.BL.Interfaces
+﻿namespace Checkers.Core.Interfaces
 {
     public interface IValidateEatService
     {

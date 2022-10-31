@@ -1,17 +1,9 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Checkers.BL.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Checkers.BL.Constants.Enums;
-using Checkers.BL.Helper;
-using Checkers.BL.Interfaces;
-using Checkers.BL.Models;
+﻿using Checkers.Core.Interfaces;
+using Checkers.Core.Services;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 
-namespace Checkers.BL.Services.Tests
+namespace Checkers.UnitTests.Services
 {
     [TestClass()]
     public class ValidateFigureServiceTests

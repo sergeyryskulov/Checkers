@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
+using Checkers.Core.Models.ValueObjects;
 
-namespace Checkers.BL.Models
+namespace Checkers.Core.Models.Aggregates
 {
     public class AllowedVectors
     {

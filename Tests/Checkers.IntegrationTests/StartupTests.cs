@@ -1,21 +1,12 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Checkers;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Checkers.BL.Services;
+﻿using System.Linq;
 using Checkers.Controllers;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Components.Forms;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 
-namespace Checkers.Tests
+namespace Checkers.IntegrationTests
 {
     [TestClass()]
     public class StartupTests

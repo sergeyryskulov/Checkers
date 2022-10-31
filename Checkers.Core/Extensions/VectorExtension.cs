@@ -1,10 +1,8 @@
-﻿using Checkers.BL.Constants.Enums;
-using Checkers.BL.Models;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System;
+using Checkers.Core.Constants.Enums;
+using Checkers.Core.Models.ValueObjects;
 
-namespace Checkers.BL.Extensions
+namespace Checkers.Core.Extensions
 {
     public static class VectorExtension
     {
