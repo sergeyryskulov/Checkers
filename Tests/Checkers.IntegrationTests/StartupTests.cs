@@ -1,5 +1,5 @@
 ﻿using System.Linq;
-using Checkers.Controllers;
+using Checkers.Web.Controllers;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;

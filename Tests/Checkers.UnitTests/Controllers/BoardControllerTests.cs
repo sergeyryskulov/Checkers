@@ -1,4 +1,4 @@
-﻿using Checkers.Controllers;
+﻿using Checkers.Web.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 

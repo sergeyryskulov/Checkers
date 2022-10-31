@@ -1,16 +1,8 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Checkers.Web.Controllers.api;
-using Swashbuckle.Swagger.Annotations;
-using Checkers.Core.Interfaces;
+﻿using Checkers.Core.Interfaces;
 using Checkers.Core.Models.ValueObjects;
+using Microsoft.AspNetCore.Mvc;
 
-namespace Checkers.Controllers
+namespace Checkers.Web.Controllers.api
 {   
     public class BoardController : BaseApiController
     {

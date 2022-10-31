@@ -1,7 +1,7 @@
-﻿using Checkers.Controllers;
-using Checkers.Core.Constants;
+﻿using Checkers.Core.Constants;
 using Checkers.Core.Interfaces;
 using Checkers.Core.Models.ValueObjects;
+using Checkers.Web.Controllers.api;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 
