@@ -14,7 +14,7 @@ namespace Checkers.Web.Controllers.api
         }
 
         /// <summary>
-        /// Передвинуть фигуру на доске
+        /// Вычислить состояние доски после перемещения фигуры на доске
         /// </summary>        
         /// <param name="cells">Клетки шахматной доски.
         /// Строка из 64 символов, в которой перечисляются состояния клеток шахматной доски. Клетки перечисляются слева направо сверху вниз.
@@ -35,7 +35,8 @@ namespace Checkers.Web.Controllers.api
         /// <param name="fromCoord">Номер клетки, на которой стоит фигура, которую нужно передвинуть. Нумерация клеток идет с нуля, слева направо сверху вниз.</param>
         /// <param name="toCoord">Номер клетки, куда нужно передвинуть фигуры.</param>                                                
         /// <response code="200">Состояние доски после перемещения фигуры</response>        
-        [HttpPost]
+        [HttpGet]
+        [ResponseCache(VaryByQueryKeys = new[] { "*" }, Duration = 300)]
         public BoardState MoveFigure(string cells, char turn, int? mustGoFrom, int fromCoord, int toCoord)
         {
             return _moveFigureService.Move(fromCoord, toCoord, new BoardState(cells, turn, mustGoFrom));

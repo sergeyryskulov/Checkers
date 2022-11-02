@@ -30,6 +30,7 @@ namespace Checkers
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            services.AddResponseCaching();
 
             var assemblies = new[]
             {
@@ -76,6 +77,8 @@ namespace Checkers
             app.UseStaticFiles();
 
             app.UseRouting();
+
+            app.UseResponseCaching();
 
             app.UseAuthorization();
 

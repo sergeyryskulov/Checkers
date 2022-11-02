@@ -38,7 +38,8 @@ namespace Checkers.Web.Controllers.api
         /// </param>
         /// <param name="mustGoFrom">Необязательный параметр, используется для повторного хода. Если на предыдущем шаге была срублена шашка, и есть возможность срубить еще одну шашку, то это поле указывает номер клетки, на которую передвинулась рубящая шашка перед повторным ходом. Нумерация клеток идет с нуля, слева направо сверху вниз.</param>        
         /// <response code="200">Состояние доски после шага компьютера</response>        
-        [HttpPost]
+        [HttpGet]
+        [ResponseCache(VaryByQueryKeys = new[] { "*" }, Duration = 60)]
         public BoardState CalculateStep(string cells, char turn, int? mustGoFrom)
         {
             return _intellectService.CalculateStep(new BoardState(cells, turn, mustGoFrom));
