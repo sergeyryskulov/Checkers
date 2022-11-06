@@ -1,5 +1,7 @@
 ﻿using Checkers.Core.Interfaces;
 using Checkers.Core.Models.ValueObjects;
+using Checkers.Web.Factories;
+using Checkers.Web.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Checkers.Web.Controllers.api
@@ -7,10 +9,12 @@ namespace Checkers.Web.Controllers.api
     public class BoardController : BaseApiController
     {
         private IMoveFigureService _moveFigureService;
+        private IBoardStateDtoFactory _boardStateDtoFactory;
         
-        public BoardController(IMoveFigureService moveFigureService)
+        public BoardController(IMoveFigureService moveFigureService, IBoardStateDtoFactory boardStateDtoFactory)
         {
             _moveFigureService = moveFigureService;
+            _boardStateDtoFactory = boardStateDtoFactory;
         }
 
         /// <summary>
@@ -37,9 +41,13 @@ namespace Checkers.Web.Controllers.api
         /// <response code="200">Состояние доски после перемещения фигуры</response>        
         [HttpGet]
         [ResponseCache(VaryByQueryKeys = new[] { "*" }, Duration = 300)]
-        public BoardState MoveFigure(string cells, char turn, int? mustGoFrom, int fromCoord, int toCoord)
+        public BoardStateDto MoveFigure(string cells, char turn, int? mustGoFrom, int fromCoord, int toCoord)
         {
-            return _moveFigureService.Move(fromCoord, toCoord, new BoardState(cells, turn, mustGoFrom));
+            var boardState = _moveFigureService.Move(fromCoord, toCoord, new BoardState(cells, turn, mustGoFrom));
+
+            var boardStateDto = _boardStateDtoFactory.CreateBoardStateDto(boardState);
+
+            return boardStateDto;
         }
     }
 }

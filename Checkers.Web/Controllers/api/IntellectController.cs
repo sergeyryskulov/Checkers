@@ -5,16 +5,20 @@ using System.Linq;
 using System.Threading.Tasks;
 using Checkers.Core.Interfaces;
 using Checkers.Core.Models.ValueObjects;
+using Checkers.Web.Factories;
+using Checkers.Web.Models;
 
 namespace Checkers.Web.Controllers.api
 {    
     public class IntellectController : BaseApiController
     {
         private IIntellectService _intellectService;
+        private IBoardStateDtoFactory _boardStateDtoFactory;
 
-        public IntellectController(IIntellectService intellectService)
+        public IntellectController(IIntellectService intellectService, IBoardStateDtoFactory boardStateDtoFactory)
         {
             _intellectService = intellectService;
+            _boardStateDtoFactory = boardStateDtoFactory;
         }
 
 
@@ -40,9 +44,13 @@ namespace Checkers.Web.Controllers.api
         /// <response code="200">Состояние доски после шага компьютера</response>        
         [HttpGet]
         [ResponseCache(VaryByQueryKeys = new[] { "*" }, Duration = 60)]
-        public BoardState CalculateStep(string cells, char turn, int? mustGoFrom)
+        public BoardStateDto CalculateStep(string cells, char turn, int? mustGoFrom)
         {
-            return _intellectService.CalculateStep(new BoardState(cells, turn, mustGoFrom));
+            var boardState = _intellectService.CalculateStep(new BoardState(cells, turn, mustGoFrom));
+
+            var boardStateDto = _boardStateDtoFactory.CreateBoardStateDto(boardState);
+
+            return boardStateDto;
         }
     }
 }

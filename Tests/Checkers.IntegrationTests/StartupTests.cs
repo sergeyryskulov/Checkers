@@ -1,10 +1,14 @@
-﻿using System.Linq;
+﻿using Checkers;
+using System.Linq;
 using Checkers.Web.Controllers;
+using Checkers.Web.Controllers.api;
+using Checkers.Web.Models;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
+
 
 namespace Checkers.IntegrationTests
 {
@@ -63,6 +67,32 @@ namespace Checkers.IntegrationTests
 
             Assert.IsNotNull(options);
             
+        }
+
+        [TestMethod()]
+        public void GetSchemaName_WithAttributeTest()
+        {
+            Mock<IConfiguration> configurationStub = new Mock<IConfiguration>();
+
+            var target = new Startup(configurationStub.Object);
+
+            var actual= target.GetSchemaName(typeof(BoardStateDto));
+
+            Assert.AreEqual("BoardState", actual);
+
+        }
+
+        [TestMethod()]
+        public void GetSchemaName_WithoutAttributeTest()
+        {
+            Mock<IConfiguration> configurationStub = new Mock<IConfiguration>();
+
+            var target = new Startup(configurationStub.Object);
+
+            var actual = target.GetSchemaName(typeof(BoardController));
+
+            Assert.AreEqual("BoardController", actual);
+
         }
     }
 }

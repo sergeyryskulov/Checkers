@@ -6,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.OpenApi.Models;
@@ -13,6 +14,7 @@ using System.IO;
 using System.Reflection;
 using Checkers.Core.Services;
 using Checkers.Intellect.Services;
+using Checkers.Web.Factories;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace Checkers
@@ -50,22 +52,32 @@ namespace Checkers
                     }
                 }
             }
-            
+
+            services.AddTransient<IBoardStateDtoFactory, BoardStateDtoFactory>();
 
             services.AddSwaggerGen(SwaggerConfig);
         }
 
         public void SwaggerConfig(SwaggerGenOptions options)
         {
+            options.CustomSchemaIds(GetSchemaName);
+
             options.SwaggerDoc("v1", new OpenApiInfo
             {
                 Version = "v1",
             });
 
+
             // using System.Reflection;
             var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
             options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));            
         }
+
+        public string GetSchemaName(Type t)
+        {
+            return t.GetCustomAttributes(false).OfType<DisplayNameAttribute>().FirstOrDefault()?.DisplayName ?? t.Name;
+        }
+
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
