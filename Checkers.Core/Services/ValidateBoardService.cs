@@ -2,6 +2,7 @@
 using Checkers.Core.Extensions;
 using Checkers.Core.Interfaces;
 using Checkers.Core.Models.ValueObjects;
+using Checkers.DomainModels.Aggregates;
 
 namespace Checkers.Core.Services
 {
@@ -18,9 +19,9 @@ namespace Checkers.Core.Services
 
         public bool CanMove(GameState gameState, int fromCoord, int toCoord)
         {            
-            string figures = gameState.Cells;
+            var cells = new Cells(gameState.Cells);
 
-            var boardWidth = figures.Length.SquareRoot();
+            var boardWidth = cells.BoardWidth();
 
             var vector = fromCoord.ToVector(toCoord, boardWidth);
 
@@ -36,13 +37,13 @@ namespace Checkers.Core.Services
                 return false;
             }
 
-            var incorrectTurn = (figures[fromCoord].IsWhite() && gameState.Turn != Turn.White || figures[fromCoord].IsBlack() && gameState.Turn != Turn.Black);
+            var incorrectTurn = (cells[fromCoord].IsWhite() && gameState.Turn != Turn.White || cells[fromCoord].IsBlack() && gameState.Turn != Turn.Black);
             if (incorrectTurn)
             {
                 return false;
             }
 
-            var notInAllowedVectors = !_validateFiguresService.GetAllowedMoveVariants(figures, fromCoord).Contains(vector);
+            var notInAllowedVectors = !_validateFiguresService.GetAllowedMoveVariants(cells, fromCoord).Contains(vector);
             if (notInAllowedVectors)
             {
                 return false;

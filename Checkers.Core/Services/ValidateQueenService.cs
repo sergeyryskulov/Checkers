@@ -4,13 +4,14 @@ using Checkers.Core.Extensions;
 using Checkers.Core.Interfaces;
 using Checkers.Core.Models.Aggregates;
 using Checkers.Core.Models.ValueObjects;
+using Checkers.DomainModels.Aggregates;
 
 namespace Checkers.Core.Services
 {
     public class ValidateQueenService : IValidateQueenService
     {                        
       
-        public AllowedVectors GetAllowedMoveVectors(int coord, string figures)
+        public AllowedVectors GetAllowedMoveVectors(int coord, Cells cells)
         {
 
             List<Vector> eatingVectors = new List<Vector>();
@@ -23,7 +24,7 @@ namespace Checkers.Core.Services
                          Direction.RightBottom,
                          Direction.RightTop })
             {
-                var directionAllowedVectores = GetAllowedVectorsQueenDirection(coord, figures, direction);
+                var directionAllowedVectores = GetAllowedVectorsQueenDirection(coord, cells, direction);
                 if (directionAllowedVectores.EatFigure)
                 {
                     eatingVectors.AddRange(directionAllowedVectores.Vectors);
@@ -41,7 +42,7 @@ namespace Checkers.Core.Services
             return new AllowedVectors(notEatingVectors, false);
         }
 
-        private AllowedVectors GetAllowedVectorsQueenDirection(int coord, string figures, Direction direction)
+        private AllowedVectors GetAllowedVectorsQueenDirection(int coord, Cells figures, Direction direction)
         {
 
             int boardWidth = figures.Length.SquareRoot();

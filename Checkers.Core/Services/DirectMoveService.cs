@@ -3,6 +3,7 @@ using Checkers.Core.Constants;
 using Checkers.Core.Extensions;
 using Checkers.Core.Interfaces;
 using Checkers.Core.Models.ValueObjects;
+using Checkers.DomainModels.Aggregates;
 
 namespace Checkers.Core.Services
 {
@@ -53,11 +54,12 @@ namespace Checkers.Core.Services
 
             var newFigures = newFiguresBuilder.ToString();
             var toggleTurn = true;
-
+            var newCells=new Cells(newFigures);
+            
 
             if (isDie)
             {
-                var canEatNextFigure = _validateEatService.CanEatFigure(toCoord, newFigures);
+                var canEatNextFigure = _validateEatService.CanEatFigure(toCoord, newCells);
 
                 if (canEatNextFigure)
                 {

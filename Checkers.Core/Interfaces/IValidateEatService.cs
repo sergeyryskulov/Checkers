@@ -1,7 +1,9 @@
-﻿namespace Checkers.Core.Interfaces
+﻿using Checkers.DomainModels.Aggregates;
+
+namespace Checkers.Core.Interfaces
 {
     public interface IValidateEatService
     {
-        bool CanEatFigure(int coord, string figures);
+        bool CanEatFigure(int coord, Cells figures);
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Checkers.Core.Constants;
 using Checkers.Core.Interfaces;
 using Checkers.Core.Models.Aggregates;
+using Checkers.DomainModels.Aggregates;
 
 namespace Checkers.Core.Services
 {
@@ -15,24 +16,24 @@ namespace Checkers.Core.Services
             _validateQueenService = validateQueenService;
         }
 
-        public bool CanEatFigure(int coord, string figures)
+        public bool CanEatFigure(int coord, Cells cells)
         {
-            return GetAllowedMoveVectors(coord, figures).EatFigure;
+            return GetAllowedMoveVectors(coord, cells).EatFigure;
         }
         
-        public AllowedVectors GetAllowedMoveVectors(int coord, string figures)
+        public AllowedVectors GetAllowedMoveVectors(int coord, Cells cells)
         {
-            var figure = figures[coord];
+            var figure = cells[coord];
 
             var result = new AllowedVectors();
 
             if (figure == Figures.WhitePawn || figure == Figures.BlackPawn)
             {
-                result = _validatePawnService.GetAllowedMoveVectors(coord, figures);
+                result = _validatePawnService.GetAllowedMoveVectors(coord, cells);
             }
             else if (figure == Figures.WhiteQueen || figure == Figures.BlackQueen)
             {
-                result = _validateQueenService.GetAllowedMoveVectors(coord, figures);
+                result = _validateQueenService.GetAllowedMoveVectors(coord, cells);
             }
 
             return result;

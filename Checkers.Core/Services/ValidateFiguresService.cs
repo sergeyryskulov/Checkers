@@ -1,6 +1,7 @@
 ﻿using Checkers.Core.Extensions;
 using Checkers.Core.Interfaces;
 using Checkers.Core.Models.Aggregates;
+using Checkers.DomainModels.Aggregates;
 
 namespace Checkers.Core.Services
 {
@@ -13,12 +14,12 @@ namespace Checkers.Core.Services
             _validateFigureService = validateFigureService;
         }
 
-        public AllowedVectors GetAllowedMoveVariants(string figures, int coord)
+        public AllowedVectors GetAllowedMoveVariants(Cells cells, int coord)
         {
             
-            var result = _validateFigureService.GetAllowedMoveVectors(coord, figures);
+            var result = _validateFigureService.GetAllowedMoveVectors(coord, cells);
 
-            if (result.EatFigure==false && result.AnyVectorExists() && IsBlockedByAnotherFigure(coord, figures))
+            if (result.EatFigure==false && result.AnyVectorExists() && IsBlockedByAnotherFigure(coord, cells))
             {
                 return new AllowedVectors();
             }
@@ -26,19 +27,19 @@ namespace Checkers.Core.Services
             return result;
         }
 
-        private bool IsBlockedByAnotherFigure(int coord, string figures)
+        private bool IsBlockedByAnotherFigure(int coord, Cells cells)
         {
-            var color = figures[coord].ToFigureColor();
+            var color = cells[coord].ToFigureColor();
 
-            for (int figureCoord = 0; figureCoord < figures.Length; figureCoord++)
+            for (int figureCoord = 0; figureCoord < cells.Length; figureCoord++)
             {
-                var iteratedFigure = figures[figureCoord];
+                var iteratedFigure = cells[figureCoord];
 
                 if (
                     coord != iteratedFigure &&
                     iteratedFigure.ToFigureColor() == color)
                 {
-                    if (_validateFigureService.GetAllowedMoveVectors(figureCoord, figures).EatFigure)
+                    if (_validateFigureService.GetAllowedMoveVectors(figureCoord, cells).EatFigure)
                     {
                         return true;
                     }

@@ -4,6 +4,7 @@ using Checkers.Core.Constants.Enums;
 using Checkers.Core.Extensions;
 using Checkers.Core.Interfaces;
 using Checkers.Core.Models.ValueObjects;
+using Checkers.DomainModels.Aggregates;
 using Checkers.Intellect.Interfaces;
 using Checkers.Intellect.Models.ValueObjects;
 
@@ -23,23 +24,23 @@ namespace Checkers.Intellect.Services
 
         public IEnumerable<NextStepVariant> GetNextStepVariants(GameState gameState)
         {            
-            string figures = gameState.Cells;
-            var boardWidth = figures.Length.SquareRoot();
+            var cells = new Cells(gameState.Cells);
+            var boardWidth = cells.BoardWidth();
 
             var stateWithNoChangeTurn = new List<GameState>();
 
-            for (int fromCoord = 0; fromCoord < figures.Length; fromCoord++)
+            for (int fromCoord = 0; fromCoord < cells.Length; fromCoord++)
             {
                 if (gameState.MustGoFrom != null && fromCoord != gameState.MustGoFrom)
                 {
                     continue;
                 }
 
-                if ((gameState.Turn == Turn.Black && figures[fromCoord].ToFigureColor() == FigureColor.Black) ||
-                    (gameState.Turn == Turn.White && figures[fromCoord].ToFigureColor() == FigureColor.White
+                if ((gameState.Turn == Turn.Black && cells[fromCoord].ToFigureColor() == FigureColor.Black) ||
+                    (gameState.Turn == Turn.White && cells[fromCoord].ToFigureColor() == FigureColor.White
                     ))
                 {
-                    foreach (var newState in GetAllowedNextStates(gameState, fromCoord, figures, boardWidth))
+                    foreach (var newState in GetAllowedNextStates(gameState, fromCoord, cells, boardWidth))
                     {
                         if (newState.Turn==gameState.Turn)
                         {
@@ -71,10 +72,10 @@ namespace Checkers.Intellect.Services
 
         }
 
-        private List<GameState> GetAllowedNextStates(GameState inputState, int fromCoord, string figures, int boardWidth)
+        private List<GameState> GetAllowedNextStates(GameState inputState, int fromCoord, Cells cells, int boardWidth)
         {
             List<GameState> result = new List<GameState>();
-            var allowedVectors = _validateFiguresService.GetAllowedMoveVariants(figures, fromCoord).Vectors;
+            var allowedVectors = _validateFiguresService.GetAllowedMoveVariants(cells, fromCoord).Vectors;
             foreach (var allowedVector in allowedVectors)
             {
                 var toCoord = allowedVector.ToCoord(fromCoord, boardWidth);

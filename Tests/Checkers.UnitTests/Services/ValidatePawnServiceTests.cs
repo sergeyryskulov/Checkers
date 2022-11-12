@@ -3,6 +3,7 @@ using Checkers.Core.Constants.Enums;
 using Checkers.Core.Models.Aggregates;
 using Checkers.Core.Models.ValueObjects;
 using Checkers.Core.Services;
+using Checkers.DomainModels.Aggregates;
 using Checkers.UnitTests.Helpers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -14,10 +15,10 @@ namespace Checkers.UnitTests.Services
         [TestMethod()]
         public void CannotMove_OverBoard_ForAllVariants()
         {
-            var actual = CreateValidateService().GetAllowedMoveVectors(1, "" +
+            var actual = CreateValidateService().GetAllowedMoveVectors(1, new Cells("" +
                                                                           "1P1" +
                                                                           "p11" +
-                                                                          "111");
+                                                                          "111"));
             var expected = new AllowedVectors();
             AllowedVectorsAssert.AreEquivalent(expected, actual);
         }
@@ -25,7 +26,7 @@ namespace Checkers.UnitTests.Services
         [TestMethod()]
         public void CannotMove_OverBoard_ForOneVariant()
         {
-            var actual = CreateValidateService().GetAllowedMoveVectors(2, "11P1"); ;
+            var actual = CreateValidateService().GetAllowedMoveVectors(2, new Cells("11P1")); ;
 
             var expected = new AllowedVectors(
                 new List<Vector>()
@@ -41,10 +42,10 @@ namespace Checkers.UnitTests.Services
         [TestMethod()]
         public void CanTake_OppositeFigure()
         {
-            var actual = CreateValidateService().GetAllowedMoveVectors(8, "" +
+            var actual = CreateValidateService().GetAllowedMoveVectors(8, new Cells( "" +
                                                                           "111" +
                                                                           "1p1" +
-                                                                          "11P");
+                                                                          "11P"));
 
             var expected = new AllowedVectors(
                 new List<Vector>()
@@ -60,10 +61,10 @@ namespace Checkers.UnitTests.Services
         public void CanTake_OppositeFigure_OnBackMove()
         {
 
-            var actual = CreateValidateService().GetAllowedMoveVectors(0, "" +
+            var actual = CreateValidateService().GetAllowedMoveVectors(0, new Cells( "" +
                                                                       "P11" +
                                                                       "1p1" +
-                                                                      "111");
+                                                                      "111"));
 
             var expected = new AllowedVectors(
                 new List<Vector>()
@@ -80,11 +81,11 @@ namespace Checkers.UnitTests.Services
         public void CannotMove_IfBlockedOnOtherFigureAndBoardBound()
         {
 
-            var actual = CreateValidateService().GetAllowedMoveVectors(4, "" +
+            var actual = CreateValidateService().GetAllowedMoveVectors(4, new Cells("" +
                                                                       "1p11" +
                                                                       "P111" +
                                                                       "1111" +
-                                                                      "1111");
+                                                                      "1111"));
 
             var expected = new AllowedVectors();
 
