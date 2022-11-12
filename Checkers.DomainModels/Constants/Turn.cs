@@ -1,13 +1,10 @@
 ﻿namespace Checkers.Core.Constants
 {
-    public class Turn
+    public enum Turn
     {
-        public const char White = 'w';
-
-        public const char Black = 'b';
-
-        public const char WhiteWin = 'W';
-
-        public const char BlackWin = 'B';
+        White = 'w',
+        Black = 'b',
+        WhiteWin = 'W',
+        BlackWin = 'B'
     }
 }

@@ -33,10 +33,10 @@ namespace Checkers.UnitTests.Controllers.api
 
             var moveFigureController = new BoardController(moveAndSaveFigureService.Object, dtoFactory.Object);
 
-            var actual = moveFigureController.MoveFigure("p111", Turn.Black, null, 3, 0);
+            var actual = moveFigureController.MoveFigure("p111", 'b', null, 3, 0);
 
             Assert.AreEqual("111q", actual.Cells);
-            Assert.AreEqual(Turn.Black, actual.Turn);
+            Assert.AreEqual((char)Turn.Black, actual.Turn);
 
             Assert.AreEqual("relation", actual.Links[0].Rel);
             Assert.AreEqual("href", actual.Links[0].Href);

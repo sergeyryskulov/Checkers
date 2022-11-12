@@ -29,10 +29,10 @@ namespace Checkers.UnitTests.Controllers.api
 
             var intellectController = new IntellectController(intellectService.Object, dtoFactory.Object);
 
-            var actual = intellectController.CalculateStep("p111", Turn.Black, null);
+            var actual = intellectController.CalculateStep("p111", 'b', null);
 
             Assert.AreEqual("111Q", actual.Cells);
-            Assert.AreEqual(Turn.BlackWin, actual.Turn);
+            Assert.AreEqual((char)Turn.BlackWin, actual.Turn);
             Assert.IsNull(actual.MustGoFrom);
             Assert.AreEqual(0, actual.Links.Length);
 

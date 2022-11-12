@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Checkers.Core.Constants;
 using Checkers.Core.Interfaces;
 using Checkers.Core.Models.ValueObjects;
 using Checkers.Web.Factories;
@@ -46,7 +47,7 @@ namespace Checkers.Web.Controllers.api
         [ResponseCache(VaryByQueryKeys = new[] { "*" }, Duration = 60)]
         public BoardStateDto CalculateStep(string cells, char turn, int? mustGoFrom)
         {
-            var boardState = _intellectService.CalculateStep(new BoardState(cells, turn, mustGoFrom));
+            var boardState = _intellectService.CalculateStep(new BoardState(cells, (Turn)turn, mustGoFrom));
 
             var boardStateDto = _boardStateDtoFactory.CreateBoardStateDto(boardState);
 

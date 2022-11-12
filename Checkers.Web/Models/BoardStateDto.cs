@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
+using Checkers.Core.Constants;
 using Swashbuckle.Swagger.Annotations;
 
 namespace Checkers.Web.Models
@@ -29,10 +30,10 @@ namespace Checkers.Web.Models
         /// </summary>
         public LinkDto[] Links { get; }
 
-        public BoardStateDto(string cells, char turn, int? mustGoFrom, LinkDto[] links)
+        public BoardStateDto(string cells, Turn turn, int? mustGoFrom, LinkDto[] links)
         {
             Cells = cells;
-            Turn = turn;
+            Turn = (char)turn;
             MustGoFrom = mustGoFrom;
             Links = links;
         }

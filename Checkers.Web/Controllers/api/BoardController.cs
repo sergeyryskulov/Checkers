@@ -1,4 +1,5 @@
-﻿using Checkers.Core.Interfaces;
+﻿using Checkers.Core.Constants;
+using Checkers.Core.Interfaces;
 using Checkers.Core.Models.ValueObjects;
 using Checkers.Web.Factories;
 using Checkers.Web.Models;
@@ -10,7 +11,7 @@ namespace Checkers.Web.Controllers.api
     {
         private IMoveFigureService _moveFigureService;
         private IBoardStateDtoFactory _boardStateDtoFactory;
-        
+
         public BoardController(IMoveFigureService moveFigureService, IBoardStateDtoFactory boardStateDtoFactory)
         {
             _moveFigureService = moveFigureService;
@@ -43,9 +44,11 @@ namespace Checkers.Web.Controllers.api
         [ResponseCache(VaryByQueryKeys = new[] { "*" }, Duration = 300)]
         public BoardStateDto MoveFigure(string cells, char turn, int? mustGoFrom, int fromCoord, int toCoord)
         {
-            var boardState = _moveFigureService.Move(fromCoord, toCoord, new BoardState(cells, turn, mustGoFrom));
+            var oldBoardState = new BoardState(cells, (Turn)turn, mustGoFrom);
+            
+            var newBoardState = _moveFigureService.Move(fromCoord, toCoord, oldBoardState);
 
-            var boardStateDto = _boardStateDtoFactory.CreateBoardStateDto(boardState);
+            var boardStateDto = _boardStateDtoFactory.CreateBoardStateDto(newBoardState);
 
             return boardStateDto;
         }
