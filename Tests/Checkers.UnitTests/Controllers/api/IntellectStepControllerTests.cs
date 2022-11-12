@@ -1,6 +1,7 @@
 ﻿using Checkers.Core.Constants;
 using Checkers.Core.Interfaces;
 using Checkers.Core.Models.ValueObjects;
+using Checkers.DomainModels.Aggregates;
 using Checkers.Web.Controllers.api;
 using Checkers.Web.Factories;
 using Checkers.Web.Models;
@@ -17,14 +18,14 @@ namespace Checkers.UnitTests.Controllers.api
         {
             var intellectService = new Mock<IComputerPlayerService>();
             intellectService.Setup(m => m.CalculateNextStep(
-                    It.Is<GameState>(t => t.Cells == "p111")))
+                    It.Is<GameState>(t => t.Cells.ToString() == "p111")))
                 .Returns(new GameState("111Q", Turn.BlackWin));
 
             var dtoFactory = new Mock<IBoardStateDtoFactory>();
 
             dtoFactory.Setup(m =>
-                m.CreateBoardStateDto(It.Is<GameState>(t => t.Cells == "111Q" && t.Turn == Turn.BlackWin))).Returns(
-                new GameStateDto("111Q", Turn.BlackWin, null, new LinkDto[0])
+                m.CreateBoardStateDto(It.Is<GameState>(t => t.Cells.ToString() == "111Q" && t.Turn == Turn.BlackWin))).Returns(
+                new GameStateDto(new Cells("111Q"), Turn.BlackWin, null, new LinkDto[0])
             );
 
             var intellectController = new IntellectController(intellectService.Object, dtoFactory.Object);

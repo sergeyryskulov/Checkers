@@ -163,7 +163,9 @@ namespace Checkers.IntegrationTests.Services
 
             var expected = to;
 
-            Assert.AreEqual(expected, actual);
+            Assert.AreEqual(expected.Cells.ToString(), actual.Cells.ToString());
+            Assert.AreEqual(expected.Turn, actual.Turn);
+            Assert.AreEqual(expected.MustGoFrom, actual.MustGoFrom);
         }
 
         private void AssertNotEqual(GameState from, GameState to)
@@ -174,7 +176,16 @@ namespace Checkers.IntegrationTests.Services
 
             var expected = to;
 
-            Assert.AreNotEqual(expected, actual);
+            Assert.IsTrue(
+
+                expected.Cells.ToString()!= actual.Cells.ToString() ||
+
+                expected.Turn!= actual.Turn ||
+
+                expected.MustGoFrom!= actual.MustGoFrom
+
+
+                );
         }
     }
 }

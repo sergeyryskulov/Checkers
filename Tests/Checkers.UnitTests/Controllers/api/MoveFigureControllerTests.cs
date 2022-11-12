@@ -2,6 +2,7 @@
 using Checkers.Core.Constants;
 using Checkers.Core.Interfaces;
 using Checkers.Core.Models.ValueObjects;
+using Checkers.DomainModels.Aggregates;
 using Checkers.Web.Controllers.api;
 using Checkers.Web.Factories;
 using Checkers.Web.Models;
@@ -21,14 +22,14 @@ namespace Checkers.UnitTests.Controllers.api
             var dtoFactory = new Mock<IBoardStateDtoFactory>();
 
             dtoFactory.Setup(m =>
-                m.CreateBoardStateDto(It.Is<GameState>(t => t.Cells == "111q" && t.Turn == Turn.Black))).Returns(
-                new GameStateDto("111q", Turn.Black, null, new []
+                m.CreateBoardStateDto(It.Is<GameState>(t => t.Cells.ToString() == "111q" && t.Turn == Turn.Black))).Returns(
+                new GameStateDto(new Cells("111q"), Turn.Black, null, new []
                 {
                     new LinkDto("relation", "href"),
                 })
             );
 
-            moveAndSaveFigureService.Setup(m => m.TryMoveFigure(It.Is<GameState>(t=>t.Cells=="p111"), 3, 0))            
+            moveAndSaveFigureService.Setup(m => m.TryMoveFigure(It.Is<GameState>(t=>t.Cells.ToString()=="p111"), 3, 0))            
             .Returns(new GameState("111q", Turn.Black));
 
             var moveFigureController = new BoardController(moveAndSaveFigureService.Object, dtoFactory.Object);

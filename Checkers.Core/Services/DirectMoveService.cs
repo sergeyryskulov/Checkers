@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Reflection;
+using System.Text;
 using Checkers.Core.Constants;
 using Checkers.Core.Extensions;
 using Checkers.Core.Interfaces;
@@ -17,14 +18,15 @@ namespace Checkers.Core.Services
         }
 
         public GameState MoveFigureWithoutValidation(GameState gameState, int fromCoord, int toCoord)
-        {            
-            string figures = gameState.Cells;
+        {
 
-            var boardWidth = figures.Length.SquareRoot();
+            var cells = gameState.Cells;
+
+            var boardWidth = cells.BoardWidth();
 
             var vector = fromCoord.ToVector(toCoord, boardWidth);
 
-            StringBuilder newFiguresBuilder = new StringBuilder(figures);
+            StringBuilder newFiguresBuilder = new StringBuilder(cells.ToString());
             newFiguresBuilder[toCoord] = newFiguresBuilder[fromCoord];
             if (toCoord < boardWidth && gameState.Turn == Turn.White)
             {

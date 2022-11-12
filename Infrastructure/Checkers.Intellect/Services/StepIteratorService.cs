@@ -24,7 +24,7 @@ namespace Checkers.Intellect.Services
 
         public IEnumerable<NextStepVariant> GetNextStepVariants(GameState gameState)
         {            
-            var cells = new Cells(gameState.Cells);
+            var cells = gameState.Cells;
             var boardWidth = cells.BoardWidth();
 
             var stateWithNoChangeTurn = new List<GameState>();

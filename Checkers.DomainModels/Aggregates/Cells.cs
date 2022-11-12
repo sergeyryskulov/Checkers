@@ -27,6 +27,10 @@ namespace Checkers.DomainModels.Aggregates
             }
         }
 
+        public override string ToString()
+        {
+            return _cells.ToString();
+        }
 
         private int SquareRoot(int value)
         {

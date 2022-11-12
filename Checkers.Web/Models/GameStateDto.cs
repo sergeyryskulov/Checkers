@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 using Checkers.Core.Constants;
+using Checkers.DomainModels.Aggregates;
 using Swashbuckle.Swagger.Annotations;
 
 namespace Checkers.Web.Models
@@ -30,9 +31,9 @@ namespace Checkers.Web.Models
         /// </summary>
         public LinkDto[] Links { get; }
 
-        public GameStateDto(string cells, Turn turn, int? mustGoFrom, LinkDto[] links)
+        public GameStateDto(Cells cells, Turn turn, int? mustGoFrom, LinkDto[] links)
         {
-            Cells = cells;
+            Cells = cells.ToString();
             Turn = (char)turn;
             MustGoFrom = mustGoFrom;
             Links = links;

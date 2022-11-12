@@ -1,16 +1,17 @@
 ﻿using Checkers.Core.Constants;
+using Checkers.DomainModels.Aggregates;
 using Checkers.Intellect.Interfaces;
 
 namespace Checkers.Intellect.Services
 {
     public class PositionWeightService : IPositionWeightService
     {
-        public int GetWeightForWhite(string boardState)
+        public int GetWeightForWhite(Cells cells)
         {
             int result = 0;
-            foreach (var figure in boardState)
+            for (int cellIndex = 0; cellIndex < cells.Length;cellIndex++)
             {
-                switch (figure)
+                switch (cells[cellIndex])
                 {
                     case Figures.BlackQueen: result -= 2; break;
                     case Figures.BlackPawn: result -= 1; break;

@@ -19,7 +19,7 @@ namespace Checkers.Core.Services
 
         public bool CanMove(GameState gameState, int fromCoord, int toCoord)
         {            
-            var cells = new Cells(gameState.Cells);
+            var cells = gameState.Cells;
 
             var boardWidth = cells.BoardWidth();
 

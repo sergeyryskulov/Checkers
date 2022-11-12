@@ -1,10 +1,11 @@
 ﻿using Checkers.Core.Constants;
+using Checkers.DomainModels.Aggregates;
 
 namespace Checkers.Core.Models.ValueObjects
 {
     public class GameState
     {        
-        public string Cells { get;  }
+        public Cells Cells { get;  }
 
         public Turn Turn { get; }
 
@@ -12,14 +13,14 @@ namespace Checkers.Core.Models.ValueObjects
 
         public GameState(string cells, Turn turn, int? mustGoFrom)
         {
-            Cells = cells;
+            Cells = new Cells(cells);
             Turn = turn;
             MustGoFrom = mustGoFrom;
 
         }
         public GameState(string cells, Turn turn)
         {
-            Cells = cells;
+            Cells = new Cells(cells);
             Turn = turn;
             MustGoFrom = null;                                
         }
@@ -33,7 +34,7 @@ namespace Checkers.Core.Models.ValueObjects
 
         public override int GetHashCode()
         {
-            return Cells.GetHashCode() + (int)Turn + (MustGoFrom??0);
+            return Cells.ToString().GetHashCode() + (int)Turn + (MustGoFrom??0);
         }
     }
 }

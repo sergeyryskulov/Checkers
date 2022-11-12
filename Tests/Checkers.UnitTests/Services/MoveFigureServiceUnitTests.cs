@@ -15,12 +15,12 @@ namespace Checkers.UnitTests.Services
         {          
             var validateBoardService = new Mock<IValidateBoardService>();
             validateBoardService.Setup(m => m.CanMove(
-                It.Is<GameState>(t=>t.Cells=="11P1" && t.Turn==Turn.White && t.MustGoFrom==null), 3, 0)).Returns(true);
+                It.Is<GameState>(t=>t.Cells.ToString()=="11P1" && t.Turn==Turn.White && t.MustGoFrom==null), 3, 0)).Returns(true);
 
             
             var directMoveService = new Mock<IDirectMoveService>();
             directMoveService.Setup(m => m.MoveFigureWithoutValidation(
-                It.Is<GameState>(t=>t.Cells=="11P1" && t.Turn==Turn.White && t.MustGoFrom==null), 3, 0)).Returns(
+                It.Is<GameState>(t=>t.Cells.ToString()=="11P1" && t.Turn==Turn.White && t.MustGoFrom==null), 3, 0)).Returns(
                 new GameState("1Q11", Turn.WhiteWin));
 
 
@@ -31,7 +31,8 @@ namespace Checkers.UnitTests.Services
 
             var actual = moveFigureService.TryMoveFigure(new GameState("11P1",Turn.White), 3, 0);          
             
-            Assert.AreEqual(new GameState("1Q11", Turn.WhiteWin), actual);
+            Assert.AreEqual("1Q11", actual.Cells.ToString());
+            Assert.AreEqual(Turn.WhiteWin, actual.Turn);
         }
     }
 }
