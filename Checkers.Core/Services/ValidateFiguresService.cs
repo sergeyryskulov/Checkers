@@ -13,7 +13,7 @@ namespace Checkers.Core.Services
             _validateFigureService = validateFigureService;
         }
 
-        public AllowedVectors GetAllowedMoveVariants(int coord, string figures)
+        public AllowedVectors GetAllowedMoveVariants(string figures, int coord)
         {
             
             var result = _validateFigureService.GetAllowedMoveVectors(coord, figures);
