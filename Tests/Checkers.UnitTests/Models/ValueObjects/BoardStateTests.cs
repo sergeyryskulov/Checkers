@@ -10,7 +10,7 @@ namespace Checkers.UnitTests.Models.ValueObjects
         [TestMethod()]
         public void GetHashCodeTest()
         {
-            var boardState = new BoardState("", Turn.White);
+            var boardState = new GameState("", Turn.White);
 
             var actual = boardState.GetHashCode();
 

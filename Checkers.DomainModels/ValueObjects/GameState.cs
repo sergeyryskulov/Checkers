@@ -2,7 +2,7 @@
 
 namespace Checkers.Core.Models.ValueObjects
 {
-    public class BoardState
+    public class GameState
     {        
         public string Cells { get;  }
 
@@ -10,14 +10,14 @@ namespace Checkers.Core.Models.ValueObjects
 
         public int? MustGoFrom { get; }
 
-        public BoardState(string cells, Turn turn, int? mustGoFrom)
+        public GameState(string cells, Turn turn, int? mustGoFrom)
         {
             Cells = cells;
             Turn = turn;
             MustGoFrom = mustGoFrom;
 
         }
-        public BoardState(string cells, Turn turn)
+        public GameState(string cells, Turn turn)
         {
             Cells = cells;
             Turn = turn;
@@ -26,7 +26,7 @@ namespace Checkers.Core.Models.ValueObjects
 
         public override bool Equals(object obj)
         {
-            var other = (BoardState)obj;
+            var other = (GameState)obj;
 
             return Cells == other.Cells && Turn == other.Turn && MustGoFrom == other.MustGoFrom;
         }

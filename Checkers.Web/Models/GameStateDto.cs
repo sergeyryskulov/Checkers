@@ -8,8 +8,8 @@ using Swashbuckle.Swagger.Annotations;
 
 namespace Checkers.Web.Models
 {
-    [DisplayName("BoardState")]
-    public class BoardStateDto
+    [DisplayName("GameStateDto")]
+    public class GameStateDto
     {
         /// <summary>
         /// Состояние клеток шахматной доски
@@ -30,7 +30,7 @@ namespace Checkers.Web.Models
         /// </summary>
         public LinkDto[] Links { get; }
 
-        public BoardStateDto(string cells, Turn turn, int? mustGoFrom, LinkDto[] links)
+        public GameStateDto(string cells, Turn turn, int? mustGoFrom, LinkDto[] links)
         {
             Cells = cells;
             Turn = (char)turn;

@@ -16,20 +16,20 @@ namespace Checkers.UnitTests.Controllers.api
         [TestMethod()]
         public void PostTest()
         {
-            var moveAndSaveFigureService = new Mock<IMoveFigureService>();
+            var moveAndSaveFigureService = new Mock<IHumanPlayerService>();
 
             var dtoFactory = new Mock<IBoardStateDtoFactory>();
 
             dtoFactory.Setup(m =>
-                m.CreateBoardStateDto(It.Is<BoardState>(t => t.Cells == "111q" && t.Turn == Turn.Black))).Returns(
-                new BoardStateDto("111q", Turn.Black, null, new []
+                m.CreateBoardStateDto(It.Is<GameState>(t => t.Cells == "111q" && t.Turn == Turn.Black))).Returns(
+                new GameStateDto("111q", Turn.Black, null, new []
                 {
                     new LinkDto("relation", "href"),
                 })
             );
 
-            moveAndSaveFigureService.Setup(m => m.Move(3, 0, It.Is<BoardState>(t=>t.Cells=="p111")))            
-            .Returns(new BoardState("111q", Turn.Black));
+            moveAndSaveFigureService.Setup(m => m.TryMoveFigure(It.Is<GameState>(t=>t.Cells=="p111"), 3, 0))            
+            .Returns(new GameState("111q", Turn.Black));
 
             var moveFigureController = new BoardController(moveAndSaveFigureService.Object, dtoFactory.Object);
 

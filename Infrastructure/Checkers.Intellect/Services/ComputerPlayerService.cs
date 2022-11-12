@@ -5,21 +5,21 @@ using Checkers.Intellect.Interfaces;
 
 namespace Checkers.Intellect.Services
 {
-    public class IntellectService : IIntellectService
+    public class ComputerPlayerService : IComputerPlayerService
     {        
         private IStepIteratorService _stepIteratorService;
 
         private IPositionWeightService _positionWeightService;
 
-        public IntellectService(IStepIteratorService stepIteratorService, IPositionWeightService positionWeightService)
+        public ComputerPlayerService(IStepIteratorService stepIteratorService, IPositionWeightService positionWeightService)
         {            
             _stepIteratorService = stepIteratorService;
             _positionWeightService = positionWeightService;
         }
 
-        public BoardState CalculateStep(BoardState boardState)
+        public GameState CalculateNextStep(GameState gameState)
         {            
-            var nextStepVariants = _stepIteratorService.GetNextStepVariants(boardState);
+            var nextStepVariants = _stepIteratorService.GetNextStepVariants(gameState);
             
             var worstForWhiteVariant = nextStepVariants.OrderBy(t => GetBestWeightForWhite(t.ResultState)).First();
 
@@ -28,7 +28,7 @@ namespace Checkers.Intellect.Services
             return resultStep;
         }
 
-        int GetBestWeightForWhite(BoardState state)
+        int GetBestWeightForWhite(GameState state)
         {
             var nextWhiteVariants = _stepIteratorService.GetNextStepVariants(state);
 

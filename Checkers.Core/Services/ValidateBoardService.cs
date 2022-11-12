@@ -16,15 +16,15 @@ namespace Checkers.Core.Services
         }
 
 
-        public bool CanMove(BoardState boardState, int fromCoord, int toCoord)
+        public bool CanMove(GameState gameState, int fromCoord, int toCoord)
         {            
-            string figures = boardState.Cells;
+            string figures = gameState.Cells;
 
             var boardWidth = figures.Length.SquareRoot();
 
             var vector = fromCoord.ToVector(toCoord, boardWidth);
 
-            var needStartFromOtherCoord = (boardState.MustGoFrom != null && boardState.MustGoFrom != fromCoord);
+            var needStartFromOtherCoord = (gameState.MustGoFrom != null && gameState.MustGoFrom != fromCoord);
             if (needStartFromOtherCoord)
             {
                 return false;
@@ -36,13 +36,13 @@ namespace Checkers.Core.Services
                 return false;
             }
 
-            var incorrectTurn = (figures[fromCoord].IsWhite() && boardState.Turn != Turn.White || figures[fromCoord].IsBlack() && boardState.Turn != Turn.Black);
+            var incorrectTurn = (figures[fromCoord].IsWhite() && gameState.Turn != Turn.White || figures[fromCoord].IsBlack() && gameState.Turn != Turn.Black);
             if (incorrectTurn)
             {
                 return false;
             }
 
-            var notInAllowedVectors = !_validateFiguresService.GetAllowedMoveVectors(fromCoord, figures).Contains(vector);
+            var notInAllowedVectors = !_validateFiguresService.GetAllowedMoveVariants(fromCoord, figures).Contains(vector);
             if (notInAllowedVectors)
             {
                 return false;

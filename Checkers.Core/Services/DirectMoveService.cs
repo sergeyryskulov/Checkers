@@ -15,9 +15,9 @@ namespace Checkers.Core.Services
             _validateEatService = validateEatService;
         }
 
-        public BoardState DirectMove(BoardState boardState, int fromCoord, int toCoord)
+        public GameState MoveFigureWithoutValidation(GameState gameState, int fromCoord, int toCoord)
         {            
-            string figures = boardState.Cells;
+            string figures = gameState.Cells;
 
             var boardWidth = figures.Length.SquareRoot();
 
@@ -25,12 +25,12 @@ namespace Checkers.Core.Services
 
             StringBuilder newFiguresBuilder = new StringBuilder(figures);
             newFiguresBuilder[toCoord] = newFiguresBuilder[fromCoord];
-            if (toCoord < boardWidth && boardState.Turn == Turn.White)
+            if (toCoord < boardWidth && gameState.Turn == Turn.White)
             {
                 newFiguresBuilder[toCoord] = Figures.WhiteQueen;
             }
 
-            if (toCoord >= boardWidth * (boardWidth - 1) && boardState.Turn == Turn.Black)
+            if (toCoord >= boardWidth * (boardWidth - 1) && gameState.Turn == Turn.Black)
             {
                 newFiguresBuilder[toCoord] = Figures.BlackQueen;
             }
@@ -65,19 +65,19 @@ namespace Checkers.Core.Services
                 }
             }
 
-            var nextTurn = boardState.Turn;
+            var nextTurn = gameState.Turn;
             if (toggleTurn)
             {
-                nextTurn = (boardState.Turn == Turn.White ? Turn.Black : Turn.White);
+                nextTurn = (gameState.Turn == Turn.White ? Turn.Black : Turn.White);
             }
 
-            if (boardState.Turn == Turn.White && !newFigures.Contains(Figures.BlackPawn) &&
+            if (gameState.Turn == Turn.White && !newFigures.Contains(Figures.BlackPawn) &&
                 !newFigures.Contains(Figures.BlackQueen))
             {
                 nextTurn = Turn.WhiteWin;
             }
 
-            if (boardState.Turn == Turn.Black && !newFigures.Contains(Figures.WhitePawn) &&
+            if (gameState.Turn == Turn.Black && !newFigures.Contains(Figures.WhitePawn) &&
                 !newFigures.Contains(Figures.WhiteQueen))
             {
                 nextTurn = Turn.BlackWin;
@@ -87,7 +87,7 @@ namespace Checkers.Core.Services
             var resultState =
                 toggleTurn ? newFigures + nextTurn : newFigures + nextTurn + toCoord;
 
-            return new BoardState(newFigures, nextTurn, toggleTurn ? null : (int?) toCoord);
+            return new GameState(newFigures, nextTurn, toggleTurn ? null : (int?) toCoord);
 
         }
     }

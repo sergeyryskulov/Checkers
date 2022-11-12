@@ -13,12 +13,12 @@ namespace Checkers.Web.Controllers.api
 {    
     public class IntellectController : BaseApiController
     {
-        private IIntellectService _intellectService;
+        private IComputerPlayerService _computerPlayerService;
         private IBoardStateDtoFactory _boardStateDtoFactory;
 
-        public IntellectController(IIntellectService intellectService, IBoardStateDtoFactory boardStateDtoFactory)
+        public IntellectController(IComputerPlayerService computerPlayerService, IBoardStateDtoFactory boardStateDtoFactory)
         {
-            _intellectService = intellectService;
+            _computerPlayerService = computerPlayerService;
             _boardStateDtoFactory = boardStateDtoFactory;
         }
 
@@ -45,9 +45,9 @@ namespace Checkers.Web.Controllers.api
         /// <response code="200">Состояние доски после шага компьютера</response>        
         [HttpGet]
         [ResponseCache(VaryByQueryKeys = new[] { "*" }, Duration = 60)]
-        public BoardStateDto CalculateStep(string cells, char turn, int? mustGoFrom)
+        public GameStateDto CalculateStep(string cells, char turn, int? mustGoFrom)
         {
-            var boardState = _intellectService.CalculateStep(new BoardState(cells, (Turn)turn, mustGoFrom));
+            var boardState = _computerPlayerService.CalculateNextStep(new GameState(cells, (Turn)turn, mustGoFrom));
 
             var boardStateDto = _boardStateDtoFactory.CreateBoardStateDto(boardState);
 

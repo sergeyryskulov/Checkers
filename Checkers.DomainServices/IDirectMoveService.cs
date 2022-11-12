@@ -4,6 +4,6 @@ namespace Checkers.Core.Interfaces
 {
     public interface IDirectMoveService
     {
-        BoardState DirectMove(BoardState boardState, int fromCoord, int toCoord);
+        GameState MoveFigureWithoutValidation(GameState gameState, int fromCoord, int toCoord);
     }
 }

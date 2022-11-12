@@ -21,27 +21,27 @@ namespace Checkers.Intellect.Services
         }
 
 
-        public IEnumerable<NextStepVariant> GetNextStepVariants(BoardState boardState)
+        public IEnumerable<NextStepVariant> GetNextStepVariants(GameState gameState)
         {            
-            string figures = boardState.Cells;
+            string figures = gameState.Cells;
             var boardWidth = figures.Length.SquareRoot();
 
-            var stateWithNoChangeTurn = new List<BoardState>();
+            var stateWithNoChangeTurn = new List<GameState>();
 
             for (int fromCoord = 0; fromCoord < figures.Length; fromCoord++)
             {
-                if (boardState.MustGoFrom != null && fromCoord != boardState.MustGoFrom)
+                if (gameState.MustGoFrom != null && fromCoord != gameState.MustGoFrom)
                 {
                     continue;
                 }
 
-                if ((boardState.Turn == Turn.Black && figures[fromCoord].ToFigureColor() == FigureColor.Black) ||
-                    (boardState.Turn == Turn.White && figures[fromCoord].ToFigureColor() == FigureColor.White
+                if ((gameState.Turn == Turn.Black && figures[fromCoord].ToFigureColor() == FigureColor.Black) ||
+                    (gameState.Turn == Turn.White && figures[fromCoord].ToFigureColor() == FigureColor.White
                     ))
                 {
-                    foreach (var newState in GetAllowedNextStates(boardState, fromCoord, figures, boardWidth))
+                    foreach (var newState in GetAllowedNextStates(gameState, fromCoord, figures, boardWidth))
                     {
-                        if (newState.Turn==boardState.Turn)
+                        if (newState.Turn==gameState.Turn)
                         {
                             stateWithNoChangeTurn.Add(newState);
                         }
@@ -71,14 +71,14 @@ namespace Checkers.Intellect.Services
 
         }
 
-        private List<BoardState> GetAllowedNextStates(BoardState inputState, int fromCoord, string figures, int boardWidth)
+        private List<GameState> GetAllowedNextStates(GameState inputState, int fromCoord, string figures, int boardWidth)
         {
-            List<BoardState> result = new List<BoardState>();
-            var allowedVectors = _validateFiguresService.GetAllowedMoveVectors(fromCoord, figures).Vectors;
+            List<GameState> result = new List<GameState>();
+            var allowedVectors = _validateFiguresService.GetAllowedMoveVariants(fromCoord, figures).Vectors;
             foreach (var allowedVector in allowedVectors)
             {
                 var toCoord = allowedVector.ToCoord(fromCoord, boardWidth);
-                var newState = _directMoveService.DirectMove(inputState, fromCoord, toCoord);
+                var newState = _directMoveService.MoveFigureWithoutValidation(inputState, fromCoord, toCoord);
                 if (!inputState.Equals(newState))
                 {
                     result.Add(newState);

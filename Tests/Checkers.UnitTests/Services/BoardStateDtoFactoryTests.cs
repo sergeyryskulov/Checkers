@@ -16,7 +16,7 @@ namespace Checkers.UnitTests.Services
 
             var boardStateDtoFactory = new BoardStateDtoFactory();
 
-            var actual = boardStateDtoFactory.CreateBoardStateDto(new BoardState("cells", Turn.White, 1));
+            var actual = boardStateDtoFactory.CreateBoardStateDto(new GameState("cells", Turn.White, 1));
             
             Assert.AreEqual("cells", actual.Cells);
             Assert.AreEqual((char)Turn.White, actual.Turn);
@@ -32,7 +32,7 @@ namespace Checkers.UnitTests.Services
 
             var boardStateDtoFactoryService = new BoardStateDtoFactory();
 
-            var actual = boardStateDtoFactoryService.CreateBoardStateDto(new BoardState("cells", Turn.Black));
+            var actual = boardStateDtoFactoryService.CreateBoardStateDto(new GameState("cells", Turn.Black));
 
             Assert.AreEqual("cells", actual.Cells);
             Assert.AreEqual((char)Turn.Black, actual.Turn);

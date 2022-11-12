@@ -76,9 +76,9 @@ namespace Checkers.IntegrationTests
 
             var target = new Startup(configurationStub.Object);
 
-            var actual= target.GetSchemaName(typeof(BoardStateDto));
+            var actual= target.GetSchemaName(typeof(GameStateDto));
 
-            Assert.AreEqual("BoardState", actual);
+            Assert.AreEqual("GameStateDto", actual);
 
         }
 

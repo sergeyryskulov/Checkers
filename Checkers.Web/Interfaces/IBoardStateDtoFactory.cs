@@ -5,6 +5,6 @@ namespace Checkers.Web.Factories
 {
     public interface IBoardStateDtoFactory
     {
-        BoardStateDto CreateBoardStateDto(BoardState boardState);
+        GameStateDto CreateBoardStateDto(GameState gameState);
     }
 }

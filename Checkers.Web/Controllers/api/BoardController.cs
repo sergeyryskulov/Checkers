@@ -9,12 +9,12 @@ namespace Checkers.Web.Controllers.api
 {   
     public class BoardController : BaseApiController
     {
-        private IMoveFigureService _moveFigureService;
+        private IHumanPlayerService _humanPlayerService;
         private IBoardStateDtoFactory _boardStateDtoFactory;
 
-        public BoardController(IMoveFigureService moveFigureService, IBoardStateDtoFactory boardStateDtoFactory)
+        public BoardController(IHumanPlayerService humanPlayerService, IBoardStateDtoFactory boardStateDtoFactory)
         {
-            _moveFigureService = moveFigureService;
+            _humanPlayerService = humanPlayerService;
             _boardStateDtoFactory = boardStateDtoFactory;
         }
 
@@ -42,11 +42,11 @@ namespace Checkers.Web.Controllers.api
         /// <response code="200">Состояние доски после перемещения фигуры</response>        
         [HttpGet]
         [ResponseCache(VaryByQueryKeys = new[] { "*" }, Duration = 300)]
-        public BoardStateDto MoveFigure(string cells, char turn, int? mustGoFrom, int fromCoord, int toCoord)
+        public GameStateDto MoveFigure(string cells, char turn, int? mustGoFrom, int fromCoord, int toCoord)
         {
-            var oldBoardState = new BoardState(cells, (Turn)turn, mustGoFrom);
+            var oldBoardState = new GameState(cells, (Turn)turn, mustGoFrom);
             
-            var newBoardState = _moveFigureService.Move(fromCoord, toCoord, oldBoardState);
+            var newBoardState = _humanPlayerService.TryMoveFigure(oldBoardState, fromCoord, toCoord);
 
             var boardStateDto = _boardStateDtoFactory.CreateBoardStateDto(newBoardState);
 

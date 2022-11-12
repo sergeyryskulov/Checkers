@@ -15,12 +15,12 @@ namespace Checkers.IntegrationTests.Services
         public void PawnToQueen()
         {
             AssertEqual(
-                new BoardState(
+                new GameState(
                     "p1" +
                     "11",
                     Turn.Black
                 ),
-                new BoardState(
+                new GameState(
 
                     "11" +
                     "1q",
@@ -33,7 +33,7 @@ namespace Checkers.IntegrationTests.Services
         public void IntellectStep_NoWhiteMove()
         {
             AssertNotEqual(
-                new BoardState(
+                new GameState(
                                     
                     "1111111p" +
                     "111111p1" +
@@ -44,7 +44,7 @@ namespace Checkers.IntegrationTests.Services
                     "111P1111" +
                     "11q11111",
                      Turn.Black),                                
-                new BoardState(
+                new GameState(
                 "1111111p" +
                 "111111p1" +
                 "1p111p1p" +
@@ -61,7 +61,7 @@ namespace Checkers.IntegrationTests.Services
         {
 
             AssertEqual(
-                new BoardState(
+                new GameState(
                 "111111" +
                 "111111" +
                 "111111" +
@@ -69,7 +69,7 @@ namespace Checkers.IntegrationTests.Services
                 "1p1p11" +
                 "P1P111",
                 Turn.White),
-                new BoardState(
+                new GameState(
                 "111111" +
                 "111111" +
                 "111111" +
@@ -85,12 +85,12 @@ namespace Checkers.IntegrationTests.Services
         public void IntellectStep_QueenWeightTest()
         {
             AssertEqual(
-                new BoardState(
+                new GameState(
                 "11Q" + 
                 "111" + 
                 "q11",
                 Turn.Black),
-                new BoardState(
+                new GameState(
                 "11Q" +
                 "1q1" +
                 "111",
@@ -105,7 +105,7 @@ namespace Checkers.IntegrationTests.Services
         {
             
             AssertNotEqual(
-                new BoardState(
+                new GameState(
                 "1p1p1p1p" +
                 "p111p111" +
                 "1111111p" +
@@ -116,7 +116,7 @@ namespace Checkers.IntegrationTests.Services
                 "P1P1P1P1",
                 Turn.Black,
                 53),
-                new BoardState(
+                new GameState(
 
                 "1p1p1p1p" +
                 "p111p111" +
@@ -131,7 +131,7 @@ namespace Checkers.IntegrationTests.Services
 
         }
 
-        private IntellectService GetIntellectService()
+        private ComputerPlayerService GetIntellectService()
         {
             var valideteFigureService = new  ValidateService(
                 new ValidatePawnService(),
@@ -150,27 +150,27 @@ namespace Checkers.IntegrationTests.Services
                     directMoveService
                 );
             
-            return new IntellectService(                
+            return new ComputerPlayerService(                
                 stepIteratorService,
                 new PositionWeightService());
         }
 
-        private void AssertEqual(BoardState from, BoardState to)
+        private void AssertEqual(GameState from, GameState to)
         {            
             var service = GetIntellectService();
 
-            var actual = service.CalculateStep(from);
+            var actual = service.CalculateNextStep(from);
 
             var expected = to;
 
             Assert.AreEqual(expected, actual);
         }
 
-        private void AssertNotEqual(BoardState from, BoardState to)
+        private void AssertNotEqual(GameState from, GameState to)
         {                        
             var service = GetIntellectService();
 
-            var actual = service.CalculateStep(from);
+            var actual = service.CalculateNextStep(from);
 
             var expected = to;
 

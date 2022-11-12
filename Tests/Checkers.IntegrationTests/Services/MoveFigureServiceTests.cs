@@ -13,12 +13,12 @@ namespace Checkers.IntegrationTests.Services
         public void PawnToQueen()
         {
             AssertMove(
-                new BoardState(
+                new GameState(
                 "p1" +
                 "11",
                 Turn.Black),
                 0, 3,
-                new BoardState(
+                new GameState(
                 "11" +
                 "1q",
                 Turn.BlackWin));
@@ -28,12 +28,12 @@ namespace Checkers.IntegrationTests.Services
         public void PawnCannotMoveToSelf()
         {
             AssertMove(
-                new BoardState(
+                new GameState(
                 "p1" +
                 "11",
                 Turn.Black),
                 0, 0,
-                new BoardState(
+                new GameState(
                 "p1" +
                 "11",
                 Turn.Black));
@@ -43,12 +43,12 @@ namespace Checkers.IntegrationTests.Services
         public void QueenCannotMoveToSelf()
         {
             AssertMove(
-                new BoardState(
+                new GameState(
                 "q1" +
                 "11",
                 Turn.Black),
                 0, 0,
-                new BoardState(
+                new GameState(
                 "q1" +
                 "11",
                 Turn.Black));
@@ -59,13 +59,13 @@ namespace Checkers.IntegrationTests.Services
         public void PawnEatPawn()
         {
             AssertMove(
-                new BoardState(
+                new GameState(
                 "111" + 
                 "1p1" + 
                 "P11",
                 Turn.White),
                 6, 2,
-                new BoardState(
+                new GameState(
                 "11Q" +
                 "111" +
                 "111",
@@ -78,7 +78,7 @@ namespace Checkers.IntegrationTests.Services
         public void TurnNotToggledAfterPawnMove()
         {
             AssertMove(
-                new BoardState(
+                new GameState(
                 "111111" +
                 "111111" +
                 "P11p11" +
@@ -87,7 +87,7 @@ namespace Checkers.IntegrationTests.Services
                 "P11111",
                 Turn.White),
                 30, 20,
-                new BoardState(
+                new GameState(
                 "" +
                 "111111" +
                 "111111" +
@@ -103,7 +103,7 @@ namespace Checkers.IntegrationTests.Services
         public void TurnNotToggleAfterQueenMove()
         {
             AssertMove(
-                new BoardState(
+                new GameState(
                 "111Q11" +
                 "111111" +
                 "1p1111" +
@@ -112,7 +112,7 @@ namespace Checkers.IntegrationTests.Services
                 "111111",
                 Turn.White),
                 3, 18,
-                new BoardState(
+                new GameState(
                 "111111" +
                 "111111" +
                 "111111" +
@@ -125,7 +125,7 @@ namespace Checkers.IntegrationTests.Services
             );
         }
 
-        private MoveFigureService CreateMoveFigureService()
+        private HumanPlayerService CreateMoveFigureService()
         {
 
             var validateFiguresService = new ValidateFiguresService(
@@ -133,7 +133,7 @@ namespace Checkers.IntegrationTests.Services
                     new ValidatePawnService(),
                     new ValidateQueenService()));
             
-            return new MoveFigureService(                
+            return new HumanPlayerService(                
                 new ValidateBoardService(validateFiguresService),
                 new DirectMoveService(new ValidateService(
                     new ValidatePawnService(),
@@ -141,11 +141,11 @@ namespace Checkers.IntegrationTests.Services
 
         }
 
-        private void AssertMove(BoardState from, int fromCoord, int toCoord, BoardState expected)
+        private void AssertMove(GameState from, int fromCoord, int toCoord, GameState expected)
         {            
             var moveService = CreateMoveFigureService();
 
-            var actual = moveService.Move(fromCoord, toCoord, from);
+            var actual = moveService.TryMoveFigure(@from, fromCoord, toCoord);
 
             Assert.AreEqual(expected, actual);
         }
@@ -155,7 +155,7 @@ namespace Checkers.IntegrationTests.Services
         {
             AssertMove(
 
-                new BoardState(
+                new GameState(
                 "111111" +
                 "1p1111" +
                 "P11111" +
@@ -165,7 +165,7 @@ namespace Checkers.IntegrationTests.Services
                 Turn.White,
                 20),
                 12, 2,
-                new BoardState(
+                new GameState(
                 "111111" +
                 "1p1111" +
                 "P11111" +
@@ -181,13 +181,13 @@ namespace Checkers.IntegrationTests.Services
         public void CannotMoveOnOtherColorTurn()
         {
             AssertMove(
-                new BoardState(
+                new GameState(
                 "111" +
                 "1p1" +
                 "P11",
                 Turn.Black),
                 6, 2,
-                new BoardState(
+                new GameState(
                 "111" +
                 "1p1" +
                 "P11",
@@ -200,13 +200,13 @@ namespace Checkers.IntegrationTests.Services
         {
 
             AssertMove(
-                new BoardState(
+                new GameState(
                 "111" +
                 "1p1" +
                 "P11",
                 Turn.White),
                 6, 4,
-                new BoardState(
+                new GameState(
                 "111" +
                 "1p1" +
                 "P11",

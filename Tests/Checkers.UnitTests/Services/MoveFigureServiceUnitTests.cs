@@ -15,24 +15,23 @@ namespace Checkers.UnitTests.Services
         {          
             var validateBoardService = new Mock<IValidateBoardService>();
             validateBoardService.Setup(m => m.CanMove(
-                It.Is<BoardState>(t=>t.Cells=="11P1" && t.Turn==Turn.White && t.MustGoFrom==null), 3, 0)).Returns(true);
+                It.Is<GameState>(t=>t.Cells=="11P1" && t.Turn==Turn.White && t.MustGoFrom==null), 3, 0)).Returns(true);
 
             
             var directMoveService = new Mock<IDirectMoveService>();
-            directMoveService.Setup(m => m.DirectMove(
-                It.Is<BoardState>(t=>t.Cells=="11P1" && t.Turn==Turn.White && t.MustGoFrom==null), 3, 0)).Returns(
-                new BoardState("1Q11", Turn.WhiteWin));
+            directMoveService.Setup(m => m.MoveFigureWithoutValidation(
+                It.Is<GameState>(t=>t.Cells=="11P1" && t.Turn==Turn.White && t.MustGoFrom==null), 3, 0)).Returns(
+                new GameState("1Q11", Turn.WhiteWin));
 
 
-            var moveFigureService = new MoveFigureService(                
+            var moveFigureService = new HumanPlayerService(                
                 validateBoardService.Object,
                 directMoveService.Object
             );
 
-            var actual = moveFigureService.Move(3, 0,  
-                new BoardState("11P1",Turn.White));          
+            var actual = moveFigureService.TryMoveFigure(new GameState("11P1",Turn.White), 3, 0);          
             
-            Assert.AreEqual(new BoardState("1Q11", Turn.WhiteWin), actual);
+            Assert.AreEqual(new GameState("1Q11", Turn.WhiteWin), actual);
         }
     }
 }

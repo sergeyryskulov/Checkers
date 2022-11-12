@@ -6,6 +6,6 @@ namespace Checkers.Intellect.Interfaces
 {
     public interface IStepIteratorService
     {
-        IEnumerable<NextStepVariant> GetNextStepVariants(BoardState inputState);
+        IEnumerable<NextStepVariant> GetNextStepVariants(GameState inputState);
     }
 }

@@ -4,6 +4,6 @@ namespace Checkers.Core.Interfaces
 {
     public interface IValidateFiguresService
     {
-        AllowedVectors GetAllowedMoveVectors(int coord, string figures);
+        AllowedVectors GetAllowedMoveVariants(int coord, string figures);
     }
 }

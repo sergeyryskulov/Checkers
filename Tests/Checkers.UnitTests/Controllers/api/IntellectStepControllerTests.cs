@@ -15,16 +15,16 @@ namespace Checkers.UnitTests.Controllers.api
         [TestMethod()]
         public void PostTest()
         {
-            var intellectService = new Mock<IIntellectService>();
-            intellectService.Setup(m => m.CalculateStep(
-                    It.Is<BoardState>(t => t.Cells == "p111")))
-                .Returns(new BoardState("111Q", Turn.BlackWin));
+            var intellectService = new Mock<IComputerPlayerService>();
+            intellectService.Setup(m => m.CalculateNextStep(
+                    It.Is<GameState>(t => t.Cells == "p111")))
+                .Returns(new GameState("111Q", Turn.BlackWin));
 
             var dtoFactory = new Mock<IBoardStateDtoFactory>();
 
             dtoFactory.Setup(m =>
-                m.CreateBoardStateDto(It.Is<BoardState>(t => t.Cells == "111Q" && t.Turn == Turn.BlackWin))).Returns(
-                new BoardStateDto("111Q", Turn.BlackWin, null, new LinkDto[0])
+                m.CreateBoardStateDto(It.Is<GameState>(t => t.Cells == "111Q" && t.Turn == Turn.BlackWin))).Returns(
+                new GameStateDto("111Q", Turn.BlackWin, null, new LinkDto[0])
             );
 
             var intellectController = new IntellectController(intellectService.Object, dtoFactory.Object);

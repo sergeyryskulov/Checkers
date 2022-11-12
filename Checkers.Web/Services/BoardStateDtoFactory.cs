@@ -11,28 +11,28 @@ namespace Checkers.Web.Factories
 {
     public class BoardStateDtoFactory : IBoardStateDtoFactory
     {
-        public BoardStateDto CreateBoardStateDto(BoardState boardState)
+        public GameStateDto CreateBoardStateDto(GameState gameState)
         {
             List<LinkDto> links = new List<LinkDto>();
-            if (boardState.Turn == Turn.Black)
+            if (gameState.Turn == Turn.Black)
             {
                 links.Add(
                     new LinkDto("calculateStep", 
-                    $"/api/intellect/calculateStep?cells={boardState.Cells}&turn={boardState.Turn}" +
-                    GetMustGoFlag(boardState.MustGoFrom)
+                    $"/api/intellect/calculateStep?cells={gameState.Cells}&turn={gameState.Turn}" +
+                    GetMustGoFlag(gameState.MustGoFrom)
                     ));
             }
-            else if (boardState.Turn == Turn.White)
+            else if (gameState.Turn == Turn.White)
             {
                 links.Add(new LinkDto("moveFigure",
-                    $"/api/board/moveFigure?cells={boardState.Cells}&turn={boardState.Turn}" +
-                    GetMustGoFlag(boardState.MustGoFrom) +
+                    $"/api/board/moveFigure?cells={gameState.Cells}&turn={gameState.Turn}" +
+                    GetMustGoFlag(gameState.MustGoFrom) +
                     "&fromCoord={myFromCoordinate}&toCoord={myToCoordinate}"
                 ));
             }
 
 
-            return new BoardStateDto(boardState.Cells, boardState.Turn, boardState.MustGoFrom, links.ToArray());
+            return new GameStateDto(gameState.Cells, gameState.Turn, gameState.MustGoFrom, links.ToArray());
         }
 
         private string GetMustGoFlag(int? mustGoFrom)
