@@ -5,7 +5,7 @@ namespace Checkers.Core.Extensions
 {
     public static class ColorExtension
     {
-        public static FigureColor ToFigureColor(this char figure)
+        public static FigureColor ToFigureColor(this Figures figure)
         {
             if (figure == Figures.WhitePawn || figure == Figures.WhiteQueen)
             {
@@ -19,12 +19,12 @@ namespace Checkers.Core.Extensions
             return FigureColor.Empty;
         }
 
-        public static bool IsWhite(this char figure)
+        public static bool IsWhite(this Figures figure)
         {
             return figure.ToFigureColor() == FigureColor.White;
         }
 
-        public static bool IsBlack(this char figure)
+        public static bool IsBlack(this Figures figure)
         {
             return figure.ToFigureColor() == FigureColor.Black;
         }

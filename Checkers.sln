@@ -18,7 +18,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastru
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Checkers.UnitTests", "Tests\Checkers.UnitTests\Checkers.UnitTests.csproj", "{BF55C9D6-2C90-4D68-A709-59387431CE75}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Checkers.IntegrationTests", "Tests\Checkers.IntegrationTests\Checkers.IntegrationTests.csproj", "{87DFE2F6-A386-49DB-98FB-A665951E9557}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Checkers.FunctionalTests", "Tests\Checkers.IntegrationTests\Checkers.FunctionalTests.csproj", "{87DFE2F6-A386-49DB-98FB-A665951E9557}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Checkers.Intellect", "Infrastructure\Checkers.Intellect\Checkers.Intellect.csproj", "{134E704D-E4CF-4771-88E1-C5A5C78AB7D8}"
 EndProject

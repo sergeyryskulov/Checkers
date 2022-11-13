@@ -30,15 +30,15 @@ namespace Checkers.Core.Services
             newFiguresBuilder[toCoord] = newFiguresBuilder[fromCoord];
             if (toCoord < boardWidth && gameState.Turn == Turn.White)
             {
-                newFiguresBuilder[toCoord] = Figures.WhiteQueen;
+                newFiguresBuilder[toCoord] = (char) Figures.WhiteQueen;
             }
 
             if (toCoord >= boardWidth * (boardWidth - 1) && gameState.Turn == Turn.Black)
             {
-                newFiguresBuilder[toCoord] = Figures.BlackQueen;
+                newFiguresBuilder[toCoord] = (char) Figures.BlackQueen;
             }
 
-            newFiguresBuilder[fromCoord] = Figures.Empty;
+            newFiguresBuilder[fromCoord] = (char)Figures.Empty;
             bool isDie = false;
             for (int iteratedLength = 1; iteratedLength < vector.Length; iteratedLength++)
             {
@@ -47,10 +47,10 @@ namespace Checkers.Core.Services
                     iteratedLength
                 )).ToCoord(fromCoord, boardWidth);
 
-                if (newFiguresBuilder[iteratedCoord] != Figures.Empty)
+                if (newFiguresBuilder[iteratedCoord] !=  (char) Figures.Empty)
                 {
                     isDie = true;
-                    newFiguresBuilder[iteratedCoord] = Figures.Empty;
+                    newFiguresBuilder[iteratedCoord] = (char)  Figures.Empty;
                 }
             }
 
@@ -75,14 +75,14 @@ namespace Checkers.Core.Services
                 nextTurn = (gameState.Turn == Turn.White ? Turn.Black : Turn.White);
             }
 
-            if (gameState.Turn == Turn.White && !newFigures.Contains(Figures.BlackPawn) &&
-                !newFigures.Contains(Figures.BlackQueen))
+            if (gameState.Turn == Turn.White && !newFigures.Contains((char) Figures.BlackPawn) &&
+                !newFigures.Contains((char) Figures.BlackQueen))
             {
                 nextTurn = Turn.WhiteWin;
             }
 
-            if (gameState.Turn == Turn.Black && !newFigures.Contains(Figures.WhitePawn) &&
-                !newFigures.Contains(Figures.WhiteQueen))
+            if (gameState.Turn == Turn.Black && !newFigures.Contains((char) Figures.WhitePawn) &&
+                !newFigures.Contains((char)Figures.WhiteQueen))
             {
                 nextTurn = Turn.BlackWin;
             }

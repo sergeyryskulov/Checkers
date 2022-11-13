@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Checkers.Core.Constants;
 
 namespace Checkers.DomainModels.Aggregates
 {
@@ -40,11 +41,11 @@ namespace Checkers.DomainModels.Aggregates
             }
             return (int)Math.Sqrt(value);
         }
-        public char this [int index]
+        public Figures this [int index]
         {
             get
             {
-                return _cells[index];
+                return (Figures) _cells[index];
             }
         }
     }

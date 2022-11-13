@@ -36,7 +36,7 @@ namespace Checkers.Core.Services
                 var iteratedFigure = cells[figureCoord];
 
                 if (
-                    coord != iteratedFigure &&
+                    coord != figureCoord &&
                     iteratedFigure.ToFigureColor() == color)
                 {
                     if (_validateFigureService.GetAllowedMoveVectors(figureCoord, cells).EatFigure)
