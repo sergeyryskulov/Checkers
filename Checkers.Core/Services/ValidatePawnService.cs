@@ -16,7 +16,7 @@ namespace Checkers.Core.Services
         
         public AllowedVectors GetAllowedMoveVectors(int coord, Cells figures)
         {
-            var color = figures[coord].ToFigureColor();
+            var color = figures.FigureColorAt(coord);
             var allowedVectors = new List<Vector>();
             foreach (var forwardDirection in GetForwardDirections(color))
             {
@@ -42,7 +42,7 @@ namespace Checkers.Core.Services
         private List<Vector> GetAllowedVectorsForForwardDirection(int coord, Cells cells, Direction forwardDirection)
         {
             int boardWidth = cells.BoardWidth();
-            var color = cells[coord].ToFigureColor();
+            var color = cells.FigureColorAt(coord);
             var oppositeColor = color == FigureColor.White ? FigureColor.Black : FigureColor.White;
 
             var vectorOneStepForward = new Vector(forwardDirection, 1);
@@ -58,7 +58,7 @@ namespace Checkers.Core.Services
             {
                 result.Add(vectorOneStepForward);
             }
-            else if (cells[coordinateOneStepForward].ToFigureColor() == oppositeColor)
+            else if (cells.FigureColorAt(coordinateOneStepForward) == oppositeColor)
             {
                 var coordTwoStepForward = vectorOneStepForward.ToCoord(coordinateOneStepForward, boardWidth);
                 if (coordTwoStepForward == -1)
@@ -78,7 +78,7 @@ namespace Checkers.Core.Services
         private List<Vector> GetAllowedVectorsForBackwardDirection(int coord, Cells cells, Direction backwardDirection)
         {
             int boardWidth = cells.BoardWidth();
-            var color = cells[coord].ToFigureColor();
+            var color = cells.FigureColorAt(coord);
             var oppositeColor = color == FigureColor.White ? FigureColor.Black : FigureColor.White;
 
             var vectorOneStepBackward = new Vector(backwardDirection, 1);
@@ -92,7 +92,7 @@ namespace Checkers.Core.Services
                 return result;
             }
 
-            if (cells[coordinateOneStepBackward].ToFigureColor() == oppositeColor)
+            if (cells.FigureColorAt(coordinateOneStepBackward) == oppositeColor)
             {
                 var coordTwoStepBackward = vectorOneStepBackward.ToCoord(coordinateOneStepBackward, boardWidth);
                 if (coordTwoStepBackward == -1)

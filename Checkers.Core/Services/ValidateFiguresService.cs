@@ -29,15 +29,13 @@ namespace Checkers.Core.Services
 
         private bool IsBlockedByAnotherFigure(int coord, Cells cells)
         {
-            var color = cells[coord].ToFigureColor();
+            var color = cells.FigureColorAt(coord);
 
             for (int figureCoord = 0; figureCoord < cells.Length; figureCoord++)
             {
-                var iteratedFigure = cells[figureCoord];
-
                 if (
                     coord != figureCoord &&
-                    iteratedFigure.ToFigureColor() == color)
+                    cells.FigureColorAt(figureCoord) == color)
                 {
                     if (_validateFigureService.GetAllowedMoveVectors(figureCoord, cells).EatFigure)
                     {

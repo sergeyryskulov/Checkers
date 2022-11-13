@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using Checkers.Core.Constants;
+using Checkers.Core.Constants.Enums;
 
 namespace Checkers.DomainModels.Aggregates
 {
@@ -40,6 +41,21 @@ namespace Checkers.DomainModels.Aggregates
                 return 8;
             }
             return (int)Math.Sqrt(value);
+        }
+
+        public FigureColor FigureColorAt(int cellIndex)
+        {
+            var figure = this[cellIndex];
+            if (figure == Figures.WhitePawn || figure == Figures.WhiteQueen)
+            {
+                return FigureColor.White;
+            }
+            else if (figure == Figures.BlackPawn || figure == Figures.BlackQueen)
+            {
+                return FigureColor.Black;
+            }
+
+            return FigureColor.Empty;
         }
 
         public  bool WhiteFigureAt(int cellIndex)

@@ -45,8 +45,8 @@ namespace Checkers.Core.Services
         private AllowedVectors GetAllowedVectorsQueenDirection(int coord, Cells figures, Direction direction)
         {
 
-            int boardWidth = figures.Length.SquareRoot();
-            var color = figures[coord].ToFigureColor();
+            int boardWidth = figures.BoardWidth();
+            var color = figures.FigureColorAt(coord);
             var oppositeColor = color == FigureColor.White ? FigureColor.Black : FigureColor.White;
 
             var eatVectors = new List<Vector>();
@@ -66,9 +66,9 @@ namespace Checkers.Core.Services
                     break;
                 }
 
-                var figure = figures[iteratedCoord];
+                var figureColor = figures.FigureColorAt(iteratedCoord);
 
-                if (figure.ToFigureColor() == FigureColor.Empty)
+                if (figureColor == FigureColor.Empty)
                 {
                     if (eatFigure)
                     {
@@ -79,7 +79,7 @@ namespace Checkers.Core.Services
                         notEatVectors.Add(iteratedVector);
                     }
                 }
-                else if (figure.ToFigureColor() == oppositeColor)
+                else if (figureColor == oppositeColor)
                 {
                     if (eatFigure)
                     {
