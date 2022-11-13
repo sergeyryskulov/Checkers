@@ -4,6 +4,6 @@ namespace Checkers.Core.Interfaces
 {
     public interface IValidateEatService
     {
-        bool CanEatFigure(int coord, Cells figures);
+        bool CanEatFigure(int coord, Board figures);
     }
 }

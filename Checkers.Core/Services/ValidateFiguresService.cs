@@ -14,12 +14,12 @@ namespace Checkers.Core.Services
             _validateFigureService = validateFigureService;
         }
 
-        public AllowedVectors GetAllowedMoveVariants(Cells cells, int coord)
+        public AllowedVectors GetAllowedMoveVariants(Board board, int coord)
         {
             
-            var result = _validateFigureService.GetAllowedMoveVectors(coord, cells);
+            var result = _validateFigureService.GetAllowedMoveVectors(coord, board);
 
-            if (result.EatFigure==false && result.AnyVectorExists() && IsBlockedByAnotherFigure(coord, cells))
+            if (result.EatFigure==false && result.AnyVectorExists() && IsBlockedByAnotherFigure(coord, board))
             {
                 return new AllowedVectors();
             }
@@ -27,17 +27,17 @@ namespace Checkers.Core.Services
             return result;
         }
 
-        private bool IsBlockedByAnotherFigure(int coord, Cells cells)
+        private bool IsBlockedByAnotherFigure(int coord, Board board)
         {
-            var color = cells.FigureColorAt(coord);
+            var color = board.FigureColorAt(coord);
 
-            for (int figureCoord = 0; figureCoord < cells.Length; figureCoord++)
+            for (int figureCoord = 0; figureCoord < board.CellsCount; figureCoord++)
             {
                 if (
                     coord != figureCoord &&
-                    cells.FigureColorAt(figureCoord) == color)
+                    board.FigureColorAt(figureCoord) == color)
                 {
-                    if (_validateFigureService.GetAllowedMoveVectors(figureCoord, cells).EatFigure)
+                    if (_validateFigureService.GetAllowedMoveVectors(figureCoord, board).EatFigure)
                     {
                         return true;
                     }

@@ -13,7 +13,7 @@ namespace Checkers.UnitTests.Services
         [TestMethod()]
         public void GetAllowedMoveVectorsIncorrectFigureTest()
         {
-            var actual = CreateValidateFigureService().GetAllowedMoveVectors(0, new Cells("G111"));
+            var actual = CreateValidateFigureService().GetAllowedMoveVectors(0, new Board("G111"));
 
             Assert.AreEqual(false, actual.AnyVectorExists());
 

@@ -23,7 +23,7 @@ namespace Checkers.UnitTests.Controllers.api
 
             dtoFactory.Setup(m =>
                 m.CreateBoardStateDto(It.Is<GameState>(t => t.Cells.ToString() == "111q" && t.Turn == Turn.Black))).Returns(
-                new GameStateDto(new Cells("111q"), Turn.Black, null, new []
+                new GameStateDto(new Board("111q"), Turn.Black, null, new []
                 {
                     new LinkDto("relation", "href"),
                 })

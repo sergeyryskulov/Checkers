@@ -15,7 +15,7 @@ namespace Checkers.UnitTests.Services
         [TestMethod()]
         public void CanTake_MultiVariantsAfter()
         {
-            var actual = CreateValidateService().GetAllowedMoveVectors(0, new Cells("" +
+            var actual = CreateValidateService().GetAllowedMoveVectors(0, new Board("" +
                                                                       "Q111" +
                                                                       "1p11" +
                                                                       "1111" +
@@ -37,7 +37,7 @@ namespace Checkers.UnitTests.Services
         [TestMethod()]
         public void CanMove_OnAllBoard()
         {
-            var actual = CreateValidateService().GetAllowedMoveVectors(5, new Cells("" +
+            var actual = CreateValidateService().GetAllowedMoveVectors(5, new Board("" +
                                                                       "p111" +
                                                                       "1Q11" +
                                                                       "1111" +
@@ -57,7 +57,7 @@ namespace Checkers.UnitTests.Services
         [TestMethod()]
         public void CanTake_OppositeFigure()
         {
-            var actual = CreateValidateService().GetAllowedMoveVectors(3, new Cells( "" +
+            var actual = CreateValidateService().GetAllowedMoveVectors(3, new Board( "" +
                                                        "111Q11" +
                                                        "111111" +
                                                        "1p1111" +
@@ -83,7 +83,7 @@ namespace Checkers.UnitTests.Services
         [TestMethod()]
         public void CannotTake_TwoFiguresOnOneSimpleStep()
         {
-            var actual = CreateValidateService().GetAllowedMoveVectors(10,  new Cells("" +
+            var actual = CreateValidateService().GetAllowedMoveVectors(10,  new Board("" +
                                                                           "111111" +
                                                                           "1111Q1" +
                                                                           "111p11" +
@@ -105,7 +105,7 @@ namespace Checkers.UnitTests.Services
         [TestMethod()]
         public void CannotTake_TwoNearFiguresOnOneSimpleStep()
         {
-            var actual = CreateValidateService().GetAllowedMoveVectors(10, new Cells("" +
+            var actual = CreateValidateService().GetAllowedMoveVectors(10, new Board("" +
                                                                           "111p1p" +
                                                                           "1111Q1" +
                                                                           "111p1p" +

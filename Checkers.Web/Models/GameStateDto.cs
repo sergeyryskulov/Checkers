@@ -31,9 +31,9 @@ namespace Checkers.Web.Models
         /// </summary>
         public LinkDto[] Links { get; }
 
-        public GameStateDto(Cells cells, Turn turn, int? mustGoFrom, LinkDto[] links)
+        public GameStateDto(Board board, Turn turn, int? mustGoFrom, LinkDto[] links)
         {
-            Cells = cells.ToString();
+            Cells = board.ToString();
             Turn = (char)turn;
             MustGoFrom = mustGoFrom;
             Links = links;

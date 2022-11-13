@@ -15,7 +15,7 @@ namespace Checkers.UnitTests.Services
         [TestMethod()]
         public void CannotMove_OverBoard_ForAllVariants()
         {
-            var actual = CreateValidateService().GetAllowedMoveVectors(1, new Cells("" +
+            var actual = CreateValidateService().GetAllowedMoveVectors(1, new Board("" +
                                                                           "1P1" +
                                                                           "p11" +
                                                                           "111"));
@@ -26,7 +26,7 @@ namespace Checkers.UnitTests.Services
         [TestMethod()]
         public void CannotMove_OverBoard_ForOneVariant()
         {
-            var actual = CreateValidateService().GetAllowedMoveVectors(2, new Cells("11P1")); ;
+            var actual = CreateValidateService().GetAllowedMoveVectors(2, new Board("11P1")); ;
 
             var expected = new AllowedVectors(
                 new List<Vector>()
@@ -42,7 +42,7 @@ namespace Checkers.UnitTests.Services
         [TestMethod()]
         public void CanTake_OppositeFigure()
         {
-            var actual = CreateValidateService().GetAllowedMoveVectors(8, new Cells( "" +
+            var actual = CreateValidateService().GetAllowedMoveVectors(8, new Board( "" +
                                                                           "111" +
                                                                           "1p1" +
                                                                           "11P"));
@@ -61,7 +61,7 @@ namespace Checkers.UnitTests.Services
         public void CanTake_OppositeFigure_OnBackMove()
         {
 
-            var actual = CreateValidateService().GetAllowedMoveVectors(0, new Cells( "" +
+            var actual = CreateValidateService().GetAllowedMoveVectors(0, new Board( "" +
                                                                       "P11" +
                                                                       "1p1" +
                                                                       "111"));
@@ -81,7 +81,7 @@ namespace Checkers.UnitTests.Services
         public void CannotMove_IfBlockedOnOtherFigureAndBoardBound()
         {
 
-            var actual = CreateValidateService().GetAllowedMoveVectors(4, new Cells("" +
+            var actual = CreateValidateService().GetAllowedMoveVectors(4, new Board("" +
                                                                       "1p11" +
                                                                       "P111" +
                                                                       "1111" +

@@ -29,7 +29,7 @@ namespace Checkers.Intellect.Services
 
             var stateWithNoChangeTurn = new List<GameState>();
 
-            for (int fromCoord = 0; fromCoord < cells.Length; fromCoord++)
+            for (int fromCoord = 0; fromCoord < cells.CellsCount; fromCoord++)
             {
                 if (gameState.MustGoFrom != null && fromCoord != gameState.MustGoFrom)
                 {
@@ -72,10 +72,10 @@ namespace Checkers.Intellect.Services
 
         }
 
-        private List<GameState> GetAllowedNextStates(GameState inputState, int fromCoord, Cells cells, int boardWidth)
+        private List<GameState> GetAllowedNextStates(GameState inputState, int fromCoord, Board board, int boardWidth)
         {
             List<GameState> result = new List<GameState>();
-            var allowedVectors = _validateFiguresService.GetAllowedMoveVariants(cells, fromCoord).Vectors;
+            var allowedVectors = _validateFiguresService.GetAllowedMoveVariants(board, fromCoord).Vectors;
             foreach (var allowedVector in allowedVectors)
             {
                 var toCoord = allowedVector.ToCoord(fromCoord, boardWidth);

@@ -25,7 +25,7 @@ namespace Checkers.UnitTests.Controllers.api
 
             dtoFactory.Setup(m =>
                 m.CreateBoardStateDto(It.Is<GameState>(t => t.Cells.ToString() == "111Q" && t.Turn == Turn.BlackWin))).Returns(
-                new GameStateDto(new Cells("111Q"), Turn.BlackWin, null, new LinkDto[0])
+                new GameStateDto(new Board("111Q"), Turn.BlackWin, null, new LinkDto[0])
             );
 
             var intellectController = new IntellectController(intellectService.Object, dtoFactory.Object);

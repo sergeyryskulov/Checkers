@@ -5,7 +5,7 @@ namespace Checkers.Core.Models.ValueObjects
 {
     public class GameState
     {        
-        public Cells Cells { get;  }
+        public Board Cells { get;  }
 
         public Turn Turn { get; }
 
@@ -13,14 +13,14 @@ namespace Checkers.Core.Models.ValueObjects
 
         public GameState(string cells, Turn turn, int? mustGoFrom)
         {
-            Cells = new Cells(cells);
+            Cells = new Board(cells);
             Turn = turn;
             MustGoFrom = mustGoFrom;
 
         }
         public GameState(string cells, Turn turn)
         {
-            Cells = new Cells(cells);
+            Cells = new Board(cells);
             Turn = turn;
             MustGoFrom = null;                                
         }

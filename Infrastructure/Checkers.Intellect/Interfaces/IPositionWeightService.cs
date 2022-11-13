@@ -4,6 +4,6 @@ namespace Checkers.Intellect.Interfaces
 {
     public interface IPositionWeightService
     {
-        int GetWeightForWhite(Cells cells);
+        int GetWeightForWhite(Board board);
     }
 }

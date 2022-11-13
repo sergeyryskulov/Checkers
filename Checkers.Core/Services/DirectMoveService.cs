@@ -56,7 +56,7 @@ namespace Checkers.Core.Services
 
             var newFigures = newFiguresBuilder.ToString();
             var toggleTurn = true;
-            var newCells=new Cells(newFigures);
+            var newCells=new Board(newFigures);
             
 
             if (isDie)

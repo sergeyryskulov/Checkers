@@ -14,7 +14,7 @@ namespace Checkers.Core.Services
     public class ValidatePawnService : IValidatePawnService
     {                        
         
-        public AllowedVectors GetAllowedMoveVectors(int coord, Cells figures)
+        public AllowedVectors GetAllowedMoveVectors(int coord, Board figures)
         {
             var color = figures.FigureColorAt(coord);
             var allowedVectors = new List<Vector>();
@@ -39,10 +39,10 @@ namespace Checkers.Core.Services
             return new AllowedVectors(allowedVectors, false);
         }
 
-        private List<Vector> GetAllowedVectorsForForwardDirection(int coord, Cells cells, Direction forwardDirection)
+        private List<Vector> GetAllowedVectorsForForwardDirection(int coord, Board board, Direction forwardDirection)
         {
-            int boardWidth = cells.BoardWidth();
-            var color = cells.FigureColorAt(coord);
+            int boardWidth = board.BoardWidth();
+            var color = board.FigureColorAt(coord);
             var oppositeColor = color == FigureColor.White ? FigureColor.Black : FigureColor.White;
 
             var vectorOneStepForward = new Vector(forwardDirection, 1);
@@ -54,11 +54,11 @@ namespace Checkers.Core.Services
             }
 
             var result = new List<Vector>();
-            if (cells[coordinateOneStepForward] == Figures.Empty)
+            if (board.EmptyCellAt(coordinateOneStepForward))
             {
                 result.Add(vectorOneStepForward);
             }
-            else if (cells.FigureColorAt(coordinateOneStepForward) == oppositeColor)
+            else if (board.FigureColorAt(coordinateOneStepForward) == oppositeColor)
             {
                 var coordTwoStepForward = vectorOneStepForward.ToCoord(coordinateOneStepForward, boardWidth);
                 if (coordTwoStepForward == -1)
@@ -66,7 +66,7 @@ namespace Checkers.Core.Services
                     return result;
                 }
 
-                if (cells[coordTwoStepForward] == Figures.Empty)
+                if (board.EmptyCellAt(coordTwoStepForward))
                 {
                     result.Add(new Vector(vectorOneStepForward.Direction, 2));
                 }
@@ -75,10 +75,10 @@ namespace Checkers.Core.Services
             return result;
         }
 
-        private List<Vector> GetAllowedVectorsForBackwardDirection(int coord, Cells cells, Direction backwardDirection)
+        private List<Vector> GetAllowedVectorsForBackwardDirection(int coord, Board board, Direction backwardDirection)
         {
-            int boardWidth = cells.BoardWidth();
-            var color = cells.FigureColorAt(coord);
+            int boardWidth = board.BoardWidth();
+            var color = board.FigureColorAt(coord);
             var oppositeColor = color == FigureColor.White ? FigureColor.Black : FigureColor.White;
 
             var vectorOneStepBackward = new Vector(backwardDirection, 1);
@@ -92,7 +92,7 @@ namespace Checkers.Core.Services
                 return result;
             }
 
-            if (cells.FigureColorAt(coordinateOneStepBackward) == oppositeColor)
+            if (board.FigureColorAt(coordinateOneStepBackward) == oppositeColor)
             {
                 var coordTwoStepBackward = vectorOneStepBackward.ToCoord(coordinateOneStepBackward, boardWidth);
                 if (coordTwoStepBackward == -1)
@@ -100,7 +100,7 @@ namespace Checkers.Core.Services
                     return result;
                 }
 
-                if (cells[coordTwoStepBackward] == Figures.Empty)
+                if (board.EmptyCellAt(coordTwoStepBackward))
                 {
                     result.Add(new Vector(backwardDirection, 2));
                 }

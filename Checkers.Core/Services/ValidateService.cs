@@ -16,24 +16,22 @@ namespace Checkers.Core.Services
             _validateQueenService = validateQueenService;
         }
 
-        public bool CanEatFigure(int coord, Cells cells)
+        public bool CanEatFigure(int coord, Board board)
         {
-            return GetAllowedMoveVectors(coord, cells).EatFigure;
+            return GetAllowedMoveVectors(coord, board).EatFigure;
         }
         
-        public AllowedVectors GetAllowedMoveVectors(int coord, Cells cells)
+        public AllowedVectors GetAllowedMoveVectors(int coord, Board board)
         {
-            var figure = cells[coord];
-
             var result = new AllowedVectors();
 
-            if (figure == Figures.WhitePawn || figure == Figures.BlackPawn)
+            if (board.PawnAt(coord))
             {
-                result = _validatePawnService.GetAllowedMoveVectors(coord, cells);
+                result = _validatePawnService.GetAllowedMoveVectors(coord, board);
             }
-            else if (figure == Figures.WhiteQueen || figure == Figures.BlackQueen)
+            else if (board.QueenAt(coord))
             {
-                result = _validateQueenService.GetAllowedMoveVectors(coord, cells);
+                result = _validateQueenService.GetAllowedMoveVectors(coord, board);
             }
 
             return result;
