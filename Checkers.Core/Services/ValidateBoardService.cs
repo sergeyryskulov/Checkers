@@ -37,7 +37,7 @@ namespace Checkers.Core.Services
                 return false;
             }
 
-            var incorrectTurn = (cells[fromCoord].IsWhite() && gameState.Turn != Turn.White || cells[fromCoord].IsBlack() && gameState.Turn != Turn.Black);
+            var incorrectTurn = (cells.WhiteFigureAt(fromCoord) && gameState.Turn != Turn.White || cells.BlackFigureAt(fromCoord) && gameState.Turn != Turn.Black);
             if (incorrectTurn)
             {
                 return false;

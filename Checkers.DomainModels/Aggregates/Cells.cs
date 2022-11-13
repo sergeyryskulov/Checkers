@@ -41,6 +41,18 @@ namespace Checkers.DomainModels.Aggregates
             }
             return (int)Math.Sqrt(value);
         }
+
+        public  bool WhiteFigureAt(int cellIndex)
+        {
+            return this[cellIndex] == Figures.WhitePawn || this[cellIndex]== Figures.WhiteQueen;
+        }
+
+        public bool BlackFigureAt(int cellIndex)
+        {
+            return this[cellIndex] == Figures.BlackPawn || this[cellIndex] == Figures.BlackQueen;
+        }
+
+
         public Figures this [int index]
         {
             get

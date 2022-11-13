@@ -36,8 +36,8 @@ namespace Checkers.Intellect.Services
                     continue;
                 }
 
-                if ((gameState.Turn == Turn.Black && cells[fromCoord].ToFigureColor() == FigureColor.Black) ||
-                    (gameState.Turn == Turn.White && cells[fromCoord].ToFigureColor() == FigureColor.White
+                if ((gameState.Turn == Turn.Black && cells.BlackFigureAt(fromCoord)) ||
+                    (gameState.Turn == Turn.White && cells.WhiteFigureAt(fromCoord)
                     ))
                 {
                     foreach (var newState in GetAllowedNextStates(gameState, fromCoord, cells, boardWidth))
