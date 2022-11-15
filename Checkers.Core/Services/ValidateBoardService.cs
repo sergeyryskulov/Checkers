@@ -43,7 +43,7 @@ namespace Checkers.Core.Services
                 return false;
             }
 
-            var notInAllowedVectors = !_validateFiguresService.GetAllowedMoveVariants(cells, fromCoord).Contains(vector);
+            var notInAllowedVectors = !_validateFiguresService.GetAllowedMoveVariants(cells, fromCoord).Contains(toCoord);
             if (notInAllowedVectors)
             {
                 return false;

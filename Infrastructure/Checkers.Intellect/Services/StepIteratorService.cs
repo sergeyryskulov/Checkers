@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using Checkers.Core.Constants;
 using Checkers.Core.Constants.Enums;
-using Checkers.Core.Extensions;
 using Checkers.Core.Interfaces;
 using Checkers.Core.Models.ValueObjects;
 using Checkers.DomainModels.Aggregates;
@@ -75,10 +74,9 @@ namespace Checkers.Intellect.Services
         private List<GameState> GetAllowedNextStates(GameState inputState, int fromCoord, Board board, int boardWidth)
         {
             List<GameState> result = new List<GameState>();
-            var allowedVectors = _validateFiguresService.GetAllowedMoveVariants(board, fromCoord).Vectors;
-            foreach (var allowedVector in allowedVectors)
-            {
-                var toCoord = allowedVector.ToCoord(fromCoord, boardWidth);
+            var toCoordVariants = _validateFiguresService.GetAllowedMoveVariants(board, fromCoord);
+            foreach (var toCoord in toCoordVariants)
+            {                
                 var newState = _directMoveService.MoveFigureWithoutValidation(inputState, fromCoord, toCoord);
                 if (!inputState.Equals(newState))
                 {

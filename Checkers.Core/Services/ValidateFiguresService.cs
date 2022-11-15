@@ -2,6 +2,8 @@
 using Checkers.Core.Interfaces;
 using Checkers.Core.Models.Aggregates;
 using Checkers.DomainModels.Aggregates;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Checkers.Core.Services
 {
@@ -14,17 +16,17 @@ namespace Checkers.Core.Services
             _validateFigureService = validateFigureService;
         }
 
-        public AllowedVectors GetAllowedMoveVariants(Board board, int coord)
+        public List<int> GetAllowedMoveVariants(Board board, int coord)
         {
             
-            var result = _validateFigureService.GetAllowedMoveVectors(coord, board);
+            var allowedMoveVectors = _validateFigureService.GetAllowedMoveVectors(coord, board);
 
-            if (result.EatFigure==false && result.AnyVectorExists() && IsBlockedByAnotherFigure(coord, board))
+            if (allowedMoveVectors.EatFigure==false && allowedMoveVectors.AnyVectorExists() && IsBlockedByAnotherFigure(coord, board))
             {
-                return new AllowedVectors();
+                return new List<int>();
             }
 
-            return result;
+            return allowedMoveVectors.Vectors.ToList().ConvertAll(m => m.ToCoord(coord, board.BoardWidth()));
         }
 
         private bool IsBlockedByAnotherFigure(int coord, Board board)
