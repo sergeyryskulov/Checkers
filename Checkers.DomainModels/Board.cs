@@ -21,6 +21,44 @@ namespace Checkers.DomainModels.Aggregates
             return SquareRoot(_cells.Length);
         }
 
+        public void GetFigureFromAndPutItTo(int fromPosition, int toPosition, bool convertToQueen)
+        {            
+            Figures resultFigure = (Figures)_cells[fromPosition];
+            if (convertToQueen)
+            {
+                if (resultFigure == Figures.WhitePawn)
+                {
+                    resultFigure = Figures.WhiteQueen;
+                }
+                if (resultFigure == Figures.BlackPawn)
+                {
+                    resultFigure = Figures.BlackQueen;
+                }
+            }
+
+            StringBuilder stringBuilder = new StringBuilder(_cells);
+            stringBuilder[fromPosition] = (char) Figures.Empty;
+            stringBuilder[toPosition] = (char)resultFigure;
+            _cells = stringBuilder.ToString();
+        }
+
+        public void RemoveFigure(int position)
+        {           
+            StringBuilder stringBuilder = new StringBuilder(_cells);
+            stringBuilder[position] = (char)Figures.Empty;            
+            _cells = stringBuilder.ToString();
+        }
+
+        public bool ContainsAnyWhiteFigure()
+        {
+            return _cells.Contains((char)Figures.WhitePawn) || _cells.Contains((char)Figures.WhiteQueen);
+        }
+
+        public bool ContainsAnyBlackFigure()
+        {
+            return _cells.Contains((char)Figures.BlackPawn) || _cells.Contains((char)Figures.BlackQueen);
+        }
+
         public int CellsCount
         {
             get

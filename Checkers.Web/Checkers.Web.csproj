@@ -39,7 +39,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Checkers.Core\Checkers.ApplicationServices.csproj" />
-    <ProjectReference Include="..\Infrastructure\Checkers.Intellect\Checkers.Intellect.csproj" />
+    <ProjectReference Include="..\Infrastructure\Checkers.Intellect\Checkers.ComputerPlayer.csproj" />
   </ItemGroup>
 
   <ItemGroup>

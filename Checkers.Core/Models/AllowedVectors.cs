@@ -26,11 +26,6 @@ namespace Checkers.Core.Models.Aggregates
         public bool AnyVectorExists()
         {
             return _vectorList.Count > 0;
-        }
-
-        public bool Contains(Vector vector)
-        {
-            return _vectorList.Contains(vector);
-        }
+        }       
     }
 }

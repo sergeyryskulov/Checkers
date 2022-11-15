@@ -26,20 +26,15 @@ namespace Checkers.Core.Services
 
             var vector = fromCoord.ToVector(toCoord, boardWidth);
 
-            StringBuilder newFiguresBuilder = new StringBuilder(cells.ToString());
-            newFiguresBuilder[toCoord] = newFiguresBuilder[fromCoord];
-            if (toCoord < boardWidth && gameState.Turn == Turn.White)
-            {
-                newFiguresBuilder[toCoord] = (char) Figures.WhiteQueen;
-            }
+            var newBoardState = new Board(cells.ToString());
 
-            if (toCoord >= boardWidth * (boardWidth - 1) && gameState.Turn == Turn.Black)
-            {
-                newFiguresBuilder[toCoord] = (char) Figures.BlackQueen;
-            }
+            bool onTopLine = (toCoord < boardWidth);
+            bool onBottomLine = toCoord >= boardWidth * (boardWidth - 1);
+            bool convertToQueen = (gameState.Turn == Turn.White && onTopLine) ||
+                 (gameState.Turn == Turn.Black && onBottomLine);
+            newBoardState.GetFigureFromAndPutItTo(fromCoord, toCoord, convertToQueen);
 
-            newFiguresBuilder[fromCoord] = (char)Figures.Empty;
-            bool isDie = false;
+            bool eatFigure = false;
             for (int iteratedLength = 1; iteratedLength < vector.Length; iteratedLength++)
             {
                 var iteratedCoord = (new Vector(
@@ -47,21 +42,18 @@ namespace Checkers.Core.Services
                     iteratedLength
                 )).ToCoord(fromCoord, boardWidth);
 
-                if (newFiguresBuilder[iteratedCoord] !=  (char) Figures.Empty)
+                if (!newBoardState.EmptyCellAt(iteratedCoord))
                 {
-                    isDie = true;
-                    newFiguresBuilder[iteratedCoord] = (char)  Figures.Empty;
+                    eatFigure = true;
+                    newBoardState.RemoveFigure(iteratedCoord);                    
                 }
             }
-
-            var newFigures = newFiguresBuilder.ToString();
-            var toggleTurn = true;
-            var newCells=new Board(newFigures);
             
-
-            if (isDie)
+            var toggleTurn = true;
+                        
+            if (eatFigure)
             {
-                var canEatNextFigure = _validateEatService.CanEatFigure(toCoord, newCells);
+                var canEatNextFigure = _validateEatService.CanEatFigure(toCoord, newBoardState);
 
                 if (canEatNextFigure)
                 {
@@ -75,23 +67,17 @@ namespace Checkers.Core.Services
                 nextTurn = (gameState.Turn == Turn.White ? Turn.Black : Turn.White);
             }
 
-            if (gameState.Turn == Turn.White && !newFigures.Contains((char) Figures.BlackPawn) &&
-                !newFigures.Contains((char) Figures.BlackQueen))
+            if (gameState.Turn == Turn.White && !newBoardState.ContainsAnyBlackFigure())
             {
                 nextTurn = Turn.WhiteWin;
             }
 
-            if (gameState.Turn == Turn.Black && !newFigures.Contains((char) Figures.WhitePawn) &&
-                !newFigures.Contains((char)Figures.WhiteQueen))
+            if (gameState.Turn == Turn.Black && !newBoardState.ContainsAnyWhiteFigure())
             {
                 nextTurn = Turn.BlackWin;
             }
-
-
-            var resultState =
-                toggleTurn ? newFigures + nextTurn : newFigures + nextTurn + toCoord;
-
-            return new GameState(newFigures, nextTurn, toggleTurn ? null : (int?) toCoord);
+        
+            return new GameState(newBoardState.ToString(), nextTurn, toggleTurn ? null : (int?) toCoord);
 
         }
     }
