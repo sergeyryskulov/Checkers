@@ -10,6 +10,14 @@ namespace Checkers.DomainModels.Aggregates
     {
         private string _cells;
 
+        private enum Figures
+        {
+            WhitePawn = 'P',
+            BlackPawn = 'p',
+            WhiteQueen = 'Q',
+            BlackQueen = 'q',
+            Empty = '1'
+        }
 
         public Board(string cells)
         {
