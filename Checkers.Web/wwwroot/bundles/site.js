@@ -10,6 +10,9 @@ var Game = /** @class */ (function () {
         defaultBoardState.cells = "1p1p1p1pp1p1p1p11p1p1p1p1111111111111111P1P1P1P11P1P1P1PP1P1P1P1";
         defaultBoardState.turn = 'w';
         defaultBoardState.mustGoFrom = null;
+        if (window.location.href.indexOf('cells=') !== -1) {
+            defaultBoardState.cells = window.location.href.split('cells=')[1];
+        }
         this._gameDrawer.setNewGameClickHandler(function () { return _this.showFiguresOnBoard(defaultBoardState); });
         this.initBoard(defaultBoardState);
     };
@@ -196,10 +199,10 @@ var ServerRepository = /** @class */ (function () {
     function ServerRepository() {
     }
     ServerRepository.prototype.moveFigureOnServer = function (boardState, fromCoord, toCoord, callback) {
-        $.get('/api/board/movefigure?fromCoord=' + fromCoord + '&toCoord=' + toCoord + '&cells=' + boardState.cells + '&turn=' + boardState.turn + '&mustGoFrom' + boardState.mustGoFrom, callback);
+        $.get('/api/board/movefigure?fromCoord=' + fromCoord + '&toCoord=' + toCoord + '&cells=' + boardState.cells + '&turn=' + boardState.turn + '&mustGoFrom=' + boardState.mustGoFrom, callback);
     };
     ServerRepository.prototype.intellectStep = function (boardState, callback) {
-        $.get('/api/intellect/calculatestep?cells=' + boardState.cells + '&turn=' + boardState.turn + '&mustGoFrom' + boardState.mustGoFrom, callback);
+        $.get('/api/intellect/calculatestep?cells=' + boardState.cells + '&turn=' + boardState.turn + '&mustGoFrom=' + boardState.mustGoFrom, callback);
     };
     return ServerRepository;
 }());

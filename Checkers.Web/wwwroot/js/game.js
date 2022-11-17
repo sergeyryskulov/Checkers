@@ -10,6 +10,9 @@ var Game = /** @class */ (function () {
         defaultBoardState.cells = "1p1p1p1pp1p1p1p11p1p1p1p1111111111111111P1P1P1P11P1P1P1PP1P1P1P1";
         defaultBoardState.turn = 'w';
         defaultBoardState.mustGoFrom = null;
+        if (window.location.href.indexOf('cells=') !== -1) {
+            defaultBoardState.cells = window.location.href.split('cells=')[1];
+        }
         this._gameDrawer.setNewGameClickHandler(function () { return _this.showFiguresOnBoard(defaultBoardState); });
         this.initBoard(defaultBoardState);
     };

@@ -13,10 +13,10 @@ class ServerRepository {
 
     public moveFigureOnServer(boardState : BoardState, fromCoord, toCoord, callback) {
         
-        $.get('/api/board/movefigure?fromCoord=' + fromCoord + '&toCoord=' + toCoord + '&cells=' + boardState.cells + '&turn=' + boardState.turn +'&mustGoFrom' + boardState.mustGoFrom, callback);
+        $.get('/api/board/movefigure?fromCoord=' + fromCoord + '&toCoord=' + toCoord + '&cells=' + boardState.cells + '&turn=' + boardState.turn +'&mustGoFrom=' + boardState.mustGoFrom, callback);
     }
 
     public intellectStep(boardState : BoardState, callback) {
-        $.get('/api/intellect/calculatestep?cells=' + boardState.cells + '&turn=' + boardState.turn +'&mustGoFrom' + boardState.mustGoFrom, callback);
+        $.get('/api/intellect/calculatestep?cells=' + boardState.cells + '&turn=' + boardState.turn +'&mustGoFrom=' + boardState.mustGoFrom, callback);
     }
 }
