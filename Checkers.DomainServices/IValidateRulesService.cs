@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Checkers.Core.Interfaces
 {
-    public interface IValidateFiguresService
+    public interface IValidateRulesService
     {
         List<int> GetAllowedMoveVariants(Board board, int coord);
     }

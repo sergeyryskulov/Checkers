@@ -18,7 +18,7 @@ namespace Checkers.UnitTests.Services
                 It.Is<GameState>(t=>t.Cells.ToString()=="11P1" && t.Turn==Turn.White && t.MustGoFrom==null), 3, 0)).Returns(true);
 
             
-            var directMoveService = new Mock<IDirectMoveService>();
+            var directMoveService = new Mock<IMoveRulesService>();
             directMoveService.Setup(m => m.MoveFigureWithoutValidation(
                 It.Is<GameState>(t=>t.Cells.ToString()=="11P1" && t.Turn==Turn.White && t.MustGoFrom==null), 3, 0)).Returns(
                 new GameState("1Q11", Turn.WhiteWin));

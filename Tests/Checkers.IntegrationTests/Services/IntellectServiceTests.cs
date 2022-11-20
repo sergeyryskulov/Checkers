@@ -138,7 +138,7 @@ namespace Checkers.IntegrationTests.Services
                 new ValidateQueenService()
             );
 
-            var directMoveService = new DirectMoveService(
+            var directMoveService = new MoveRulesService(
                 new ValidateService(
                     new ValidatePawnService(), 
                     new ValidateQueenService()
@@ -146,7 +146,7 @@ namespace Checkers.IntegrationTests.Services
             );
 
             var stepIteratorService = new StepIteratorService(
-                    new ValidateFiguresService(valideteFigureService),
+                    new ValidateRulesService(valideteFigureService),
                     directMoveService
                 );
             

@@ -11,13 +11,13 @@ namespace Checkers.Intellect.Services
 {
     public class StepIteratorService : IStepIteratorService
     {
-        private IValidateFiguresService _validateFiguresService;
-        private IDirectMoveService _directMoveService;
+        private IValidateRulesService _validateRulesService;
+        private IMoveRulesService _moveRulesService;
 
-        public StepIteratorService(IValidateFiguresService validateFiguresService, IDirectMoveService directMoveService)
+        public StepIteratorService(IValidateRulesService validateRulesService, IMoveRulesService moveRulesService)
         {
-            _validateFiguresService = validateFiguresService;
-            _directMoveService = directMoveService;
+            _validateRulesService = validateRulesService;
+            _moveRulesService = moveRulesService;
         }
 
 
@@ -74,10 +74,10 @@ namespace Checkers.Intellect.Services
         private List<GameState> GetAllowedNextStates(GameState inputState, int fromCoord, Board board, int boardWidth)
         {
             List<GameState> result = new List<GameState>();
-            var toCoordVariants = _validateFiguresService.GetAllowedMoveVariants(board, fromCoord);
+            var toCoordVariants = _validateRulesService.GetAllowedMoveVariants(board, fromCoord);
             foreach (var toCoord in toCoordVariants)
             {                
-                var newState = _directMoveService.MoveFigureWithoutValidation(inputState, fromCoord, toCoord);
+                var newState = _moveRulesService.MoveFigureWithoutValidation(inputState, fromCoord, toCoord);
                 if (!inputState.Equals(newState))
                 {
                     result.Add(newState);

@@ -8,11 +8,11 @@ using Checkers.DomainModels.Aggregates;
 
 namespace Checkers.Core.Services
 {
-    public class DirectMoveService : IDirectMoveService
+    public class MoveRulesService : IMoveRulesService
     {
         private readonly IValidateEatService _validateEatService;
 
-        public DirectMoveService(IValidateEatService validateEatService)
+        public MoveRulesService(IValidateEatService validateEatService)
         {
             _validateEatService = validateEatService;
         }

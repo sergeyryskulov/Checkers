@@ -7,11 +7,11 @@ using System.Linq;
 
 namespace Checkers.Core.Services
 {
-    public class ValidateFiguresService : IValidateFiguresService
+    public class ValidateRulesService : IValidateRulesService
     {
         private readonly IValidateFigureService _validateFigureService;
 
-        public ValidateFiguresService(IValidateFigureService validateFigureService)
+        public ValidateRulesService(IValidateFigureService validateFigureService)
         {
             _validateFigureService = validateFigureService;
         }

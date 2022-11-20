@@ -9,11 +9,11 @@ namespace Checkers.Core.Services
     public class ValidateBoardService : IValidateBoardService
     {
 
-        private IValidateFiguresService _validateFiguresService;
+        private IValidateRulesService _validateRulesService;
 
-        public ValidateBoardService(IValidateFiguresService validateFiguresService)
+        public ValidateBoardService(IValidateRulesService validateRulesService)
         {
-            _validateFiguresService = validateFiguresService;
+            _validateRulesService = validateRulesService;
         }
 
 
@@ -43,7 +43,7 @@ namespace Checkers.Core.Services
                 return false;
             }
 
-            var notInAllowedVectors = !_validateFiguresService.GetAllowedMoveVariants(cells, fromCoord).Contains(toCoord);
+            var notInAllowedVectors = !_validateRulesService.GetAllowedMoveVariants(cells, fromCoord).Contains(toCoord);
             if (notInAllowedVectors)
             {
                 return false;

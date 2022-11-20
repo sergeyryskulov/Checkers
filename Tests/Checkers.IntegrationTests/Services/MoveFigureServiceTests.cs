@@ -128,14 +128,14 @@ namespace Checkers.IntegrationTests.Services
         private HumanPlayerService CreateMoveFigureService()
         {
 
-            var validateFiguresService = new ValidateFiguresService(
+            var validateFiguresService = new ValidateRulesService(
                 new ValidateService(
                     new ValidatePawnService(),
                     new ValidateQueenService()));
             
             return new HumanPlayerService(                
                 new ValidateBoardService(validateFiguresService),
-                new DirectMoveService(new ValidateService(
+                new MoveRulesService(new ValidateService(
                     new ValidatePawnService(),
                     new ValidateQueenService())));
 

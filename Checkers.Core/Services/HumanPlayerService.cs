@@ -6,12 +6,12 @@ namespace Checkers.Core.Services
     public class HumanPlayerService : IHumanPlayerService
     {        
         private IValidateBoardService _validateBoardService;
-        private IDirectMoveService _directMoveService;
+        private IMoveRulesService _moveRulesService;
 
-        public HumanPlayerService(IValidateBoardService validateBoardService, IDirectMoveService directMoveService)
+        public HumanPlayerService(IValidateBoardService validateBoardService, IMoveRulesService moveRulesService)
         {            
             _validateBoardService = validateBoardService;
-            _directMoveService = directMoveService;
+            _moveRulesService = moveRulesService;
         }
 
         public GameState TryMoveFigure(GameState gameState, int fromCoord, int toCoord)
@@ -22,7 +22,7 @@ namespace Checkers.Core.Services
                 return gameState;
             }
 
-            var newState = _directMoveService.MoveFigureWithoutValidation(gameState, fromCoord, toCoord);                        
+            var newState = _moveRulesService.MoveFigureWithoutValidation(gameState, fromCoord, toCoord);                        
             
             return newState;
         }
