@@ -23,6 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Checkers.DomainModels\Checkers.DomainModels.csproj" />
     <ProjectReference Include="..\..\Checkers.Web\Checkers.Web.csproj" />
   </ItemGroup>
 

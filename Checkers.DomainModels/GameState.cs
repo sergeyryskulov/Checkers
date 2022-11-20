@@ -29,7 +29,7 @@ namespace Checkers.Core.Models.ValueObjects
         {
             var other = (GameState)obj;
 
-            return Cells == other.Cells && Turn == other.Turn && MustGoFrom == other.MustGoFrom;
+            return Cells.ToString() == other.Cells.ToString() && Turn == other.Turn && MustGoFrom == other.MustGoFrom;
         }
 
         public override int GetHashCode()

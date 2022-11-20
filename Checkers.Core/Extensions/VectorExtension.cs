@@ -6,20 +6,20 @@ namespace Checkers.Core.Extensions
 {
     public static class VectorExtension
     {
-        public static Vector ToVector(this int fromCoord, int toCoord, int boardWidth)
+        public static Vector ToVector(this int fromPosition, int toPosition, int boardWidth)
         {
-            if (fromCoord == toCoord)
+            if (fromPosition == toPosition)
             {
                 return null;
             }
 
-            int fromCoordXProjection = (fromCoord % boardWidth);
+            int fromCoordXProjection = (fromPosition % boardWidth);
 
-            int toCoordXProjection = (toCoord % boardWidth);
+            int toCoordXProjection = (toPosition % boardWidth);
 
             bool right = (fromCoordXProjection < toCoordXProjection);
 
-            bool bottom = fromCoord < toCoord;
+            bool bottom = fromPosition < toPosition;
 
             int length = Math.Abs(toCoordXProjection - fromCoordXProjection);
 
@@ -35,7 +35,7 @@ namespace Checkers.Core.Extensions
 
             var resultVector = new Vector(direction, length);
 
-            if (resultVector.ToCoord(fromCoord, boardWidth) == toCoord)
+            if (resultVector.ToCoord(fromPosition, boardWidth) == toPosition)
             {
                 return resultVector;
             }

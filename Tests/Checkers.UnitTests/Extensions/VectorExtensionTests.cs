@@ -43,6 +43,15 @@ namespace Checkers.UnitTests.Extensions
         }
 
         [TestMethod()]
+        public void ConvertToVector_PositionsEqual_Null()
+        {
+            var actual = 0.ToVector(0, 3);
+
+            Assert.IsNull(actual);
+        }
+
+
+        [TestMethod()]
         public void CoordToVectorTest()
         {
             var actualVector = 0.ToVector(100, 2);

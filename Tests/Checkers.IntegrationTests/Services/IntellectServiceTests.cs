@@ -176,16 +176,8 @@ namespace Checkers.IntegrationTests.Services
 
             var expected = to;
 
-            Assert.IsTrue(
-
-                expected.Cells.ToString()!= actual.Cells.ToString() ||
-
-                expected.Turn!= actual.Turn ||
-
-                expected.MustGoFrom!= actual.MustGoFrom
-
-
-                );
+            Assert.IsTrue(!actual.Equals(expected)
+            );
         }
     }
 }
