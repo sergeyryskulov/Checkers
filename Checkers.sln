@@ -12,7 +12,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documents", "Documents", "{
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Checkers.Web", "Checkers.Web\Checkers.Web.csproj", "{857CD534-1481-44CF-9744-70C0232DA459}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Checkers.ApplicationServices", "Checkers.Core\Checkers.ApplicationServices.csproj", "{E984A629-DD2A-45A7-9BBC-F0583F69FC11}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Checkers.Rules", "Checkers.Core\Checkers.Rules.csproj", "{E984A629-DD2A-45A7-9BBC-F0583F69FC11}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{ADE67125-5CA6-47C9-890F-324452377239}"
 EndProject
@@ -32,7 +32,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DomainCore", "DomainCore", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application", "Application", "{5DC14BEB-329B-4959-80B4-165D81481813}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Checkers.HumanPlayer", "Infrastructure\Checkers.HumanPlayer\Checkers.HumanPlayer.csproj", "{890948BC-4F19-4F43-9D95-E9890A5CCBCE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Checkers.HumanPlayer", "Infrastructure\Checkers.HumanPlayer\Checkers.HumanPlayer.csproj", "{890948BC-4F19-4F43-9D95-E9890A5CCBCE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
