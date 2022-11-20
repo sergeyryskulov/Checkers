@@ -11,7 +11,7 @@ namespace Checkers.Core.Services
     public class ValidateQueenService : IValidateQueenService
     {                        
       
-        public AllowedVectors GetAllowedMoveVectors(int coord, Board board)
+        public AllowedVectors GetAllowedMoveVectors(int fromPosition, Board board)
         {
 
             List<Vector> eatingVectors = new List<Vector>();
@@ -24,7 +24,7 @@ namespace Checkers.Core.Services
                          Direction.RightBottom,
                          Direction.RightTop })
             {
-                var directionAllowedVectores = GetAllowedVectorsQueenDirection(coord, board, direction);
+                var directionAllowedVectores = GetAllowedVectorsQueenDirection(fromPosition, board, direction);
                 if (directionAllowedVectores.EatFigure)
                 {
                     eatingVectors.AddRange(directionAllowedVectores.Vectors);

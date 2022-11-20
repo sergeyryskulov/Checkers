@@ -16,17 +16,17 @@ namespace Checkers.Core.Services
             _validateFigureService = validateFigureService;
         }
 
-        public List<int> GetAllowedMoveVariants(Board board, int coord)
+        public List<int> GetAllowedDestinations(Board board, int fromPosition)
         {
             
-            var allowedMoveVectors = _validateFigureService.GetAllowedMoveVectors(coord, board);
+            var allowedMoveVectors = _validateFigureService.GetAllowedMoveVectors(fromPosition, board);
 
-            if (allowedMoveVectors.EatFigure==false && allowedMoveVectors.AnyVectorExists() && IsBlockedByAnotherFigure(coord, board))
+            if (allowedMoveVectors.EatFigure==false && allowedMoveVectors.AnyVectorExists() && IsBlockedByAnotherFigure(fromPosition, board))
             {
                 return new List<int>();
             }
 
-            return allowedMoveVectors.Vectors.ToList().ConvertAll(m => m.ToCoord(coord, board.BoardWidth()));
+            return allowedMoveVectors.Vectors.ToList().ConvertAll(m => m.ToCoord(fromPosition, board.BoardWidth()));
         }
 
         private bool IsBlockedByAnotherFigure(int coord, Board board)

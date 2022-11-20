@@ -17,22 +17,22 @@ namespace Checkers.Core.Services
             _validateEatService = validateEatService;
         }
 
-        public GameState MoveFigureWithoutValidation(GameState gameState, int fromCoord, int toCoord)
+        public GameState MoveFigureWithoutValidation(GameState gameState, int fromPosition, int toPosition)
         {
 
             var cells = gameState.Cells;
 
             var boardWidth = cells.BoardWidth();
 
-            var vector = fromCoord.ToVector(toCoord, boardWidth);
+            var vector = fromPosition.ToVector(toPosition, boardWidth);
 
             var newBoardState = new Board(cells.ToString());
 
-            bool onTopLine = (toCoord < boardWidth);
-            bool onBottomLine = toCoord >= boardWidth * (boardWidth - 1);
+            bool onTopLine = (toPosition < boardWidth);
+            bool onBottomLine = toPosition >= boardWidth * (boardWidth - 1);
             bool convertToQueen = (gameState.Turn == Turn.White && onTopLine) ||
                  (gameState.Turn == Turn.Black && onBottomLine);
-            newBoardState.GetFigureFromAndPutItTo(fromCoord, toCoord, convertToQueen);
+            newBoardState.GetFigureFromAndPutItTo(fromPosition, toPosition, convertToQueen);
 
             bool eatFigure = false;
             for (int iteratedLength = 1; iteratedLength < vector.Length; iteratedLength++)
@@ -40,7 +40,7 @@ namespace Checkers.Core.Services
                 var iteratedCoord = (new Vector(
                     vector.Direction,
                     iteratedLength
-                )).ToCoord(fromCoord, boardWidth);
+                )).ToCoord(fromPosition, boardWidth);
 
                 if (!newBoardState.EmptyCellAt(iteratedCoord))
                 {
@@ -53,7 +53,7 @@ namespace Checkers.Core.Services
                         
             if (eatFigure)
             {
-                var canEatNextFigure = _validateEatService.CanEatFigure(toCoord, newBoardState);
+                var canEatNextFigure = _validateEatService.CanEatFigure(toPosition, newBoardState);
 
                 if (canEatNextFigure)
                 {
@@ -77,7 +77,7 @@ namespace Checkers.Core.Services
                 nextTurn = Turn.BlackWin;
             }
         
-            return new GameState(newBoardState.ToString(), nextTurn, toggleTurn ? null : (int?) toCoord);
+            return new GameState(newBoardState.ToString(), nextTurn, toggleTurn ? null : (int?) toPosition);
 
         }
     }

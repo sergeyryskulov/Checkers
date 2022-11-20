@@ -134,7 +134,7 @@ namespace Checkers.IntegrationTests.Services
                     new ValidateQueenService()));
             
             return new HumanPlayerService(                
-                new ValidateBoardService(validateFiguresService),
+                new ValidateHumanService(validateFiguresService),
                 new MoveRulesService(new ValidateService(
                     new ValidatePawnService(),
                     new ValidateQueenService())));

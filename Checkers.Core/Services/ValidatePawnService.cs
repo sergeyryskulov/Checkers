@@ -14,18 +14,18 @@ namespace Checkers.Core.Services
     public class ValidatePawnService : IValidatePawnService
     {                        
         
-        public AllowedVectors GetAllowedMoveVectors(int coord, Board figures)
+        public AllowedVectors GetAllowedMoveVectors(int fromPosition, Board board)
         {
-            var color = figures.FigureColorAt(coord);
+            var color = board.FigureColorAt(fromPosition);
             var allowedVectors = new List<Vector>();
             foreach (var forwardDirection in GetForwardDirections(color))
             {
-                allowedVectors.AddRange(GetAllowedVectorsForForwardDirection(coord, figures, forwardDirection));
+                allowedVectors.AddRange(GetAllowedVectorsForForwardDirection(fromPosition, board, forwardDirection));
             }
 
             foreach (var backwardDirection in GetBackwardDirections(color))
             {
-                allowedVectors.AddRange(GetAllowedVectorsForBackwardDirection(coord, figures, backwardDirection));
+                allowedVectors.AddRange(GetAllowedVectorsForBackwardDirection(fromPosition, board, backwardDirection));
 
             }
 

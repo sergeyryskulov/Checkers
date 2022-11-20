@@ -5,6 +5,6 @@ namespace Checkers.Core.Interfaces
 {
     public interface IValidateQueenService
     {
-        AllowedVectors GetAllowedMoveVectors(int coord, Board board);
+        AllowedVectors GetAllowedMoveVectors(int fromPosition, Board board);
     }
 }

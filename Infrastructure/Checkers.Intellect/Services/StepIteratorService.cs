@@ -74,7 +74,7 @@ namespace Checkers.Intellect.Services
         private List<GameState> GetAllowedNextStates(GameState inputState, int fromCoord, Board board, int boardWidth)
         {
             List<GameState> result = new List<GameState>();
-            var toCoordVariants = _validateRulesService.GetAllowedMoveVariants(board, fromCoord);
+            var toCoordVariants = _validateRulesService.GetAllowedDestinations(board, fromCoord);
             foreach (var toCoord in toCoordVariants)
             {                
                 var newState = _moveRulesService.MoveFigureWithoutValidation(inputState, fromCoord, toCoord);

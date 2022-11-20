@@ -16,9 +16,9 @@ namespace Checkers.Core.Services
             _validateQueenService = validateQueenService;
         }
 
-        public bool CanEatFigure(int coord, Board board)
+        public bool CanEatFigure(int fromPosition, Board board)
         {
-            return GetAllowedMoveVectors(coord, board).EatFigure;
+            return GetAllowedMoveVectors(fromPosition, board).EatFigure;
         }
         
         public AllowedVectors GetAllowedMoveVectors(int coord, Board board)

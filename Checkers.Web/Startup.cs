@@ -37,7 +37,8 @@ namespace Checkers
             var assemblies = new[]
             {
                 typeof(HumanPlayerService).Assembly,
-                typeof(ComputerPlayerService).Assembly
+                typeof(ComputerPlayerService).Assembly,
+                typeof(ValidateRulesService).Assembly,
             };
 
             foreach (var assembly in assemblies)

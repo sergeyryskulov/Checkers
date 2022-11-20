@@ -5,19 +5,19 @@ namespace Checkers.Core.Services
 {
     public class HumanPlayerService : IHumanPlayerService
     {        
-        private IValidateBoardService _validateBoardService;
+        private IValidateHumanService _validateHumanService;
         private IMoveRulesService _moveRulesService;
 
-        public HumanPlayerService(IValidateBoardService validateBoardService, IMoveRulesService moveRulesService)
+        public HumanPlayerService(IValidateHumanService validateHumanService, IMoveRulesService moveRulesService)
         {            
-            _validateBoardService = validateBoardService;
+            _validateHumanService = validateHumanService;
             _moveRulesService = moveRulesService;
         }
 
         public GameState TryMoveFigure(GameState gameState, int fromCoord, int toCoord)
         {            
 
-            if (!_validateBoardService.CanMove(gameState, fromCoord, toCoord))
+            if (!_validateHumanService.CanMove(gameState, fromCoord, toCoord))
             {
                 return gameState;
             }

@@ -5,6 +5,6 @@ namespace Checkers.Core.Interfaces
 {
     public interface IValidateRulesService
     {
-        List<int> GetAllowedMoveVariants(Board board, int coord);
+        List<int> GetAllowedDestinations(Board board, int fromPosition);
     }
 }

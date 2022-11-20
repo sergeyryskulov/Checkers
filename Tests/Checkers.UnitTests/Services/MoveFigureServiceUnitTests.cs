@@ -13,7 +13,7 @@ namespace Checkers.UnitTests.Services
         [TestMethod()]
         public void MoveFigureTest()
         {          
-            var validateBoardService = new Mock<IValidateBoardService>();
+            var validateBoardService = new Mock<IValidateHumanService>();
             validateBoardService.Setup(m => m.CanMove(
                 It.Is<GameState>(t=>t.Cells.ToString()=="11P1" && t.Turn==Turn.White && t.MustGoFrom==null), 3, 0)).Returns(true);
 

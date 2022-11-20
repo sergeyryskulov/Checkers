@@ -4,6 +4,6 @@ namespace Checkers.Core.Interfaces
 {
     public interface IMoveRulesService
     {
-        GameState MoveFigureWithoutValidation(GameState gameState, int fromCoord, int toCoord);
+        GameState MoveFigureWithoutValidation(GameState gameState, int fromPosition, int toPosition);
     }
 }
