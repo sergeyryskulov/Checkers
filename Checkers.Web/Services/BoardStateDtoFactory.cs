@@ -18,21 +18,21 @@ namespace Checkers.Web.Factories
             {
                 links.Add(
                     new LinkDto("calculateStep", 
-                    $"/api/intellect/calculateStep?cells={gameState.Cells}&turn={gameState.Turn}" +
-                    GetMustGoFlag(gameState.MustGoFrom)
+                    $"/api/intellect/calculateStep?cells={gameState.Board}&turn={gameState.Turn}" +
+                    GetMustGoFlag(gameState.MustGoFromPosition)
                     ));
             }
             else if (gameState.Turn == Turn.White)
             {
                 links.Add(new LinkDto("moveFigure",
-                    $"/api/board/moveFigure?cells={gameState.Cells}&turn={gameState.Turn}" +
-                    GetMustGoFlag(gameState.MustGoFrom) +
+                    $"/api/board/moveFigure?cells={gameState.Board}&turn={gameState.Turn}" +
+                    GetMustGoFlag(gameState.MustGoFromPosition) +
                     "&fromCoord={myFromCoordinate}&toCoord={myToCoordinate}"
                 ));
             }
 
 
-            return new GameStateDto(gameState.Cells, gameState.Turn, gameState.MustGoFrom, links.ToArray());
+            return new GameStateDto(gameState.Board, gameState.Turn, gameState.MustGoFromPosition, links.ToArray());
         }
 
         private string GetMustGoFlag(int? mustGoFrom)

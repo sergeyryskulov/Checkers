@@ -5,36 +5,36 @@ namespace Checkers.Core.Models.ValueObjects
 {
     public class GameState
     {        
-        public Board Cells { get;  }
+        public Board Board { get;  }
 
         public Turn Turn { get; }
 
-        public int? MustGoFrom { get; }
+        public int? MustGoFromPosition { get; }
 
-        public GameState(string cells, Turn turn, int? mustGoFrom)
+        public GameState(string cells, Turn turn, int? mustGoFromPosition)
         {
-            Cells = new Board(cells);
+            Board = new Board(cells);
             Turn = turn;
-            MustGoFrom = mustGoFrom;
+            MustGoFromPosition = mustGoFromPosition;
 
         }
         public GameState(string cells, Turn turn)
         {
-            Cells = new Board(cells);
+            Board = new Board(cells);
             Turn = turn;
-            MustGoFrom = null;                                
+            MustGoFromPosition = null;                                
         }
 
         public override bool Equals(object obj)
         {
             var other = (GameState)obj;
 
-            return Cells.ToString() == other.Cells.ToString() && Turn == other.Turn && MustGoFrom == other.MustGoFrom;
+            return Board.ToString() == other.Board.ToString() && Turn == other.Turn && MustGoFromPosition == other.MustGoFromPosition;
         }
 
         public override int GetHashCode()
         {
-            return Cells.ToString().GetHashCode() + (int)Turn + (MustGoFrom??0);
+            return Board.ToString().GetHashCode() + (int)Turn + (MustGoFromPosition??0);
         }
     }
 }

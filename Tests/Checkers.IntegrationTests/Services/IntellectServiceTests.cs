@@ -163,9 +163,9 @@ namespace Checkers.IntegrationTests.Services
 
             var expected = to;
 
-            Assert.AreEqual(expected.Cells.ToString(), actual.Cells.ToString());
+            Assert.AreEqual(expected.Board.ToString(), actual.Board.ToString());
             Assert.AreEqual(expected.Turn, actual.Turn);
-            Assert.AreEqual(expected.MustGoFrom, actual.MustGoFrom);
+            Assert.AreEqual(expected.MustGoFromPosition, actual.MustGoFromPosition);
         }
 
         private void AssertNotEqual(GameState from, GameState to)

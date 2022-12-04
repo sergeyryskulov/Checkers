@@ -18,13 +18,13 @@ namespace Checkers.UnitTests.Controllers.api
         {
             var intellectService = new Mock<IComputerPlayerService>();
             intellectService.Setup(m => m.CalculateNextStep(
-                    It.Is<GameState>(t => t.Cells.ToString() == "p111")))
+                    It.Is<GameState>(t => t.Board.ToString() == "p111")))
                 .Returns(new GameState("111Q", Turn.BlackWin));
 
             var dtoFactory = new Mock<IBoardStateDtoFactory>();
 
             dtoFactory.Setup(m =>
-                m.CreateBoardStateDto(It.Is<GameState>(t => t.Cells.ToString() == "111Q" && t.Turn == Turn.BlackWin))).Returns(
+                m.CreateBoardStateDto(It.Is<GameState>(t => t.Board.ToString() == "111Q" && t.Turn == Turn.BlackWin))).Returns(
                 new GameStateDto(new Board("111Q"), Turn.BlackWin, null, new LinkDto[0])
             );
 

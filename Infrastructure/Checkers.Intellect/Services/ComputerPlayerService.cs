@@ -32,13 +32,13 @@ namespace Checkers.Intellect.Services
         {
             var nextWhiteVariants = _stepIteratorService.GetNextStepVariants(state);
 
-            var maximumWhite  = nextWhiteVariants.OrderByDescending(t => _positionWeightService.GetWeightForWhite(t.ResultState.Cells)).FirstOrDefault();
+            var maximumWhite  = nextWhiteVariants.OrderByDescending(t => _positionWeightService.GetWeightForWhite(t.ResultState.Board)).FirstOrDefault();
             if (maximumWhite == null)
             {
                 return -100;
             }
 
-            return _positionWeightService.GetWeightForWhite(maximumWhite.ResultState.Cells);
+            return _positionWeightService.GetWeightForWhite(maximumWhite.ResultState.Board);
         }
     }
 }

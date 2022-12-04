@@ -45,7 +45,7 @@ namespace Checkers.Core.Services
         private AllowedVectors GetAllowedVectorsQueenDirection(int coord, Board figures, Direction direction)
         {
 
-            int boardWidth = figures.BoardWidth();
+            int boardWidth = figures.BoardWidth;
             var color = figures.FigureColorAt(coord);
             var oppositeColor = color == FigureColor.White ? FigureColor.Black : FigureColor.White;
 

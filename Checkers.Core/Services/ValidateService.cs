@@ -25,11 +25,11 @@ namespace Checkers.Core.Services
         {
             var result = new AllowedVectors();
 
-            if (board.PawnAt(coord))
+            if (board.IsPawnAt(coord))
             {
                 result = _validatePawnService.GetAllowedMoveVectors(coord, board);
             }
-            else if (board.QueenAt(coord))
+            else if (board.IsQueenAt(coord))
             {
                 result = _validateQueenService.GetAllowedMoveVectors(coord, board);
             }

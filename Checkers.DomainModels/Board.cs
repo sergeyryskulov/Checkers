@@ -24,12 +24,23 @@ namespace Checkers.DomainModels.Aggregates
             _cells = cells;
         }
 
-        public int BoardWidth()
+        public int CellsCount
         {
-            return SquareRoot(_cells.Length);
+            get
+            {
+                return _cells.Length;
+            }
         }
 
-        public void GetFigureFromAndPutItTo(int fromPosition, int toPosition, bool convertToQueen)
+        public int BoardWidth
+        {
+            get
+            {
+                return SquareRoot(_cells.Length);
+            }
+        }
+
+        public void MoveFigure(int fromPosition, int toPosition, bool convertToQueen)
         {            
             Figures resultFigure = (Figures)_cells[fromPosition];
             if (convertToQueen)
@@ -50,7 +61,7 @@ namespace Checkers.DomainModels.Aggregates
             _cells = stringBuilder.ToString();
         }
 
-        public void RemoveFigure(int position)
+        public void DeleteFigure(int position)
         {           
             StringBuilder stringBuilder = new StringBuilder(_cells);
             stringBuilder[position] = (char)Figures.Empty;            
@@ -67,17 +78,9 @@ namespace Checkers.DomainModels.Aggregates
             return _cells.Contains((char)Figures.BlackPawn) || _cells.Contains((char)Figures.BlackQueen);
         }
 
-        public int CellsCount
+        public FigureColor FigureColorAt(int position)
         {
-            get
-            {
-                return _cells.Length;
-            }
-        }
-
-        public FigureColor FigureColorAt(int cellIndex)
-        {
-            var figure = this[cellIndex];
+            var figure = GetFigureAt(position);
             if (figure == Figures.WhitePawn || figure == Figures.WhiteQueen)
             {
                 return FigureColor.White;
@@ -90,29 +93,33 @@ namespace Checkers.DomainModels.Aggregates
             return FigureColor.Empty;
         }
 
-        public bool PawnAt(int cellIndex)
+        public bool IsPawnAt(int position)
         {
-            return this[cellIndex] == Figures.WhitePawn || this[cellIndex] == Figures.BlackPawn;
+            var figure = GetFigureAt(position);
+            return figure == Figures.WhitePawn || figure == Figures.BlackPawn;
         }
 
-        public bool QueenAt(int cellIndex)
+        public bool IsQueenAt(int position)
         {
-            return this[cellIndex] == Figures.WhiteQueen || this[cellIndex] == Figures.BlackQueen;
+            var figure = GetFigureAt(position);
+            return figure == Figures.WhiteQueen || figure == Figures.BlackQueen;
         }
 
-        public  bool WhiteFigureAt(int cellIndex)
+        public  bool IsWhiteFigureAt(int position)
         {
-            return this[cellIndex] == Figures.WhitePawn || this[cellIndex]== Figures.WhiteQueen;
+            var figure = GetFigureAt(position); 
+            return figure == Figures.WhitePawn || figure == Figures.WhiteQueen;
         }
 
-        public bool BlackFigureAt(int cellIndex)
+        public bool IsBlackFigureAt(int position)
         {
-            return this[cellIndex] == Figures.BlackPawn || this[cellIndex] == Figures.BlackQueen;
+            var figure = GetFigureAt(position);
+            return figure == Figures.BlackPawn || figure == Figures.BlackQueen;
         }
 
-        public bool EmptyCellAt(int cellIndex)
+        public bool IsEmptyCellAt(int position)
         {
-            return this[cellIndex] == Figures.Empty;
+            return GetFigureAt(position) == Figures.Empty;
         }
 
         public override string ToString()
@@ -120,12 +127,9 @@ namespace Checkers.DomainModels.Aggregates
             return _cells.ToString();
         }
 
-        private Figures this [int index]
-        {
-            get
-            {
-                return (Figures) _cells[index];
-            }
+        private Figures GetFigureAt(int position)
+        { 
+            return (Figures) _cells[position];
         }
 
         private int SquareRoot(int value)

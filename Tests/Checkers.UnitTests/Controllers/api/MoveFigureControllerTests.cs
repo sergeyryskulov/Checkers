@@ -22,14 +22,14 @@ namespace Checkers.UnitTests.Controllers.api
             var dtoFactory = new Mock<IBoardStateDtoFactory>();
 
             dtoFactory.Setup(m =>
-                m.CreateBoardStateDto(It.Is<GameState>(t => t.Cells.ToString() == "111q" && t.Turn == Turn.Black))).Returns(
+                m.CreateBoardStateDto(It.Is<GameState>(t => t.Board.ToString() == "111q" && t.Turn == Turn.Black))).Returns(
                 new GameStateDto(new Board("111q"), Turn.Black, null, new []
                 {
                     new LinkDto("relation", "href"),
                 })
             );
 
-            moveAndSaveFigureService.Setup(m => m.TryMoveFigure(It.Is<GameState>(t=>t.Cells.ToString()=="p111"), 3, 0))            
+            moveAndSaveFigureService.Setup(m => m.TryMoveFigure(It.Is<GameState>(t=>t.Board.ToString()=="p111"), 3, 0))            
             .Returns(new GameState("111q", Turn.Black));
 
             var moveFigureController = new BoardController(moveAndSaveFigureService.Object, dtoFactory.Object);

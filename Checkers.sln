@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.31624.102
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33110.190
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{0DA0C6BF-F8D7-41F8-BE7C-207C7A0DA93E}"
 EndProject
@@ -29,6 +29,9 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Checkers.DomainServices", "Checkers.DomainServices\Checkers.DomainServices.csproj", "{123482E4-2499-48E0-A814-3D4D2BA2370B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DomainCore", "DomainCore", "{C7C63D62-EBC9-4095-BEAE-67A8BEC51047}"
+	ProjectSection(SolutionItems) = preProject
+		Documents\UML Diagram.docx = Documents\UML Diagram.docx
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application", "Application", "{5DC14BEB-329B-4959-80B4-165D81481813}"
 EndProject

@@ -19,15 +19,15 @@ namespace Checkers.Core.Services
 
         public bool CanMove(GameState gameState, int fromPosition, int toPosition)
         {            
-            var cells = gameState.Cells;
+            var cells = gameState.Board;
 
-            var needStartFromOtherPosition = (gameState.MustGoFrom != null && gameState.MustGoFrom != fromPosition);
+            var needStartFromOtherPosition = (gameState.MustGoFromPosition != null && gameState.MustGoFromPosition != fromPosition);
             if (needStartFromOtherPosition)
             {
                 return false;
             }
 
-            var incorrectTurn = (cells.WhiteFigureAt(fromPosition) && gameState.Turn != Turn.White || cells.BlackFigureAt(fromPosition) && gameState.Turn != Turn.Black);
+            var incorrectTurn = (cells.IsWhiteFigureAt(fromPosition) && gameState.Turn != Turn.White || cells.IsBlackFigureAt(fromPosition) && gameState.Turn != Turn.Black);
             if (incorrectTurn)
             {
                 return false;

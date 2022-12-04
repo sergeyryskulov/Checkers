@@ -20,23 +20,23 @@ namespace Checkers.Intellect.Services
 
         private int GetWeight(Board board, int cellIndex)
         {
-            if (board.EmptyCellAt(cellIndex))
+            if (board.IsEmptyCellAt(cellIndex))
             {
                 return 0;
             }
 
             int result = 0;
-            if (board.PawnAt(cellIndex))
+            if (board.IsPawnAt(cellIndex))
             {
                 result = 1;
             }
 
-            if (board.QueenAt(cellIndex))
+            if (board.IsQueenAt(cellIndex))
             {
                 result = 2;
             }
 
-            if (board.BlackFigureAt(cellIndex))
+            if (board.IsBlackFigureAt(cellIndex))
             {
                 result = -1 * result;
             }

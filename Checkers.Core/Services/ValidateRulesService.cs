@@ -26,7 +26,7 @@ namespace Checkers.Core.Services
                 return new List<int>();
             }
 
-            return allowedMoveVectors.Vectors.ToList().ConvertAll(m => m.ToCoord(fromPosition, board.BoardWidth()));
+            return allowedMoveVectors.Vectors.ToList().ConvertAll(m => m.ToCoord(fromPosition, board.BoardWidth));
         }
 
         private bool IsBlockedByAnotherFigure(int coord, Board board)

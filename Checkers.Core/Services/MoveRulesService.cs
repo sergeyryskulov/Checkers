@@ -20,9 +20,9 @@ namespace Checkers.Core.Services
         public GameState MoveFigureWithoutValidation(GameState gameState, int fromPosition, int toPosition)
         {
 
-            var cells = gameState.Cells;
+            var cells = gameState.Board;
 
-            var boardWidth = cells.BoardWidth();
+            var boardWidth = cells.BoardWidth;
 
             var vector = fromPosition.ToVector(toPosition, boardWidth);
 
@@ -32,7 +32,7 @@ namespace Checkers.Core.Services
             bool onBottomLine = toPosition >= boardWidth * (boardWidth - 1);
             bool convertToQueen = (gameState.Turn == Turn.White && onTopLine) ||
                  (gameState.Turn == Turn.Black && onBottomLine);
-            newBoardState.GetFigureFromAndPutItTo(fromPosition, toPosition, convertToQueen);
+            newBoardState.MoveFigure(fromPosition, toPosition, convertToQueen);
 
             bool eatFigure = false;
             for (int iteratedLength = 1; iteratedLength < vector.Length; iteratedLength++)
@@ -42,10 +42,10 @@ namespace Checkers.Core.Services
                     iteratedLength
                 )).ToCoord(fromPosition, boardWidth);
 
-                if (!newBoardState.EmptyCellAt(iteratedCoord))
+                if (!newBoardState.IsEmptyCellAt(iteratedCoord))
                 {
                     eatFigure = true;
-                    newBoardState.RemoveFigure(iteratedCoord);                    
+                    newBoardState.DeleteFigure(iteratedCoord);                    
                 }
             }
             

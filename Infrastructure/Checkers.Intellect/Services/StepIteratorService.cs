@@ -23,20 +23,20 @@ namespace Checkers.Intellect.Services
 
         public IEnumerable<NextStepVariant> GetNextStepVariants(GameState gameState)
         {            
-            var cells = gameState.Cells;
-            var boardWidth = cells.BoardWidth();
+            var cells = gameState.Board;
+            var boardWidth = cells.BoardWidth;
 
             var stateWithNoChangeTurn = new List<GameState>();
 
             for (int fromCoord = 0; fromCoord < cells.CellsCount; fromCoord++)
             {
-                if (gameState.MustGoFrom != null && fromCoord != gameState.MustGoFrom)
+                if (gameState.MustGoFromPosition != null && fromCoord != gameState.MustGoFromPosition)
                 {
                     continue;
                 }
 
-                if ((gameState.Turn == Turn.Black && cells.BlackFigureAt(fromCoord)) ||
-                    (gameState.Turn == Turn.White && cells.WhiteFigureAt(fromCoord)
+                if ((gameState.Turn == Turn.Black && cells.IsBlackFigureAt(fromCoord)) ||
+                    (gameState.Turn == Turn.White && cells.IsWhiteFigureAt(fromCoord)
                     ))
                 {
                     foreach (var newState in GetAllowedNextStates(gameState, fromCoord, cells, boardWidth))

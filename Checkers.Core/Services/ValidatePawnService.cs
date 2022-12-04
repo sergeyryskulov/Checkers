@@ -41,7 +41,7 @@ namespace Checkers.Core.Services
 
         private List<Vector> GetAllowedVectorsForForwardDirection(int coord, Board board, Direction forwardDirection)
         {
-            int boardWidth = board.BoardWidth();
+            int boardWidth = board.BoardWidth;
             var color = board.FigureColorAt(coord);
             var oppositeColor = color == FigureColor.White ? FigureColor.Black : FigureColor.White;
 
@@ -54,7 +54,7 @@ namespace Checkers.Core.Services
             }
 
             var result = new List<Vector>();
-            if (board.EmptyCellAt(coordinateOneStepForward))
+            if (board.IsEmptyCellAt(coordinateOneStepForward))
             {
                 result.Add(vectorOneStepForward);
             }
@@ -66,7 +66,7 @@ namespace Checkers.Core.Services
                     return result;
                 }
 
-                if (board.EmptyCellAt(coordTwoStepForward))
+                if (board.IsEmptyCellAt(coordTwoStepForward))
                 {
                     result.Add(new Vector(vectorOneStepForward.Direction, 2));
                 }
@@ -77,7 +77,7 @@ namespace Checkers.Core.Services
 
         private List<Vector> GetAllowedVectorsForBackwardDirection(int coord, Board board, Direction backwardDirection)
         {
-            int boardWidth = board.BoardWidth();
+            int boardWidth = board.BoardWidth;
             var color = board.FigureColorAt(coord);
             var oppositeColor = color == FigureColor.White ? FigureColor.Black : FigureColor.White;
 
@@ -100,7 +100,7 @@ namespace Checkers.Core.Services
                     return result;
                 }
 
-                if (board.EmptyCellAt(coordTwoStepBackward))
+                if (board.IsEmptyCellAt(coordTwoStepBackward))
                 {
                     result.Add(new Vector(backwardDirection, 2));
                 }

@@ -147,8 +147,8 @@ namespace Checkers.IntegrationTests.Services
 
             var actual = moveService.TryMoveFigure(@from, fromCoord, toCoord);
 
-            Assert.AreEqual(expected.Cells.ToString(), actual.Cells.ToString());
-            Assert.AreEqual(expected.MustGoFrom, actual.MustGoFrom);
+            Assert.AreEqual(expected.Board.ToString(), actual.Board.ToString());
+            Assert.AreEqual(expected.MustGoFromPosition, actual.MustGoFromPosition);
             Assert.AreEqual(expected.Turn, actual.Turn);
         }
 
