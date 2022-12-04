@@ -1,12 +1,12 @@
 ﻿using Checkers.DomainModels;
 using Checkers.DomainModels.Enums;
-using Checkers.Web.Factories;
+using Checkers.Web.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Checkers.UnitTests.Services
 {
     [TestClass()]
-    public class BoardStateDtoFactoryTests
+    public class GameStateDtoTests
     {
 
 
@@ -14,9 +14,7 @@ namespace Checkers.UnitTests.Services
         public void CreateBoardStateDto_WhiteTurn()
         {
 
-            var boardStateDtoFactory = new BoardStateDtoFactory();
-
-            var actual = boardStateDtoFactory.CreateBoardStateDto(new GameState("cells", Turn.White, 1));
+            var actual = new GameStateDto(new GameState("cells", Turn.White, 1));
             
             Assert.AreEqual("cells", actual.Cells);
             Assert.AreEqual((char)Turn.White, actual.Turn);
@@ -30,9 +28,7 @@ namespace Checkers.UnitTests.Services
         public void CreateBoardStateDto_BlackTurn()
         {
 
-            var boardStateDtoFactoryService = new BoardStateDtoFactory();
-
-            var actual = boardStateDtoFactoryService.CreateBoardStateDto(new GameState("cells", Turn.Black));
+            var actual = new GameStateDto(new GameState("cells", Turn.Black));
 
             Assert.AreEqual("cells", actual.Cells);
             Assert.AreEqual((char)Turn.Black, actual.Turn);

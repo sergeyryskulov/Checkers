@@ -199,7 +199,7 @@ var ServerRepository = /** @class */ (function () {
     function ServerRepository() {
     }
     ServerRepository.prototype.moveFigureOnServer = function (boardState, fromCoord, toCoord, callback) {
-        $.get('/api/board/movefigure?fromCoord=' + fromCoord + '&toCoord=' + toCoord + '&cells=' + boardState.cells + '&turn=' + boardState.turn + '&mustGoFrom=' + boardState.mustGoFrom, callback);
+        $.get('/api/board/movefigure?fromPosition=' + fromCoord + '&toPosition=' + toCoord + '&cells=' + boardState.cells + '&turn=' + boardState.turn + '&mustGoFrom=' + boardState.mustGoFrom, callback);
     };
     ServerRepository.prototype.intellectStep = function (boardState, callback) {
         $.get('/api/intellect/calculatestep?cells=' + boardState.cells + '&turn=' + boardState.turn + '&mustGoFrom=' + boardState.mustGoFrom, callback);

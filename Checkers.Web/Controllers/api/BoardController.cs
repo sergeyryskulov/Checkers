@@ -1,7 +1,6 @@
 ﻿using Checkers.DomainModels;
 using Checkers.DomainModels.Enums;
 using Checkers.DomainServices;
-using Checkers.Web.Factories;
 using Checkers.Web.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,12 +9,10 @@ namespace Checkers.Web.Controllers.api
     public class BoardController : BaseApiController
     {
         private IHumanPlayerService _humanPlayerService;
-        private IBoardStateDtoFactory _boardStateDtoFactory;
-
-        public BoardController(IHumanPlayerService humanPlayerService, IBoardStateDtoFactory boardStateDtoFactory)
+        
+        public BoardController(IHumanPlayerService humanPlayerService)
         {
             _humanPlayerService = humanPlayerService;
-            _boardStateDtoFactory = boardStateDtoFactory;
         }
 
         /// <summary>
@@ -37,20 +34,20 @@ namespace Checkers.Web.Controllers.api
         /// <b><i>B</i></b> - черные выиграли<br/>        
         /// </param>
         /// <param name="mustGoFrom">Необязательный параметр, используется для повторного хода. Если на предыдущем шаге была срублена шашка, и есть возможность срубить еще одну шашку, то это поле указывает номер клетки, на которую передвинулась рубящая шашка перед повторным ходом. Нумерация клеток идет с нуля, слева направо сверху вниз.</param>
-        /// <param name="fromCoord">Номер клетки, на которой стоит фигура, которую нужно передвинуть. Нумерация клеток идет с нуля, слева направо сверху вниз.</param>
-        /// <param name="toCoord">Номер клетки, куда нужно передвинуть фигуры.</param>                                                
+        /// <param name="fromPosition">Номер клетки, на которой стоит фигура, которую нужно передвинуть. Нумерация клеток идет с нуля, слева направо сверху вниз.</param>
+        /// <param name="toPosition">Номер клетки, куда нужно передвинуть фигуры.</param>                                                
         /// <response code="200">Состояние доски после перемещения фигуры</response>        
         [HttpGet]
         [ResponseCache(VaryByQueryKeys = new[] { "*" }, Duration = 300)]
-        public GameStateDto MoveFigure(string cells, char turn, int? mustGoFrom, int fromCoord, int toCoord)
+        public GameStateDto MoveFigure(string cells, char turn, int? mustGoFrom, int fromPosition, int toPosition)
         {
-            var oldBoardState = new GameState(cells, (Turn)turn, mustGoFrom);
+            var oldGameState = new GameState(cells, (Turn)turn, mustGoFrom);
             
-            var newBoardState = _humanPlayerService.TryMoveFigure(oldBoardState, fromCoord, toCoord);
+            var newGameState = _humanPlayerService.TryMoveFigure(oldGameState, fromPosition, toPosition);
 
-            var boardStateDto = _boardStateDtoFactory.CreateBoardStateDto(newBoardState);
+            var newGameStateDto = new GameStateDto(newGameState);
 
-            return boardStateDto;
+            return newGameStateDto;
         }
     }
 }

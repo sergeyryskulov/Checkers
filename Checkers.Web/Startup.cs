@@ -15,7 +15,6 @@ using System.Reflection;
 using Checkers.ComputerPlayer.Services;
 using Checkers.HumanPlayer.Services;
 using Checkers.Rules.Services;
-using Checkers.Web.Factories;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace Checkers
@@ -54,8 +53,6 @@ namespace Checkers
                     }
                 }
             }
-
-            services.AddTransient<IBoardStateDtoFactory, BoardStateDtoFactory>();
 
             services.AddSwaggerGen(SwaggerConfig);
         }

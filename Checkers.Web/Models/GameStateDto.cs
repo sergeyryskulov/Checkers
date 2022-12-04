@@ -38,7 +38,47 @@ namespace Checkers.Web.Models
             MustGoFrom = mustGoFrom;
             Links = links;
         }
+
+        public GameStateDto(GameState gameState)
+        {
+            Cells = gameState.Board.ToString();
+            Turn = (char)gameState.Turn;
+            MustGoFrom = gameState.MustGoFromPosition;
+            
+            List<LinkDto> links = new List<LinkDto>();
+            if (gameState.Turn == DomainModels.Enums.Turn.Black)
+            {
+                links.Add(
+                    new LinkDto("calculateStep",
+                        $"/api/intellect/calculateStep?cells={gameState.Board}&turn={gameState.Turn}" +
+                        GetMustGoFlag(gameState.MustGoFromPosition)
+                    ));
+            }
+            else if (gameState.Turn == DomainModels.Enums.Turn.White)
+            {
+                links.Add(new LinkDto("moveFigure",
+                    $"/api/board/moveFigure?cells={gameState.Board}&turn={gameState.Turn}" +
+                    GetMustGoFlag(gameState.MustGoFromPosition) +
+                    "&fromCoord={myFromCoordinate}&toCoord={myToCoordinate}"
+                ));
+            }
+
+            Links = links.ToArray();
+
+        }
+
+        private string GetMustGoFlag(int? mustGoFrom)
+        {
+            if (mustGoFrom == null)
+            {
+                return "";
+            }
+
+            return $"&mustGoFrom={mustGoFrom}";
+        }
+
     }
+
 
     [DisplayName("Link")]
     public class LinkDto

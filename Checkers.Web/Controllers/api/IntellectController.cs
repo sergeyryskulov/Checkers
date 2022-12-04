@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using Checkers.DomainModels;
 using Checkers.DomainModels.Enums;
 using Checkers.DomainServices;
-using Checkers.Web.Factories;
 using Checkers.Web.Models;
 
 namespace Checkers.Web.Controllers.api
@@ -14,12 +13,10 @@ namespace Checkers.Web.Controllers.api
     public class IntellectController : BaseApiController
     {
         private IComputerPlayerService _computerPlayerService;
-        private IBoardStateDtoFactory _boardStateDtoFactory;
-
-        public IntellectController(IComputerPlayerService computerPlayerService, IBoardStateDtoFactory boardStateDtoFactory)
+        
+        public IntellectController(IComputerPlayerService computerPlayerService)
         {
             _computerPlayerService = computerPlayerService;
-            _boardStateDtoFactory = boardStateDtoFactory;
         }
 
 
@@ -47,11 +44,13 @@ namespace Checkers.Web.Controllers.api
         [ResponseCache(VaryByQueryKeys = new[] { "*" }, Duration = 60)]
         public GameStateDto CalculateStep(string cells, char turn, int? mustGoFrom)
         {
-            var boardState = _computerPlayerService.CalculateNextStep(new GameState(cells, (Turn)turn, mustGoFrom));
+            var oldGameState = new GameState(cells, (Turn)turn, mustGoFrom);
 
-            var boardStateDto = _boardStateDtoFactory.CreateBoardStateDto(boardState);
+            var newGameState = _computerPlayerService.CalculateNextStep(oldGameState);
 
-            return boardStateDto;
+            var newGameStateDto = new GameStateDto(newGameState);
+
+            return newGameStateDto;
         }
     }
 }
