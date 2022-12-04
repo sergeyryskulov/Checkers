@@ -1,6 +1,6 @@
 ﻿using Checkers.DomainModels;
 
-namespace Checkers.Core.Interfaces
+namespace Checkers.HumanPlayer.Interfaces
 {
     public interface IValidateHumanService
     {

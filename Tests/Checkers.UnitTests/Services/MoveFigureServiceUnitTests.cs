@@ -1,8 +1,8 @@
-﻿using Checkers.Core.Interfaces;
-using Checkers.Core.Services;
-using Checkers.DomainModels;
+﻿using Checkers.DomainModels;
 using Checkers.DomainModels.Enums;
 using Checkers.DomainServices;
+using Checkers.HumanPlayer.Interfaces;
+using Checkers.HumanPlayer.Services;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 

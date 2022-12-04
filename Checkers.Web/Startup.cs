@@ -13,7 +13,7 @@ using Microsoft.OpenApi.Models;
 using System.IO;
 using System.Reflection;
 using Checkers.ComputerPlayer.Services;
-using Checkers.Core.Services;
+using Checkers.HumanPlayer.Services;
 using Checkers.Rules.Services;
 using Checkers.Web.Factories;
 using Swashbuckle.AspNetCore.SwaggerGen;

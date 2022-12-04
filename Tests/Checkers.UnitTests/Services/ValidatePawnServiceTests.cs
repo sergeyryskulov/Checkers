@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using Checkers.Core.Models.ValueObjects;
-using Checkers.Core.Services;
 using Checkers.DomainModels;
 using Checkers.Rules.Enums;
 using Checkers.Rules.Models;

@@ -1,6 +1,4 @@
-﻿using Checkers.Core.Interfaces;
-using Checkers.Core.Services;
-using Checkers.DomainModels;
+﻿using Checkers.DomainModels;
 using Checkers.Rules.Interfaces;
 using Checkers.Rules.Services;
 using Microsoft.VisualStudio.TestTools.UnitTesting;

@@ -1,8 +1,8 @@
-﻿using Checkers.Core.Interfaces;
-using Checkers.DomainModels;
+﻿using Checkers.DomainModels;
 using Checkers.DomainServices;
+using Checkers.HumanPlayer.Interfaces;
 
-namespace Checkers.Core.Services
+namespace Checkers.HumanPlayer.Services
 {
     public class HumanPlayerService : IHumanPlayerService
     {        
