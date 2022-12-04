@@ -4,6 +4,7 @@ using Checkers.Core.Models.ValueObjects;
 using Checkers.Core.Services;
 using Checkers.DomainModels;
 using Checkers.DomainModels.Enums;
+using Checkers.DomainServices;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 

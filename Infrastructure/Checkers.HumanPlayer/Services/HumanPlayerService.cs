@@ -1,5 +1,6 @@
 ﻿using Checkers.Core.Interfaces;
 using Checkers.DomainModels;
+using Checkers.DomainServices;
 
 namespace Checkers.Core.Services
 {
@@ -14,15 +15,15 @@ namespace Checkers.Core.Services
             _moveRulesService = moveRulesService;
         }
 
-        public GameState TryMoveFigure(GameState gameState, int fromCoord, int toCoord)
+        public GameState TryMoveFigure(GameState gameState, int fromPosition, int toPosition)
         {            
 
-            if (!_validateHumanService.CanMove(gameState, fromCoord, toCoord))
+            if (!_validateHumanService.CanMove(gameState, fromPosition, toPosition))
             {
                 return gameState;
             }
 
-            var newState = _moveRulesService.MoveFigureWithoutValidation(gameState, fromCoord, toCoord);                        
+            var newState = _moveRulesService.MoveFigureWithoutValidation(gameState, fromPosition, toPosition);                        
             
             return newState;
         }

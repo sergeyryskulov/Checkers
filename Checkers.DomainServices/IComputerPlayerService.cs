@@ -1,6 +1,6 @@
 ﻿using Checkers.DomainModels;
 
-namespace Checkers.Core.Interfaces
+namespace Checkers.DomainServices
 {
     public interface IComputerPlayerService
     {

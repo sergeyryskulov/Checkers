@@ -1,6 +1,7 @@
 ﻿using Checkers.Core.Interfaces;
 using Checkers.DomainModels;
 using Checkers.DomainModels.Enums;
+using Checkers.DomainServices;
 
 namespace Checkers.Core.Services
 {
@@ -31,7 +32,7 @@ namespace Checkers.Core.Services
                 return false;
             }
 
-            var notInAllowedVectors = !_validateRulesService.GetAllowedDestinations(cells, fromPosition).Contains(toPosition);
+            var notInAllowedVectors = !_validateRulesService.GetAllowedToPositions(cells, fromPosition).Contains(toPosition);
             if (notInAllowedVectors)
             {
                 return false;

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using Checkers.Core.Interfaces;
 using Checkers.DomainModels;
 using Checkers.DomainModels.Enums;
+using Checkers.DomainServices;
 using Checkers.Intellect.Interfaces;
 using Checkers.Intellect.Models.ValueObjects;
 
@@ -72,7 +72,7 @@ namespace Checkers.Intellect.Services
         private List<GameState> GetAllowedNextStates(GameState inputState, int fromCoord, Board board, int boardWidth)
         {
             List<GameState> result = new List<GameState>();
-            var toCoordVariants = _validateRulesService.GetAllowedDestinations(board, fromCoord);
+            var toCoordVariants = _validateRulesService.GetAllowedToPositions(board, fromCoord);
             foreach (var toCoord in toCoordVariants)
             {                
                 var newState = _moveRulesService.MoveFigureWithoutValidation(inputState, fromCoord, toCoord);

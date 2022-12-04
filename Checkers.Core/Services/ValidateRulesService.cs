@@ -4,6 +4,7 @@ using Checkers.Core.Models.Aggregates;
 using System.Collections.Generic;
 using System.Linq;
 using Checkers.DomainModels;
+using Checkers.DomainServices;
 
 namespace Checkers.Core.Services
 {
@@ -16,7 +17,7 @@ namespace Checkers.Core.Services
             _validateFigureService = validateFigureService;
         }
 
-        public List<int> GetAllowedDestinations(Board board, int fromPosition)
+        public List<int> GetAllowedToPositions(Board board, int fromPosition)
         {
             
             var allowedMoveVectors = _validateFigureService.GetAllowedMoveVectors(fromPosition, board);

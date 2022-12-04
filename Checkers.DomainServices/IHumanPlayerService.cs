@@ -1,9 +1,9 @@
 ﻿using Checkers.DomainModels;
 
-namespace Checkers.Core.Interfaces
+namespace Checkers.DomainServices
 {
     public interface IHumanPlayerService
     {
-        GameState TryMoveFigure(GameState gameState, int fromCoord, int toCoord);
+        GameState TryMoveFigure(GameState gameState, int fromPosition, int toPosition);
     }
 }
