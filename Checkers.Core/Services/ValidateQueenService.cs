@@ -1,13 +1,12 @@
 ﻿using System.Collections.Generic;
-using Checkers.Core.Constants.Enums;
-using Checkers.Core.Extensions;
-using Checkers.Core.Interfaces;
-using Checkers.Core.Models.Aggregates;
-using Checkers.Core.Models.ValueObjects;
 using Checkers.DomainModels;
 using Checkers.DomainModels.Enums;
+using Checkers.Rules.Enums;
+using Checkers.Rules.Extensions;
+using Checkers.Rules.Interfaces;
+using Checkers.Rules.Models;
 
-namespace Checkers.Core.Services
+namespace Checkers.Rules.Services
 {
     public class ValidateQueenService : IValidateQueenService
     {                        
@@ -25,7 +24,7 @@ namespace Checkers.Core.Services
                          Direction.RightBottom,
                          Direction.RightTop })
             {
-                var directionAllowedVectores = GetAllowedVectorsQueenDirection(board, fromPosition, direction);
+                var directionAllowedVectores = GetAllowedVectorsForQueenDirection(board, fromPosition, direction);
                 if (directionAllowedVectores.EatFigure)
                 {
                     eatingVectors.AddRange(directionAllowedVectores.Vectors);
@@ -43,9 +42,8 @@ namespace Checkers.Core.Services
             return new AllowedVectors(notEatingVectors, false);
         }
 
-        private AllowedVectors GetAllowedVectorsQueenDirection(Board board, int fromPosition, Direction direction)
+        private AllowedVectors GetAllowedVectorsForQueenDirection(Board board, int fromPosition, Direction direction)
         {
-
             int boardWidth = board.BoardWidth;
             var color = board.FigureColorAt(fromPosition);
             var oppositeColor = color == FigureColor.White ? FigureColor.Black : FigureColor.White;
@@ -61,7 +59,7 @@ namespace Checkers.Core.Services
                     iteratedVectorLength
                 );
 
-                var iteratedCoord = iteratedVector.ToCoord(fromPosition, boardWidth);
+                var iteratedCoord = iteratedVector.ToPosition(fromPosition, boardWidth);
                 if (iteratedCoord == -1)
                 {
                     break;

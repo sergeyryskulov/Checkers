@@ -1,15 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Checkers.Core.Constants;
-using Checkers.Core.Constants.Enums;
-using Checkers.Core.Extensions;
-using Checkers.Core.Interfaces;
-using Checkers.Core.Models.Aggregates;
-using Checkers.Core.Models.ValueObjects;
 using Checkers.DomainModels;
 using Checkers.DomainModels.Enums;
+using Checkers.Rules.Enums;
+using Checkers.Rules.Extensions;
+using Checkers.Rules.Interfaces;
+using Checkers.Rules.Models;
 
-namespace Checkers.Core.Services
+namespace Checkers.Rules.Services
 {
 
     public class ValidatePawnService : IValidatePawnService
@@ -47,7 +45,7 @@ namespace Checkers.Core.Services
 
             var vectorOneStepForward = new Vector(forwardDirection, 1);
                 
-            var coordinateOneStepForward = vectorOneStepForward.ToCoord(fromPosition, boardWidth);
+            var coordinateOneStepForward = vectorOneStepForward.ToPosition(fromPosition, boardWidth);
             if (coordinateOneStepForward == -1)
             {
                 return new List<Vector>();
@@ -60,7 +58,7 @@ namespace Checkers.Core.Services
             }
             else if (board.FigureColorAt(coordinateOneStepForward) == oppositeColor)
             {
-                var coordTwoStepForward = vectorOneStepForward.ToCoord(coordinateOneStepForward, boardWidth);
+                var coordTwoStepForward = vectorOneStepForward.ToPosition(coordinateOneStepForward, boardWidth);
                 if (coordTwoStepForward == -1)
                 {
                     return result;
@@ -86,7 +84,7 @@ namespace Checkers.Core.Services
             
             var result = new List<Vector>();
 
-            var coordinateOneStepBackward = vectorOneStepBackward.ToCoord(fromPosition,  boardWidth);
+            var coordinateOneStepBackward = vectorOneStepBackward.ToPosition(fromPosition,  boardWidth);
             if (coordinateOneStepBackward == -1)
             {
                 return result;
@@ -94,7 +92,7 @@ namespace Checkers.Core.Services
 
             if (board.FigureColorAt(coordinateOneStepBackward) == oppositeColor)
             {
-                var coordTwoStepBackward = vectorOneStepBackward.ToCoord(coordinateOneStepBackward, boardWidth);
+                var coordTwoStepBackward = vectorOneStepBackward.ToPosition(coordinateOneStepBackward, boardWidth);
                 if (coordTwoStepBackward == -1)
                 {
                     return result;

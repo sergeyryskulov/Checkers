@@ -1,12 +1,11 @@
-﻿using Checkers.Core.Extensions;
-using Checkers.Core.Interfaces;
-using Checkers.Core.Models.Aggregates;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Checkers.DomainModels;
 using Checkers.DomainServices;
+using Checkers.Rules.Extensions;
+using Checkers.Rules.Interfaces;
 
-namespace Checkers.Core.Services
+namespace Checkers.Rules.Services
 {
     public class ValidateRulesService : IValidateRulesService
     {
@@ -20,14 +19,14 @@ namespace Checkers.Core.Services
         public List<int> GetAllowedToPositions(Board board, int fromPosition)
         {
             
-            var allowedMoveVectors = _validateFigureService.GetAllowedMoveVectors(fromPosition, board);
+            var allowedMoveVectors = _validateFigureService.GetAllowedMoveVectors(board, fromPosition);
 
             if (allowedMoveVectors.EatFigure==false && allowedMoveVectors.AnyVectorExists() && IsBlockedByAnotherFigure(board, fromPosition))
             {
                 return new List<int>();
             }
 
-            return allowedMoveVectors.Vectors.ToList().ConvertAll(m => m.ToCoord(fromPosition, board.BoardWidth));
+            return allowedMoveVectors.Vectors.ToList().ConvertAll(m => m.ToPosition(fromPosition, board.BoardWidth));
         }
 
         private bool IsBlockedByAnotherFigure(Board board, int position)
@@ -40,7 +39,7 @@ namespace Checkers.Core.Services
                     position != figureCoord &&
                     board.FigureColorAt(figureCoord) == color)
                 {
-                    if (_validateFigureService.GetAllowedMoveVectors(figureCoord, board).EatFigure)
+                    if (_validateFigureService.GetAllowedMoveVectors(board, figureCoord).EatFigure)
                     {
                         return true;
                     }
