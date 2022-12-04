@@ -1,9 +1,8 @@
-﻿using Checkers.Core.Constants;
-using Checkers.Core.Interfaces;
-using Checkers.Core.Models.Aggregates;
-using Checkers.DomainModels;
+﻿using Checkers.DomainModels;
+using Checkers.Rules.Interfaces;
+using Checkers.Rules.Models;
 
-namespace Checkers.Core.Services
+namespace Checkers.Rules.Services
 {
     public class ValidateService : IValidateFigureService, IValidateEatService
     {
@@ -18,20 +17,20 @@ namespace Checkers.Core.Services
 
         public bool CanEatFigure(int fromPosition, Board board)
         {
-            return GetAllowedMoveVectors(fromPosition, board).EatFigure;
+            return GetAllowedMoveVectors(board, fromPosition).EatFigure;
         }
         
-        public AllowedVectors GetAllowedMoveVectors(int coord, Board board)
+        public AllowedVectors GetAllowedMoveVectors(Board board, int fromPosition)
         {
             var result = new AllowedVectors();
 
-            if (board.IsPawnAt(coord))
+            if (board.IsPawnAt(fromPosition))
             {
-                result = _validatePawnService.GetAllowedMoveVectors(coord, board);
+                result = _validatePawnService.GetAllowedMoveVectors(board, fromPosition);
             }
-            else if (board.IsQueenAt(coord))
+            else if (board.IsQueenAt(fromPosition))
             {
-                result = _validateQueenService.GetAllowedMoveVectors(coord, board);
+                result = _validateQueenService.GetAllowedMoveVectors(board, fromPosition);
             }
 
             return result;

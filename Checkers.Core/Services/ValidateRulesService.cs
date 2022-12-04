@@ -22,7 +22,7 @@ namespace Checkers.Core.Services
             
             var allowedMoveVectors = _validateFigureService.GetAllowedMoveVectors(fromPosition, board);
 
-            if (allowedMoveVectors.EatFigure==false && allowedMoveVectors.AnyVectorExists() && IsBlockedByAnotherFigure(fromPosition, board))
+            if (allowedMoveVectors.EatFigure==false && allowedMoveVectors.AnyVectorExists() && IsBlockedByAnotherFigure(board, fromPosition))
             {
                 return new List<int>();
             }
@@ -30,14 +30,14 @@ namespace Checkers.Core.Services
             return allowedMoveVectors.Vectors.ToList().ConvertAll(m => m.ToCoord(fromPosition, board.BoardWidth));
         }
 
-        private bool IsBlockedByAnotherFigure(int coord, Board board)
+        private bool IsBlockedByAnotherFigure(Board board, int position)
         {
-            var color = board.FigureColorAt(coord);
+            var color = board.FigureColorAt(position);
 
             for (int figureCoord = 0; figureCoord < board.CellsCount; figureCoord++)
             {
                 if (
-                    coord != figureCoord &&
+                    position != figureCoord &&
                     board.FigureColorAt(figureCoord) == color)
                 {
                     if (_validateFigureService.GetAllowedMoveVectors(figureCoord, board).EatFigure)

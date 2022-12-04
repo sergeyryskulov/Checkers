@@ -1,4 +1,4 @@
-﻿namespace Checkers.Core.Constants.Enums
+﻿namespace Checkers.Rules.Enums
 {
     public enum Direction
     {
@@ -6,6 +6,5 @@
         RightTop,
         LeftBottom,
         RightBottom
-
     }
 }

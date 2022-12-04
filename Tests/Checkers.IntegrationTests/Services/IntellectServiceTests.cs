@@ -1,10 +1,11 @@
 ﻿using Checkers.Core.Constants;
 using Checkers.Core.Interfaces;
-using Checkers.Core.Models.ValueObjects;
 using Checkers.Core.Services;
 using Checkers.DomainModels;
 using Checkers.DomainModels.Enums;
 using Checkers.Intellect.Services;
+using Checkers.Rules.Interfaces;
+using Checkers.Rules.Services;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Checkers.IntegrationTests.Services

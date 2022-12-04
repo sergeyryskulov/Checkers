@@ -12,7 +12,7 @@ namespace Checkers.Core.Services
     public class ValidateQueenService : IValidateQueenService
     {                        
       
-        public AllowedVectors GetAllowedMoveVectors(int fromPosition, Board board)
+        public AllowedVectors GetAllowedMoveVectors(Board board, int fromPosition)
         {
 
             List<Vector> eatingVectors = new List<Vector>();
@@ -25,7 +25,7 @@ namespace Checkers.Core.Services
                          Direction.RightBottom,
                          Direction.RightTop })
             {
-                var directionAllowedVectores = GetAllowedVectorsQueenDirection(fromPosition, board, direction);
+                var directionAllowedVectores = GetAllowedVectorsQueenDirection(board, fromPosition, direction);
                 if (directionAllowedVectores.EatFigure)
                 {
                     eatingVectors.AddRange(directionAllowedVectores.Vectors);
@@ -43,11 +43,11 @@ namespace Checkers.Core.Services
             return new AllowedVectors(notEatingVectors, false);
         }
 
-        private AllowedVectors GetAllowedVectorsQueenDirection(int coord, Board figures, Direction direction)
+        private AllowedVectors GetAllowedVectorsQueenDirection(Board board, int fromPosition, Direction direction)
         {
 
-            int boardWidth = figures.BoardWidth;
-            var color = figures.FigureColorAt(coord);
+            int boardWidth = board.BoardWidth;
+            var color = board.FigureColorAt(fromPosition);
             var oppositeColor = color == FigureColor.White ? FigureColor.Black : FigureColor.White;
 
             var eatVectors = new List<Vector>();
@@ -61,13 +61,13 @@ namespace Checkers.Core.Services
                     iteratedVectorLength
                 );
 
-                var iteratedCoord = iteratedVector.ToCoord(coord, boardWidth);
+                var iteratedCoord = iteratedVector.ToCoord(fromPosition, boardWidth);
                 if (iteratedCoord == -1)
                 {
                     break;
                 }
 
-                var figureColor = figures.FigureColorAt(iteratedCoord);
+                var figureColor = board.FigureColorAt(iteratedCoord);
 
                 if (figureColor == FigureColor.Empty)
                 {

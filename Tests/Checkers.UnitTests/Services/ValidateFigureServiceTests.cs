@@ -1,6 +1,8 @@
 ﻿using Checkers.Core.Interfaces;
 using Checkers.Core.Services;
 using Checkers.DomainModels;
+using Checkers.Rules.Interfaces;
+using Checkers.Rules.Services;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 
@@ -13,7 +15,7 @@ namespace Checkers.UnitTests.Services
         [TestMethod()]
         public void GetAllowedMoveVectorsIncorrectFigureTest()
         {
-            var actual = CreateValidateFigureService().GetAllowedMoveVectors(0, new Board("G111"));
+            var actual = CreateValidateFigureService().GetAllowedMoveVectors(new Board("G111"), 0);
 
             Assert.AreEqual(false, actual.AnyVectorExists());
 

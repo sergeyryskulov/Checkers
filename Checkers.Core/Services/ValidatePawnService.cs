@@ -13,20 +13,19 @@ namespace Checkers.Core.Services
 {
 
     public class ValidatePawnService : IValidatePawnService
-    {                        
-        
-        public AllowedVectors GetAllowedMoveVectors(int fromPosition, Board board)
+    {
+        public AllowedVectors GetAllowedMoveVectors(Board board, int fromPosition)
         {
             var color = board.FigureColorAt(fromPosition);
             var allowedVectors = new List<Vector>();
             foreach (var forwardDirection in GetForwardDirections(color))
             {
-                allowedVectors.AddRange(GetAllowedVectorsForForwardDirection(fromPosition, board, forwardDirection));
+                allowedVectors.AddRange(GetAllowedVectorsForForwardDirection(board, fromPosition, forwardDirection));
             }
 
             foreach (var backwardDirection in GetBackwardDirections(color))
             {
-                allowedVectors.AddRange(GetAllowedVectorsForBackwardDirection(fromPosition, board, backwardDirection));
+                allowedVectors.AddRange(GetAllowedVectorsForBackwardDirection(board, fromPosition, backwardDirection));
 
             }
 
@@ -40,15 +39,15 @@ namespace Checkers.Core.Services
             return new AllowedVectors(allowedVectors, false);
         }
 
-        private List<Vector> GetAllowedVectorsForForwardDirection(int coord, Board board, Direction forwardDirection)
+        private List<Vector> GetAllowedVectorsForForwardDirection(Board board, int fromPosition, Direction forwardDirection)
         {
             int boardWidth = board.BoardWidth;
-            var color = board.FigureColorAt(coord);
+            var color = board.FigureColorAt(fromPosition);
             var oppositeColor = color == FigureColor.White ? FigureColor.Black : FigureColor.White;
 
             var vectorOneStepForward = new Vector(forwardDirection, 1);
                 
-            var coordinateOneStepForward = vectorOneStepForward.ToCoord(coord, boardWidth);
+            var coordinateOneStepForward = vectorOneStepForward.ToCoord(fromPosition, boardWidth);
             if (coordinateOneStepForward == -1)
             {
                 return new List<Vector>();
@@ -76,10 +75,10 @@ namespace Checkers.Core.Services
             return result;
         }
 
-        private List<Vector> GetAllowedVectorsForBackwardDirection(int coord, Board board, Direction backwardDirection)
+        private List<Vector> GetAllowedVectorsForBackwardDirection(Board board, int fromPosition, Direction backwardDirection)
         {
             int boardWidth = board.BoardWidth;
-            var color = board.FigureColorAt(coord);
+            var color = board.FigureColorAt(fromPosition);
             var oppositeColor = color == FigureColor.White ? FigureColor.Black : FigureColor.White;
 
             var vectorOneStepBackward = new Vector(backwardDirection, 1);
@@ -87,7 +86,7 @@ namespace Checkers.Core.Services
             
             var result = new List<Vector>();
 
-            var coordinateOneStepBackward = vectorOneStepBackward.ToCoord(coord,  boardWidth);
+            var coordinateOneStepBackward = vectorOneStepBackward.ToCoord(fromPosition,  boardWidth);
             if (coordinateOneStepBackward == -1)
             {
                 return result;

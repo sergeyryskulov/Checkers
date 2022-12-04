@@ -1,8 +1,8 @@
 ﻿using Checkers.Core.Constants;
-using Checkers.Core.Models.ValueObjects;
 using Checkers.Core.Services;
 using Checkers.DomainModels;
 using Checkers.DomainModels.Enums;
+using Checkers.Rules.Services;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Checkers.IntegrationTests.Services

@@ -1,5 +1,5 @@
 ﻿using System.Linq;
-using Checkers.Core.Models.Aggregates;
+using Checkers.Rules.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Checkers.UnitTests.Helpers

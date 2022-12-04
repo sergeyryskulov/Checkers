@@ -1,8 +1,8 @@
 ﻿using System;
-using Checkers.Core.Constants.Enums;
-using Checkers.Core.Models.ValueObjects;
+using Checkers.Rules.Enums;
+using Checkers.Rules.Models;
 
-namespace Checkers.Core.Extensions
+namespace Checkers.Rules.Extensions
 {
     public static class VectorExtension
     {
@@ -35,7 +35,7 @@ namespace Checkers.Core.Extensions
 
             var resultVector = new Vector(direction, length);
 
-            if (resultVector.ToCoord(fromPosition, boardWidth) == toPosition)
+            if (resultVector.ToPosition(fromPosition, boardWidth) == toPosition)
             {
                 return resultVector;
             }
@@ -43,10 +43,10 @@ namespace Checkers.Core.Extensions
             return null;
         }
 
-        public static int ToCoord(this Vector vector, int fromCoord, int boardWidth)
+        public static int ToPosition(this Vector vector, int fromPosition, int boardWidth)
         {
             int shiftLeftRight = vector.Length * (IsRight(vector.Direction) ? 1 : -1);
-            int xProjection = (fromCoord % boardWidth) + shiftLeftRight;
+            int xProjection = (fromPosition % boardWidth) + shiftLeftRight;
 
             if (xProjection < 0 || xProjection >= boardWidth)
             {
@@ -54,7 +54,7 @@ namespace Checkers.Core.Extensions
             }
 
             int shiftTopBottom = (boardWidth * vector.Length * (IsBottom(vector.Direction) ? 1 : -1));
-            int result = fromCoord + shiftLeftRight + shiftTopBottom; ;
+            int result = fromPosition + shiftLeftRight + shiftTopBottom; ;
             if (result < 0 || result >= boardWidth * boardWidth)
             {
                 return -1;

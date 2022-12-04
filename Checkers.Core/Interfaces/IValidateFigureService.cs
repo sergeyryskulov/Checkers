@@ -1,10 +1,10 @@
-﻿using Checkers.Core.Models.Aggregates;
-using Checkers.DomainModels;
+﻿using Checkers.DomainModels;
+using Checkers.Rules.Models;
 
-namespace Checkers.Core.Interfaces
+namespace Checkers.Rules.Interfaces
 {
     public interface IValidateFigureService
     {
-        AllowedVectors GetAllowedMoveVectors(int coord, Board board);
+        AllowedVectors GetAllowedMoveVectors(Board board, int fromPosition);
     }
 }

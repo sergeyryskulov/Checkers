@@ -1,5 +1,6 @@
-﻿using Checkers.Core.Constants.Enums;
-using Checkers.Core.Models.ValueObjects;
+﻿using Checkers.Core.Models.ValueObjects;
+using Checkers.Rules.Enums;
+using Checkers.Rules.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Checkers.UnitTests.Models

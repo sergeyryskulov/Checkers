@@ -1,6 +1,6 @@
-﻿using Checkers.Core.Constants.Enums;
+﻿using Checkers.Rules.Enums;
 
-namespace Checkers.Core.Models.ValueObjects
+namespace Checkers.Rules.Models
 {
     public class Vector
     {

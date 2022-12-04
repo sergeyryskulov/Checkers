@@ -1,14 +1,11 @@
-﻿using System.Reflection;
-using System.Text;
-using Checkers.Core.Constants;
-using Checkers.Core.Extensions;
-using Checkers.Core.Interfaces;
-using Checkers.Core.Models.ValueObjects;
-using Checkers.DomainModels;
+﻿using Checkers.DomainModels;
 using Checkers.DomainModels.Enums;
 using Checkers.DomainServices;
+using Checkers.Rules.Extensions;
+using Checkers.Rules.Interfaces;
+using Checkers.Rules.Models;
 
-namespace Checkers.Core.Services
+namespace Checkers.Rules.Services
 {
     public class MoveRulesService : IMoveRulesService
     {
@@ -42,7 +39,7 @@ namespace Checkers.Core.Services
                 var iteratedCoord = (new Vector(
                     vector.Direction,
                     iteratedLength
-                )).ToCoord(fromPosition, boardWidth);
+                )).ToPosition(fromPosition, boardWidth);
 
                 if (!newBoardState.IsEmptyCellAt(iteratedCoord))
                 {

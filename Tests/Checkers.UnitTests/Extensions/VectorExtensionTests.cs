@@ -1,6 +1,7 @@
-﻿using Checkers.Core.Constants.Enums;
-using Checkers.Core.Extensions;
-using Checkers.Core.Models.ValueObjects;
+﻿using Checkers.Core.Models.ValueObjects;
+using Checkers.Rules.Enums;
+using Checkers.Rules.Extensions;
+using Checkers.Rules.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Checkers.UnitTests.Extensions
@@ -14,7 +15,7 @@ namespace Checkers.UnitTests.Extensions
         public void MoveTest_Correct()
         {
 
-            var actual = (new Vector(Direction.RightBottom, 1)).ToCoord(0, 2);
+            var actual = (new Vector(Direction.RightBottom, 1)).ToPosition(0, 2);
 
             var expected = 3;
 
@@ -25,7 +26,7 @@ namespace Checkers.UnitTests.Extensions
         public void MoveTest_Incorrect()
         {
 
-            var actual =  (new Vector(Direction.LeftBottom, 1)).ToCoord(0, 2);
+            var actual =  (new Vector(Direction.LeftBottom, 1)).ToPosition(0, 2);
 
             var expected = -1;
 

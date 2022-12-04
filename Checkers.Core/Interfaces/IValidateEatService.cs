@@ -1,6 +1,6 @@
 ﻿using Checkers.DomainModels;
 
-namespace Checkers.Core.Interfaces
+namespace Checkers.Rules.Interfaces
 {
     public interface IValidateEatService
     {

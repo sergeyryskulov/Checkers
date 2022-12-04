@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
-using Checkers.Core.Models.ValueObjects;
 
-namespace Checkers.Core.Models.Aggregates
+namespace Checkers.Rules.Models
 {
     public class AllowedVectors
     {
