@@ -1,4 +1,4 @@
-﻿namespace Checkers.Core.Constants.Enums
+﻿namespace Checkers.DomainModels.Enums
 {
     public enum FigureColor
     {

@@ -1,7 +1,8 @@
 ﻿using Checkers.Core.Constants;
 using Checkers.Core.Interfaces;
 using Checkers.Core.Models.ValueObjects;
-using Checkers.DomainModels.Aggregates;
+using Checkers.DomainModels;
+using Checkers.DomainModels.Enums;
 using Checkers.Web.Controllers.api;
 using Checkers.Web.Factories;
 using Checkers.Web.Models;

@@ -4,6 +4,8 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Checkers.Core.Constants;
+using Checkers.DomainModels;
+using Checkers.DomainModels.Enums;
 
 namespace Checkers.Core.Models.ValueObjects.Tests
 {

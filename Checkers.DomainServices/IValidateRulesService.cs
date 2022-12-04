@@ -1,5 +1,5 @@
-﻿using Checkers.DomainModels.Aggregates;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using Checkers.DomainModels;
 
 namespace Checkers.Core.Interfaces
 {

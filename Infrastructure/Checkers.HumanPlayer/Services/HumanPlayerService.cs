@@ -1,5 +1,5 @@
 ﻿using Checkers.Core.Interfaces;
-using Checkers.Core.Models.ValueObjects;
+using Checkers.DomainModels;
 
 namespace Checkers.Core.Services
 {

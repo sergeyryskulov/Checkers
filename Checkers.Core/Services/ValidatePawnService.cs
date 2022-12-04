@@ -6,7 +6,8 @@ using Checkers.Core.Extensions;
 using Checkers.Core.Interfaces;
 using Checkers.Core.Models.Aggregates;
 using Checkers.Core.Models.ValueObjects;
-using Checkers.DomainModels.Aggregates;
+using Checkers.DomainModels;
+using Checkers.DomainModels.Enums;
 
 namespace Checkers.Core.Services
 {

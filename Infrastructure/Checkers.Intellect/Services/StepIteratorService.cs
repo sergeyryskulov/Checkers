@@ -1,9 +1,7 @@
 ﻿using System.Collections.Generic;
-using Checkers.Core.Constants;
-using Checkers.Core.Constants.Enums;
 using Checkers.Core.Interfaces;
-using Checkers.Core.Models.ValueObjects;
-using Checkers.DomainModels.Aggregates;
+using Checkers.DomainModels;
+using Checkers.DomainModels.Enums;
 using Checkers.Intellect.Interfaces;
 using Checkers.Intellect.Models.ValueObjects;
 

@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 using Checkers.Core.Interfaces;
-using Checkers.Core.Models.ValueObjects;
+using Checkers.DomainModels;
 using Checkers.Intellect.Interfaces;
 
 namespace Checkers.Intellect.Services

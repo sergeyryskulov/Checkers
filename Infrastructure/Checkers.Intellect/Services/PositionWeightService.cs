@@ -1,5 +1,4 @@
-﻿using Checkers.Core.Constants;
-using Checkers.DomainModels.Aggregates;
+﻿using Checkers.DomainModels;
 using Checkers.Intellect.Interfaces;
 
 namespace Checkers.Intellect.Services

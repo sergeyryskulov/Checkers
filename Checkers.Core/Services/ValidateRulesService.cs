@@ -1,9 +1,9 @@
 ﻿using Checkers.Core.Extensions;
 using Checkers.Core.Interfaces;
 using Checkers.Core.Models.Aggregates;
-using Checkers.DomainModels.Aggregates;
 using System.Collections.Generic;
 using System.Linq;
+using Checkers.DomainModels;
 
 namespace Checkers.Core.Services
 {

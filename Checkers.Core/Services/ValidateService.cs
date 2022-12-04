@@ -1,7 +1,7 @@
 ﻿using Checkers.Core.Constants;
 using Checkers.Core.Interfaces;
 using Checkers.Core.Models.Aggregates;
-using Checkers.DomainModels.Aggregates;
+using Checkers.DomainModels;
 
 namespace Checkers.Core.Services
 {

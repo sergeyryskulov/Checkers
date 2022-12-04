@@ -4,7 +4,8 @@ using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 using Checkers.Core.Constants;
-using Checkers.DomainModels.Aggregates;
+using Checkers.DomainModels;
+using Checkers.DomainModels.Enums;
 using Swashbuckle.Swagger.Annotations;
 
 namespace Checkers.Web.Models

@@ -1,4 +1,4 @@
-﻿namespace Checkers.Core.Constants
+﻿namespace Checkers.DomainModels.Enums
 {
     public enum Turn
     {

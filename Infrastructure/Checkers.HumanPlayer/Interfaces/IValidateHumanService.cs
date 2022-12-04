@@ -1,4 +1,4 @@
-﻿using Checkers.Core.Models.ValueObjects;
+﻿using Checkers.DomainModels;
 
 namespace Checkers.Core.Interfaces
 {

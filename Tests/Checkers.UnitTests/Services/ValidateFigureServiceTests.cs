@@ -1,6 +1,6 @@
 ﻿using Checkers.Core.Interfaces;
 using Checkers.Core.Services;
-using Checkers.DomainModels.Aggregates;
+using Checkers.DomainModels;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 

@@ -1,7 +1,6 @@
-﻿using Checkers.Core.Constants;
-using Checkers.DomainModels.Aggregates;
+﻿using Checkers.DomainModels.Enums;
 
-namespace Checkers.Core.Models.ValueObjects
+namespace Checkers.DomainModels
 {
     public class GameState
     {        

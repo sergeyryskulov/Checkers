@@ -1,16 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Text;
-using Checkers.Core.Constants;
-using Checkers.Core.Constants.Enums;
+using Checkers.DomainModels.Enums;
 
-namespace Checkers.DomainModels.Aggregates
+namespace Checkers.DomainModels
 {
     public class Board
     {
         private string _cells;
 
-        private enum Figures
+        private enum Figure
         {
             WhitePawn = 'P',
             BlackPawn = 'p',
@@ -42,21 +40,21 @@ namespace Checkers.DomainModels.Aggregates
 
         public void MoveFigure(int fromPosition, int toPosition, bool convertToQueen)
         {            
-            Figures resultFigure = (Figures)_cells[fromPosition];
+            Figure resultFigure = (Figure)_cells[fromPosition];
             if (convertToQueen)
             {
-                if (resultFigure == Figures.WhitePawn)
+                if (resultFigure == Figure.WhitePawn)
                 {
-                    resultFigure = Figures.WhiteQueen;
+                    resultFigure = Figure.WhiteQueen;
                 }
-                if (resultFigure == Figures.BlackPawn)
+                if (resultFigure == Figure.BlackPawn)
                 {
-                    resultFigure = Figures.BlackQueen;
+                    resultFigure = Figure.BlackQueen;
                 }
             }
 
             StringBuilder stringBuilder = new StringBuilder(_cells);
-            stringBuilder[fromPosition] = (char) Figures.Empty;
+            stringBuilder[fromPosition] = (char) Figure.Empty;
             stringBuilder[toPosition] = (char)resultFigure;
             _cells = stringBuilder.ToString();
         }
@@ -64,28 +62,28 @@ namespace Checkers.DomainModels.Aggregates
         public void DeleteFigure(int position)
         {           
             StringBuilder stringBuilder = new StringBuilder(_cells);
-            stringBuilder[position] = (char)Figures.Empty;            
+            stringBuilder[position] = (char)Figure.Empty;            
             _cells = stringBuilder.ToString();
         }
 
         public bool ContainsAnyWhiteFigure()
         {
-            return _cells.Contains((char)Figures.WhitePawn) || _cells.Contains((char)Figures.WhiteQueen);
+            return _cells.Contains((char)Figure.WhitePawn) || _cells.Contains((char)Figure.WhiteQueen);
         }
 
         public bool ContainsAnyBlackFigure()
         {
-            return _cells.Contains((char)Figures.BlackPawn) || _cells.Contains((char)Figures.BlackQueen);
+            return _cells.Contains((char)Figure.BlackPawn) || _cells.Contains((char)Figure.BlackQueen);
         }
 
         public FigureColor FigureColorAt(int position)
         {
             var figure = GetFigureAt(position);
-            if (figure == Figures.WhitePawn || figure == Figures.WhiteQueen)
+            if (figure == Figure.WhitePawn || figure == Figure.WhiteQueen)
             {
                 return FigureColor.White;
             }
-            else if (figure == Figures.BlackPawn || figure == Figures.BlackQueen)
+            else if (figure == Figure.BlackPawn || figure == Figure.BlackQueen)
             {
                 return FigureColor.Black;
             }
@@ -96,30 +94,30 @@ namespace Checkers.DomainModels.Aggregates
         public bool IsPawnAt(int position)
         {
             var figure = GetFigureAt(position);
-            return figure == Figures.WhitePawn || figure == Figures.BlackPawn;
+            return figure == Figure.WhitePawn || figure == Figure.BlackPawn;
         }
 
         public bool IsQueenAt(int position)
         {
             var figure = GetFigureAt(position);
-            return figure == Figures.WhiteQueen || figure == Figures.BlackQueen;
+            return figure == Figure.WhiteQueen || figure == Figure.BlackQueen;
         }
 
         public  bool IsWhiteFigureAt(int position)
         {
             var figure = GetFigureAt(position); 
-            return figure == Figures.WhitePawn || figure == Figures.WhiteQueen;
+            return figure == Figure.WhitePawn || figure == Figure.WhiteQueen;
         }
 
         public bool IsBlackFigureAt(int position)
         {
             var figure = GetFigureAt(position);
-            return figure == Figures.BlackPawn || figure == Figures.BlackQueen;
+            return figure == Figure.BlackPawn || figure == Figure.BlackQueen;
         }
 
         public bool IsEmptyCellAt(int position)
         {
-            return GetFigureAt(position) == Figures.Empty;
+            return GetFigureAt(position) == Figure.Empty;
         }
 
         public override string ToString()
@@ -127,9 +125,9 @@ namespace Checkers.DomainModels.Aggregates
             return _cells.ToString();
         }
 
-        private Figures GetFigureAt(int position)
+        private Figure GetFigureAt(int position)
         { 
-            return (Figures) _cells[position];
+            return (Figure) _cells[position];
         }
 
         private int SquareRoot(int value)

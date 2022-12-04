@@ -3,7 +3,7 @@ using Checkers.Core.Constants.Enums;
 using Checkers.Core.Models.Aggregates;
 using Checkers.Core.Models.ValueObjects;
 using Checkers.Core.Services;
-using Checkers.DomainModels.Aggregates;
+using Checkers.DomainModels;
 using Checkers.UnitTests.Helpers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
