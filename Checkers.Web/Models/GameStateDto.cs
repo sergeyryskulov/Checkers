@@ -50,16 +50,16 @@ namespace Checkers.Web.Models
             {
                 links.Add(
                     new LinkDto("calculateStep",
-                        $"/api/intellect/calculateStep?cells={gameState.Board}&turn={gameState.Turn}" +
+                        $"/api/intellect/calculateStep?cells={gameState.Board}&turn={(char)gameState.Turn}" +
                         GetMustGoFlag(gameState.MustGoFromPosition)
                     ));
             }
             else if (gameState.Turn == DomainModels.Enums.Turn.White)
             {
                 links.Add(new LinkDto("moveFigure",
-                    $"/api/board/moveFigure?cells={gameState.Board}&turn={gameState.Turn}" +
+                    $"/api/board/moveFigure?cells={gameState.Board}&turn={(char)gameState.Turn}" +
                     GetMustGoFlag(gameState.MustGoFromPosition) +
-                    "&fromCoord={myFromCoordinate}&toCoord={myToCoordinate}"
+                    "&fromPosition={myFromPosition}&toPosition={myToPosition}"
                 ));
             }
 

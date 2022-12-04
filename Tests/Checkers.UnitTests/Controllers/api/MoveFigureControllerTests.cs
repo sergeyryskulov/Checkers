@@ -28,7 +28,7 @@ namespace Checkers.UnitTests.Controllers.api
             Assert.AreEqual((char)Turn.Black, actual.Turn);
 
             Assert.AreEqual("calculateStep", actual.Links[0].Rel);
-            Assert.AreEqual("/api/intellect/calculateStep?cells=111q&turn=Black", actual.Links[0].Href);
+            Assert.AreEqual("/api/intellect/calculateStep?cells=111q&turn=b", actual.Links[0].Href);
         }
     }
 }
