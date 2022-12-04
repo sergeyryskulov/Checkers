@@ -3,7 +3,6 @@ using Checkers.Core.Models.ValueObjects;
 using System;
 using System.Collections.Generic;
 using System.Text;
-using Checkers.Core.Constants;
 using Checkers.DomainModels;
 using Checkers.DomainModels.Enums;
 

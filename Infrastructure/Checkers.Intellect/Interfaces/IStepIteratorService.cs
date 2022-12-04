@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
+using Checkers.ComputerPlayer.Models;
 using Checkers.DomainModels;
-using Checkers.Intellect.Models.ValueObjects;
 
-namespace Checkers.Intellect.Interfaces
+namespace Checkers.ComputerPlayer.Interfaces
 {
     public interface IStepIteratorService
     {

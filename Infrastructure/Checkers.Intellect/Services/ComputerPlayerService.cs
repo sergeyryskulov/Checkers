@@ -1,9 +1,9 @@
 ﻿using System.Linq;
+using Checkers.ComputerPlayer.Interfaces;
 using Checkers.DomainModels;
 using Checkers.DomainServices;
-using Checkers.Intellect.Interfaces;
 
-namespace Checkers.Intellect.Services
+namespace Checkers.ComputerPlayer.Services
 {
     public class ComputerPlayerService : IComputerPlayerService
     {        

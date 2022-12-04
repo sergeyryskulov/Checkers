@@ -1,6 +1,6 @@
 ﻿using Checkers.DomainModels;
 
-namespace Checkers.Intellect.Models.ValueObjects
+namespace Checkers.ComputerPlayer.Models
 {
     public class NextStepVariant
     {

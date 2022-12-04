@@ -1,6 +1,6 @@
 ﻿using Checkers.DomainModels;
 
-namespace Checkers.Intellect.Interfaces
+namespace Checkers.ComputerPlayer.Interfaces
 {
     public interface IPositionWeightService
     {

@@ -1,5 +1,4 @@
-﻿using Checkers.Core.Constants;
-using Checkers.Core.Services;
+﻿using Checkers.Core.Services;
 using Checkers.DomainModels;
 using Checkers.DomainModels.Enums;
 using Checkers.Rules.Services;

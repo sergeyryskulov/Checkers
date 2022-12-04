@@ -1,7 +1,7 @@
-﻿using Checkers.DomainModels;
-using Checkers.Intellect.Interfaces;
+﻿using Checkers.ComputerPlayer.Interfaces;
+using Checkers.DomainModels;
 
-namespace Checkers.Intellect.Services
+namespace Checkers.ComputerPlayer.Services
 {
     public class PositionWeightService : IPositionWeightService
     {

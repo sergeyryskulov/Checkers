@@ -1,6 +1,4 @@
-﻿using Checkers.Core.Constants;
-using Checkers.Core.Interfaces;
-using Checkers.Core.Models.ValueObjects;
+﻿using Checkers.Core.Interfaces;
 using Checkers.Core.Services;
 using Checkers.DomainModels;
 using Checkers.DomainModels.Enums;

@@ -1,6 +1,4 @@
-﻿using Checkers.Core.Constants;
-using Checkers.Core.Interfaces;
-using Checkers.DomainModels;
+﻿using Checkers.DomainModels;
 using Checkers.DomainModels.Enums;
 using Checkers.DomainServices;
 using Checkers.Web.Factories;

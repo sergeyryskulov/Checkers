@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
+using Checkers.ComputerPlayer.Interfaces;
+using Checkers.ComputerPlayer.Models;
 using Checkers.DomainModels;
 using Checkers.DomainModels.Enums;
 using Checkers.DomainServices;
-using Checkers.Intellect.Interfaces;
-using Checkers.Intellect.Models.ValueObjects;
 
-namespace Checkers.Intellect.Services
+namespace Checkers.ComputerPlayer.Services
 {
     public class StepIteratorService : IStepIteratorService
     {
@@ -18,12 +18,10 @@ namespace Checkers.Intellect.Services
             _moveRulesService = moveRulesService;
         }
 
-
         public IEnumerable<NextStepVariant> GetNextStepVariants(GameState gameState)
         {            
             var cells = gameState.Board;
-            var boardWidth = cells.BoardWidth;
-
+            
             var stateWithNoChangeTurn = new List<GameState>();
 
             for (int fromCoord = 0; fromCoord < cells.CellsCount; fromCoord++)
@@ -37,7 +35,7 @@ namespace Checkers.Intellect.Services
                     (gameState.Turn == Turn.White && cells.IsWhiteFigureAt(fromCoord)
                     ))
                 {
-                    foreach (var newState in GetAllowedNextStates(gameState, fromCoord, cells, boardWidth))
+                    foreach (var newState in GetAllowedNextStates(gameState, fromCoord, cells))
                     {
                         if (newState.Turn==gameState.Turn)
                         {
@@ -69,7 +67,7 @@ namespace Checkers.Intellect.Services
 
         }
 
-        private List<GameState> GetAllowedNextStates(GameState inputState, int fromCoord, Board board, int boardWidth)
+        private List<GameState> GetAllowedNextStates(GameState inputState, int fromCoord, Board board)
         {
             List<GameState> result = new List<GameState>();
             var toCoordVariants = _validateRulesService.GetAllowedToPositions(board, fromCoord);
