@@ -1,5 +1,5 @@
-﻿using Checkers.DomainModels;
-using Checkers.DomainServices;
+﻿using Checkers.Contracts;
+using Checkers.DomainModels;
 using Checkers.HumanPlayer.Interfaces;
 
 namespace Checkers.HumanPlayer.Services

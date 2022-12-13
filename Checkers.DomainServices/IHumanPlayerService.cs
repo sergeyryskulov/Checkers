@@ -1,6 +1,6 @@
 ﻿using Checkers.DomainModels;
 
-namespace Checkers.DomainServices
+namespace Checkers.Contracts
 {
     public interface IHumanPlayerService
     {

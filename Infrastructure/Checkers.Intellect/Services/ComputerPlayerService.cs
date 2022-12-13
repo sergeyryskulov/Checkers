@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using Checkers.ComputerPlayer.Interfaces;
+using Checkers.Contracts;
 using Checkers.DomainModels;
-using Checkers.DomainServices;
 
 namespace Checkers.ComputerPlayer.Services
 {

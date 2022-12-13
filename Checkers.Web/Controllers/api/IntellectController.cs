@@ -3,9 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Checkers.Contracts;
 using Checkers.DomainModels;
 using Checkers.DomainModels.Enums;
-using Checkers.DomainServices;
 using Checkers.Web.Models;
 
 namespace Checkers.Web.Controllers.api

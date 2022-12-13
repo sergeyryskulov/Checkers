@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Checkers.Contracts;
 using Checkers.DomainModels;
-using Checkers.DomainServices;
 using Checkers.Rules.Extensions;
 using Checkers.Rules.Interfaces;
 

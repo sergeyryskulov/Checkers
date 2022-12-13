@@ -1,6 +1,6 @@
-﻿using Checkers.DomainModels;
+﻿using Checkers.Contracts;
+using Checkers.DomainModels;
 using Checkers.DomainModels.Enums;
-using Checkers.DomainServices;
 using Checkers.Web.Models;
 using Microsoft.AspNetCore.Mvc;
 

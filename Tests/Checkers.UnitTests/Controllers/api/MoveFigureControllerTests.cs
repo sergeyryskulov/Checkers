@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Checkers.Contracts;
 using Checkers.DomainModels;
 using Checkers.DomainModels.Enums;
-using Checkers.DomainServices;
 using Checkers.Web.Controllers.api;
 using Checkers.Web.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;

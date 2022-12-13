@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using Checkers.ComputerPlayer.Interfaces;
 using Checkers.ComputerPlayer.Models;
+using Checkers.Contracts;
 using Checkers.DomainModels;
 using Checkers.DomainModels.Enums;
-using Checkers.DomainServices;
 
 namespace Checkers.ComputerPlayer.Services
 {
