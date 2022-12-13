@@ -6,7 +6,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Checkers.DomainModels\Checkers.DomainModels.csproj" />
-    <ProjectReference Include="..\..\Checkers.DomainServices\Checkers.DomainServices.csproj" />
+    <ProjectReference Include="..\..\Checkers.DomainServices\Checkers.Contracts.csproj" />
   </ItemGroup>
 
 </Project>

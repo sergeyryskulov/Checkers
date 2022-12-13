@@ -26,7 +26,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UserInterface", "UserInterf
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Checkers.DomainModels", "Checkers.DomainModels\Checkers.DomainModels.csproj", "{650AAAE8-4D46-4411-86A7-68044DF9E000}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Checkers.DomainServices", "Checkers.DomainServices\Checkers.DomainServices.csproj", "{123482E4-2499-48E0-A814-3D4D2BA2370B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Checkers.Contracts", "Checkers.DomainServices\Checkers.Contracts.csproj", "{123482E4-2499-48E0-A814-3D4D2BA2370B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DomainCore", "DomainCore", "{C7C63D62-EBC9-4095-BEAE-67A8BEC51047}"
 EndProject
