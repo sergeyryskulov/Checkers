@@ -5,8 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Checkers.Contracts\Checkers.Contracts.csproj" />
     <ProjectReference Include="..\..\Checkers.DomainModels\Checkers.DomainModels.csproj" />
-    <ProjectReference Include="..\..\Checkers.DomainServices\Checkers.Contracts.csproj" />
   </ItemGroup>
 
 </Project>
