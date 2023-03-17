@@ -27,8 +27,6 @@
     <ProjectReference Include="..\..\Checkers.Core\Checkers.Rules.csproj" />
     <ProjectReference Include="..\..\Checkers.DomainModels\Checkers.DomainModels.csproj" />
     <ProjectReference Include="..\..\Checkers.Web\Checkers.Web.csproj" />
-    <ProjectReference Include="..\..\Infrastructure\Checkers.HumanPlayer\Checkers.HumanPlayer.csproj" />
-    <ProjectReference Include="..\..\Infrastructure\Checkers.Intellect\Checkers.ComputerPlayer.csproj" />
   </ItemGroup>
 
 </Project>
