@@ -12,10 +12,8 @@ using System.Threading.Tasks;
 using Microsoft.OpenApi.Models;
 using System.IO;
 using System.Reflection;
-using Checkers.ComputerPlayer.Services;
-using Checkers.HumanPlayer.Services;
-using Checkers.Rules.Services;
 using Swashbuckle.AspNetCore.SwaggerGen;
+using Checkers.DependencyInjection;
 
 namespace Checkers
 {
@@ -33,27 +31,7 @@ namespace Checkers
         {
             services.AddControllersWithViews();
             services.AddResponseCaching();
-
-            var assemblies = new[]
-            {
-                typeof(HumanPlayerService).Assembly,
-                typeof(ComputerPlayerService).Assembly,
-                typeof(ValidateRulesService).Assembly,
-            };
-
-            foreach (var assembly in assemblies)
-            {
-                foreach (var type in assembly.GetTypes().Where(t => t.Name.EndsWith("Service") && !t.IsInterface))
-                {
-                    services.AddTransient(type);
-
-                    foreach (var typeInterface in type.GetInterfaces().Where(t => t.Name.StartsWith("I") && t.Name.EndsWith("Service")))
-                    {
-                        services.AddTransient(typeInterface, type);
-                    }
-                }
-            }
-
+            services.AddCheckers();
             services.AddSwaggerGen(SwaggerConfig);
         }
 

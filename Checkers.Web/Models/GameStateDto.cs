@@ -29,15 +29,7 @@ namespace Checkers.Web.Models
         /// <summary>
         /// Ссылки на возможные последующие операции
         /// </summary>
-        public LinkDto[] Links { get; }
-
-        public GameStateDto(Board board, Turn turn, int? mustGoFrom, LinkDto[] links)
-        {
-            Cells = board.ToString();
-            Turn = (char)turn;
-            MustGoFrom = mustGoFrom;
-            Links = links;
-        }
+        public LinkDto[] Links { get; }       
 
         public GameStateDto(GameState gameState)
         {
