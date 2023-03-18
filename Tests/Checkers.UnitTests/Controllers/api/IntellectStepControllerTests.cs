@@ -1,4 +1,4 @@
-﻿using Checkers.Contracts;
+﻿using Checkers.Contracts.UseCases;
 using Checkers.Core.Models.ValueObjects;
 using Checkers.DomainModels;
 using Checkers.DomainModels.Enums;
@@ -15,7 +15,7 @@ namespace Checkers.UnitTests.Controllers.api
         [TestMethod()]
         public void PostTest()
         {
-            var intellectService = new Mock<IComputerPlayerService>();
+            var intellectService = new Mock<IComputerCalculateNextStepUseCase>();
             intellectService.Setup(m => m.CalculateNextStep(
                     It.Is<GameState>(t => t.Board.ToString() == "p111")))
                 .Returns(new GameState("111Q", Turn.BlackWin));

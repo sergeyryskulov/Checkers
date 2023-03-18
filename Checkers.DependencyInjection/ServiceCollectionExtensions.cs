@@ -13,18 +13,20 @@ namespace Checkers.DependencyInjection
         {
             var assemblies = new[]
             {
-                typeof(HumanPlayerService).Assembly,
-                typeof(ComputerPlayerService).Assembly,
+                typeof(HumanTryMoveFigureUseCase).Assembly,
+                typeof(ComputerCalculateNextStepUseCase).Assembly,
                 typeof(ValidateRulesService).Assembly,
             };
 
             foreach (var assembly in assemblies)
             {
-                foreach (var type in assembly.GetTypes().Where(t => t.Name.EndsWith("Service") && !t.IsInterface))
+                var classEndNames =  new string []{ "Service", "UseCase" };
+                
+                foreach (var type in assembly.GetTypes().Where(t => classEndNames.Any(endName=> t.Name.EndsWith(endName))  && !t.IsInterface))
                 {
                     services.AddTransient(type);
 
-                    foreach (var typeInterface in type.GetInterfaces().Where(t => t.Name.StartsWith("I") && t.Name.EndsWith("Service")))
+                    foreach (var typeInterface in type.GetInterfaces().Where(t => t.Name.StartsWith("I") && classEndNames.Any(endName => t.Name.EndsWith(endName))))
                     {
                         services.AddTransient(typeInterface, type);
                     }

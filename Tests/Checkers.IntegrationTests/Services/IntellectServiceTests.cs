@@ -131,7 +131,7 @@ namespace Checkers.IntegrationTests.Services
 
         }
 
-        private ComputerPlayerService GetIntellectService()
+        private ComputerCalculateNextStepUseCase GetIntellectService()
         {
             var valideteFigureService = new  ValidateService(
                 new ValidatePawnService(),
@@ -150,7 +150,7 @@ namespace Checkers.IntegrationTests.Services
                     directMoveService
                 );
             
-            return new ComputerPlayerService(                
+            return new ComputerCalculateNextStepUseCase(                
                 stepIteratorService,
                 new PositionWeightService());
         }

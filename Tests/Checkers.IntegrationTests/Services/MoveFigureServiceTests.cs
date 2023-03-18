@@ -126,7 +126,7 @@ namespace Checkers.IntegrationTests.Services
             );
         }
 
-        private HumanPlayerService CreateMoveFigureService()
+        private HumanTryMoveFigureUseCase CreateMoveFigureService()
         {
 
             var validateFiguresService = new ValidateRulesService(
@@ -134,7 +134,7 @@ namespace Checkers.IntegrationTests.Services
                     new ValidatePawnService(),
                     new ValidateQueenService()));
             
-            return new HumanPlayerService(                
+            return new HumanTryMoveFigureUseCase(                
                 new ValidateHumanService(validateFiguresService),
                 new MoveRulesService(new ValidateService(
                     new ValidatePawnService(),
@@ -146,7 +146,7 @@ namespace Checkers.IntegrationTests.Services
         {            
             var moveService = CreateMoveFigureService();
 
-            var actual = moveService.TryMoveFigure(@from, fromCoord, toCoord);
+            var actual = moveService.Execute(@from, fromCoord, toCoord);
 
             Assert.AreEqual(expected.Board.ToString(), actual.Board.ToString());
             Assert.AreEqual(expected.MustGoFromPosition, actual.MustGoFromPosition);

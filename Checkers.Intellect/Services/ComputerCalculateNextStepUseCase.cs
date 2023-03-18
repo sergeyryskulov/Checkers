@@ -1,17 +1,17 @@
 ﻿using System.Linq;
 using Checkers.ComputerPlayer.Interfaces;
-using Checkers.Contracts;
+using Checkers.Contracts.UseCases;
 using Checkers.DomainModels;
 
 namespace Checkers.ComputerPlayer.Services
 {
-    public class ComputerPlayerService : IComputerPlayerService
+    public class ComputerCalculateNextStepUseCase : IComputerCalculateNextStepUseCase
     {        
         private IStepIteratorService _stepIteratorService;
 
         private IPositionWeightService _positionWeightService;
 
-        public ComputerPlayerService(IStepIteratorService stepIteratorService, IPositionWeightService positionWeightService)
+        public ComputerCalculateNextStepUseCase(IStepIteratorService stepIteratorService, IPositionWeightService positionWeightService)
         {            
             _stepIteratorService = stepIteratorService;
             _positionWeightService = positionWeightService;

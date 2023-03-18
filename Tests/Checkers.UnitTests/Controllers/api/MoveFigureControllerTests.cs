@@ -1,5 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using Checkers.Contracts;
+using Checkers.Contracts.UseCases;
 using Checkers.DomainModels;
 using Checkers.DomainModels.Enums;
 using Checkers.Web.Controllers.api;
@@ -15,9 +15,9 @@ namespace Checkers.UnitTests.Controllers.api
         [TestMethod()]
         public void PostTest()
         {
-            var moveAndSaveFigureService = new Mock<IHumanPlayerService>();
+            var moveAndSaveFigureService = new Mock<IHumanTryMoveFigureUseCase>();
 
-            moveAndSaveFigureService.Setup(m => m.TryMoveFigure(It.Is<GameState>(t=>t.Board.ToString()=="p111"), 3, 0))            
+            moveAndSaveFigureService.Setup(m => m.Execute(It.Is<GameState>(t=>t.Board.ToString()=="p111"), 3, 0))            
             .Returns(new GameState("111q", Turn.Black));
 
             var moveFigureController = new BoardController(moveAndSaveFigureService.Object);

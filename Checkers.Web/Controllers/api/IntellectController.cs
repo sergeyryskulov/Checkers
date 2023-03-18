@@ -3,20 +3,20 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Checkers.Contracts;
 using Checkers.DomainModels;
 using Checkers.DomainModels.Enums;
 using Checkers.Web.Models;
+using Checkers.Contracts.UseCases;
 
 namespace Checkers.Web.Controllers.api
-{    
+{
     public class IntellectController : BaseApiController
     {
-        private IComputerPlayerService _computerPlayerService;
+        private IComputerCalculateNextStepUseCase _computerCalculateNextStepUseCase;
         
-        public IntellectController(IComputerPlayerService computerPlayerService)
+        public IntellectController(IComputerCalculateNextStepUseCase computerCalculateNextStepUseCase)
         {
-            _computerPlayerService = computerPlayerService;
+            _computerCalculateNextStepUseCase = computerCalculateNextStepUseCase;
         }
 
 
@@ -46,7 +46,7 @@ namespace Checkers.Web.Controllers.api
         {
             var oldGameState = new GameState(cells, (Turn)turn, mustGoFrom);
 
-            var newGameState = _computerPlayerService.CalculateNextStep(oldGameState);
+            var newGameState = _computerCalculateNextStepUseCase.CalculateNextStep(oldGameState);
 
             var newGameStateDto = new GameStateDto(newGameState);
 

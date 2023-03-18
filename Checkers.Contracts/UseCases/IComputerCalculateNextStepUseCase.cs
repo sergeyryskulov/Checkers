@@ -1,8 +1,8 @@
 ﻿using Checkers.DomainModels;
 
-namespace Checkers.Contracts
+namespace Checkers.Contracts.UseCases
 {
-    public interface IComputerPlayerService
+    public interface IComputerCalculateNextStepUseCase
     {
         GameState CalculateNextStep(GameState gameState);
     }

@@ -25,12 +25,12 @@ namespace Checkers.UnitTests.Services
                 new GameState("1Q11", Turn.WhiteWin));
 
 
-            var moveFigureService = new HumanPlayerService(                
+            var moveFigureService = new HumanTryMoveFigureUseCase(                
                 validateBoardService.Object,
                 directMoveService.Object
             );
 
-            var actual = moveFigureService.TryMoveFigure(new GameState("11P1",Turn.White), 3, 0);          
+            var actual = moveFigureService.Execute(new GameState("11P1",Turn.White), 3, 0);          
             
             Assert.AreEqual("1Q11", actual.Board.ToString());
             Assert.AreEqual(Turn.WhiteWin, actual.Turn);

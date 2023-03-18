@@ -1,18 +1,18 @@
-﻿using Checkers.Contracts;
+﻿using Checkers.Contracts.UseCases;
 using Checkers.DomainModels;
 using Checkers.DomainModels.Enums;
 using Checkers.Web.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Checkers.Web.Controllers.api
-{   
+{
     public class BoardController : BaseApiController
     {
-        private IHumanPlayerService _humanPlayerService;
+        private IHumanTryMoveFigureUseCase _humanTryMoveFigureUseCase;
         
-        public BoardController(IHumanPlayerService humanPlayerService)
+        public BoardController(IHumanTryMoveFigureUseCase humanTryMoveFigureUseCase)
         {
-            _humanPlayerService = humanPlayerService;
+            _humanTryMoveFigureUseCase = humanTryMoveFigureUseCase;
         }
 
         /// <summary>
@@ -43,7 +43,7 @@ namespace Checkers.Web.Controllers.api
         {
             var oldGameState = new GameState(cells, (Turn)turn, mustGoFrom);
             
-            var newGameState = _humanPlayerService.TryMoveFigure(oldGameState, fromPosition, toPosition);
+            var newGameState = _humanTryMoveFigureUseCase.Execute(oldGameState, fromPosition, toPosition);
 
             var newGameStateDto = new GameStateDto(newGameState);
 
