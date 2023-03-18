@@ -20,7 +20,7 @@ namespace Checkers.DependencyInjection
 
             foreach (var assembly in assemblies)
             {
-                var classEndNames =  new string []{ "Service", "UseCase" };
+                var classEndNames =  new string []{ "Service", "UseCase", "Rule" };
                 
                 foreach (var type in assembly.GetTypes().Where(t => classEndNames.Any(endName=> t.Name.EndsWith(endName))  && !t.IsInterface))
                 {
