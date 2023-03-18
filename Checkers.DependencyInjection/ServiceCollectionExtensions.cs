@@ -20,13 +20,13 @@ namespace Checkers.DependencyInjection
 
             foreach (var assembly in assemblies)
             {
-                var classEndNames =  new string []{ "Service", "UseCase", "Rule" };
+                var classEndNames =  new []{ "Service", "UseCase", "Rule" };
                 
                 foreach (var type in assembly.GetTypes().Where(t => classEndNames.Any(endName=> t.Name.EndsWith(endName))  && !t.IsInterface))
                 {
                     services.AddTransient(type);
 
-                    foreach (var typeInterface in type.GetInterfaces().Where(t => t.Name.StartsWith("I") && classEndNames.Any(endName => t.Name.EndsWith(endName))))
+                    foreach (var typeInterface in type.GetInterfaces().Where(t => classEndNames.Any(endName => t.Name.EndsWith(endName))))
                     {
                         services.AddTransient(typeInterface, type);
                     }

@@ -1,22 +1,24 @@
-﻿using Checkers.ComputerPlayer.Services;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Checkers.ComputerPlayer.UseCases;
-using Checkers.DomainModels;
+using System;
+using System.Collections.Generic;
+using System.Text;
+using Checkers.ComputerPlayer.Services;
 using Checkers.DomainModels.Enums;
+using Checkers.DomainModels;
 using Checkers.Rules.Interfaces;
 using Checkers.Rules.Rules;
 using Checkers.Rules.Services;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Checkers.IntegrationTests.Services
+namespace Checkers.ComputerPlayer.UseCases.Tests
 {
     [TestClass()]
-    public class IntellectServiceTests
+    public class ComputerCalculateNextStepUseCaseTests
     {
-
         [TestMethod()]
         public void PawnToQueen()
         {
-            AssertEqual(
+            AssertNextStep(
                 new GameState(
                     "p1" +
                     "11",
@@ -34,9 +36,9 @@ namespace Checkers.IntegrationTests.Services
         [TestMethod()]
         public void IntellectStep_NoWhiteMove()
         {
-            AssertNotEqual(
+            AssertNotNextStep(
                 new GameState(
-                                    
+
                     "1111111p" +
                     "111111p1" +
                     "1p111p1p" +
@@ -45,7 +47,7 @@ namespace Checkers.IntegrationTests.Services
                     "11111111" +
                     "111P1111" +
                     "11q11111",
-                     Turn.Black),                                
+                     Turn.Black),
                 new GameState(
                 "1111111p" +
                 "111111p1" +
@@ -59,10 +61,10 @@ namespace Checkers.IntegrationTests.Services
         }
 
         [TestMethod()]
-        public void TwoTurn()
+        public void CanDoNextStepAfterEat()
         {
 
-            AssertEqual(
+            AssertNextStep(
                 new GameState(
                 "111111" +
                 "111111" +
@@ -86,10 +88,10 @@ namespace Checkers.IntegrationTests.Services
         [TestMethod()]
         public void IntellectStep_QueenWeightTest()
         {
-            AssertEqual(
+            AssertNextStep(
                 new GameState(
-                "11Q" + 
-                "111" + 
+                "11Q" +
+                "111" +
                 "q11",
                 Turn.Black),
                 new GameState(
@@ -105,8 +107,8 @@ namespace Checkers.IntegrationTests.Services
         [TestMethod()]
         public void IntellectStepMustGoTest()
         {
-            
-            AssertNotEqual(
+
+            AssertNotNextStep(
                 new GameState(
                 "1p1p1p1p" +
                 "p111p111" +
@@ -133,16 +135,16 @@ namespace Checkers.IntegrationTests.Services
 
         }
 
-        private ComputerCalculateNextStepUseCase GetIntellectService()
+        private ComputerCalculateNextStepUseCase CreateComputerCalculateNextStepUseCase()
         {
-            var valideteFigureService = new  ValidateService(
+            var valideteFigureService = new ValidateService(
                 new ValidatePawnService(),
                 new ValidateQueenService()
             );
 
             var directMoveService = new MoveRule(
                 new ValidateService(
-                    new ValidatePawnService(), 
+                    new ValidatePawnService(),
                     new ValidateQueenService()
                     ) as IValidateEatService
             );
@@ -151,15 +153,15 @@ namespace Checkers.IntegrationTests.Services
                     new ValidateRule(valideteFigureService),
                     directMoveService
                 );
-            
-            return new ComputerCalculateNextStepUseCase(                
+
+            return new ComputerCalculateNextStepUseCase(
                 stepIteratorService,
                 new PositionWeightService());
         }
 
-        private void AssertEqual(GameState from, GameState to)
-        {            
-            var service = GetIntellectService();
+        private void AssertNextStep(GameState from, GameState to)
+        {
+            var service = CreateComputerCalculateNextStepUseCase();
 
             var actual = service.CalculateNextStep(from);
 
@@ -170,9 +172,9 @@ namespace Checkers.IntegrationTests.Services
             Assert.AreEqual(expected.MustGoFromPosition, actual.MustGoFromPosition);
         }
 
-        private void AssertNotEqual(GameState from, GameState to)
-        {                        
-            var service = GetIntellectService();
+        private void AssertNotNextStep(GameState from, GameState to)
+        {
+            var service = CreateComputerCalculateNextStepUseCase();
 
             var actual = service.CalculateNextStep(from);
 

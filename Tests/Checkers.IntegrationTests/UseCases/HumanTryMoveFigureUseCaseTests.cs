@@ -1,17 +1,19 @@
-﻿using Checkers.DomainModels;
-using Checkers.DomainModels.Enums;
-using Checkers.HumanPlayer.Services;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Checkers.HumanPlayer.UseCases;
+using System;
+using System.Collections.Generic;
+using System.Text;
+using Checkers.DomainModels.Enums;
+using Checkers.DomainModels;
+using Checkers.HumanPlayer.Services;
 using Checkers.Rules.Rules;
 using Checkers.Rules.Services;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Checkers.IntegrationTests.Services
+namespace Checkers.HumanPlayer.UseCases.Tests
 {
     [TestClass()]
-    public class MoveFigureServiceTests
+    public class HumanTryMoveFigureUseCaseTests
     {
-
         [TestMethod()]
         public void PawnToQueen()
         {
@@ -63,8 +65,8 @@ namespace Checkers.IntegrationTests.Services
         {
             AssertMove(
                 new GameState(
-                "111" + 
-                "1p1" + 
+                "111" +
+                "1p1" +
                 "P11",
                 Turn.White),
                 6, 2,
@@ -135,8 +137,8 @@ namespace Checkers.IntegrationTests.Services
                 new ValidateService(
                     new ValidatePawnService(),
                     new ValidateQueenService()));
-            
-            return new HumanTryMoveFigureUseCase(                
+
+            return new HumanTryMoveFigureUseCase(
                 new ValidateHumanService(validateFiguresService),
                 new MoveRule(new ValidateService(
                     new ValidatePawnService(),
@@ -145,7 +147,7 @@ namespace Checkers.IntegrationTests.Services
         }
 
         private void AssertMove(GameState from, int fromCoord, int toCoord, GameState expected)
-        {            
+        {
             var moveService = CreateMoveFigureService();
 
             var actual = moveService.Execute(@from, fromCoord, toCoord);
