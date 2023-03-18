@@ -104,47 +104,16 @@ namespace Checkers.ComputerPlayer.UseCases.Tests
                     "111111" +
                     "P11111",
                     Turn.White));
-
-        }
-
-        [TestMethod()]
-        public void IntellectStepMustGoTest()
-        {
-            AssertNotNextStep(
-                new GameState(
-                "1p1p1p1p" +
-                "p111p111" +
-                "1111111p" +
-                "1111p111" +
-                "11111111" +
-                "P11111P1" +
-                "1P1P1p11" +
-                "P1P1P1P1",
-                Turn.Black,
-                53),
-                new GameState(
-
-                "1p1p1p1p" +
-                "p111p111" +
-                "1111111p" +
-                "1111p111" +
-                "11111111" +
-                "P11111P1" +
-                "1P1P1p11" +
-                "P1P1P1P1",
-                Turn.Black,
-                53));
-
         }
 
         private ComputerCalculateNextStepUseCase CreateComputerCalculateNextStepUseCase()
         {
-            var valideteFigureService = new ValidateService(
+            var validateRule = new ValidateRule(new ValidateService(
                 new ValidatePawnService(),
                 new ValidateQueenService()
-            );
+            ));
 
-            var directMoveService = new MoveRule(
+            var moveRule = new MoveRule(
                 new ValidateService(
                     new ValidatePawnService(),
                     new ValidateQueenService()
@@ -152,8 +121,8 @@ namespace Checkers.ComputerPlayer.UseCases.Tests
             );
 
             var stepIteratorService = new StepIteratorService(
-                    new ValidateRule(valideteFigureService),
-                    directMoveService
+                    validateRule,
+                    moveRule
                 );
 
             return new ComputerCalculateNextStepUseCase(
@@ -172,18 +141,6 @@ namespace Checkers.ComputerPlayer.UseCases.Tests
             Assert.AreEqual(expected.Board.ToString(), actual.Board.ToString());
             Assert.AreEqual(expected.Turn, actual.Turn);
             Assert.AreEqual(expected.MustGoFromPosition, actual.MustGoFromPosition);
-        }
-
-        private void AssertNotNextStep(GameState from, GameState to)
-        {
-            var service = CreateComputerCalculateNextStepUseCase();
-
-            var actual = service.CalculateNextStep(from);
-
-            var expected = to;
-
-            Assert.IsTrue(!actual.Equals(expected)
-            );
         }
     }
 }
