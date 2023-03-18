@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using Checkers.DomainModels;
 
-namespace Checkers.Contracts
+namespace Checkers.Contracts.Rules
 {
-    public interface IValidateRulesService
+    public interface IValidateRule
     {
         List<int> GetAllowedToPositions(Board board, int fromPosition);
     }

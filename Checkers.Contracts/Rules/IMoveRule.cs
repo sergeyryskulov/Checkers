@@ -1,8 +1,8 @@
 ﻿using Checkers.DomainModels;
 
-namespace Checkers.Contracts
+namespace Checkers.Contracts.Rules
 {
-    public interface IMoveRulesService
+    public interface IMoveRule
     {
         GameState MoveFigureWithoutValidation(GameState gameState, int fromPosition, int toPosition);
     }

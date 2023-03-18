@@ -1,17 +1,17 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Checkers.Contracts;
+using Checkers.Contracts.Rules;
 using Checkers.DomainModels;
 using Checkers.Rules.Extensions;
 using Checkers.Rules.Interfaces;
 
 namespace Checkers.Rules.Services
 {
-    public class ValidateRulesService : IValidateRulesService
+    public class ValidateRule : IValidateRule
     {
         private readonly IValidateFigureService _validateFigureService;
 
-        public ValidateRulesService(IValidateFigureService validateFigureService)
+        public ValidateRule(IValidateFigureService validateFigureService)
         {
             _validateFigureService = validateFigureService;
         }

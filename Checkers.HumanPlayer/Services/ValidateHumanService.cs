@@ -1,4 +1,4 @@
-﻿using Checkers.Contracts;
+﻿using Checkers.Contracts.Rules;
 using Checkers.DomainModels;
 using Checkers.DomainModels.Enums;
 using Checkers.HumanPlayer.Interfaces;
@@ -8,11 +8,11 @@ namespace Checkers.HumanPlayer.Services
     public class ValidateHumanService : IValidateHumanService
     {
 
-        private IValidateRulesService _validateRulesService;
+        private IValidateRule _validateRule;
 
-        public ValidateHumanService(IValidateRulesService validateRulesService)
+        public ValidateHumanService(IValidateRule validateRule)
         {
-            _validateRulesService = validateRulesService;
+            _validateRule = validateRule;
         }
 
 
@@ -32,7 +32,7 @@ namespace Checkers.HumanPlayer.Services
                 return false;
             }
 
-            var notInAllowedVectors = !_validateRulesService.GetAllowedToPositions(cells, fromPosition).Contains(toPosition);
+            var notInAllowedVectors = !_validateRule.GetAllowedToPositions(cells, fromPosition).Contains(toPosition);
             if (notInAllowedVectors)
             {
                 return false;

@@ -1,4 +1,4 @@
-﻿using Checkers.Contracts;
+﻿using Checkers.Contracts.Rules;
 using Checkers.DomainModels;
 using Checkers.DomainModels.Enums;
 using Checkers.HumanPlayer.Interfaces;
@@ -19,7 +19,7 @@ namespace Checkers.UnitTests.Services
                 It.Is<GameState>(t=>t.Board.ToString()=="11P1" && t.Turn==Turn.White && t.MustGoFromPosition==null), 3, 0)).Returns(true);
 
             
-            var directMoveService = new Mock<IMoveRulesService>();
+            var directMoveService = new Mock<IMoveRule>();
             directMoveService.Setup(m => m.MoveFigureWithoutValidation(
                 It.Is<GameState>(t=>t.Board.ToString()=="11P1" && t.Turn==Turn.White && t.MustGoFromPosition==null), 3, 0)).Returns(
                 new GameState("1Q11", Turn.WhiteWin));

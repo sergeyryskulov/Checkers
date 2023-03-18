@@ -1,4 +1,4 @@
-﻿using Checkers.Contracts;
+﻿using Checkers.Contracts.Rules;
 using Checkers.DomainModels;
 using Checkers.DomainModels.Enums;
 using Checkers.Rules.Extensions;
@@ -7,11 +7,11 @@ using Checkers.Rules.Models;
 
 namespace Checkers.Rules.Services
 {
-    public class MoveRulesService : IMoveRulesService
+    public class MoveRule : IMoveRule
     {
         private readonly IValidateEatService _validateEatService;
 
-        public MoveRulesService(IValidateEatService validateEatService)
+        public MoveRule(IValidateEatService validateEatService)
         {
             _validateEatService = validateEatService;
         }

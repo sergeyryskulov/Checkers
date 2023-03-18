@@ -1,4 +1,4 @@
-﻿using Checkers.Contracts;
+﻿using Checkers.Contracts.Rules;
 using Checkers.Contracts.UseCases;
 using Checkers.DomainModels;
 using Checkers.HumanPlayer.Interfaces;
@@ -8,12 +8,12 @@ namespace Checkers.HumanPlayer.Services
     public class HumanTryMoveFigureUseCase : IHumanTryMoveFigureUseCase
     {        
         private IValidateHumanService _validateHumanService;
-        private IMoveRulesService _moveRulesService;
+        private IMoveRule _moveRule;
 
-        public HumanTryMoveFigureUseCase(IValidateHumanService validateHumanService, IMoveRulesService moveRulesService)
+        public HumanTryMoveFigureUseCase(IValidateHumanService validateHumanService, IMoveRule moveRule)
         {            
             _validateHumanService = validateHumanService;
-            _moveRulesService = moveRulesService;
+            _moveRule = moveRule;
         }
 
         public GameState Execute(GameState gameState, int fromPosition, int toPosition)
@@ -24,7 +24,7 @@ namespace Checkers.HumanPlayer.Services
                 return gameState;
             }
 
-            var newState = _moveRulesService.MoveFigureWithoutValidation(gameState, fromPosition, toPosition);                        
+            var newState = _moveRule.MoveFigureWithoutValidation(gameState, fromPosition, toPosition);                        
             
             return newState;
         }

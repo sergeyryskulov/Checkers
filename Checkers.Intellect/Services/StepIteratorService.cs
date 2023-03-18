@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Checkers.ComputerPlayer.Interfaces;
 using Checkers.ComputerPlayer.Models;
-using Checkers.Contracts;
+using Checkers.Contracts.Rules;
 using Checkers.DomainModels;
 using Checkers.DomainModels.Enums;
 
@@ -9,13 +9,13 @@ namespace Checkers.ComputerPlayer.Services
 {
     public class StepIteratorService : IStepIteratorService
     {
-        private IValidateRulesService _validateRulesService;
-        private IMoveRulesService _moveRulesService;
+        private IValidateRule _validateRule;
+        private IMoveRule _moveRule;
 
-        public StepIteratorService(IValidateRulesService validateRulesService, IMoveRulesService moveRulesService)
+        public StepIteratorService(IValidateRule validateRule, IMoveRule moveRule)
         {
-            _validateRulesService = validateRulesService;
-            _moveRulesService = moveRulesService;
+            _validateRule = validateRule;
+            _moveRule = moveRule;
         }
 
         public IEnumerable<NextStepVariant> GetNextStepVariants(GameState gameState)
@@ -70,10 +70,10 @@ namespace Checkers.ComputerPlayer.Services
         private List<GameState> GetAllowedNextStates(GameState inputState, int fromPosition, Board board)
         {
             List<GameState> result = new List<GameState>();
-            var toCoordVariants = _validateRulesService.GetAllowedToPositions(board, fromPosition);
+            var toCoordVariants = _validateRule.GetAllowedToPositions(board, fromPosition);
             foreach (var toCoord in toCoordVariants)
             {                
-                var newState = _moveRulesService.MoveFigureWithoutValidation(inputState, fromPosition, toCoord);
+                var newState = _moveRule.MoveFigureWithoutValidation(inputState, fromPosition, toCoord);
                 if (!inputState.Equals(newState))
                 {
                     result.Add(newState);

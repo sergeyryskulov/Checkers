@@ -15,7 +15,7 @@ namespace Checkers.DependencyInjection
             {
                 typeof(HumanTryMoveFigureUseCase).Assembly,
                 typeof(ComputerCalculateNextStepUseCase).Assembly,
-                typeof(ValidateRulesService).Assembly,
+                typeof(ValidateRule).Assembly,
             };
 
             foreach (var assembly in assemblies)

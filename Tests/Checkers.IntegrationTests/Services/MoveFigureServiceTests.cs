@@ -129,14 +129,14 @@ namespace Checkers.IntegrationTests.Services
         private HumanTryMoveFigureUseCase CreateMoveFigureService()
         {
 
-            var validateFiguresService = new ValidateRulesService(
+            var validateFiguresService = new ValidateRule(
                 new ValidateService(
                     new ValidatePawnService(),
                     new ValidateQueenService()));
             
             return new HumanTryMoveFigureUseCase(                
                 new ValidateHumanService(validateFiguresService),
-                new MoveRulesService(new ValidateService(
+                new MoveRule(new ValidateService(
                     new ValidatePawnService(),
                     new ValidateQueenService())));
 
