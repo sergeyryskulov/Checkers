@@ -16,7 +16,7 @@ namespace Checkers.ComputerPlayer.UseCases.Tests
     public class ComputerCalculateNextStepUseCaseTests
     {
         [TestMethod()]
-        public void PawnToQueen()
+        public void PawnGrowsToQueen()
         {
             AssertNextStep(
                 new GameState(
@@ -59,29 +59,51 @@ namespace Checkers.ComputerPlayer.UseCases.Tests
                     "11111111",
                 Turn.White));
         }
-
+        
         [TestMethod()]
-        public void CanDoNextStepAfterEat()
+        public void PawnEatPawnAndCanDoNextStepAfterThat()
         {
-
             AssertNextStep(
                 new GameState(
-                "111111" +
-                "111111" +
-                "111111" +
-                "111111" +
-                "1p1p11" +
-                "P1P111",
-                Turn.White),
+                    "1p1111" +
+                    "11P111" +
+                    "111111" +
+                    "1111Q1" +
+                    "111111" +
+                    "111111",
+                Turn.Black),
                 new GameState(
-                "111111" +
-                "111111" +
-                "111111" +
-                "11P111" +
-                "111p11" +
-                "11P111",
-                Turn.White,
-                20));
+                    "111111" +
+                    "111111" +
+                    "111p11" +
+                    "1111Q1" +
+                    "111111" +
+                    "111111",
+                Turn.Black,
+                15));
+
+        }
+
+        [TestMethod()]
+        public void EatQueenBetterThatEatPawn()
+        {
+            AssertNextStep(
+                new GameState(
+                    "111111" +
+                    "11p111" +
+                    "1P1Q11" +
+                    "111111" +
+                    "111111" +
+                    "P11111",
+                    Turn.Black),
+                new GameState(
+                    "111111" +
+                    "111111" +
+                    "1P1111" +
+                    "1111p1" +
+                    "111111" +
+                    "P11111",
+                    Turn.White));
 
         }
 
