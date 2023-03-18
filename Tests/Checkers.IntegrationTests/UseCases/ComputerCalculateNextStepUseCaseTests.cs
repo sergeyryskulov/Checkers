@@ -134,7 +134,7 @@ namespace Checkers.ComputerPlayer.UseCases.Tests
         {
             var service = CreateComputerCalculateNextStepUseCase();
 
-            var actual = service.CalculateNextStep(from);
+            var actual = service.Execute(from);
 
             var expected = to;
 

@@ -17,7 +17,7 @@ namespace Checkers.ComputerPlayer.UseCases
             _positionWeightService = positionWeightService;
         }
 
-        public GameState CalculateNextStep(GameState gameState)
+        public GameState Execute(GameState gameState)
         {
             var nextStepVariants = _stepIteratorService.GetNextStepVariants(gameState);
 

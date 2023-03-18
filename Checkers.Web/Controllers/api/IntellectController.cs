@@ -46,7 +46,7 @@ namespace Checkers.Web.Controllers.api
         {
             var oldGameState = new GameState(cells, (Turn)turn, mustGoFrom);
 
-            var newGameState = _computerCalculateNextStepUseCase.CalculateNextStep(oldGameState);
+            var newGameState = _computerCalculateNextStepUseCase.Execute(oldGameState);
 
             var newGameStateDto = new GameStateDto(newGameState);
 

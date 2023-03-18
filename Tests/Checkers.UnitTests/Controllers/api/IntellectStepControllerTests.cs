@@ -16,7 +16,7 @@ namespace Checkers.UnitTests.Controllers.api
         public void PostTest()
         {
             var intellectService = new Mock<IComputerCalculateNextStepUseCase>();
-            intellectService.Setup(m => m.CalculateNextStep(
+            intellectService.Setup(m => m.Execute(
                     It.Is<GameState>(t => t.Board.ToString() == "p111")))
                 .Returns(new GameState("111Q", Turn.BlackWin));
 
