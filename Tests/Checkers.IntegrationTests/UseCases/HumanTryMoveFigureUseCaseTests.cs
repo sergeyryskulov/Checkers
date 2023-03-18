@@ -15,7 +15,7 @@ namespace Checkers.HumanPlayer.UseCases.Tests
     public class HumanTryMoveFigureUseCaseTests
     {
         [TestMethod()]
-        public void PawnToQueen()
+        public void PawnCanMoveToQueen()
         {
             AssertMove(
                 new GameState(
