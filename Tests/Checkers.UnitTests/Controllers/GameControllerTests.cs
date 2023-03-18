@@ -14,8 +14,6 @@ namespace Checkers.UnitTests.Controllers
             var boardController = new GameController();
             var actual = boardController.Index() as ViewResult;
 
-          // actual.ExecuteResult(new ActionContext(new DefaultHttpContext(), ));
-
             Assert.IsNull(actual.Model);
 
             Assert.AreEqual("Game", actual.ViewName);

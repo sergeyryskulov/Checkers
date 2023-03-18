@@ -208,13 +208,13 @@ namespace Checkers.HumanPlayer.UseCases.Tests
         {
 
             var validateFiguresService = new ValidateRule(
-                new ValidateService(
+                new ValidateFigureService(
                     new ValidatePawnService(),
                     new ValidateQueenService()));
 
             return new HumanTryMoveFigureUseCase(
                 new ValidateHumanService(validateFiguresService),
-                new MoveRule(new ValidateService(
+                new MoveRule(new ValidateFigureService(
                     new ValidatePawnService(),
                     new ValidateQueenService())));
 

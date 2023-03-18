@@ -7,11 +7,11 @@ using Moq;
 namespace Checkers.UnitTests.Services
 {
     [TestClass()]
-    public class ValidateServiceTests
+    public class ValidateFigureServiceTests
     {
         
         [TestMethod()]
-        public void GetAllowedMoveVectorsIncorrectFigureTest()
+        public void GetAllowedMoveVectors_IncorrectFigure()
         {
             var actual = CreateValidateFigureService().GetAllowedMoveVectors(new Board("G111"), 0);
 
@@ -20,9 +20,9 @@ namespace Checkers.UnitTests.Services
             Assert.IsFalse(actual.EatFigure);
         }
 
-        private ValidateService  CreateValidateFigureService()
+        private ValidateFigureService  CreateValidateFigureService()
         {
-            return new ValidateService(new Mock<IValidatePawnService>().Object, new Mock<IValidateQueenService>().Object);
+            return new ValidateFigureService(new Mock<IValidatePawnService>().Object, new Mock<IValidateQueenService>().Object);
         }
     }
 }

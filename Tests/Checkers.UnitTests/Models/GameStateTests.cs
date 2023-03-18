@@ -11,7 +11,7 @@ namespace Checkers.UnitTests.Models
     public class GameStateTests
     {
         [TestMethod()]
-        public void EqualsFalse()
+        public void Equals_False()
         {
             var gameState = new GameState("1111", Turn.Black, null);
 
@@ -21,7 +21,7 @@ namespace Checkers.UnitTests.Models
         }
 
         [TestMethod()]
-        public void EqualsTrue()
+        public void Equals_True()
         {
             var gameState = new GameState("1111", Turn.Black, null);
 

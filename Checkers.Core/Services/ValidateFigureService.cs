@@ -4,12 +4,12 @@ using Checkers.Rules.Models;
 
 namespace Checkers.Rules.Services
 {
-    public class ValidateService : IValidateFigureService, IValidateEatService
+    public class ValidateFigureService : IValidateFigureService, IValidateEatService
     {
         private IValidatePawnService _validatePawnService;
         private IValidateQueenService _validateQueenService;
 
-        public ValidateService(IValidatePawnService validatePawnService, IValidateQueenService validateQueenService)
+        public ValidateFigureService(IValidatePawnService validatePawnService, IValidateQueenService validateQueenService)
         {
             _validatePawnService = validatePawnService;
             _validateQueenService = validateQueenService;

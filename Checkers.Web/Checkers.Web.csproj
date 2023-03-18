@@ -19,9 +19,13 @@
    </PropertyGroup>
   <ItemGroup>
     <Compile Remove="Services\**" />
+    <Compile Remove="Views\Home\**" />
     <Content Remove="Services\**" />
+    <Content Remove="Views\Home\**" />
     <EmbeddedResource Remove="Services\**" />
+    <EmbeddedResource Remove="Views\Home\**" />
     <None Remove="Services\**" />
+    <None Remove="Views\Home\**" />
   </ItemGroup>
   <ItemGroup>
     <Content Remove="bundleconfig.json" />
@@ -35,10 +39,6 @@
   <ItemGroup>
     <None Include="bundleconfig.json" />
     <None Include="compilerconfig.json" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Views\Home\" />
   </ItemGroup>
 
   <ItemGroup>

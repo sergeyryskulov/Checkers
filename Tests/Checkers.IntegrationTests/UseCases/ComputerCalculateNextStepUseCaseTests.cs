@@ -108,13 +108,13 @@ namespace Checkers.ComputerPlayer.UseCases.Tests
 
         private ComputerCalculateNextStepUseCase CreateComputerCalculateNextStepUseCase()
         {
-            var validateRule = new ValidateRule(new ValidateService(
+            var validateRule = new ValidateRule(new ValidateFigureService(
                 new ValidatePawnService(),
                 new ValidateQueenService()
             ));
 
             var moveRule = new MoveRule(
-                new ValidateService(
+                new ValidateFigureService(
                     new ValidatePawnService(),
                     new ValidateQueenService()
                     ) as IValidateEatService
