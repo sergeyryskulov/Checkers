@@ -21,7 +21,10 @@ class Game {
         defaultBoardState.mustGoFrom = null;
 
         if (window.location.href.indexOf('cells=') !== -1) {
-            defaultBoardState.cells = window.location.href.split('cells=')[1];
+            defaultBoardState.cells = window.location.href.split('cells=')[1].split('&')[0];
+        }
+        if (window.location.href.indexOf('turn=') !== -1) {
+            defaultBoardState.turn = window.location.href.split('turn=')[1].split('&')[0];
         }
 
         this._gameDrawer.setNewGameClickHandler(() => this.showFiguresOnBoard(defaultBoardState));

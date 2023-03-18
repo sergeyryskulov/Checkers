@@ -34,9 +34,9 @@ namespace Checkers.ComputerPlayer.UseCases.Tests
 
 
         [TestMethod()]
-        public void IntellectStep_NoWhiteMove()
+        public void QueenEatPawn()
         {
-            AssertNotNextStep(
+            AssertNextStep(
                 new GameState(
 
                     "1111111p" +
@@ -49,15 +49,15 @@ namespace Checkers.ComputerPlayer.UseCases.Tests
                     "11q11111",
                      Turn.Black),
                 new GameState(
-                "1111111p" +
-                "111111p1" +
-                "1p111p1p" +
-                "p11111p1" +
-                "1p11111P" +
-                "11111111" +
-                "111P1111" +
-                "11q11111",
-                Turn.Black));
+                    "1111111p" +
+                    "111111p1" +
+                    "1p111p1p" +
+                    "p11111p1" +
+                    "1p11111P" +
+                    "1111q111" +
+                    "11111111" +
+                    "11111111",
+                Turn.White));
         }
 
         [TestMethod()]
@@ -86,28 +86,8 @@ namespace Checkers.ComputerPlayer.UseCases.Tests
         }
 
         [TestMethod()]
-        public void IntellectStep_QueenWeightTest()
-        {
-            AssertNextStep(
-                new GameState(
-                "11Q" +
-                "111" +
-                "q11",
-                Turn.Black),
-                new GameState(
-                "11Q" +
-                "1q1" +
-                "111",
-                Turn.White)
-            );
-
-        }
-
-
-        [TestMethod()]
         public void IntellectStepMustGoTest()
         {
-
             AssertNotNextStep(
                 new GameState(
                 "1p1p1p1p" +
