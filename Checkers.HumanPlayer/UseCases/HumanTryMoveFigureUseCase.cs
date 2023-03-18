@@ -18,7 +18,6 @@ namespace Checkers.HumanPlayer.UseCases
 
         public GameState Execute(GameState gameState, int fromPosition, int toPosition)
         {
-
             if (!_validateHumanService.CanMove(gameState, fromPosition, toPosition))
             {
                 return gameState;
