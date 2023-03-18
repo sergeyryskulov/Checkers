@@ -5,7 +5,7 @@ using Checkers.Rules.Extensions;
 using Checkers.Rules.Interfaces;
 using Checkers.Rules.Models;
 
-namespace Checkers.Rules.Services
+namespace Checkers.Rules.Rules
 {
     public class MoveRule : IMoveRule
     {
@@ -27,29 +27,29 @@ namespace Checkers.Rules.Services
 
             var newBoardState = new Board(cells.ToString());
 
-            bool onTopLine = (toPosition < boardWidth);
+            bool onTopLine = toPosition < boardWidth;
             bool onBottomLine = toPosition >= boardWidth * (boardWidth - 1);
-            bool convertToQueen = (gameState.Turn == Turn.White && onTopLine) ||
-                 (gameState.Turn == Turn.Black && onBottomLine);
+            bool convertToQueen = gameState.Turn == Turn.White && onTopLine ||
+                 gameState.Turn == Turn.Black && onBottomLine;
             newBoardState.MoveFigure(fromPosition, toPosition, convertToQueen);
 
             bool eatFigure = false;
             for (int iteratedLength = 1; iteratedLength < vector.Length; iteratedLength++)
             {
-                var iteratedCoord = (new Vector(
+                var iteratedCoord = new Vector(
                     vector.Direction,
                     iteratedLength
-                )).ToPosition(fromPosition, boardWidth);
+                ).ToPosition(fromPosition, boardWidth);
 
                 if (!newBoardState.IsEmptyCellAt(iteratedCoord))
                 {
                     eatFigure = true;
-                    newBoardState.DeleteFigure(iteratedCoord);                    
+                    newBoardState.DeleteFigure(iteratedCoord);
                 }
             }
-            
+
             var toggleTurn = true;
-                        
+
             if (eatFigure)
             {
                 var canEatNextFigure = _validateEatService.CanEatFigure(toPosition, newBoardState);
@@ -63,7 +63,7 @@ namespace Checkers.Rules.Services
             var nextTurn = gameState.Turn;
             if (toggleTurn)
             {
-                nextTurn = (gameState.Turn == Turn.White ? Turn.Black : Turn.White);
+                nextTurn = gameState.Turn == Turn.White ? Turn.Black : Turn.White;
             }
 
             if (gameState.Turn == Turn.White && !newBoardState.ContainsAnyBlackFigure())
@@ -75,8 +75,8 @@ namespace Checkers.Rules.Services
             {
                 nextTurn = Turn.BlackWin;
             }
-        
-            return new GameState(newBoardState.ToString(), nextTurn, toggleTurn ? null : (int?) toPosition);
+
+            return new GameState(newBoardState.ToString(), nextTurn, toggleTurn ? null : (int?)toPosition);
 
         }
     }

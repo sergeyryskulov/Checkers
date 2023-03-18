@@ -5,7 +5,7 @@ using Checkers.DomainModels;
 using Checkers.Rules.Extensions;
 using Checkers.Rules.Interfaces;
 
-namespace Checkers.Rules.Services
+namespace Checkers.Rules.Rules
 {
     public class ValidateRule : IValidateRule
     {
@@ -18,10 +18,10 @@ namespace Checkers.Rules.Services
 
         public List<int> GetAllowedToPositions(Board board, int fromPosition)
         {
-            
+
             var allowedMoveVectors = _validateFigureService.GetAllowedMoveVectors(board, fromPosition);
 
-            if (allowedMoveVectors.EatFigure==false && allowedMoveVectors.AnyVectorExists() && IsBlockedByAnotherFigure(board, fromPosition))
+            if (allowedMoveVectors.EatFigure == false && allowedMoveVectors.AnyVectorExists() && IsBlockedByAnotherFigure(board, fromPosition))
             {
                 return new List<int>();
             }

@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Linq;
-using Checkers.ComputerPlayer.Services;
-using Checkers.HumanPlayer.Services;
-using Checkers.Rules.Services;
+using Checkers.ComputerPlayer.UseCases;
+using Checkers.HumanPlayer.UseCases;
+using Checkers.Rules.Rules;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Checkers.DependencyInjection

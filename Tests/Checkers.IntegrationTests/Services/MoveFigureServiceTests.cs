@@ -1,6 +1,8 @@
 ﻿using Checkers.DomainModels;
 using Checkers.DomainModels.Enums;
 using Checkers.HumanPlayer.Services;
+using Checkers.HumanPlayer.UseCases;
+using Checkers.Rules.Rules;
 using Checkers.Rules.Services;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 

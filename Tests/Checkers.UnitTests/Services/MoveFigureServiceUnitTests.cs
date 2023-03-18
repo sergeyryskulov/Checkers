@@ -3,6 +3,7 @@ using Checkers.DomainModels;
 using Checkers.DomainModels.Enums;
 using Checkers.HumanPlayer.Interfaces;
 using Checkers.HumanPlayer.Services;
+using Checkers.HumanPlayer.UseCases;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 
