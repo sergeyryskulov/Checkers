@@ -80,7 +80,7 @@ namespace Checkers.HumanPlayer.UseCases.Tests
 
 
         [TestMethod()]
-        public void TurnNotToggledAfterPawnMove()
+        public void TurnNotToggledAfterPawnEatFigure()
         {
             AssertMove(
                 new GameState(
@@ -105,7 +105,7 @@ namespace Checkers.HumanPlayer.UseCases.Tests
         }
 
         [TestMethod()]
-        public void TurnNotToggleAfterQueenMove()
+        public void TurnNotToggleAfterQueenEatFigure()
         {
             AssertMove(
                 new GameState(
@@ -130,7 +130,81 @@ namespace Checkers.HumanPlayer.UseCases.Tests
             );
         }
 
-        private HumanTryMoveFigureUseCase CreateMoveFigureService()
+        [TestMethod()]
+        public void BlockedByOtherFigureThatMustMove()
+        {
+            AssertMove(
+
+                new GameState(
+                    "111111" +
+                    "1p1111" +
+                    "P11111" +
+                    "11P111" +
+                    "111111" +
+                    "111111",
+                    Turn.White,
+                    20),
+                12, 2,
+                new GameState(
+                    "111111" +
+                    "1p1111" +
+                    "P11111" +
+                    "11P111" +
+                    "111111" +
+                    "111111",
+                    Turn.White,
+                    20));
+        }
+
+
+        [TestMethod()]
+        public void CannotMoveOnOtherColorTurn()
+        {
+            AssertMove(
+                new GameState(
+                    "111" +
+                    "1p1" +
+                    "P11",
+                    Turn.Black),
+                6, 2,
+                new GameState(
+                    "111" +
+                    "1p1" +
+                    "P11",
+                    Turn.Black
+                ));
+        }
+
+        [TestMethod()]
+        public void CannotMoveToOtherColorPawnPosition()
+        {
+
+            AssertMove(
+                new GameState(
+                    "111" +
+                    "1p1" +
+                    "P11",
+                    Turn.White),
+                6, 4,
+                new GameState(
+                    "111" +
+                    "1p1" +
+                    "P11",
+                    Turn.White));
+        }
+
+        private void AssertMove(GameState from, int fromCoord, int toCoord, GameState expected)
+        {
+            var moveUseCase = CreateHumanTryMoveFigureUseCase();
+
+            var actual = moveUseCase.Execute(@from, fromCoord, toCoord);
+
+            Assert.AreEqual(expected.Board.ToString(), actual.Board.ToString());
+            Assert.AreEqual(expected.MustGoFromPosition, actual.MustGoFromPosition);
+            Assert.AreEqual(expected.Turn, actual.Turn);
+        }
+
+        private HumanTryMoveFigureUseCase CreateHumanTryMoveFigureUseCase()
         {
 
             var validateFiguresService = new ValidateRule(
@@ -144,80 +218,6 @@ namespace Checkers.HumanPlayer.UseCases.Tests
                     new ValidatePawnService(),
                     new ValidateQueenService())));
 
-        }
-
-        private void AssertMove(GameState from, int fromCoord, int toCoord, GameState expected)
-        {
-            var moveService = CreateMoveFigureService();
-
-            var actual = moveService.Execute(@from, fromCoord, toCoord);
-
-            Assert.AreEqual(expected.Board.ToString(), actual.Board.ToString());
-            Assert.AreEqual(expected.MustGoFromPosition, actual.MustGoFromPosition);
-            Assert.AreEqual(expected.Turn, actual.Turn);
-        }
-
-        [TestMethod()]
-        public void BlockedByOtherFigureThatMustMove()
-        {
-            AssertMove(
-
-                new GameState(
-                "111111" +
-                "1p1111" +
-                "P11111" +
-                "11P111" +
-                "111111" +
-                "111111",
-                Turn.White,
-                20),
-                12, 2,
-                new GameState(
-                "111111" +
-                "1p1111" +
-                "P11111" +
-                "11P111" +
-                "111111" +
-                "111111",
-                Turn.White,
-                20));
-        }
-
-
-        [TestMethod()]
-        public void CannotMoveOnOtherColorTurn()
-        {
-            AssertMove(
-                new GameState(
-                "111" +
-                "1p1" +
-                "P11",
-                Turn.Black),
-                6, 2,
-                new GameState(
-                "111" +
-                "1p1" +
-                "P11",
-                Turn.Black
-                ));
-        }
-
-        [TestMethod()]
-        public void CannotMoveToOtherColorPawnPosition()
-        {
-
-            AssertMove(
-                new GameState(
-                "111" +
-                "1p1" +
-                "P11",
-                Turn.White),
-                6, 4,
-                new GameState(
-                "111" +
-                "1p1" +
-                "P11",
-                Turn.White));
         }
     }
 }
