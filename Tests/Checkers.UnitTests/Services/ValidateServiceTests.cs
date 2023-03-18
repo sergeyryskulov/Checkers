@@ -7,7 +7,7 @@ using Moq;
 namespace Checkers.UnitTests.Services
 {
     [TestClass()]
-    public class ValidateFigureServiceTests
+    public class ValidateServiceTests
     {
         
         [TestMethod()]

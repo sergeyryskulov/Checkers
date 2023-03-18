@@ -6,7 +6,7 @@ namespace Checkers.UnitTests.Controllers
 {
 
     [TestClass()]
-    public class BoardControllerTests
+    public class GameControllerTests
     {
         [TestMethod()]
         public void IndexTest()

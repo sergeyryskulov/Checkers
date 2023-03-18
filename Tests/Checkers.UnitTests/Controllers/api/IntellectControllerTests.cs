@@ -1,5 +1,4 @@
 ﻿using Checkers.Contracts.UseCases;
-using Checkers.Core.Models.ValueObjects;
 using Checkers.DomainModels;
 using Checkers.DomainModels.Enums;
 using Checkers.Web.Controllers.api;
@@ -10,7 +9,7 @@ using Moq;
 namespace Checkers.UnitTests.Controllers.api
 {
     [TestClass()]
-    public class IntellectStepControllerTests
+    public class IntellectControllerTests
     {
         [TestMethod()]
         public void PostTest()

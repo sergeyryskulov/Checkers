@@ -1,12 +1,11 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Checkers.Core.Models.ValueObjects;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using Checkers.DomainModels;
 using Checkers.DomainModels.Enums;
 
-namespace Checkers.Core.Models.ValueObjects.Tests
+namespace Checkers.UnitTests.Models
 {
     [TestClass()]
     public class GameStateTests
@@ -29,6 +28,16 @@ namespace Checkers.Core.Models.ValueObjects.Tests
             var actual = gameState.Equals(new GameState("1111", Turn.Black, null));
 
             Assert.IsTrue(actual);
+        }
+
+        [TestMethod()]
+        public void GetHashCodeTest()
+        {
+            var boardState = new GameState("", Turn.White);
+
+            var actual = boardState.GetHashCode();
+
+            Assert.AreEqual(actual, "".GetHashCode() + (int)Turn.White);
         }
     }
 }

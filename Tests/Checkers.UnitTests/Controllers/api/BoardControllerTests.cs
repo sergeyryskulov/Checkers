@@ -10,7 +10,7 @@ using Moq;
 namespace Checkers.UnitTests.Controllers.api
 {
     [TestClass()]
-    public class MoveFigureControllerTests
+    public class BoardControllerTests
     {
         [TestMethod()]
         public void PostTest()
