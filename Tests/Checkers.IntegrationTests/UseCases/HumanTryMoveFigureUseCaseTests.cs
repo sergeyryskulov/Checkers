@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Text;
 using Checkers.DomainModels.Enums;
 using Checkers.DomainModels;
+using Checkers.DomainModels.Models;
 using Checkers.HumanPlayer.Services;
 using Checkers.Rules.Rules;
 using Checkers.Rules.Services;

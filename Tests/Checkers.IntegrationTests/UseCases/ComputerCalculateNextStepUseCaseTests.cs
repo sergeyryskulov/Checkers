@@ -6,6 +6,7 @@ using System.Text;
 using Checkers.ComputerPlayer.Services;
 using Checkers.DomainModels.Enums;
 using Checkers.DomainModels;
+using Checkers.DomainModels.Models;
 using Checkers.Rules.Interfaces;
 using Checkers.Rules.Rules;
 using Checkers.Rules.Services;

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Checkers.DomainModels;
 using Checkers.DomainModels.Enums;
+using Checkers.DomainModels.Models;
 using Swashbuckle.Swagger.Annotations;
 
 namespace Checkers.Web.Models

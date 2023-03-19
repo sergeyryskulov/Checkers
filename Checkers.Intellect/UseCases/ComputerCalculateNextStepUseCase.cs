@@ -2,6 +2,7 @@
 using Checkers.ComputerPlayer.Interfaces;
 using Checkers.Contracts.UseCases;
 using Checkers.DomainModels;
+using Checkers.DomainModels.Models;
 
 namespace Checkers.ComputerPlayer.UseCases
 {

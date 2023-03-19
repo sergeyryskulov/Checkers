@@ -1,4 +1,5 @@
 ﻿using Checkers.DomainModels;
+using Checkers.DomainModels.Models;
 using Checkers.Rules.Interfaces;
 using Checkers.Rules.Models;
 

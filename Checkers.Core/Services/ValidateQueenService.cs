@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Checkers.DomainModels;
 using Checkers.DomainModels.Enums;
+using Checkers.DomainModels.Models;
 using Checkers.Rules.Enums;
 using Checkers.Rules.Extensions;
 using Checkers.Rules.Interfaces;

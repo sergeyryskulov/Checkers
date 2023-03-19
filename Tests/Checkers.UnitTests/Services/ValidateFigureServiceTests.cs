@@ -1,15 +1,15 @@
 ﻿using Checkers.DomainModels;
+using Checkers.DomainModels.Models;
 using Checkers.Rules.Interfaces;
 using Checkers.Rules.Services;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 
-namespace Checkers.UnitTests.Services
+namespace Checkers.Rules.Services.Tests
 {
     [TestClass()]
     public class ValidateFigureServiceTests
     {
-        
         [TestMethod()]
         public void GetAllowedMoveVectors_IncorrectFigure()
         {
@@ -20,7 +20,7 @@ namespace Checkers.UnitTests.Services
             Assert.IsFalse(actual.EatFigure);
         }
 
-        private ValidateFigureService  CreateValidateFigureService()
+        private ValidateFigureService CreateValidateFigureService()
         {
             return new ValidateFigureService(new Mock<IValidatePawnService>().Object, new Mock<IValidateQueenService>().Object);
         }

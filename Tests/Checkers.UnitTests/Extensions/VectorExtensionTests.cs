@@ -3,13 +3,11 @@ using Checkers.Rules.Extensions;
 using Checkers.Rules.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Checkers.UnitTests.Extensions
+namespace Checkers.Rules.Extensions.Tests
 {
     [TestClass()]
     public class VectorExtensionTests
     {
-        
-
         [TestMethod()]
         public void MoveTest_Correct()
         {
@@ -25,7 +23,7 @@ namespace Checkers.UnitTests.Extensions
         public void MoveTest_Incorrect()
         {
 
-            var actual =  (new Vector(Direction.LeftBottom, 1)).ToPosition(0, 2);
+            var actual = (new Vector(Direction.LeftBottom, 1)).ToPosition(0, 2);
 
             var expected = -1;
 
@@ -57,7 +55,7 @@ namespace Checkers.UnitTests.Extensions
             var actualVector = 0.ToVector(100, 2);
 
             Assert.IsNull(actualVector);
-            
+
         }
     }
 }

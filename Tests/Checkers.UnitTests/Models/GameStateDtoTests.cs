@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Text;
 using Checkers.DomainModels.Enums;
 using Checkers.DomainModels;
+using Checkers.DomainModels.Models;
 
 namespace Checkers.Web.Models.Tests
 {

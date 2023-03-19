@@ -1,6 +1,7 @@
 ﻿using Checkers.Contracts.UseCases;
 using Checkers.DomainModels;
 using Checkers.DomainModels.Enums;
+using Checkers.DomainModels.Models;
 using Checkers.Web.Models;
 using Microsoft.AspNetCore.Mvc;
 

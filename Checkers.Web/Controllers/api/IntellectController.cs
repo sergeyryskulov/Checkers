@@ -7,6 +7,7 @@ using Checkers.DomainModels;
 using Checkers.DomainModels.Enums;
 using Checkers.Web.Models;
 using Checkers.Contracts.UseCases;
+using Checkers.DomainModels.Models;
 
 namespace Checkers.Web.Controllers.api
 {

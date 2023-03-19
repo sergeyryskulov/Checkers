@@ -2,7 +2,7 @@
 using Checkers.Rules.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Checkers.UnitTests.Models
+namespace Checkers.Rules.Models.Tests
 {
     [TestClass()]
     public class VectorTests
@@ -33,12 +33,12 @@ namespace Checkers.UnitTests.Models
         public void EqualsTest()
         {
             var vector1 = new Vector(Direction.LeftTop, 2);
-            
+
 
             var vector2 = new Vector(Direction.LeftTop, 2);
 
             var actual = vector1.Equals(vector2);
-            
+
             Assert.IsTrue(actual);
         }
 

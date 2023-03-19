@@ -2,7 +2,7 @@
 using System.Text;
 using Checkers.DomainModels.Enums;
 
-namespace Checkers.DomainModels
+namespace Checkers.DomainModels.Models
 {
     public class Board
     {

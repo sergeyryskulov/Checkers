@@ -1,6 +1,7 @@
 ﻿using Checkers.Contracts.Rules;
 using Checkers.Contracts.UseCases;
 using Checkers.DomainModels;
+using Checkers.DomainModels.Models;
 using Checkers.HumanPlayer.Interfaces;
 
 namespace Checkers.HumanPlayer.UseCases

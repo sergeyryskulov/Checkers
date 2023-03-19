@@ -1,5 +1,6 @@
 ﻿using Checkers.ComputerPlayer.Interfaces;
 using Checkers.DomainModels;
+using Checkers.DomainModels.Models;
 
 namespace Checkers.ComputerPlayer.Services
 {

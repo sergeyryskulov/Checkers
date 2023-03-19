@@ -1,12 +1,13 @@
 ﻿using System.Collections.Generic;
 using Checkers.DomainModels;
+using Checkers.DomainModels.Models;
 using Checkers.Rules.Enums;
 using Checkers.Rules.Models;
 using Checkers.Rules.Services;
 using Checkers.UnitTests.Helpers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Checkers.UnitTests.Services
+namespace Checkers.Rules.Services.Tests
 {
     [TestClass()]
     public class ValidateQueenServiceTests
@@ -30,7 +31,7 @@ namespace Checkers.UnitTests.Services
             );
 
             AllowedVectorsAssert.AreEquivalent(expected, actual);
-            
+
         }
 
         [TestMethod()]
@@ -56,7 +57,7 @@ namespace Checkers.UnitTests.Services
         [TestMethod()]
         public void CanTake_OppositeFigure()
         {
-            var actual = CreateValidateService().GetAllowedMoveVectors(new Board( "" +
+            var actual = CreateValidateService().GetAllowedMoveVectors(new Board("" +
                 "111Q11" +
                 "111111" +
                 "1p1111" +
@@ -117,6 +118,5 @@ namespace Checkers.UnitTests.Services
 
             AllowedVectorsAssert.AreEquivalent(expected, actual);
         }
-
     }
 }

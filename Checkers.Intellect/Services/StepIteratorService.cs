@@ -4,6 +4,7 @@ using Checkers.ComputerPlayer.Models;
 using Checkers.Contracts.Rules;
 using Checkers.DomainModels;
 using Checkers.DomainModels.Enums;
+using Checkers.DomainModels.Models;
 
 namespace Checkers.ComputerPlayer.Services
 {

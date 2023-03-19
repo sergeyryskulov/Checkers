@@ -4,8 +4,9 @@ using System.Collections.Generic;
 using System.Text;
 using Checkers.DomainModels;
 using Checkers.DomainModels.Enums;
+using Checkers.DomainModels.Models;
 
-namespace Checkers.UnitTests.Models
+namespace Checkers.DomainModels.Models.Tests
 {
     [TestClass()]
     public class GameStateTests
