@@ -15,7 +15,9 @@ namespace Checkers.Rules.Services.Tests
         [TestMethod()]
         public void CannotMove_OverBoard_ForAllVariants()
         {
-            var actual = CreateValidateService().GetAllowedMoveVectors(new Board("" +
+            var validatePawnService = CreateValidatePawnService();
+
+            var actual = validatePawnService.GetAllowedMoveVectors(new Board("" +
                 "1P1" +
                 "p11" +
                 "111"), 1);
@@ -26,7 +28,9 @@ namespace Checkers.Rules.Services.Tests
         [TestMethod()]
         public void CannotMove_OverBoard_ForOneVariant()
         {
-            var actual = CreateValidateService().GetAllowedMoveVectors(new Board("11P1"), 2); ;
+            var validatePawnService = CreateValidatePawnService();
+
+            var actual = validatePawnService.GetAllowedMoveVectors(new Board("11P1"), 2); ;
 
             var expected = new AllowedVectors(
                 new List<Vector>()
@@ -42,7 +46,9 @@ namespace Checkers.Rules.Services.Tests
         [TestMethod()]
         public void CanTake_OppositeFigure()
         {
-            var actual = CreateValidateService().GetAllowedMoveVectors(new Board("" +
+            var validatePawnService = CreateValidatePawnService();
+
+            var actual = validatePawnService.GetAllowedMoveVectors(new Board("" +
                 "111" +
                 "1p1" +
                 "11P"), 8);
@@ -60,8 +66,9 @@ namespace Checkers.Rules.Services.Tests
         [TestMethod()]
         public void CanTake_OppositeFigure_OnBackMove()
         {
+            var validatePawnService = CreateValidatePawnService();
 
-            var actual = CreateValidateService().GetAllowedMoveVectors(new Board("" +
+            var actual = validatePawnService.GetAllowedMoveVectors(new Board("" +
                 "P11" +
                 "1p1" +
                 "111"), 0);
@@ -80,8 +87,9 @@ namespace Checkers.Rules.Services.Tests
         [TestMethod()]
         public void CannotMove_IfBlockedOnOtherFigureAndBoardBound()
         {
+            var validatePawnService = CreateValidatePawnService();
 
-            var actual = CreateValidateService().GetAllowedMoveVectors(new Board("" +
+            var actual = validatePawnService.GetAllowedMoveVectors(new Board("" +
                 "1p11" +
                 "P111" +
                 "1111" +
@@ -92,7 +100,7 @@ namespace Checkers.Rules.Services.Tests
             AllowedVectorsAssert.AreEquivalent(expected, actual);
         }
 
-        ValidatePawnService CreateValidateService()
+        ValidatePawnService CreateValidatePawnService()
         {
             return new ValidatePawnService();
         }

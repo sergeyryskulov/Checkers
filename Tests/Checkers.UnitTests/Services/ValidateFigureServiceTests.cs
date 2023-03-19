@@ -10,19 +10,34 @@ namespace Checkers.Rules.Services.Tests
     [TestClass()]
     public class ValidateFigureServiceTests
     {
-        [TestMethod()]
-        public void GetAllowedMoveVectors_IncorrectFigure()
+        private Mock<IValidatePawnService> _validatePawnService;
+        private Mock<IValidateQueenService> _validateQueenService;
+
+        [TestInitialize]
+        public void InitMocks()
         {
-            var actual = CreateValidateFigureService().GetAllowedMoveVectors(new Board("G111"), 0);
-
-            Assert.AreEqual(false, actual.AnyVectorExists());
-
-            Assert.IsFalse(actual.EatFigure);
+            _validatePawnService = new Mock<IValidatePawnService>();
+            _validateQueenService = new Mock<IValidateQueenService>();
         }
 
         private ValidateFigureService CreateValidateFigureService()
         {
-            return new ValidateFigureService(new Mock<IValidatePawnService>().Object, new Mock<IValidateQueenService>().Object);
+            return new ValidateFigureService(
+                _validatePawnService.Object,
+                _validateQueenService.Object
+            );
+        }
+
+        [TestMethod()]
+        public void GetAllowedMoveVectors_IncorrectFigure()
+        {
+            var validateFigureService = CreateValidateFigureService();
+
+            var actual = validateFigureService.GetAllowedMoveVectors(new Board("G111"), 0);
+
+            Assert.AreEqual(false, actual.AnyVectorExists());
+
+            Assert.IsFalse(actual.EatFigure);
         }
     }
 }

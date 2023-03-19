@@ -15,7 +15,9 @@ namespace Checkers.Rules.Services.Tests
         [TestMethod()]
         public void CanTake_MultiVariantsAfter()
         {
-            var actual = CreateValidateService().GetAllowedMoveVectors(new Board("" +
+            var validateQueenService = CreateValidateQueenService();
+
+            var actual = validateQueenService.GetAllowedMoveVectors(new Board("" +
                 "Q111" +
                 "1p11" +
                 "1111" +
@@ -37,7 +39,9 @@ namespace Checkers.Rules.Services.Tests
         [TestMethod()]
         public void CanMove_OnAllBoard()
         {
-            var actual = CreateValidateService().GetAllowedMoveVectors(new Board("" +
+            var validateQueenService = CreateValidateQueenService();
+
+            var actual = validateQueenService.GetAllowedMoveVectors(new Board("" +
                 "p111" +
                 "1Q11" +
                 "1111" +
@@ -57,7 +61,9 @@ namespace Checkers.Rules.Services.Tests
         [TestMethod()]
         public void CanTake_OppositeFigure()
         {
-            var actual = CreateValidateService().GetAllowedMoveVectors(new Board("" +
+            var validateQueenService = CreateValidateQueenService();
+
+            var actual = validateQueenService.GetAllowedMoveVectors(new Board("" +
                 "111Q11" +
                 "111111" +
                 "1p1111" +
@@ -75,15 +81,13 @@ namespace Checkers.Rules.Services.Tests
             AllowedVectorsAssert.AreEquivalent(expected, actual);
         }
 
-        private ValidateQueenService CreateValidateService()
-        {
-            return new ValidateQueenService();
-        }
 
         [TestMethod()]
         public void CannotTake_TwoFiguresOnOneSimpleStep()
         {
-            var actual = CreateValidateService().GetAllowedMoveVectors(new Board("" +
+            var validateQueenService = CreateValidateQueenService();
+
+            var actual = validateQueenService.GetAllowedMoveVectors(new Board("" +
                 "111111" +
                 "1111Q1" +
                 "111p11" +
@@ -105,7 +109,9 @@ namespace Checkers.Rules.Services.Tests
         [TestMethod()]
         public void CannotTake_TwoNearFiguresOnOneSimpleStep()
         {
-            var actual = CreateValidateService().GetAllowedMoveVectors(new Board("" +
+            var validateQueenService = CreateValidateQueenService();
+
+            var actual = validateQueenService.GetAllowedMoveVectors(new Board("" +
                 "111p1p" +
                 "1111Q1" +
                 "111p1p" +
@@ -117,6 +123,11 @@ namespace Checkers.Rules.Services.Tests
             var expected = new AllowedVectors();
 
             AllowedVectorsAssert.AreEquivalent(expected, actual);
+        }
+
+        private ValidateQueenService CreateValidateQueenService()
+        {
+            return new ValidateQueenService();
         }
     }
 }
