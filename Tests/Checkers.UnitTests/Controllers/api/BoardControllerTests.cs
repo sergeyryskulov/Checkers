@@ -13,17 +13,31 @@ namespace Checkers.Web.Controllers.api.Tests
     [TestClass()]
     public class BoardControllerTests
     {
+        private Mock<IHumanTryMoveFigureUseCase> _humanTryMoveFigureUseCase;
+
+        [TestInitialize]
+        public void InitMocks()
+        {
+            _humanTryMoveFigureUseCase = new Mock<IHumanTryMoveFigureUseCase>();
+        }
+
+        private BoardController CreateBoardController()
+        {
+            return new BoardController(
+                _humanTryMoveFigureUseCase.Object
+            );
+        }
+
+
         [TestMethod()]
         public void PostTest()
         {
-            var moveAndSaveFigureService = new Mock<IHumanTryMoveFigureUseCase>();
-
-            moveAndSaveFigureService.Setup(m => m.Execute(It.Is<GameState>(t => t.Board.ToString() == "p111"), 3, 0))
+            _humanTryMoveFigureUseCase.Setup(m => m.Execute(It.Is<GameState>(t => t.Board.ToString() == "p111"), 3, 0))
                 .Returns(new GameState("111q", Turn.Black));
 
-            var moveFigureController = new BoardController(moveAndSaveFigureService.Object);
+            var boardController = CreateBoardController();
 
-            var actual = moveFigureController.MoveFigure("p111", 'b', null, 3, 0);
+            var actual = boardController.MoveFigure("p111", 'b', null, 3, 0);
 
             Assert.AreEqual("111q", actual.Cells);
             Assert.AreEqual((char)Turn.Black, actual.Turn);

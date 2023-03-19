@@ -10,11 +10,16 @@ namespace Checkers.Web.Controllers.Tests
         [TestMethod()]
         public void IndexTest()
         {
-            var homeController = new HomeController();
+            var homeController = CreateHomeController();
 
             var actual = homeController.Index() as RedirectResult;
 
             Assert.AreEqual("/Game", actual.Url);
+        }
+
+        HomeController CreateHomeController()
+        {
+            return new HomeController();
         }
     }
 }

@@ -12,16 +12,29 @@ namespace Checkers.Web.Controllers.api.Tests
     [TestClass()]
     public class IntellectControllerTests
     {
+        private Mock<IComputerCalculateNextStepUseCase> _computerCalculateNextStepUseCase;
+
+        [TestInitialize]
+        public void InitMocks()
+        {
+            _computerCalculateNextStepUseCase = new Mock<IComputerCalculateNextStepUseCase>();
+        }
+
+        private IntellectController CreateIntellectController()
+        {
+            return new IntellectController(
+                _computerCalculateNextStepUseCase.Object
+            );
+        }
+
         [TestMethod()]
         public void PostTest()
         {
-            var intellectService = new Mock<IComputerCalculateNextStepUseCase>();
-            intellectService.Setup(m => m.Execute(
+            _computerCalculateNextStepUseCase.Setup(m => m.Execute(
                     It.Is<GameState>(t => t.Board.ToString() == "p111")))
                 .Returns(new GameState("111Q", Turn.BlackWin));
 
-
-            var intellectController = new IntellectController(intellectService.Object);
+            var intellectController = CreateIntellectController();
 
             var actual = intellectController.CalculateStep("p111", 'b', null);
 
