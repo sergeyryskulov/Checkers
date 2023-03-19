@@ -1,19 +1,21 @@
-﻿using Checkers.DomainModels;
-using Checkers.DomainModels.Enums;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Checkers.Web.Models;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
+using System.Collections.Generic;
+using System.Text;
+using Checkers.DomainModels.Enums;
+using Checkers.DomainModels;
 
-namespace Checkers.UnitTests.Services
+namespace Checkers.Web.Models.Tests
 {
     [TestClass()]
     public class GameStateDtoTests
     {
-
         [TestMethod()]
         public void CreateBoardStateDto_WhiteTurn()
         {
             var actual = new GameStateDto(new GameState("cells", Turn.White, 1));
-            
+
             Assert.AreEqual("cells", actual.Cells);
             Assert.AreEqual((char)Turn.White, actual.Turn);
             Assert.AreEqual(1, actual.MustGoFrom);
