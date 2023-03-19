@@ -2,9 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Checkers.UnitTests.Controllers
+namespace Checkers.Web.Controllers.Tests
 {
-
     [TestClass()]
     public class GameControllerTests
     {

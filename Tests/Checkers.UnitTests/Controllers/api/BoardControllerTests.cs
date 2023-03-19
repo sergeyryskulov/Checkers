@@ -7,7 +7,7 @@ using Checkers.Web.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 
-namespace Checkers.UnitTests.Controllers.api
+namespace Checkers.Web.Controllers.api.Tests
 {
     [TestClass()]
     public class BoardControllerTests
@@ -17,8 +17,8 @@ namespace Checkers.UnitTests.Controllers.api
         {
             var moveAndSaveFigureService = new Mock<IHumanTryMoveFigureUseCase>();
 
-            moveAndSaveFigureService.Setup(m => m.Execute(It.Is<GameState>(t=>t.Board.ToString()=="p111"), 3, 0))            
-            .Returns(new GameState("111q", Turn.Black));
+            moveAndSaveFigureService.Setup(m => m.Execute(It.Is<GameState>(t => t.Board.ToString() == "p111"), 3, 0))
+                .Returns(new GameState("111q", Turn.Black));
 
             var moveFigureController = new BoardController(moveAndSaveFigureService.Object);
 

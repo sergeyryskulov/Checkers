@@ -6,7 +6,7 @@ using Checkers.Web.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 
-namespace Checkers.UnitTests.Controllers.api
+namespace Checkers.Web.Controllers.api.Tests
 {
     [TestClass()]
     public class IntellectControllerTests
