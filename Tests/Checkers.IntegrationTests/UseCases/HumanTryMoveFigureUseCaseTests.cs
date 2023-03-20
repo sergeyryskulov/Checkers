@@ -24,7 +24,6 @@ namespace Checkers.HumanPlayer.UseCases.Tests
             internal int ToCoord { get; set; }
 
             internal GameState ToState { get; set; }
-
         }
 
         [TestMethod()]
