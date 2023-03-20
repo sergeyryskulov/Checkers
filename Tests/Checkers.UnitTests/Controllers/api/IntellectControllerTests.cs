@@ -15,16 +15,9 @@ namespace Checkers.Web.Controllers.api.Tests
         private Mock<IComputerCalculateNextStepUseCase> _computerCalculateNextStepUseCase;
 
         [TestInitialize]
-        public void InitMocks()
+        public void CreateMocks()
         {
             _computerCalculateNextStepUseCase = new Mock<IComputerCalculateNextStepUseCase>();
-        }
-
-        private IntellectController CreateIntellectController()
-        {
-            return new IntellectController(
-                _computerCalculateNextStepUseCase.Object
-            );
         }
 
         [TestMethod()]
@@ -43,6 +36,12 @@ namespace Checkers.Web.Controllers.api.Tests
             Assert.IsNull(actual.MustGoFrom);
             Assert.AreEqual(0, actual.Links.Length);
 
+        }
+        private IntellectController CreateIntellectController()
+        {
+            return new IntellectController(
+                _computerCalculateNextStepUseCase.Object
+            );
         }
     }
 }

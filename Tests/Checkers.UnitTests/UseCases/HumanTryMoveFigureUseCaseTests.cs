@@ -19,20 +19,11 @@ namespace Checkers.HumanPlayer.UseCases.Tests
         private Mock<IMoveRule> _moveRule;
 
         [TestInitialize]
-        public void InitMocks()
+        public void CreateMocks()
         {
             _validateHumanService = new Mock<IValidateHumanService>();
             _moveRule = new Mock<IMoveRule>();
         }
-
-        private HumanTryMoveFigureUseCase CreateHumanTryMoveFigureUseCase()
-        {
-            return new HumanTryMoveFigureUseCase(
-                _validateHumanService.Object,
-                _moveRule.Object
-            );
-        }
-
 
         [TestMethod()]
         public void ExecuteTest()
@@ -50,6 +41,14 @@ namespace Checkers.HumanPlayer.UseCases.Tests
 
             Assert.AreEqual("1Q11", actual.Board.ToString());
             Assert.AreEqual(Turn.WhiteWin, actual.Turn);
+        }
+
+        private HumanTryMoveFigureUseCase CreateHumanTryMoveFigureUseCase()
+        {
+            return new HumanTryMoveFigureUseCase(
+                _validateHumanService.Object,
+                _moveRule.Object
+            );
         }
     }
 }

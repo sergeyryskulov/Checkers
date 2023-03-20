@@ -14,18 +14,10 @@ namespace Checkers.Rules.Services.Tests
         private Mock<IValidateQueenService> _validateQueenService;
 
         [TestInitialize]
-        public void InitMocks()
+        public void CreateMocks()
         {
             _validatePawnService = new Mock<IValidatePawnService>();
             _validateQueenService = new Mock<IValidateQueenService>();
-        }
-
-        private ValidateFigureService CreateValidateFigureService()
-        {
-            return new ValidateFigureService(
-                _validatePawnService.Object,
-                _validateQueenService.Object
-            );
         }
 
         [TestMethod()]
@@ -38,6 +30,14 @@ namespace Checkers.Rules.Services.Tests
             Assert.AreEqual(false, actual.AnyVectorExists());
 
             Assert.IsFalse(actual.EatFigure);
+        }
+
+        private ValidateFigureService CreateValidateFigureService()
+        {
+            return new ValidateFigureService(
+                _validatePawnService.Object,
+                _validateQueenService.Object
+            );
         }
     }
 }

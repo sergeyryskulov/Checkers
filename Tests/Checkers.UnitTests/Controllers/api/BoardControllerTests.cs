@@ -16,7 +16,7 @@ namespace Checkers.Web.Controllers.api.Tests
         private Mock<IHumanTryMoveFigureUseCase> _humanTryMoveFigureUseCase;
 
         [TestInitialize]
-        public void InitMocks()
+        public void CreateMocks()
         {
             _humanTryMoveFigureUseCase = new Mock<IHumanTryMoveFigureUseCase>();
         }
