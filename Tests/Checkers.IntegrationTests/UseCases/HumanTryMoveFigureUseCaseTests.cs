@@ -15,15 +15,15 @@ namespace Checkers.HumanPlayer.UseCases.Tests
     [TestClass()]
     public class HumanTryMoveFigureUseCaseTests
     {
-        public class AssertMoveModel
+        internal class AssertMoveModel
         {
-            public GameState FromBoard { get; set; }
+            internal GameState FromBoard { get; set; }
 
-            public int FromCoord { get; set; }
+            internal int FromCoord { get; set; }
 
-            public int ToCoord { get; set; }
+            internal int ToCoord { get; set; }
 
-            public GameState ToState { get; set; }
+            internal GameState ToState { get; set; }
 
         }
 
