@@ -17,17 +17,17 @@ namespace Checkers.ComputerPlayer.UseCases.Tests
     public class ComputerCalculateNextStepUseCaseTests
     {
 
-        public class AssertCalculateModel
+        internal class AssertCalculateModel
         {
-            public GameState FromState { get; set; }
+            internal GameState FromState { get; set; }
 
-            public GameState ToState { get; set;}
+            internal GameState ResultState { get; set;}
         }
 
         [TestMethod()]
         public void PawnGrowsToQueen()
         {
-            AssertNextStep(
+            AssertNextStepCalculated(
                 new AssertCalculateModel
                 {
                     FromState = new GameState(
@@ -35,7 +35,7 @@ namespace Checkers.ComputerPlayer.UseCases.Tests
                         "11",
                         Turn.Black
                     ),
-                    ToState = new GameState(
+                    ResultState = new GameState(
                         "11" +
                         "1q",
                         Turn.BlackWin
@@ -47,7 +47,7 @@ namespace Checkers.ComputerPlayer.UseCases.Tests
         [TestMethod()]
         public void QueenEatPawn()
         {
-            AssertNextStep(
+            AssertNextStepCalculated(
                 new AssertCalculateModel()
                 {
                     FromState = new GameState(
@@ -60,7 +60,7 @@ namespace Checkers.ComputerPlayer.UseCases.Tests
                         "111P1111" +
                         "11q11111",
                         Turn.Black),
-                    ToState = new GameState(
+                    ResultState = new GameState(
                         "1111111p" +
                         "111111p1" +
                         "1p111p1p" +
@@ -76,7 +76,7 @@ namespace Checkers.ComputerPlayer.UseCases.Tests
         [TestMethod()]
         public void PawnEatPawnAndCanDoNextStepAfterThat()
         {
-            AssertNextStep(
+            AssertNextStepCalculated(
                 new AssertCalculateModel()
                 {
                     FromState = new GameState(
@@ -87,7 +87,7 @@ namespace Checkers.ComputerPlayer.UseCases.Tests
                         "111111" +
                         "111111",
                         Turn.Black),
-                    ToState = new GameState(
+                    ResultState = new GameState(
                         "111111" +
                         "111111" +
                         "111p11" +
@@ -103,7 +103,7 @@ namespace Checkers.ComputerPlayer.UseCases.Tests
         [TestMethod()]
         public void EatQueenBetterThatEatPawn()
         {
-            AssertNextStep(
+            AssertNextStepCalculated(
                 new AssertCalculateModel()
                 {
                     FromState = new GameState(
@@ -114,7 +114,7 @@ namespace Checkers.ComputerPlayer.UseCases.Tests
                         "111111" +
                         "P11111",
                         Turn.Black),
-                    ToState = new GameState(
+                    ResultState = new GameState(
                         "111111" +
                         "111111" +
                         "1P1111" +
@@ -149,12 +149,12 @@ namespace Checkers.ComputerPlayer.UseCases.Tests
                 new PositionWeightService());
         }
 
-        private void AssertNextStep(AssertCalculateModel assertCalculate)
+        private void AssertNextStepCalculated(AssertCalculateModel assertCalculate)
         {
-            AssertNextStep(assertCalculate.FromState, assertCalculate.ToState);
+            AssertNextStepCalculated(assertCalculate.FromState, assertCalculate.ResultState);
         }
 
-        private void AssertNextStep(GameState from, GameState to)
+        private void AssertNextStepCalculated(GameState from, GameState to)
         {
             var service = CreateComputerCalculateNextStepUseCase();
 

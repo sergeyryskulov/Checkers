@@ -17,13 +17,13 @@ namespace Checkers.HumanPlayer.UseCases.Tests
     {
         internal class AssertMoveModel
         {
-            internal GameState FromBoard { get; set; }
+            internal GameState FromState { get; set; }
 
-            internal int FromCoord { get; set; }
+            internal int MoveFromCoord { get; set; }
 
-            internal int ToCoord { get; set; }
+            internal int MoveToCoord { get; set; }
 
-            internal GameState ToState { get; set; }
+            internal GameState ResultState { get; set; }
         }
 
         [TestMethod()]
@@ -32,13 +32,13 @@ namespace Checkers.HumanPlayer.UseCases.Tests
             AssertMove(
                 new AssertMoveModel()
                 {
-                    FromBoard = new GameState(
+                    FromState = new GameState(
                         "p1" +
                         "11",
                         Turn.Black),
-                    FromCoord = 0,
-                    ToCoord = 3,
-                    ToState = new GameState(
+                    MoveFromCoord = 0,
+                    MoveToCoord = 3,
+                    ResultState = new GameState(
                         "11" +
                         "1q",
                         Turn.BlackWin)
@@ -51,13 +51,13 @@ namespace Checkers.HumanPlayer.UseCases.Tests
             AssertMove(
                 new AssertMoveModel()
                 {
-                    FromBoard = new GameState(
+                    FromState = new GameState(
                         "p1" +
                         "11",
                         Turn.Black),
-                    FromCoord = 0,
-                    ToCoord = 0,
-                    ToState = new GameState(
+                    MoveFromCoord = 0,
+                    MoveToCoord = 0,
+                    ResultState = new GameState(
                         "p1" +
                         "11",
                         Turn.Black)
@@ -70,13 +70,13 @@ namespace Checkers.HumanPlayer.UseCases.Tests
             AssertMove(
                 new AssertMoveModel()
                 {
-                    FromBoard = new GameState(
+                    FromState = new GameState(
                         "q1" +
                         "11",
                         Turn.Black),
-                    FromCoord = 0,
-                    ToCoord = 0,
-                    ToState = new GameState(
+                    MoveFromCoord = 0,
+                    MoveToCoord = 0,
+                    ResultState = new GameState(
                         "q1" +
                         "11",
                         Turn.Black)
@@ -90,14 +90,14 @@ namespace Checkers.HumanPlayer.UseCases.Tests
             AssertMove(
                 new AssertMoveModel()
                 {
-                    FromBoard = new GameState(
+                    FromState = new GameState(
                         "111" +
                         "1p1" +
                         "P11",
                         Turn.White),
-                    FromCoord = 6,
-                    ToCoord = 2,
-                    ToState = new GameState(
+                    MoveFromCoord = 6,
+                    MoveToCoord = 2,
+                    ResultState = new GameState(
                         "11Q" +
                         "111" +
                         "111",
@@ -112,7 +112,7 @@ namespace Checkers.HumanPlayer.UseCases.Tests
             AssertMove(
                 new AssertMoveModel()
                 {
-                    FromBoard = new GameState(
+                    FromState = new GameState(
                         "111111" +
                         "111111" +
                         "P11p11" +
@@ -120,9 +120,9 @@ namespace Checkers.HumanPlayer.UseCases.Tests
                         "1p1111" +
                         "P11111",
                         Turn.White),
-                    FromCoord = 30,
-                    ToCoord = 20,
-                    ToState = new GameState(
+                    MoveFromCoord = 30,
+                    MoveToCoord = 20,
+                    ResultState = new GameState(
                         "" +
                         "111111" +
                         "111111" +
@@ -141,7 +141,7 @@ namespace Checkers.HumanPlayer.UseCases.Tests
             AssertMove(
                 new AssertMoveModel()
                 {
-                    FromBoard = new GameState(
+                    FromState = new GameState(
                         "111Q11" +
                         "111111" +
                         "1p1111" +
@@ -149,9 +149,9 @@ namespace Checkers.HumanPlayer.UseCases.Tests
                         "1p1111" +
                         "111111",
                         Turn.White),
-                    FromCoord = 3,
-                    ToCoord = 18,
-                    ToState = new GameState(
+                    MoveFromCoord = 3,
+                    MoveToCoord = 18,
+                    ResultState = new GameState(
                         "111111" +
                         "111111" +
                         "111111" +
@@ -169,7 +169,7 @@ namespace Checkers.HumanPlayer.UseCases.Tests
             AssertMove(
                 new AssertMoveModel()
                 {
-                    FromBoard = new GameState(
+                    FromState = new GameState(
                         "111111" +
                         "1p1111" +
                         "P11111" +
@@ -178,9 +178,9 @@ namespace Checkers.HumanPlayer.UseCases.Tests
                         "111111",
                         Turn.White,
                         20),
-                    FromCoord = 12,
-                    ToCoord = 2,
-                    ToState = new GameState(
+                    MoveFromCoord = 12,
+                    MoveToCoord = 2,
+                    ResultState = new GameState(
                         "111111" +
                         "1p1111" +
                         "P11111" +
@@ -199,14 +199,14 @@ namespace Checkers.HumanPlayer.UseCases.Tests
             AssertMove(
                 new AssertMoveModel()
                 {
-                    FromBoard = new GameState(
+                    FromState = new GameState(
                         "111" +
                         "1p1" +
                         "P11",
                         Turn.Black),
-                    FromCoord = 6,
-                    ToCoord = 2,
-                    ToState = new GameState(
+                    MoveFromCoord = 6,
+                    MoveToCoord = 2,
+                    ResultState = new GameState(
                         "111" +
                         "1p1" +
                         "P11",
@@ -222,14 +222,14 @@ namespace Checkers.HumanPlayer.UseCases.Tests
             AssertMove(
                 new AssertMoveModel()
                 {
-                    FromBoard = new GameState(
+                    FromState = new GameState(
                         "111" +
                         "1p1" +
                         "P11",
                         Turn.White),
-                    FromCoord = 6,
-                    ToCoord = 4,
-                    ToState = new GameState(
+                    MoveFromCoord = 6,
+                    MoveToCoord = 4,
+                    ResultState = new GameState(
                         "111" +
                         "1p1" +
                         "P11",
@@ -239,7 +239,7 @@ namespace Checkers.HumanPlayer.UseCases.Tests
 
         private void AssertMove(AssertMoveModel assertMoveModel)
         {
-            AssertMove(assertMoveModel.FromBoard, assertMoveModel.FromCoord, assertMoveModel.ToCoord, assertMoveModel.ToState);
+            AssertMove(assertMoveModel.FromState, assertMoveModel.MoveFromCoord, assertMoveModel.MoveToCoord, assertMoveModel.ResultState);
         }
 
         private void AssertMove(GameState from, int fromCoord, int toCoord, GameState expected)
