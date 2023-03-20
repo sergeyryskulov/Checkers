@@ -111,77 +111,86 @@ namespace Checkers.HumanPlayer.UseCases.Tests
         public void TurnNotToggledAfterPawnEatFigure()
         {
             AssertMove(
-                new GameState(
-                "111111" +
-                "111111" +
-                "P11p11" +
-                "111111" +
-                "1p1111" +
-                "P11111",
-                Turn.White),
-                30, 20,
-                new GameState(
-                "" +
-                "111111" +
-                "111111" +
-                "P11p11" +
-                "11P111" +
-                "111111" +
-                "111111",
-                Turn.White,
-                20));
+                new AssertMoveModel()
+                {
+                    FromBoard = new GameState(
+                        "111111" +
+                        "111111" +
+                        "P11p11" +
+                        "111111" +
+                        "1p1111" +
+                        "P11111",
+                        Turn.White),
+                    FromCoord = 30,
+                    ToCoord = 20,
+                    ToState = new GameState(
+                        "" +
+                        "111111" +
+                        "111111" +
+                        "P11p11" +
+                        "11P111" +
+                        "111111" +
+                        "111111",
+                        Turn.White,
+                        20)
+                });
         }
 
         [TestMethod()]
         public void TurnNotToggleAfterQueenEatFigure()
         {
             AssertMove(
-                new GameState(
-                "111Q11" +
-                "111111" +
-                "1p1111" +
-                "111111" +
-                "1p1111" +
-                "111111",
-                Turn.White),
-                3, 18,
-                new GameState(
-                "111111" +
-                "111111" +
-                "111111" +
-                "Q11111" +
-                "1p1111" +
-                "111111",
-                Turn.White,
-                18)
-
-            );
+                new AssertMoveModel()
+                {
+                    FromBoard = new GameState(
+                        "111Q11" +
+                        "111111" +
+                        "1p1111" +
+                        "111111" +
+                        "1p1111" +
+                        "111111",
+                        Turn.White),
+                    FromCoord = 3,
+                    ToCoord = 18,
+                    ToState = new GameState(
+                        "111111" +
+                        "111111" +
+                        "111111" +
+                        "Q11111" +
+                        "1p1111" +
+                        "111111",
+                        Turn.White,
+                        18)
+                });
         }
 
         [TestMethod()]
         public void BlockedByOtherFigureThatMustMove()
         {
             AssertMove(
-
-                new GameState(
-                    "111111" +
-                    "1p1111" +
-                    "P11111" +
-                    "11P111" +
-                    "111111" +
-                    "111111",
-                    Turn.White,
-                    20),
-                12, 2,
-                new GameState(
-                    "111111" +
-                    "1p1111" +
-                    "P11111" +
-                    "11P111" +
-                    "111111" +
-                    "111111",
-                    Turn.White,
-                    20));
+                new AssertMoveModel()
+                {
+                    FromBoard = new GameState(
+                        "111111" +
+                        "1p1111" +
+                        "P11111" +
+                        "11P111" +
+                        "111111" +
+                        "111111",
+                        Turn.White,
+                        20),
+                    FromCoord = 12,
+                    ToCoord = 2,
+                    ToState = new GameState(
+                        "111111" +
+                        "1p1111" +
+                        "P11111" +
+                        "11P111" +
+                        "111111" +
+                        "111111",
+                        Turn.White,
+                        20)
+                });
         }
 
 
@@ -189,18 +198,22 @@ namespace Checkers.HumanPlayer.UseCases.Tests
         public void CannotMoveOnOtherColorTurn()
         {
             AssertMove(
-                new GameState(
-                    "111" +
-                    "1p1" +
-                    "P11",
-                    Turn.Black),
-                6, 2,
-                new GameState(
-                    "111" +
-                    "1p1" +
-                    "P11",
-                    Turn.Black
-                ));
+                new AssertMoveModel()
+                {
+                    FromBoard = new GameState(
+                        "111" +
+                        "1p1" +
+                        "P11",
+                        Turn.Black),
+                    FromCoord = 6,
+                    ToCoord = 2,
+                    ToState = new GameState(
+                        "111" +
+                        "1p1" +
+                        "P11",
+                        Turn.Black
+                    )
+                });
         }
 
         [TestMethod()]
@@ -208,25 +221,27 @@ namespace Checkers.HumanPlayer.UseCases.Tests
         {
 
             AssertMove(
-                new GameState(
-                    "111" +
-                    "1p1" +
-                    "P11",
-                    Turn.White),
-                6, 4,
-                new GameState(
-                    "111" +
-                    "1p1" +
-                    "P11",
-                    Turn.White));
+                new AssertMoveModel()
+                {
+                    FromBoard = new GameState(
+                        "111" +
+                        "1p1" +
+                        "P11",
+                        Turn.White),
+                    FromCoord = 6,
+                    ToCoord = 4,
+                    ToState = new GameState(
+                        "111" +
+                        "1p1" +
+                        "P11",
+                        Turn.White)
+                });
         }
 
         private void AssertMove(AssertMoveModel assertMoveModel)
         {
             AssertMove(assertMoveModel.FromBoard, assertMoveModel.FromCoord, assertMoveModel.ToCoord, assertMoveModel.ToState);
         }
-        
-
 
         private void AssertMove(GameState from, int fromCoord, int toCoord, GameState expected)
         {
