@@ -15,49 +15,73 @@ namespace Checkers.HumanPlayer.UseCases.Tests
     [TestClass()]
     public class HumanTryMoveFigureUseCaseTests
     {
+        public class AssertMoveModel
+        {
+            public GameState FromBoard { get; set; }
+
+            public int FromCoord { get; set; }
+
+            public int ToCoord { get; set; }
+
+            public GameState ToState { get; set; }
+
+        }
+
         [TestMethod()]
         public void PawnCanMoveToQueen()
         {
             AssertMove(
-                new GameState(
-                "p1" +
-                "11",
-                Turn.Black),
-                0, 3,
-                new GameState(
-                "11" +
-                "1q",
-                Turn.BlackWin));
+                new AssertMoveModel()
+                {
+                    FromBoard = new GameState(
+                        "p1" +
+                        "11",
+                        Turn.Black),
+                    FromCoord = 0,
+                    ToCoord = 3,
+                    ToState = new GameState(
+                        "11" +
+                        "1q",
+                        Turn.BlackWin)
+                });
         }
 
         [TestMethod()]
         public void PawnCannotMoveToSelf()
         {
             AssertMove(
-                new GameState(
-                "p1" +
-                "11",
-                Turn.Black),
-                0, 0,
-                new GameState(
-                "p1" +
-                "11",
-                Turn.Black));
+                new AssertMoveModel()
+                {
+                    FromBoard = new GameState(
+                        "p1" +
+                        "11",
+                        Turn.Black),
+                    FromCoord = 0,
+                    ToCoord = 0,
+                    ToState = new GameState(
+                        "p1" +
+                        "11",
+                        Turn.Black)
+                });
         }
 
         [TestMethod()]
         public void QueenCannotMoveToSelf()
         {
             AssertMove(
-                new GameState(
-                "q1" +
-                "11",
-                Turn.Black),
-                0, 0,
-                new GameState(
-                "q1" +
-                "11",
-                Turn.Black));
+                new AssertMoveModel()
+                {
+                    FromBoard = new GameState(
+                        "q1" +
+                        "11",
+                        Turn.Black),
+                    FromCoord = 0,
+                    ToCoord = 0,
+                    ToState = new GameState(
+                        "q1" +
+                        "11",
+                        Turn.Black)
+                });
         }
 
 
@@ -65,18 +89,21 @@ namespace Checkers.HumanPlayer.UseCases.Tests
         public void PawnEatPawn()
         {
             AssertMove(
-                new GameState(
-                "111" +
-                "1p1" +
-                "P11",
-                Turn.White),
-                6, 2,
-                new GameState(
-                "11Q" +
-                "111" +
-                "111",
-                Turn.WhiteWin)
-            );
+                new AssertMoveModel()
+                {
+                    FromBoard = new GameState(
+                        "111" +
+                        "1p1" +
+                        "P11",
+                        Turn.White),
+                    FromCoord = 6,
+                    ToCoord = 2,
+                    ToState = new GameState(
+                        "11Q" +
+                        "111" +
+                        "111",
+                        Turn.WhiteWin)
+                });
         }
 
 
@@ -193,6 +220,13 @@ namespace Checkers.HumanPlayer.UseCases.Tests
                     "P11",
                     Turn.White));
         }
+
+        private void AssertMove(AssertMoveModel assertMoveModel)
+        {
+            AssertMove(assertMoveModel.FromBoard, assertMoveModel.FromCoord, assertMoveModel.ToCoord, assertMoveModel.ToState);
+        }
+        
+
 
         private void AssertMove(GameState from, int fromCoord, int toCoord, GameState expected)
         {
