@@ -16,21 +16,31 @@ namespace Checkers.ComputerPlayer.UseCases.Tests
     [TestClass()]
     public class ComputerCalculateNextStepUseCaseTests
     {
+
+        public class AssertCalculateModel
+        {
+            public GameState FromState { get; set; }
+
+            public GameState ToState { get; set;}
+        }
+
         [TestMethod()]
         public void PawnGrowsToQueen()
         {
             AssertNextStep(
-                new GameState(
-                    "p1" +
-                    "11",
-                    Turn.Black
-                ),
-                new GameState(
-
-                    "11" +
-                    "1q",
-                    Turn.BlackWin
-                ));
+                new AssertCalculateModel
+                {
+                    FromState = new GameState(
+                        "p1" +
+                        "11",
+                        Turn.Black
+                    ),
+                    ToState = new GameState(
+                        "11" +
+                        "1q",
+                        Turn.BlackWin
+                    )
+                });
         }
 
 
@@ -38,50 +48,55 @@ namespace Checkers.ComputerPlayer.UseCases.Tests
         public void QueenEatPawn()
         {
             AssertNextStep(
-                new GameState(
-
-                    "1111111p" +
-                    "111111p1" +
-                    "1p111p1p" +
-                    "p11111p1" +
-                    "1p11111P" +
-                    "11111111" +
-                    "111P1111" +
-                    "11q11111",
-                     Turn.Black),
-                new GameState(
-                    "1111111p" +
-                    "111111p1" +
-                    "1p111p1p" +
-                    "p11111p1" +
-                    "1p11111P" +
-                    "1111q111" +
-                    "11111111" +
-                    "11111111",
-                Turn.White));
+                new AssertCalculateModel()
+                {
+                    FromState = new GameState(
+                        "1111111p" +
+                        "111111p1" +
+                        "1p111p1p" +
+                        "p11111p1" +
+                        "1p11111P" +
+                        "11111111" +
+                        "111P1111" +
+                        "11q11111",
+                        Turn.Black),
+                    ToState = new GameState(
+                        "1111111p" +
+                        "111111p1" +
+                        "1p111p1p" +
+                        "p11111p1" +
+                        "1p11111P" +
+                        "1111q111" +
+                        "11111111" +
+                        "11111111",
+                        Turn.White)
+                });
         }
         
         [TestMethod()]
         public void PawnEatPawnAndCanDoNextStepAfterThat()
         {
             AssertNextStep(
-                new GameState(
-                    "1p1111" +
-                    "11P111" +
-                    "111111" +
-                    "1111Q1" +
-                    "111111" +
-                    "111111",
-                Turn.Black),
-                new GameState(
-                    "111111" +
-                    "111111" +
-                    "111p11" +
-                    "1111Q1" +
-                    "111111" +
-                    "111111",
-                Turn.Black,
-                15));
+                new AssertCalculateModel()
+                {
+                    FromState = new GameState(
+                        "1p1111" +
+                        "11P111" +
+                        "111111" +
+                        "1111Q1" +
+                        "111111" +
+                        "111111",
+                        Turn.Black),
+                    ToState = new GameState(
+                        "111111" +
+                        "111111" +
+                        "111p11" +
+                        "1111Q1" +
+                        "111111" +
+                        "111111",
+                        Turn.Black,
+                        15)
+                });
 
         }
 
@@ -89,22 +104,25 @@ namespace Checkers.ComputerPlayer.UseCases.Tests
         public void EatQueenBetterThatEatPawn()
         {
             AssertNextStep(
-                new GameState(
-                    "111111" +
-                    "11p111" +
-                    "1P1Q11" +
-                    "111111" +
-                    "111111" +
-                    "P11111",
-                    Turn.Black),
-                new GameState(
-                    "111111" +
-                    "111111" +
-                    "1P1111" +
-                    "1111p1" +
-                    "111111" +
-                    "P11111",
-                    Turn.White));
+                new AssertCalculateModel()
+                {
+                    FromState = new GameState(
+                        "111111" +
+                        "11p111" +
+                        "1P1Q11" +
+                        "111111" +
+                        "111111" +
+                        "P11111",
+                        Turn.Black),
+                    ToState = new GameState(
+                        "111111" +
+                        "111111" +
+                        "1P1111" +
+                        "1111p1" +
+                        "111111" +
+                        "P11111",
+                        Turn.White)
+                });
         }
 
         private ComputerCalculateNextStepUseCase CreateComputerCalculateNextStepUseCase()
@@ -129,6 +147,11 @@ namespace Checkers.ComputerPlayer.UseCases.Tests
             return new ComputerCalculateNextStepUseCase(
                 stepIteratorService,
                 new PositionWeightService());
+        }
+
+        private void AssertNextStep(AssertCalculateModel assertCalculate)
+        {
+            AssertNextStep(assertCalculate.FromState, assertCalculate.ToState);
         }
 
         private void AssertNextStep(GameState from, GameState to)
