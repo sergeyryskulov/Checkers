@@ -2,7 +2,7 @@
 using Checkers.DomainModels;
 using Checkers.DomainModels.Models;
 
-namespace Checkers.Contracts.Rules
+namespace Checkers.Rules.Interfaces
 {
     public interface IValidateRule
     {

@@ -1,7 +1,7 @@
 ﻿using Checkers.DomainModels;
 using Checkers.DomainModels.Models;
 
-namespace Checkers.Contracts.UseCases
+namespace Checkers.HumanPlayer.Interfaces
 {
     public interface IHumanTryMoveFigureUseCase
     {

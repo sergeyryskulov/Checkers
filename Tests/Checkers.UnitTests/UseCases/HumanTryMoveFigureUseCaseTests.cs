@@ -3,12 +3,12 @@ using Checkers.HumanPlayer.UseCases;
 using System;
 using System.Collections.Generic;
 using System.Text;
-using Checkers.Contracts.Rules;
 using Checkers.DomainModels.Enums;
 using Checkers.DomainModels;
 using Checkers.DomainModels.Models;
 using Checkers.HumanPlayer.Interfaces;
 using Moq;
+using Checkers.Rules.Interfaces;
 
 namespace Checkers.HumanPlayer.UseCases.Tests
 {

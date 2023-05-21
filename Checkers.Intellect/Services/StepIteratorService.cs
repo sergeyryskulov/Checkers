@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using Checkers.ComputerPlayer.Interfaces;
 using Checkers.ComputerPlayer.Models;
-using Checkers.Contracts.Rules;
 using Checkers.DomainModels;
 using Checkers.DomainModels.Enums;
 using Checkers.DomainModels.Models;
+using Checkers.Rules.Interfaces;
 
 namespace Checkers.ComputerPlayer.Services
 {

@@ -1,7 +1,6 @@
 ﻿using System.Linq;
 using System.Runtime.CompilerServices;
 using Checkers.ComputerPlayer.Interfaces;
-using Checkers.Contracts.UseCases;
 using Checkers.DomainModels;
 using Checkers.DomainModels.Models;
 [assembly: InternalsVisibleTo("Checkers.UnitTests")]

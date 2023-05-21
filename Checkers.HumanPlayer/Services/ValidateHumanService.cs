@@ -1,21 +1,19 @@
-﻿using Checkers.Contracts.Rules;
-using Checkers.DomainModels;
+﻿using Checkers.DomainModels;
 using Checkers.DomainModels.Enums;
 using Checkers.DomainModels.Models;
 using Checkers.HumanPlayer.Interfaces;
+using Checkers.Rules.Interfaces;
 
 namespace Checkers.HumanPlayer.Services
 {
     internal class ValidateHumanService : IValidateHumanService
     {
-
         private IValidateRule _validateRule;
 
         public ValidateHumanService(IValidateRule validateRule)
         {
             _validateRule = validateRule;
         }
-
 
         public bool CanMove(GameState gameState, int fromPosition, int toPosition)
         {            

@@ -8,4 +8,9 @@
     <ProjectReference Include="..\Checkers.DomainModels\Checkers.DomainModels.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Rules\" />
+    <Folder Include="UseCases\" />
+  </ItemGroup>
+
 </Project>

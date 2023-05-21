@@ -1,5 +1,4 @@
-﻿using Checkers.Contracts.Rules;
-using Checkers.DomainModels;
+﻿using Checkers.DomainModels;
 using Checkers.DomainModels.Enums;
 using Checkers.DomainModels.Models;
 using Checkers.Rules.Extensions;

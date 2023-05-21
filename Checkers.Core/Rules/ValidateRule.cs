@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Checkers.Contracts.Rules;
 using Checkers.DomainModels;
 using Checkers.DomainModels.Models;
 using Checkers.Rules.Extensions;

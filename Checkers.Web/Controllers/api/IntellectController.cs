@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 using Checkers.DomainModels;
 using Checkers.DomainModels.Enums;
 using Checkers.Web.Models;
-using Checkers.Contracts.UseCases;
 using Checkers.DomainModels.Models;
+using Checkers.ComputerPlayer.Interfaces;
 
 namespace Checkers.Web.Controllers.api
 {

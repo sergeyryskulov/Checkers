@@ -1,4 +1,4 @@
-﻿using Checkers.Contracts.UseCases;
+﻿using Checkers.ComputerPlayer.Interfaces;
 using Checkers.DomainModels;
 using Checkers.DomainModels.Enums;
 using Checkers.DomainModels.Models;

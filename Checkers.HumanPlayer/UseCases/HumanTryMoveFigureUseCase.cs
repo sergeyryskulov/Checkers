@@ -1,8 +1,7 @@
-﻿using Checkers.Contracts.Rules;
-using Checkers.Contracts.UseCases;
-using Checkers.DomainModels;
+﻿using Checkers.DomainModels;
 using Checkers.DomainModels.Models;
 using Checkers.HumanPlayer.Interfaces;
+using Checkers.Rules.Interfaces;
 using System.Runtime.CompilerServices;
 
 [assembly: InternalsVisibleTo("Checkers.UnitTests")]
