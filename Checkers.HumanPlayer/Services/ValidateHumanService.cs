@@ -6,7 +6,7 @@ using Checkers.HumanPlayer.Interfaces;
 
 namespace Checkers.HumanPlayer.Services
 {
-    public class ValidateHumanService : IValidateHumanService
+    internal class ValidateHumanService : IValidateHumanService
     {
 
         private IValidateRule _validateRule;

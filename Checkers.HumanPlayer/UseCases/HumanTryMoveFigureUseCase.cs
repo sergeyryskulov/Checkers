@@ -3,10 +3,13 @@ using Checkers.Contracts.UseCases;
 using Checkers.DomainModels;
 using Checkers.DomainModels.Models;
 using Checkers.HumanPlayer.Interfaces;
+using System.Runtime.CompilerServices;
 
+[assembly: InternalsVisibleTo("Checkers.UnitTests")]
+[assembly: InternalsVisibleTo("Checkers.FunctionalTests")]
 namespace Checkers.HumanPlayer.UseCases
 {
-    public class HumanTryMoveFigureUseCase : IHumanTryMoveFigureUseCase
+    internal class HumanTryMoveFigureUseCase : IHumanTryMoveFigureUseCase
     {
         private IValidateHumanService _validateHumanService;
         private IMoveRule _moveRule;
