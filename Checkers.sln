@@ -7,7 +7,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4. Tests", "4. Tests", "{0D
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "5. Documents", "5. Documents", "{E306165A-4512-49DA-9120-AD3D77D50F69}"
 	ProjectSection(SolutionItems) = preProject
-		Documents\UML Diagram.docx = Documents\UML Diagram.docx
+		Documents\UML Diagram.drawio = Documents\UML Diagram.drawio
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Checkers.Web", "Checkers.Web\Checkers.Web.csproj", "{857CD534-1481-44CF-9744-70C0232DA459}"
