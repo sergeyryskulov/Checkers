@@ -8,7 +8,7 @@ using Checkers.DomainModels.Models;
 
 namespace Checkers.ComputerPlayer.Services
 {
-    public class StepIteratorService : IStepIteratorService
+    internal class StepIteratorService : IStepIteratorService
     {
         private IValidateRule _validateRule;
         private IMoveRule _moveRule;

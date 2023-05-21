@@ -3,7 +3,7 @@ using Checkers.DomainModels.Models;
 
 namespace Checkers.ComputerPlayer.Models
 {
-    public class NextStepVariant
+    internal class NextStepVariant
     {
         public NextStepVariant(GameState resultState, GameState firstStepOfResultState)
         {

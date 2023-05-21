@@ -1,12 +1,14 @@
 ﻿using System.Linq;
+using System.Runtime.CompilerServices;
 using Checkers.ComputerPlayer.Interfaces;
 using Checkers.Contracts.UseCases;
 using Checkers.DomainModels;
 using Checkers.DomainModels.Models;
-
+[assembly: InternalsVisibleTo("Checkers.UnitTests")]
+[assembly: InternalsVisibleTo("Checkers.FunctionalTests")]
 namespace Checkers.ComputerPlayer.UseCases
 {
-    public class ComputerCalculateNextStepUseCase : IComputerCalculateNextStepUseCase
+    internal class ComputerCalculateNextStepUseCase : IComputerCalculateNextStepUseCase
     {
         private IStepIteratorService _stepIteratorService;
 

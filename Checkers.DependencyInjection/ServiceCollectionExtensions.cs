@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using Checkers.ComputerPlayer.DI;
 using Checkers.ComputerPlayer.UseCases;
 using Checkers.HumanPlayer.UseCases;
 using Checkers.Rules.Rules;
@@ -13,8 +14,7 @@ namespace Checkers.DependencyInjection
         {
             var assemblies = new[]
             {
-                typeof(HumanTryMoveFigureUseCase).Assembly,
-                typeof(ComputerCalculateNextStepUseCase).Assembly,
+                typeof(HumanTryMoveFigureUseCase).Assembly,                
                 typeof(ValidateRule).Assembly,
             };
 
@@ -32,6 +32,8 @@ namespace Checkers.DependencyInjection
                     }
                 }
             }
+
+            services.AddComputerPlayer();
         }
 
         

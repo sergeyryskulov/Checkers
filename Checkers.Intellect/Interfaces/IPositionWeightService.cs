@@ -3,7 +3,7 @@ using Checkers.DomainModels.Models;
 
 namespace Checkers.ComputerPlayer.Interfaces
 {
-    public interface IPositionWeightService
+    internal interface IPositionWeightService
     {
         int GetWeightForWhite(Board board);
     }

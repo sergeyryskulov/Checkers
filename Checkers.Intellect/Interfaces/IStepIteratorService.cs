@@ -5,7 +5,7 @@ using Checkers.DomainModels.Models;
 
 namespace Checkers.ComputerPlayer.Interfaces
 {
-    public interface IStepIteratorService
+    internal interface IStepIteratorService
     {
         IEnumerable<NextStepVariant> GetNextStepVariants(GameState inputState);
     }

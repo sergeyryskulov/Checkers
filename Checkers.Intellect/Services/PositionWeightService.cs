@@ -4,7 +4,7 @@ using Checkers.DomainModels.Models;
 
 namespace Checkers.ComputerPlayer.Services
 {
-    public class PositionWeightService : IPositionWeightService
+    internal class PositionWeightService : IPositionWeightService
     {
         public int GetWeightForWhite(Board board)
         {
