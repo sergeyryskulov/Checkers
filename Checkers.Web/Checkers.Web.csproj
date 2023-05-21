@@ -44,7 +44,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Checkers.Core\Checkers.Rules.csproj" />
     <ProjectReference Include="..\Checkers.DomainModels\Checkers.DomainModels.csproj" />
     <ProjectReference Include="..\Checkers.HumanPlayer\Checkers.HumanPlayer.csproj" />
     <ProjectReference Include="..\Checkers.Intellect\Checkers.ComputerPlayer.csproj" />

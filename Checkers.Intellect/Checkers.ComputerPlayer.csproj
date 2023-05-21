@@ -9,7 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Checkers.Core\Checkers.Rules.csproj" />
+    <ProjectReference Include="..\Checkers.Rules\Checkers.Rules.csproj" />
   </ItemGroup>
 
 </Project>

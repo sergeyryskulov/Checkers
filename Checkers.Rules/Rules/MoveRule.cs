@@ -8,6 +8,8 @@ using System.Runtime.CompilerServices;
 
 [assembly: InternalsVisibleTo("Checkers.UnitTests")]
 [assembly: InternalsVisibleTo("Checkers.FunctionalTests")]
+[assembly: InternalsVisibleTo("DynamicProxyGenAssembly2")]
+
 namespace Checkers.Rules.Rules
 {
     internal class MoveRule : IMoveRule

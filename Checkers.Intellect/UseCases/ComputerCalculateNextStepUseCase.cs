@@ -3,8 +3,11 @@ using System.Runtime.CompilerServices;
 using Checkers.ComputerPlayer.Interfaces;
 using Checkers.DomainModels;
 using Checkers.DomainModels.Models;
+
 [assembly: InternalsVisibleTo("Checkers.UnitTests")]
 [assembly: InternalsVisibleTo("Checkers.FunctionalTests")]
+[assembly: InternalsVisibleTo("DynamicProxyGenAssembly2")]
+
 namespace Checkers.ComputerPlayer.UseCases
 {
     internal class ComputerCalculateNextStepUseCase : IComputerCalculateNextStepUseCase
