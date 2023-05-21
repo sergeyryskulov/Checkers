@@ -4,7 +4,7 @@ using Checkers.Rules.Models;
 
 namespace Checkers.Rules.Extensions
 {
-    public static class VectorExtension
+    internal static class VectorExtension
     {
         public static Vector ToVector(this int fromPosition, int toPosition, int boardWidth)
         {

@@ -4,7 +4,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Checkers.UnitTests.Helpers
 {
-    public static class AllowedVectorsAssert
+    internal static class AllowedVectorsAssert
     {
         public static void AreEquivalent(AllowedVectors allowedVectorsExpected, AllowedVectors allowedVectorsActual)
         {

@@ -7,7 +7,7 @@ using System.Text;
 
 namespace Checkers.HumanPlayer.DI
 {
-    public static class HumanPlayerDIConfig
+    public static class HumanPlayerDIExtension
     {
         public static void AddHumanPlayer(this IServiceCollection services)
         {

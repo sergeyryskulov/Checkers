@@ -2,7 +2,7 @@
 
 namespace Checkers.Rules.Models
 {
-    public class Vector
+    internal class Vector
     {
         public Direction Direction { get;  }
 

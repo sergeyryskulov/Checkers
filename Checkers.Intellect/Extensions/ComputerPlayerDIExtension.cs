@@ -7,7 +7,7 @@ using System.Text;
 
 namespace Checkers.ComputerPlayer.DI
 {
-    public static class ComputerPlayerDIConfig
+    public static class ComputerPlayerDIExtension
     {
         public static void AddComputerPlayer(this IServiceCollection services)
         {

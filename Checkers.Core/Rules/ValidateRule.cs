@@ -8,7 +8,7 @@ using Checkers.Rules.Interfaces;
 
 namespace Checkers.Rules.Rules
 {
-    public class ValidateRule : IValidateRule
+    internal class ValidateRule : IValidateRule
     {
         private readonly IValidateFigureService _validateFigureService;
 

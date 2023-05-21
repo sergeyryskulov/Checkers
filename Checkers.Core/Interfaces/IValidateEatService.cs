@@ -3,7 +3,7 @@ using Checkers.DomainModels.Models;
 
 namespace Checkers.Rules.Interfaces
 {
-    public interface IValidateEatService
+    internal interface IValidateEatService
     {
         bool CanEatFigure(int fromPosition, Board figures);
     }

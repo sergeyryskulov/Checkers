@@ -1,6 +1,6 @@
 ﻿namespace Checkers.Rules.Enums
 {
-    public enum Direction
+    internal enum Direction
     {
         LeftTop,
         RightTop,

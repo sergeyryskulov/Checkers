@@ -9,7 +9,7 @@ using Checkers.Rules.Models;
 
 namespace Checkers.Rules.Services
 {
-    public class ValidateQueenService : IValidateQueenService
+    internal class ValidateQueenService : IValidateQueenService
     {                        
       
         public AllowedVectors GetAllowedMoveVectors(Board board, int fromPosition)

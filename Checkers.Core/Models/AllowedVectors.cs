@@ -2,7 +2,7 @@
 
 namespace Checkers.Rules.Models
 {
-    public class AllowedVectors
+    internal class AllowedVectors
     {
 
         private List<Vector> _vectorList;

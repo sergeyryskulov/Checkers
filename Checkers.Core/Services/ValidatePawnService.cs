@@ -11,7 +11,7 @@ using Checkers.Rules.Models;
 namespace Checkers.Rules.Services
 {
 
-    public class ValidatePawnService : IValidatePawnService
+    internal class ValidatePawnService : IValidatePawnService
     {
         public AllowedVectors GetAllowedMoveVectors(Board board, int fromPosition)
         {

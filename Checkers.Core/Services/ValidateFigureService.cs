@@ -5,7 +5,7 @@ using Checkers.Rules.Models;
 
 namespace Checkers.Rules.Services
 {
-    public class ValidateFigureService : IValidateFigureService, IValidateEatService
+    internal class ValidateFigureService : IValidateFigureService, IValidateEatService
     {
         private IValidatePawnService _validatePawnService;
         private IValidateQueenService _validateQueenService;

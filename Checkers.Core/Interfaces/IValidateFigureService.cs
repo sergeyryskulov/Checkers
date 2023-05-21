@@ -4,7 +4,7 @@ using Checkers.Rules.Models;
 
 namespace Checkers.Rules.Interfaces
 {
-    public interface IValidateFigureService
+    internal interface IValidateFigureService
     {
         AllowedVectors GetAllowedMoveVectors(Board board, int fromPosition);
     }

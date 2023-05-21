@@ -5,10 +5,13 @@ using Checkers.DomainModels.Models;
 using Checkers.Rules.Extensions;
 using Checkers.Rules.Interfaces;
 using Checkers.Rules.Models;
+using System.Runtime.CompilerServices;
 
+[assembly: InternalsVisibleTo("Checkers.UnitTests")]
+[assembly: InternalsVisibleTo("Checkers.FunctionalTests")]
 namespace Checkers.Rules.Rules
 {
-    public class MoveRule : IMoveRule
+    internal class MoveRule : IMoveRule
     {
         private readonly IValidateEatService _validateEatService;
 
