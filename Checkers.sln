@@ -32,8 +32,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Checkers.HumanPlayer", "Che
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Checkers.ComputerPlayer", "Checkers.Intellect\Checkers.ComputerPlayer.csproj", "{C381EE31-2055-4FD7-91BA-B5D694CEFC80}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Checkers.Web.DependencyInjection", "Checkers.DependencyInjection\Checkers.Web.DependencyInjection.csproj", "{C98D5194-4D0A-4764-BE96-455FACA1B3A1}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -72,10 +70,6 @@ Global
 		{C381EE31-2055-4FD7-91BA-B5D694CEFC80}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C381EE31-2055-4FD7-91BA-B5D694CEFC80}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C381EE31-2055-4FD7-91BA-B5D694CEFC80}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C98D5194-4D0A-4764-BE96-455FACA1B3A1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C98D5194-4D0A-4764-BE96-455FACA1B3A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C98D5194-4D0A-4764-BE96-455FACA1B3A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C98D5194-4D0A-4764-BE96-455FACA1B3A1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -89,7 +83,6 @@ Global
 		{8F94B741-4778-46AB-83C2-1AC3AFD4BC0C} = {C7C63D62-EBC9-4095-BEAE-67A8BEC51047}
 		{893CB142-474A-447E-A483-1350C75D9A14} = {5DC14BEB-329B-4959-80B4-165D81481813}
 		{C381EE31-2055-4FD7-91BA-B5D694CEFC80} = {5DC14BEB-329B-4959-80B4-165D81481813}
-		{C98D5194-4D0A-4764-BE96-455FACA1B3A1} = {873F7D0C-1A2A-44B7-AE98-0371D64E204C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DDDFEF2B-F556-403F-BB39-51579937443B}

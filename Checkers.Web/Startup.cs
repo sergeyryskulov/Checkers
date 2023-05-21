@@ -13,7 +13,9 @@ using Microsoft.OpenApi.Models;
 using System.IO;
 using System.Reflection;
 using Swashbuckle.AspNetCore.SwaggerGen;
-using Checkers.DependencyInjection;
+using Checkers.Rules.Extensions;
+using Checkers.ComputerPlayer.DI;
+using Checkers.HumanPlayer.DI;
 
 namespace Checkers
 {
@@ -31,7 +33,9 @@ namespace Checkers
         {
             services.AddControllersWithViews();
             services.AddResponseCaching();
-            services.AddCheckers();
+            services.AddRules();
+            services.AddComputerPlayer();
+            services.AddHumanPlayer();
             services.AddSwaggerGen(SwaggerConfig);
         }
 

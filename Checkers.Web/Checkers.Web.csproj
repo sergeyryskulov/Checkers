@@ -13,10 +13,7 @@
   <PropertyGroup>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <NoWarn>1701;1702;1591;NU1701;</NoWarn>
-  </PropertyGroup>
-  <PropertyGroup>    
-     <DisableTransitiveProjectReferences>true</DisableTransitiveProjectReferences>
-   </PropertyGroup>
+  </PropertyGroup>  
   <ItemGroup>
     <Compile Remove="Services\**" />
     <Compile Remove="Views\Home\**" />
@@ -48,8 +45,10 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Checkers.Contracts\Checkers.Contracts.csproj" />
-    <ProjectReference Include="..\Checkers.DependencyInjection\Checkers.Web.DependencyInjection.csproj" PrivateAssets="All" />
+    <ProjectReference Include="..\Checkers.Core\Checkers.Rules.csproj" />
     <ProjectReference Include="..\Checkers.DomainModels\Checkers.DomainModels.csproj" />
+    <ProjectReference Include="..\Checkers.HumanPlayer\Checkers.HumanPlayer.csproj" />
+    <ProjectReference Include="..\Checkers.Intellect\Checkers.ComputerPlayer.csproj" />
   </ItemGroup>
 
   <ItemGroup>
