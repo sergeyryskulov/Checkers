@@ -29,12 +29,6 @@ namespace Checkers
                     webBuilder.UseStartup<Startup>();
                 });
         }
-            
-
-        public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
-            WebHost.CreateDefaultBuilder(args)
-                .UseUrls("http://0.0.0.0:5106")
-                .UseStartup<Startup>();
 
         public static IHostBuilder HostBuilderStub { get; set; }
     }
