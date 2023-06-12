@@ -1,12 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace Checkers.Web.Controllers
+namespace Checkers.Web.Controllers;
+
+public class GameController : Controller 
 {
-    public class GameController : Controller 
+    public IActionResult Index()
     {
-        public IActionResult Index()
-        {
-            return View("Game");
-        }
+        return View("Game");
     }
 }

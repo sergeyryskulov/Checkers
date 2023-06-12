@@ -8,29 +8,28 @@ using System.Runtime.CompilerServices;
 [assembly: InternalsVisibleTo("Checkers.FunctionalTests")]
 [assembly: InternalsVisibleTo("DynamicProxyGenAssembly2")]
 
-namespace Checkers.HumanPlayer.UseCases
+namespace Checkers.HumanPlayer.UseCases;
+
+internal class HumanTryMoveFigureUseCase : IHumanTryMoveFigureUseCase
 {
-    internal class HumanTryMoveFigureUseCase : IHumanTryMoveFigureUseCase
+    private IValidateHumanService _validateHumanService;
+    private IMoveRule _moveRule;
+
+    public HumanTryMoveFigureUseCase(IValidateHumanService validateHumanService, IMoveRule moveRule)
     {
-        private IValidateHumanService _validateHumanService;
-        private IMoveRule _moveRule;
+        _validateHumanService = validateHumanService;
+        _moveRule = moveRule;
+    }
 
-        public HumanTryMoveFigureUseCase(IValidateHumanService validateHumanService, IMoveRule moveRule)
+    public GameState Execute(GameState gameState, int fromPosition, int toPosition)
+    {
+        if (!_validateHumanService.CanMove(gameState, fromPosition, toPosition))
         {
-            _validateHumanService = validateHumanService;
-            _moveRule = moveRule;
+            return gameState;
         }
 
-        public GameState Execute(GameState gameState, int fromPosition, int toPosition)
-        {
-            if (!_validateHumanService.CanMove(gameState, fromPosition, toPosition))
-            {
-                return gameState;
-            }
+        var newState = _moveRule.MoveFigureWithoutValidation(gameState, fromPosition, toPosition);
 
-            var newState = _moveRule.MoveFigureWithoutValidation(gameState, fromPosition, toPosition);
-
-            return newState;
-        }
+        return newState;
     }
 }

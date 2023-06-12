@@ -2,15 +2,14 @@
 using Checkers.Rules.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Checkers.UnitTests.Helpers
-{
-    internal static class AllowedVectorsAssert
-    {
-        public static void AreEquivalent(AllowedVectors allowedVectorsExpected, AllowedVectors allowedVectorsActual)
-        {
-            CollectionAssert.AreEquivalent(allowedVectorsExpected.Vectors.ToList(), allowedVectorsActual.Vectors.ToList());
+namespace Checkers.UnitTests.Helpers;
 
-            Assert.AreEqual(allowedVectorsExpected.EatFigure, allowedVectorsActual.EatFigure);
-        }
+internal static class AllowedVectorsAssert
+{
+    public static void AreEquivalent(AllowedVectors allowedVectorsExpected, AllowedVectors allowedVectorsActual)
+    {
+        CollectionAssert.AreEquivalent(allowedVectorsExpected.Vectors.ToList(), allowedVectorsActual.Vectors.ToList());
+
+        Assert.AreEqual(allowedVectorsExpected.EatFigure, allowedVectorsActual.EatFigure);
     }
 }

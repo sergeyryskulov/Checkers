@@ -1,10 +1,9 @@
-﻿namespace Checkers.DomainModels.Enums
+﻿namespace Checkers.DomainModels.Enums;
+
+public enum Turn
 {
-    public enum Turn
-    {
-        White = 'w',
-        Black = 'b',
-        WhiteWin = 'W',
-        BlackWin = 'B'
-    }
+    White = 'w',
+    Black = 'b',
+    WhiteWin = 'W',
+    BlackWin = 'B'
 }

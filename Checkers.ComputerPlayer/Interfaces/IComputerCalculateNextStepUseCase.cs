@@ -1,10 +1,9 @@
 ﻿using Checkers.DomainModels;
 using Checkers.DomainModels.Models;
 
-namespace Checkers.ComputerPlayer.Interfaces
+namespace Checkers.ComputerPlayer.Interfaces;
+
+public interface IComputerCalculateNextStepUseCase
 {
-    public interface IComputerCalculateNextStepUseCase
-    {
-        GameState Execute(GameState gameState);
-    }
+    GameState Execute(GameState gameState);
 }

@@ -3,59 +3,58 @@ using Checkers.Rules.Extensions;
 using Checkers.Rules.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Checkers.Rules.Extensions.Tests
+namespace Checkers.Rules.Extensions.Tests;
+
+[TestClass()]
+public class VectorExtensionTests
 {
-    [TestClass()]
-    public class VectorExtensionTests
+    [TestMethod()]
+    public void MoveTest_Correct()
     {
-        [TestMethod()]
-        public void MoveTest_Correct()
-        {
 
-            var actual = (new Vector(Direction.RightBottom, 1)).ToPosition(0, 2);
+        var actual = (new Vector(Direction.RightBottom, 1)).ToPosition(0, 2);
 
-            var expected = 3;
+        var expected = 3;
 
-            Assert.AreEqual(actual, expected);
-        }
+        Assert.AreEqual(actual, expected);
+    }
 
-        [TestMethod()]
-        public void MoveTest_Incorrect()
-        {
+    [TestMethod()]
+    public void MoveTest_Incorrect()
+    {
 
-            var actual = (new Vector(Direction.LeftBottom, 1)).ToPosition(0, 2);
+        var actual = (new Vector(Direction.LeftBottom, 1)).ToPosition(0, 2);
 
-            var expected = -1;
+        var expected = -1;
 
-            Assert.AreEqual(actual, expected);
-        }
+        Assert.AreEqual(actual, expected);
+    }
 
-        [TestMethod()]
-        public void ConvertToVector_RightBottom_Correct()
-        {
-            var actual = 0.ToVector(3, 2);
+    [TestMethod()]
+    public void ConvertToVector_RightBottom_Correct()
+    {
+        var actual = 0.ToVector(3, 2);
 
-            var expected = new Vector(Direction.RightBottom, 1);
+        var expected = new Vector(Direction.RightBottom, 1);
 
-            Assert.AreEqual(expected, actual);
-        }
+        Assert.AreEqual(expected, actual);
+    }
 
-        [TestMethod()]
-        public void ConvertToVector_PositionsEqual_Null()
-        {
-            var actual = 0.ToVector(0, 3);
+    [TestMethod()]
+    public void ConvertToVector_PositionsEqual_Null()
+    {
+        var actual = 0.ToVector(0, 3);
 
-            Assert.IsNull(actual);
-        }
+        Assert.IsNull(actual);
+    }
 
 
-        [TestMethod()]
-        public void CoordToVectorTest()
-        {
-            var actualVector = 0.ToVector(100, 2);
+    [TestMethod()]
+    public void CoordToVectorTest()
+    {
+        var actualVector = 0.ToVector(100, 2);
 
-            Assert.IsNull(actualVector);
+        Assert.IsNull(actualVector);
 
-        }
     }
 }

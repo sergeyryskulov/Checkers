@@ -2,46 +2,45 @@
 using Checkers.DomainModels;
 using Checkers.DomainModels.Models;
 
-namespace Checkers.ComputerPlayer.Services
+namespace Checkers.ComputerPlayer.Services;
+
+internal class PositionWeightService : IPositionWeightService
 {
-    internal class PositionWeightService : IPositionWeightService
+    public int GetWeightForWhite(Board board)
     {
-        public int GetWeightForWhite(Board board)
+        int result = 0;
+        for (int cellIndex = 0; cellIndex < board.CellsCount;cellIndex++)
         {
-            int result = 0;
-            for (int cellIndex = 0; cellIndex < board.CellsCount;cellIndex++)
-            {
 
-                result += GetWeight(board, cellIndex);
-            }
-
-            return result;
+            result += GetWeight(board, cellIndex);
         }
 
-        private int GetWeight(Board board, int cellIndex)
+        return result;
+    }
+
+    private int GetWeight(Board board, int cellIndex)
+    {
+        if (board.IsEmptyCellAt(cellIndex))
         {
-            if (board.IsEmptyCellAt(cellIndex))
-            {
-                return 0;
-            }
-
-            int result = 0;
-            if (board.IsPawnAt(cellIndex))
-            {
-                result = 1;
-            }
-
-            if (board.IsQueenAt(cellIndex))
-            {
-                result = 2;
-            }
-
-            if (board.IsBlackFigureAt(cellIndex))
-            {
-                result = -1 * result;
-            }
-
-            return result;
+            return 0;
         }
+
+        int result = 0;
+        if (board.IsPawnAt(cellIndex))
+        {
+            result = 1;
+        }
+
+        if (board.IsQueenAt(cellIndex))
+        {
+            result = 2;
+        }
+
+        if (board.IsBlackFigureAt(cellIndex))
+        {
+            result = -1 * result;
+        }
+
+        return result;
     }
 }

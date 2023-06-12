@@ -1,39 +1,38 @@
 ﻿using Checkers.DomainModels.Enums;
 
-namespace Checkers.DomainModels.Models
-{
-    public class GameState
-    {        
-        public Board Board { get;  }
+namespace Checkers.DomainModels.Models;
 
-        public Turn Turn { get; }
+public class GameState
+{        
+    public Board Board { get;  }
 
-        public int? MustGoFromPosition { get; }
+    public Turn Turn { get; }
 
-        public GameState(string cells, Turn turn, int? mustGoFromPosition)
-        {
-            Board = new Board(cells);
-            Turn = turn;
-            MustGoFromPosition = mustGoFromPosition;
+    public int? MustGoFromPosition { get; }
 
-        }
-        public GameState(string cells, Turn turn)
-        {
-            Board = new Board(cells);
-            Turn = turn;
-            MustGoFromPosition = null;                                
-        }
+    public GameState(string cells, Turn turn, int? mustGoFromPosition)
+    {
+        Board = new Board(cells);
+        Turn = turn;
+        MustGoFromPosition = mustGoFromPosition;
 
-        public override bool Equals(object obj)
-        {
-            var other = (GameState)obj;
+    }
+    public GameState(string cells, Turn turn)
+    {
+        Board = new Board(cells);
+        Turn = turn;
+        MustGoFromPosition = null;                                
+    }
 
-            return Board.ToString() == other.Board.ToString() && Turn == other.Turn && MustGoFromPosition == other.MustGoFromPosition;
-        }
+    public override bool Equals(object obj)
+    {
+        var other = (GameState)obj;
 
-        public override int GetHashCode()
-        {
-            return Board.ToString().GetHashCode() + (int)Turn + (MustGoFromPosition??0);
-        }
+        return Board.ToString() == other.Board.ToString() && Turn == other.Turn && MustGoFromPosition == other.MustGoFromPosition;
+    }
+
+    public override int GetHashCode()
+    {
+        return Board.ToString().GetHashCode() + (int)Turn + (MustGoFromPosition??0);
     }
 }

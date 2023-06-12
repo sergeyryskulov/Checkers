@@ -1,9 +1,8 @@
-﻿namespace Checkers.DomainModels.Enums
+﻿namespace Checkers.DomainModels.Enums;
+
+public enum FigureColor
 {
-    public enum FigureColor
-    {
-        White,
-        Black,
-        Empty,
-    }
+    White,
+    Black,
+    Empty,
 }

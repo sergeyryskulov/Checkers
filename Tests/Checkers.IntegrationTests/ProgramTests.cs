@@ -4,42 +4,41 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 
-namespace Checkers.IntegrationTests
+namespace Checkers.IntegrationTests;
+
+[TestClass()]
+public class ProgramTests
 {
-    [TestClass()]
-    public class ProgramTests
+
+    [TestMethod()]
+    public void CreateHostBuilderTest()
     {
+        Program.CreateHostBuilder(new string[0]);
+    }
 
-        [TestMethod()]
-        public void CreateHostBuilderTest()
-        {
-            Program.CreateHostBuilder(new string[0]);
-        }
+    [TestMethod()]
+    public void MainTest()
+    {
+        var hostBuilderStub = new Mock<IHostBuilder>();
 
-        [TestMethod()]
-        public void MainTest()
-        {
-            var hostBuilderStub = new Mock<IHostBuilder>();
+        var host = new Mock<IHost>();
 
-            var host = new Mock<IHost>();
+        hostBuilderStub.Setup(m => m.Build()).Returns(host.Object);
 
-            hostBuilderStub.Setup(m => m.Build()).Returns(host.Object);
+        var provider = new Mock<IServiceProvider>();
 
-            var provider = new Mock<IServiceProvider>();
+        var lifeTime = new Mock<IHostApplicationLifetime>();
 
-            var lifeTime = new Mock<IHostApplicationLifetime>();
+        CancellationToken token = new CancellationToken(true);
 
-            CancellationToken token = new CancellationToken(true);
+        lifeTime.SetupGet(m => m.ApplicationStopping).Returns(token);
 
-            lifeTime.SetupGet(m => m.ApplicationStopping).Returns(token);
+        provider.Setup(m => m.GetService(typeof(IHostApplicationLifetime))).Returns(lifeTime.Object);
 
-            provider.Setup(m => m.GetService(typeof(IHostApplicationLifetime))).Returns(lifeTime.Object);
+        host.Setup(m => m.Services).Returns(provider.Object);
 
-            host.Setup(m => m.Services).Returns(provider.Object);
+        Program.HostBuilderStub = hostBuilderStub.Object;
 
-            Program.HostBuilderStub = hostBuilderStub.Object;
-
-            Program.Main(new string[] { "/checkersunittest" });
-        }
+        Program.Main(new string[] { "/checkersunittest" });
     }
 }

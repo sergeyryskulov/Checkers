@@ -5,31 +5,30 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Checkers.Rules.Extensions
+namespace Checkers.Rules.Extensions;
+
+public static class RulesDIExtension
 {
-    public static class RulesDIExtension
+    public static void AddRules(this IServiceCollection services)
     {
-        public static void AddRules(this IServiceCollection services)
+        var assemblies = new[]
         {
-            var assemblies = new[]
-            {
-                typeof(ValidateRule).Assembly,
-            };
+            typeof(ValidateRule).Assembly,
+        };
 
-            foreach (var assembly in assemblies)
-            {
-                var classEndNames = new[] { "Service", "UseCase", "Rule" };
+        foreach (var assembly in assemblies)
+        {
+            var classEndNames = new[] { "Service", "UseCase", "Rule" };
 
-                foreach (var type in assembly.GetTypes().Where(t => classEndNames.Any(endName => t.Name.EndsWith(endName)) && !t.IsInterface))
+            foreach (var type in assembly.GetTypes().Where(t => classEndNames.Any(endName => t.Name.EndsWith(endName)) && !t.IsInterface))
+            {
+                services.AddTransient(type);
+
+                foreach (var typeInterface in type.GetInterfaces().Where(t => classEndNames.Any(endName => t.Name.EndsWith(endName))))
                 {
-                    services.AddTransient(type);
-
-                    foreach (var typeInterface in type.GetInterfaces().Where(t => classEndNames.Any(endName => t.Name.EndsWith(endName))))
-                    {
-                        services.AddTransient(typeInterface, type);
-                    }
+                    services.AddTransient(typeInterface, type);
                 }
-            }          
-        }
+            }
+        }          
     }
 }

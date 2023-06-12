@@ -1,10 +1,9 @@
-﻿namespace Checkers.Rules.Enums
+﻿namespace Checkers.Rules.Enums;
+
+internal enum Direction
 {
-    internal enum Direction
-    {
-        LeftTop,
-        RightTop,
-        LeftBottom,
-        RightBottom
-    }
+    LeftTop,
+    RightTop,
+    LeftBottom,
+    RightBottom
 }

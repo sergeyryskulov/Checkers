@@ -1,10 +1,9 @@
 ﻿using Checkers.DomainModels;
 using Checkers.DomainModels.Models;
 
-namespace Checkers.Rules.Interfaces
+namespace Checkers.Rules.Interfaces;
+
+public interface IMoveRule
 {
-    public interface IMoveRule
-    {
-        GameState MoveFigureWithoutValidation(GameState gameState, int fromPosition, int toPosition);
-    }
+    GameState MoveFigureWithoutValidation(GameState gameState, int fromPosition, int toPosition);
 }

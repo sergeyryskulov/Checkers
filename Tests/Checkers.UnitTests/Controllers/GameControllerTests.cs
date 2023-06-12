@@ -2,26 +2,25 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Checkers.Web.Controllers.Tests
+namespace Checkers.Web.Controllers.Tests;
+
+[TestClass()]
+public class GameControllerTests
 {
-    [TestClass()]
-    public class GameControllerTests
+    [TestMethod()]
+    public void IndexTest()
     {
-        [TestMethod()]
-        public void IndexTest()
-        {
-            var gameController = CreateGameController();
+        var gameController = CreateGameController();
 
-            var actual = gameController.Index() as ViewResult;
+        var actual = gameController.Index() as ViewResult;
 
-            Assert.IsNull(actual.Model);
+        Assert.IsNull(actual.Model);
 
-            Assert.AreEqual("Game", actual.ViewName);
-        }
+        Assert.AreEqual("Game", actual.ViewName);
+    }
 
-        private GameController CreateGameController()
-        {
-            return new GameController();
-        }
+    private GameController CreateGameController()
+    {
+        return new GameController();
     }
 }

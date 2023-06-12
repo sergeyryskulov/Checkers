@@ -8,28 +8,27 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore;
 
-namespace Checkers
+namespace Checkers;
+
+public class Program
 {
-    public class Program
+    public static void Main(string[] args)
     {
-        public static void Main(string[] args)
-        {
-            CreateHostBuilder(args).Build().Run();
-        }
-
-        public static IHostBuilder CreateHostBuilder(string[] args)
-        {
-            if (args.Any(m => m == "/checkersunittest"))
-            {
-                return HostBuilderStub;
-            }
-            return Host.CreateDefaultBuilder(args)
-                .ConfigureWebHostDefaults(webBuilder =>
-                {
-                    webBuilder.UseStartup<Startup>();
-                });
-        }
-
-        public static IHostBuilder HostBuilderStub { get; set; }
+        CreateHostBuilder(args).Build().Run();
     }
+
+    public static IHostBuilder CreateHostBuilder(string[] args)
+    {
+        if (args.Any(m => m == "/checkersunittest"))
+        {
+            return HostBuilderStub;
+        }
+        return Host.CreateDefaultBuilder(args)
+            .ConfigureWebHostDefaults(webBuilder =>
+            {
+                webBuilder.UseStartup<Startup>();
+            });
+    }
+
+    public static IHostBuilder HostBuilderStub { get; set; }
 }

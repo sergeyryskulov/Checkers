@@ -1,10 +1,9 @@
 ﻿using Checkers.DomainModels;
 using Checkers.DomainModels.Models;
 
-namespace Checkers.HumanPlayer.Interfaces
+namespace Checkers.HumanPlayer.Interfaces;
+
+internal interface IValidateHumanService
 {
-    internal interface IValidateHumanService
-    {
-        bool CanMove(GameState gameState, int fromPosition, int toPosition);
-    }
+    bool CanMove(GameState gameState, int fromPosition, int toPosition);
 }

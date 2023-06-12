@@ -5,49 +5,48 @@ using Checkers.DomainModels.Models;
 using Checkers.Rules.Extensions;
 using Checkers.Rules.Interfaces;
 
-namespace Checkers.Rules.Rules
+namespace Checkers.Rules.Rules;
+
+internal class ValidateRule : IValidateRule
 {
-    internal class ValidateRule : IValidateRule
+    private readonly IValidateFigureService _validateFigureService;
+
+    public ValidateRule(IValidateFigureService validateFigureService)
     {
-        private readonly IValidateFigureService _validateFigureService;
+        _validateFigureService = validateFigureService;
+    }
 
-        public ValidateRule(IValidateFigureService validateFigureService)
+    public List<int> GetAllowedToPositions(Board board, int fromPosition)
+    {
+
+        var allowedMoveVectors = _validateFigureService.GetAllowedMoveVectors(board, fromPosition);
+
+        if (allowedMoveVectors.EatFigure == false && allowedMoveVectors.AnyVectorExists() && IsBlockedByAnotherFigure(board, fromPosition))
         {
-            _validateFigureService = validateFigureService;
+            return new List<int>();
         }
 
-        public List<int> GetAllowedToPositions(Board board, int fromPosition)
+        return allowedMoveVectors.Vectors.ToList().ConvertAll(m => m.ToPosition(fromPosition, board.BoardWidth));
+    }
+
+    private bool IsBlockedByAnotherFigure(Board board, int position)
+    {
+        var color = board.FigureColorAt(position);
+
+        for (int figureCoord = 0; figureCoord < board.CellsCount; figureCoord++)
         {
-
-            var allowedMoveVectors = _validateFigureService.GetAllowedMoveVectors(board, fromPosition);
-
-            if (allowedMoveVectors.EatFigure == false && allowedMoveVectors.AnyVectorExists() && IsBlockedByAnotherFigure(board, fromPosition))
+            if (
+                position != figureCoord &&
+                board.FigureColorAt(figureCoord) == color)
             {
-                return new List<int>();
-            }
-
-            return allowedMoveVectors.Vectors.ToList().ConvertAll(m => m.ToPosition(fromPosition, board.BoardWidth));
-        }
-
-        private bool IsBlockedByAnotherFigure(Board board, int position)
-        {
-            var color = board.FigureColorAt(position);
-
-            for (int figureCoord = 0; figureCoord < board.CellsCount; figureCoord++)
-            {
-                if (
-                    position != figureCoord &&
-                    board.FigureColorAt(figureCoord) == color)
+                if (_validateFigureService.GetAllowedMoveVectors(board, figureCoord).EatFigure)
                 {
-                    if (_validateFigureService.GetAllowedMoveVectors(board, figureCoord).EatFigure)
-                    {
-                        return true;
-                    }
+                    return true;
                 }
             }
-
-            return false;
         }
 
+        return false;
     }
+
 }

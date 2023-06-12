@@ -2,10 +2,9 @@
 using Checkers.DomainModels.Models;
 using Checkers.Rules.Models;
 
-namespace Checkers.Rules.Interfaces
+namespace Checkers.Rules.Interfaces;
+
+internal interface IValidateQueenService
 {
-    internal interface IValidateQueenService
-    {
-        AllowedVectors GetAllowedMoveVectors(Board board, int fromPosition);
-    }
+    AllowedVectors GetAllowedMoveVectors(Board board, int fromPosition);
 }

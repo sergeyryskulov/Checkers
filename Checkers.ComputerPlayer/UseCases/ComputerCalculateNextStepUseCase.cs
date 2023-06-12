@@ -8,42 +8,41 @@ using Checkers.DomainModels.Models;
 [assembly: InternalsVisibleTo("Checkers.FunctionalTests")]
 [assembly: InternalsVisibleTo("DynamicProxyGenAssembly2")]
 
-namespace Checkers.ComputerPlayer.UseCases
+namespace Checkers.ComputerPlayer.UseCases;
+
+internal class ComputerCalculateNextStepUseCase : IComputerCalculateNextStepUseCase
 {
-    internal class ComputerCalculateNextStepUseCase : IComputerCalculateNextStepUseCase
+    private IStepIteratorService _stepIteratorService;
+
+    private IPositionWeightService _positionWeightService;
+
+    public ComputerCalculateNextStepUseCase(IStepIteratorService stepIteratorService, IPositionWeightService positionWeightService)
     {
-        private IStepIteratorService _stepIteratorService;
+        _stepIteratorService = stepIteratorService;
+        _positionWeightService = positionWeightService;
+    }
 
-        private IPositionWeightService _positionWeightService;
+    public GameState Execute(GameState gameState)
+    {
+        var nextStepVariants = _stepIteratorService.GetNextStepVariants(gameState);
 
-        public ComputerCalculateNextStepUseCase(IStepIteratorService stepIteratorService, IPositionWeightService positionWeightService)
+        var worstForHumanVariant = nextStepVariants.OrderBy(t => GetBestWeightForHuman(t.ResultState)).First();
+
+        var resultStep = worstForHumanVariant.FirstStepOfResultState;
+
+        return resultStep;
+    }
+
+    int GetBestWeightForHuman(GameState state)
+    {
+        var humanStepVariants = _stepIteratorService.GetNextStepVariants(state);
+
+        var bestForHumanVariant = humanStepVariants.OrderByDescending(t => _positionWeightService.GetWeightForWhite(t.ResultState.Board)).FirstOrDefault();
+        if (bestForHumanVariant == null)
         {
-            _stepIteratorService = stepIteratorService;
-            _positionWeightService = positionWeightService;
+            return -100;
         }
 
-        public GameState Execute(GameState gameState)
-        {
-            var nextStepVariants = _stepIteratorService.GetNextStepVariants(gameState);
-
-            var worstForHumanVariant = nextStepVariants.OrderBy(t => GetBestWeightForHuman(t.ResultState)).First();
-
-            var resultStep = worstForHumanVariant.FirstStepOfResultState;
-
-            return resultStep;
-        }
-
-        int GetBestWeightForHuman(GameState state)
-        {
-            var humanStepVariants = _stepIteratorService.GetNextStepVariants(state);
-
-            var bestForHumanVariant = humanStepVariants.OrderByDescending(t => _positionWeightService.GetWeightForWhite(t.ResultState.Board)).FirstOrDefault();
-            if (bestForHumanVariant == null)
-            {
-                return -100;
-            }
-
-            return _positionWeightService.GetWeightForWhite(bestForHumanVariant.ResultState.Board);
-        }
+        return _positionWeightService.GetWeightForWhite(bestForHumanVariant.ResultState.Board);
     }
 }

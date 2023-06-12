@@ -7,41 +7,40 @@ using Checkers.Web.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 
-namespace Checkers.Web.Controllers.api.Tests
+namespace Checkers.Web.Controllers.api.Tests;
+
+[TestClass()]
+public class IntellectControllerTests
 {
-    [TestClass()]
-    public class IntellectControllerTests
+    private Mock<IComputerCalculateNextStepUseCase> _computerCalculateNextStepUseCase;
+
+    [TestInitialize]
+    public void CreateMocks()
     {
-        private Mock<IComputerCalculateNextStepUseCase> _computerCalculateNextStepUseCase;
+        _computerCalculateNextStepUseCase = new Mock<IComputerCalculateNextStepUseCase>();
+    }
 
-        [TestInitialize]
-        public void CreateMocks()
-        {
-            _computerCalculateNextStepUseCase = new Mock<IComputerCalculateNextStepUseCase>();
-        }
+    [TestMethod()]
+    public void PostTest()
+    {
+        _computerCalculateNextStepUseCase.Setup(m => m.Execute(
+                It.Is<GameState>(t => t.Board.ToString() == "p111")))
+            .Returns(new GameState("111Q", Turn.BlackWin));
 
-        [TestMethod()]
-        public void PostTest()
-        {
-            _computerCalculateNextStepUseCase.Setup(m => m.Execute(
-                    It.Is<GameState>(t => t.Board.ToString() == "p111")))
-                .Returns(new GameState("111Q", Turn.BlackWin));
+        var intellectController = CreateIntellectController();
 
-            var intellectController = CreateIntellectController();
+        var actual = intellectController.CalculateStep("p111", 'b', null);
 
-            var actual = intellectController.CalculateStep("p111", 'b', null);
+        Assert.AreEqual("111Q", actual.Cells);
+        Assert.AreEqual((char)Turn.BlackWin, actual.Turn);
+        Assert.IsNull(actual.MustGoFrom);
+        Assert.AreEqual(0, actual.Links.Length);
 
-            Assert.AreEqual("111Q", actual.Cells);
-            Assert.AreEqual((char)Turn.BlackWin, actual.Turn);
-            Assert.IsNull(actual.MustGoFrom);
-            Assert.AreEqual(0, actual.Links.Length);
-
-        }
-        private IntellectController CreateIntellectController()
-        {
-            return new IntellectController(
-                _computerCalculateNextStepUseCase.Object
-            );
-        }
+    }
+    private IntellectController CreateIntellectController()
+    {
+        return new IntellectController(
+            _computerCalculateNextStepUseCase.Object
+        );
     }
 }

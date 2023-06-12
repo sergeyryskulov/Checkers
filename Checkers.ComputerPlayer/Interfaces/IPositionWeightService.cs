@@ -1,10 +1,9 @@
 ﻿using Checkers.DomainModels;
 using Checkers.DomainModels.Models;
 
-namespace Checkers.ComputerPlayer.Interfaces
+namespace Checkers.ComputerPlayer.Interfaces;
+
+internal interface IPositionWeightService
 {
-    internal interface IPositionWeightService
-    {
-        int GetWeightForWhite(Board board);
-    }
+    int GetWeightForWhite(Board board);
 }
