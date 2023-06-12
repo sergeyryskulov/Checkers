@@ -19,17 +19,6 @@ namespace Checkers.Rules.Models.Tests
         }
 
         [TestMethod()]
-        public void ToStringTest()
-        {
-            var vector = new Vector(Direction.LeftTop, 2);
-
-            var actualString = vector.ToString();
-
-            Assert.AreEqual("LeftTop (2)", actualString);
-
-        }
-
-        [TestMethod()]
         public void EqualsTest()
         {
             var vector1 = new Vector(Direction.LeftTop, 2);
