@@ -45,8 +45,8 @@ namespace Checkers.ComputerPlayer.Services
                         else
                         {
                             yield return new NextStepVariant(
-                                resultState: newState,
-                                firstStepOfResultState : newState
+                                ResultState: newState,
+                                FirstStepOfResultState : newState
                             );
 
 
@@ -55,14 +55,11 @@ namespace Checkers.ComputerPlayer.Services
                 }
             }
 
-            foreach (var noChangeCOlorState in stateWithNoChangeTurn)
+            foreach (var noChangeColorState in stateWithNoChangeTurn)
             {
-                foreach (var nextStepvariant in GetNextStepVariants(noChangeCOlorState))
+                foreach (var nextStepVariant in GetNextStepVariants(noChangeColorState))
                 {
-                    yield return new NextStepVariant(
-                        resultState : nextStepvariant.ResultState,
-                        firstStepOfResultState : noChangeCOlorState
-                    );
+                    yield return nextStepVariant with { FirstStepOfResultState = noChangeColorState };
                 }
             }
 
